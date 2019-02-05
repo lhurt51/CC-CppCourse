@@ -40,8 +40,10 @@ public:
   bool          setHeight(int height);
 
   int           calculateAge(void) const;
-  int           calculateBMI(void) const;
-  int           calculateTHR(void) const;
+  int           calculateMHR(void) const;
+  std::string   calculateTHR(void) const;
+  float         calculateBMI(void) const;
+  std::string   printBMIVal(void) const;
 
 };
 

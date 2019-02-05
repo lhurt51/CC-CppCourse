@@ -1,5 +1,6 @@
 #include "HealthProfile.class.hpp"
 #include <ctime>
+#include <math.h>
 
 HealthProfile::HealthProfile(std::string firstName, std::string lastName, std::string gender, int dOB, int mOB, int yOB, int weight, int height) {
 	this->_firstName = firstName;
@@ -56,15 +57,15 @@ int               	HealthProfile::getYOB(void) const {
 	return this->_yOB;
 }
 
-int					HealthProfile::getWeight(void) const {
+int									HealthProfile::getWeight(void) const {
 	return this->_weight;
 }
 
-int					HealthProfile::getHeight(void) const {
+int									HealthProfile::getHeight(void) const {
 	return this->_height;
 }
 
-bool         		HealthProfile::setFirstName(std::string firstName) {
+bool         				HealthProfile::setFirstName(std::string firstName) {
 	if (firstName.empty() || firstName == "")
 		return false;
 	this->_firstName = firstName;
@@ -107,20 +108,20 @@ bool          		HealthProfile::setYOB(int yOB) {
 }
 
 bool          		HealthProfile::setWeight(int weight) {
-	if (weight < 1 || weight > INT_MAX)
+	if (weight < 1 || weight > 2000)
 		return false;
 	this->_weight = weight;
 	return true;
 }
 
 bool          		HealthProfile::setHeight(int height) {
-	if (height < 1 || height > INT_MAX)
+	if (height < 1 || height > 200)
 		return false;
 	this->_height = height;
 	return true;
 }
 
-int					HealthProfile::calculateAge(void) const {
+int								HealthProfile::calculateAge(void) const {
 	time_t now = time(0);
 	tm *ltm = localtime(&now);
 	int curYear = 1900 + ltm->tm_year;
@@ -131,26 +132,41 @@ int					HealthProfile::calculateAge(void) const {
 	if (curMon >= this->_mOB) {
 		if (curMon == this->_mOB) {
 			if (curDay >= this->_dOB) age++;
-		} else {
-			age++;
-		}
+		} else age++;
 	}
 	return age;
 }
 
-int           		HealthProfile::calculateBMI(void) const {
-	return 0;
+int           			HealthProfile::calculateMHR(void) const {
+	return 207 - (0.67 * this->calculateAge());
 }
 
-int           		HealthProfile::calculateTHR(void) const {
-	return 0;
+std::string         HealthProfile::calculateTHR(void) const {
+	int mHR = this->calculateMHR();
+	int lowTHR = (float)mHR * 0.5;
+	int highTHR = (float)mHR * 0.85;
+	return std::to_string(lowTHR) + " - " + std::to_string(highTHR);
 }
 
-std::ostream	&operator<<(std::ostream &o, HealthProfile const &i) {
+float           		HealthProfile::calculateBMI(void) const {
+	return roundf(((float)(this->_weight * 703) / (float)(this->_height * this->_height)) * 100) / 100;
+}
+
+std::string         HealthProfile::printBMIVal(void) const {
+	return std::endl + "BMI VALUES" + std::endl + "Underweight: less than 18.5\nNormal:      between 18.5 and 24.9\nOverweight:  between 25 and 29.9\nObese:       30 or greater";
+}
+
+std::ostream				&operator<<(std::ostream &o, HealthProfile const &i) {
+	o << std::endl;
 	o << i.getFirstName() << " " << i.getLastName() << "'s health profile." << std::endl;
 	o << "Date of Birth: " << i.getMOB() << "/" << i.getDOB() << "/" << i.getYOB() << std::endl;
 	o << "Age: " << i.calculateAge() << std::endl;
 	o << "Gender: " << i.getGender() << std::endl;
-	o << "Weight: " << i.getWeight() << " -- Height: " << i.getHeight();
+	o << "Weight: " << i.getWeight() << "lbs" << std::endl;
+	o << "Height: " << i.getHeight() << "in" << std::endl;
+	o << "MHR: " << i.calculateMHR() << std::endl;
+	o << "THR: " << i.calculateTHR() << std::endl;
+	o << "BMI: " << i.calculateBMI() << std::endl;
+	o << i.printBMIVal() << std::endl;
 	return o;
 }
