@@ -13,9 +13,14 @@
 *
 ******************************************************************************/
 
-#include <includes.hpp>
+#include "HealthProfile.class.hpp"
 
 int main() {
-  std::cout << "Hello world" << std::endl;
-  return 0;
+    std::string firstName = "Liam";
+    std::string lastName = "Hurt";
+    std::string gender = "M";
+    HealthProfile newProf = HealthProfile("Liam", "Hurt", "M", 4, 2, 1998, 150, 511);
+
+    std::cout << newProf << std::endl;
+    return 0;
 }
