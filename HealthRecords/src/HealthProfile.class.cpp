@@ -1,7 +1,23 @@
+/******************************************************************************
+* Programmer Name:
+* Liam Hurt
+*
+* Date:
+* 1/30/2019
+*
+* Assignment Requirement:
+* 3.17 (Computerization of Health Records) A health care issue that has been in
+* the news lately is the computerization of health records. This possibility is
+* being approached cautiously because of sensitive privacy and security
+* concerns, among others. [We address such concerns in later exercises.]
+*
+******************************************************************************/
+
 #include "HealthProfile.class.hpp"
 #include <ctime>
 #include <math.h>
 
+// Constructor needs to validate inputs but for now this works
 HealthProfile::HealthProfile(std::string firstName, std::string lastName, std::string gender, int dOB, int mOB, int yOB, int weight, int height) {
 	this->_firstName = firstName;
 	this->_lastName = lastName;
@@ -14,11 +30,13 @@ HealthProfile::HealthProfile(std::string firstName, std::string lastName, std::s
 	return;
 }
 
+// Copy constructor to copy the HealthProfile
 HealthProfile::HealthProfile(HealthProfile const &src) {
 	*this = src;
 	return;
 }
 
+// Overload for the equal sign so we can say *this = src in copy constructor
 HealthProfile		&HealthProfile::operator=(HealthProfile const &rhs) {
 	if (this != &rhs) {
 		this->_firstName = rhs.getFirstName();
@@ -33,6 +51,7 @@ HealthProfile		&HealthProfile::operator=(HealthProfile const &rhs) {
 	return *this;
 }
 
+// All my getters and setters start here
 std::string			HealthProfile::getFirstName(void) const {
 	return this->_firstName;
 }
@@ -65,6 +84,8 @@ int									HealthProfile::getHeight(void) const {
 	return this->_height;
 }
 
+// I realize for my setters I could have been more maticulous about error catching
+// but I figured since we havent learned much about error handling I should just leave it
 bool         				HealthProfile::setFirstName(std::string firstName) {
 	if (firstName.empty() || firstName == "")
 		return false;
@@ -101,7 +122,7 @@ bool          		HealthProfile::setMOB(int mOB) {
 }
 
 bool          		HealthProfile::setYOB(int yOB) {
-	if (yOB < 1 || yOB > 31)
+	if (yOB < 1900 || yOB > 2018)
 		return false;
 	this->_yOB = yOB;
 	return true;
@@ -120,7 +141,9 @@ bool          		HealthProfile::setHeight(int height) {
 	this->_height = height;
 	return true;
 }
+// End of getters and setters
 
+// Method for calculating age
 int								HealthProfile::calculateAge(void) const {
 	time_t now = time(0);
 	tm *ltm = localtime(&now);
@@ -137,10 +160,12 @@ int								HealthProfile::calculateAge(void) const {
 	return age;
 }
 
+// Method for calculating Max Heart Rate
 int           			HealthProfile::calculateMHR(void) const {
 	return 207 - (0.67 * this->calculateAge());
 }
 
+// Method to calculate and print the Target Heart Rate because it is a range
 std::string         HealthProfile::calculateTHR(void) const {
 	int mHR = this->calculateMHR();
 	int lowTHR = (float)mHR * 0.5;
@@ -148,14 +173,17 @@ std::string         HealthProfile::calculateTHR(void) const {
 	return std::to_string(lowTHR) + " - " + std::to_string(highTHR);
 }
 
+// Calculating body mass index
 float           		HealthProfile::calculateBMI(void) const {
 	return roundf(((float)(this->_weight * 703) / (float)(this->_height * this->_height)) * 100) / 100;
 }
 
+// Prints out the BMI values table
 std::string         HealthProfile::printBMIVal(void) const {
-	return std::endl + "BMI VALUES" + std::endl + "Underweight: less than 18.5\nNormal:      between 18.5 and 24.9\nOverweight:  between 25 and 29.9\nObese:       30 or greater";
+	return "\nBMI VALUES\nUnderweight: less than 18.5\nNormal:      between 18.5 and 24.9\nOverweight:  between 25 and 29.9\nObese:       30 or greater";
 }
 
+// Overloads the << operator so I can use this to print the entire profile
 std::ostream				&operator<<(std::ostream &o, HealthProfile const &i) {
 	o << std::endl;
 	o << i.getFirstName() << " " << i.getLastName() << "'s health profile." << std::endl;

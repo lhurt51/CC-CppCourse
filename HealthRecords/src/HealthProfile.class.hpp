@@ -5,22 +5,21 @@
 
 class HealthProfile {
 
-  std::string   _firstName;
-  std::string   _lastName;
-  std::string   _gender;
-  int           _dOB;
-  int           _mOB;
-  int           _yOB;
-  int           _weight;
-  int           _height;
+  // Private class attributes
+  std::string   _firstName, _lastName, _gender;
+  int           _dOB, _mOB, _yOB;
+  int           _weight, _height;
 
 public:
 
+  // Constructors
   HealthProfile(std::string firstName, std::string lastName, std::string gender, int dOB, int mOB, int yOB, int weight, int height);
   HealthProfile(HealthProfile const &src);
 
+  // Equal sign overload
   HealthProfile &operator=(HealthProfile const &rhs);
 
+  // Getters
   std::string   getFirstName(void) const;
   std::string   getLastName(void) const;
   std::string   getGender(void) const;
@@ -30,6 +29,7 @@ public:
   int           getWeight(void) const;
   int           getHeight(void) const;
 
+  // Setters
   bool          setFirstName(std::string firstName);
   bool          setLastName(std::string lastName);
   bool          setGender(std::string gender);
@@ -39,6 +39,7 @@ public:
   bool          setWeight(int weight);
   bool          setHeight(int height);
 
+  // Calculation Methods
   int           calculateAge(void) const;
   int           calculateMHR(void) const;
   std::string   calculateTHR(void) const;
@@ -47,6 +48,7 @@ public:
 
 };
 
+// Output overload
 std::ostream    &operator<<(std::ostream &o, HealthProfile const &i);
 
 #endif
