@@ -23,6 +23,11 @@ Vector2D::Vector2D(void) : _x(0), _y(0) {
   return;
 }
 
+// Initializes the vector to be the int provided
+Vector2D::Vector2D(int_fast32_t xy) : _x(xy), _y(xy) {
+  return;
+}
+
 // Uses input to assign the values x, y as the vector
 Vector2D::Vector2D(int_fast32_t x, int_fast32_t y) : _x(x), _y(y) {
   return;
@@ -67,16 +72,48 @@ Vector2D	Vector2D::operator+(Vector2D const &rhs) const {
 	return Vector2D(this->_x + rhs.getX(), this->_y + rhs.getY());
 }
 
+Vector2D	&Vector2D::operator+=(Vector2D const &rhs) {
+    if (this != &rhs) {
+        this->_x += rhs.getX();
+        this->_y += rhs.getY();
+    }
+	return *this;
+}
+
 Vector2D	Vector2D::operator-(Vector2D const &rhs) const {
 	return Vector2D(this->_x - rhs.getX(), this->_y - rhs.getY());
+}
+
+Vector2D	&Vector2D::operator-=(Vector2D const &rhs) {
+    if (this != &rhs) {
+        this->_x -= rhs.getX();
+        this->_y -= rhs.getY();
+    }
+    return *this;
 }
 
 Vector2D	Vector2D::operator*(Vector2D const &rhs) const {
 	return Vector2D(this->_x * rhs.getX(), this->_y * rhs.getY());
 }
 
+Vector2D	&Vector2D::operator*=(Vector2D const &rhs) {
+    if (this != &rhs) {
+        this->_x *= rhs.getX();
+        this->_y *= rhs.getY();
+    }
+    return *this;
+}
+
 Vector2D	Vector2D::operator/(Vector2D const &rhs) const {
 	return Vector2D(this->_x / rhs.getX(), this->_y / rhs.getY());
+}
+
+Vector2D	&Vector2D::operator/=(Vector2D const &rhs) {
+    if (this != &rhs) {
+        this->_x /= rhs.getX();
+        this->_y /= rhs.getY();
+    }
+    return *this;
 }
 
 bool	Vector2D::operator==(Vector2D const &rhs) const {

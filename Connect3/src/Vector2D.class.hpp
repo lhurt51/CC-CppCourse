@@ -13,8 +13,10 @@
 
     // Default constructor
     Vector2D(void);
+    // Single int Constructor
+    Vector2D(int_fast32_t xy);
     // Main constructor
-    Vector2D(int x, int y);
+    Vector2D(int_fast32_t x, int_fast32_t y);
     // Copy constructor
     Vector2D(Vector2D const &src);
     // The deconstructor
@@ -24,15 +26,19 @@
     int     getX(void) const;
     int     getY(void) const;
     // The setters
-    void              setX(int x);
-    void              setY(int y);
+    void              setX(int_fast32_t x);
+    void              setY(int_fast32_t y);
 
     // Overload operators
     Vector2D          &operator=(Vector2D const &rhs);
     Vector2D          operator+(Vector2D const &rhs) const;
+    Vector2D          &operator+=(Vector2D const &rhs);
     Vector2D          operator-(Vector2D const &rhs) const;
+    Vector2D          &operator-=(Vector2D const &rhs);
     Vector2D          operator*(Vector2D const &rhs) const;
+    Vector2D          &operator*=(Vector2D const &rhs);
     Vector2D          operator/(Vector2D const &rhs) const;
+    Vector2D          &operator/=(Vector2D const &rhs);
     bool              operator==(Vector2D const &rhs) const;
     bool              operator!=(Vector2D const &rhs) const;
 

@@ -1,24 +1,34 @@
 #ifndef GAME_CLASS_HPP
   #define GAME_CLASS_HPP
 
+  #include <includes.hpp>
   #include <ncurses.h>
+  #include "Vector2D.class.hpp"
 
   class Game {
-    WINDOW*     _window;
-    static int  _maxWinX;
-    static int  _maxWinY;
+    WINDOW*         _window;
+    Vector2D        _maxWinDem;
 
   public:
+    static Vector2D minWinDem;
+
     Game(void);
     Game(Game const &src);
     ~Game(void);
 
-    Game        &operator=(Game const &rhs);
+    Game            &operator=(Game const &rhs);
 
-    void        run(void);
-    WINDOW*     getWindow(void) const;
-    static int  getWinMaxX(void) const;
-    static int  getWinMaxY()
+    // All the getters
+    WINDOW*         getWindow(void) const;
+    Vector2D        getWinMaxDem(void) const;
+
+    // All the setters
+    bool            updateWinDem(void);
+    void            run(void);
+    void            destroyWin(void);
   };
+
+  // To print the game thread info
+  std::ostream      &operator<<(std::ostream &o, Game const &i);
 
 #endif

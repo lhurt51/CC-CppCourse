@@ -4,13 +4,16 @@ FLAG =	-g -Wall -Wextra -Werror -std=c++98 -I ./headers
 
 NAME =	connect3
 
-LNC =		-lncurses
+LNC =	-lncurses
 
 SDIR =	./src
 
 SRCS =	$(addprefix $(SDIR)/, \
 			main.cpp \
 			Vector2D.class.cpp \
+			Game.class.cpp \
+			Actor.class.cpp \
+			Player.class.cpp \
 		)
 
 FDIR =	frame

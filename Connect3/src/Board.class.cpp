@@ -15,13 +15,3 @@
 * Use ASCII graphics
 *
 ******************************************************************************/
-
-#include "Game.class.hpp"
-
-int main() {
-  Game myGame;
-  std::cout << "Before - " << myGame << std::endl;
-  myGame.run();
-
-  return 0;
-}

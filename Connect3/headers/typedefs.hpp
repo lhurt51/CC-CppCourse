@@ -1,6 +1,6 @@
 #ifndef TYPEDEFS_H
   #define TYPEDEFS_H
 
-  #define PLAYER_COUNT 3
+  #define MIN_WIN_SIZE 25
 
 #endif
