@@ -5,28 +5,37 @@
 	#include "Vector2D.class.hpp"
 
 	class Board {
+
+		// A 2D char array acting as a board
+		bool	_bCanUpdate;
 		char	**_board;
 
 	public:
 		// Constructors
 		Board(void);
 		Board(Board const &src);
-		~Board(void);
+		virtual ~Board(void);
 
 		// Overload operators
 		Board		&operator=(Board const &rhs);
 
 		// Getters
-		char		**getBoard(void) const;
 		bool		getBoardCanUpdate(void) const;
+		char		**getBoard(void) const;
 
 		// Setters
 		void		initBoard(void);
-		bool		addPieceToCol(int col, char c);
+		bool		addPieceToPoint(int row, int col, char c);
 
 		// Misc. helper methods
-		void		drawBoardToScreen(char **board);
-		char		**adjustBoardToScreen(Vector2D maxWinDem);
+		bool		isColFull(int col) const;
+		bool		isColEmpty(int col) const;
+
+		void		tick(Vector2D maxWinDem);
+
+	private:
+
+		void		_drawBoardToScreen(Vector2D maxWinDem) const;
 	};
 
 	// To print the board info

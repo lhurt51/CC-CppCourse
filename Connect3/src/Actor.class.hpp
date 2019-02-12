@@ -8,9 +8,8 @@
 
 	protected:
 
-		Vector2D		_pos;
+		Vector2D			_pos;
 		char const		_sprite;
-		bool			_bCollided;
 
 	public:
 
@@ -18,24 +17,19 @@
 		Actor(Actor const &src);
 		virtual ~Actor(void);
 
-		Actor			&operator=(Actor const &rhs);
+		Actor					&operator=(Actor const &rhs);
 
-		Vector2D		getPos(void) const;
-		char			getSprite(void) const;
-		bool			getBCollided(void) const;
+		Vector2D			getPos(void) const;
+		char					getSprite(void) const;
 
-		bool 			setPos(Vector2D pos);
+		bool 					setPos(Vector2D pos);
 
-		bool			bDoesCollide(Actor &src);
-		bool			move(Vector2D dst);
-		void 			draw(void);
-		void 			clear(void);
+		bool					move(Vector2D dst);
+		void 					draw(void);
+		void 					clear(void);
 
 		virtual void	tick(void) = 0;
 
-	protected:
-
-		virtual void	_hasCollided(void);
 	};
 
 	// To print the actor info

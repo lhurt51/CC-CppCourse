@@ -14,7 +14,6 @@ SRCS =	$(addprefix $(SDIR)/, \
 			Game.class.cpp \
 			Board.class.cpp \
 			Actor.class.cpp \
-			Player.class.cpp \
 		)
 
 FDIR =	frame

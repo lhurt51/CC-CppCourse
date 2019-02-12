@@ -19,7 +19,7 @@
 #include <ncurses.h>
 #include "Actor.class.hpp"
 
-Actor::Actor(Vector2D pos, char const sprite) : _pos(pos), _sprite(sprite), _bCollided(false) {
+Actor::Actor(Vector2D pos, char const sprite) : _pos(pos), _sprite(sprite) {
 	return;
 }
 
@@ -34,10 +34,7 @@ Actor::~Actor(void) {
 }
 
 Actor 	&Actor::operator=(Actor const &rhs) {
-	if (this != &rhs) {
-		this->_pos = rhs.getPos();
-		this->_bCollided = rhs.getBCollided();
-	}
+	if (this != &rhs) this->_pos = rhs.getPos();
 	return *this;
 }
 
@@ -49,19 +46,10 @@ char		Actor::getSprite(void) const {
 	return this->_sprite;
 }
 
-bool		Actor::getBCollided(void) const {
-	return this->_bCollided;
-}
-
 bool 		Actor::setPos(Vector2D pos) {
 	if (this->_pos == pos) return false;
 	else this->_pos = pos;
 	return true;
-}
-
-bool		Actor::bDoesCollide(Actor &src) {
-	if (this->_pos == src.getPos()) return true;
-	return false;
 }
 
 bool		Actor::move(Vector2D dst) {
@@ -78,13 +66,8 @@ void 		Actor::clear(void) {
 	mvaddch(this->_pos.getY(), this->_pos.getX(), ' ');
 }
 
-void		Actor::_hasCollided(void) {
-	this->_bCollided = true;
-}
-
 std::ostream	&operator<<(std::ostream &o, Actor const &i) {
 	return o << "Actor Info:" << std::endl <<
 	"pos: " << i.getPos() << std::endl <<
-	"sprite: " << i.getSprite() << std::endl <<
-	"has collided: " << i.getBCollided() << std::endl;
+	"sprite: " << i.getSprite() << std::endl;
 }

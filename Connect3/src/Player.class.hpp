@@ -5,9 +5,10 @@
 
 	class Player : public Actor {
 
-		WINDOW			*_window;
-		int				_input;
-		bool			_bExitReq;
+		WINDOW					*_window;
+		int							_input;
+		bool						_bExitReq;
+		static Vector2D	_spawnLoc;
 
 	public:
 
@@ -15,17 +16,21 @@
 		Player(Player const &src);
 		virtual ~Player(void);
 
-		Player			&operator=(Player const &rhs);
+		Player					&operator=(Player const &rhs);
 
-		int				getUserInput(void) const;
-		bool			getExitReq(void) const;
+		// Getters
+		int							getUserInput(void) const;
+		bool						getExitReq(void) const;
 
-		void			tick(void);
+		// Setters
+		static bool			setSpawnLoc(Vector2D spawnLoc);
+
+		void						tick(void);
 
 	private:
 
-		void 			_checkPos(void);
-		void			_handleUserInput(void);
+		void 						_checkPos(void);
+		void						_handleUserInput(void);
 
 	};
 

@@ -18,6 +18,7 @@
 
 #include <typedefs.hpp>
 #include "Game.class.hpp"
+#include "Board.class.hpp"
 
 Vector2D		Game::minWinDem = Vector2D(MIN_WIN_SIZE);
 
@@ -76,6 +77,7 @@ bool        	Game::updateWinDem(void) {
 }
 
 void			Game::run(void) {
+	Board board;
 	bool updateWin;
 
 	while (1) {
@@ -83,8 +85,7 @@ void			Game::run(void) {
 		updateWin = updateWinDem();
 		if (updateWin) {
 			clear();
-			char msg[] = "Should be in the middle";
-			mvprintw(this->_maxWinDem.getY() * 0.5f, (this->_maxWinDem.getX() - std::strlen(msg)) * 0.5f, "%s", msg);
+			board.tick(this->_maxWinDem);
 			mvprintw(this->_maxWinDem.getY() - 7, 5, "Width: %d and Height: %d", this->_maxWinDem.getX(), this->_maxWinDem.getY());
 			wborder(this->_window, '|', '|', '-', '-', 'o', 'o', 'o', 'o');
 		}

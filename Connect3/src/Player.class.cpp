@@ -20,6 +20,8 @@
 #include "Actor.class.hpp"
 #include "Player.class.hpp"
 
+Vector2D Player::_spawnLoc();
+
 Player::Player(WINDOW *window, char const sprite) : Actor(Vector2D(0), sprite), _window(window), _bExitReq(false) {
 	return;
 }
@@ -42,15 +44,21 @@ Player			&Player::operator=(Player const &rhs) {
 	return *this;
 }
 
-int				Player::getUserInput(void) const {
+int					Player::getUserInput(void) const {
 	return this->_input;
 }
 
-bool			Player::getExitReq(void) const {
+bool				Player::getExitReq(void) const {
 	return this->_bExitReq;
 }
 
-void			Player::tick(void) {
+bool				Player::setSpawnLoc(Vector2D spawnLoc) {
+	if (this->_spawnLoc == spawnLoc) return false;
+	this->_spawnLoc = spawnLoc;
+	return true;
+}
+
+void				Player::tick(void) {
 	this->_input = wgetch(this->_window);
 	this->clear();
 	this->_handleUserInput();
@@ -58,14 +66,14 @@ void			Player::tick(void) {
 	this->draw();
 }
 
-void 			Player::_checkPos(void) {
+void 				Player::_checkPos(void) {
 	if (this->getPos().getY() != 0) this->getPos().setY(0);
 	if (this->getPos().getX() > 4) this->getPos().setX(0);
 	else if (this->getPos().getX() < 0) this->getPos().setX(4);
 
 }
 
-void			Player::_handleUserInput(void) {
+void				Player::_handleUserInput(void) {
 	switch(this->_input) {
 		case 'q':
 			this->_bExitReq = true;
