@@ -17,7 +17,6 @@
 ******************************************************************************/
 
 #include <ncurses.h>
-#include "Actor.class.hpp"
 #include "Player.class.hpp"
 
 static int		conID = 0;
@@ -74,9 +73,9 @@ void				Player::tick(void) {
 }
 
 void 				Player::_checkPos(void) {
-	if (this->getPos().getY() != 0) this->getPos().setY(0);
-	if (this->getPos().getX() > 5) this->getPos().setX(0);
-	else if (this->getPos().getX() < 0) this->getPos().setX(5);
+	if (this->getPos().getY() != Player::_spawnLoc.getY()) this->getPos().setY(Player::_spawnLoc.getY());
+	if (this->getPos().getX() > 5 + Player::_spawnLoc.getX()) this->getPos().setX(Player::_spawnLoc.getX());
+	else if (this->getPos().getX() < Player::_spawnLoc.getX()) this->getPos().setX(Player::_spawnLoc.getX() + 5);
 
 }
 

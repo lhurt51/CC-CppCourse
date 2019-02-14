@@ -14,7 +14,7 @@
 		// Constructors
 		Board(void);
 		Board(Board const &src);
-		virtual ~Board(void);
+		~Board(void);
 
 		// Overload operators
 		Board		&operator=(Board const &rhs);

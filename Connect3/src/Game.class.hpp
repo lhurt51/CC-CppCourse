@@ -10,6 +10,7 @@
     Vector2D        _maxWinDem;
 
   public:
+    // Static so it is accessable outside the class
     static Vector2D minWinDem;
 
     Game(void);

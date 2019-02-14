@@ -67,8 +67,7 @@ bool        	Game::updateWinDem(void) {
 
 	getmaxyx(this->_window, y, x);
 	if (this->_maxWinDem == Vector2D(x, y)) return false;
-	this->_maxWinDem.setX(x);
-	this->_maxWinDem.setY(y);
+	this->_maxWinDem = Vector2D(x, y);
 	return true;
 }
 
@@ -76,9 +75,13 @@ void			Game::run(void) {
 	Board board;
 	char msg[] = "Error!! Window too small.";
 
-	board.addPieceToPoint(-3, 7, 'c');
-	board.addPieceToPoint(0, 5, 'c');
+	board.addPieceToPoint(-3, 7, 'a');
+	board.addPieceToPoint(0, 5, 'b');
 	board.addPieceToPoint(0, 2, 'c');
+	board.addPieceToPoint(1, 1, 'd');
+	board.addPieceToPoint(0, 1, 'e');
+	board.addPieceToPoint(1, 2, 'f');
+	board.addPieceToPoint(3, 2, 'g');
 	do {
 		if (wgetch(this->_window) == 'q') break;
 		if (updateWinDem()) {
@@ -120,6 +123,6 @@ void        	Game::destroyWin(void) {
 
 std::ostream	&operator<<(std::ostream &o, Game const &i) {
 	return o << "Game Thread Info:" << std::endl <<
-	"Window adr: " << i.getWindow() << std::endl <<
+	"Window addr: " << i.getWindow() << std::endl <<
 	"Window demension: " << i.getWinMaxDem() << std::endl;
 }

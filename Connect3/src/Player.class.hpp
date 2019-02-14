@@ -2,6 +2,7 @@
 	#define PLAYER_CLASS_HPP
 
 	#include <includes.hpp>
+	#include "Actor.class.hpp"
 
 	class Player : public Actor {
 
