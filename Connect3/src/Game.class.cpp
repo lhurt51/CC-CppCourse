@@ -63,35 +63,51 @@ Vector2D		Game::getWinMaxDem(void) const {
 }
 
 bool        	Game::updateWinDem(void) {
-	Vector2D tmp;
 	int x, y;
 
 	getmaxyx(this->_window, y, x);
-	tmp = Vector2D(x, y);
-	if (tmp.getX() < Game::minWinDem.getX()) tmp.setX(Game::minWinDem.getX());
-	if (tmp.getY() < Game::minWinDem.getY()) tmp.setY(Game::minWinDem.getY());
-	resizeterm(tmp.getY(), tmp.getX());
-	if (this->_maxWinDem == tmp) return false;
-	this->_maxWinDem = tmp;
+	if (this->_maxWinDem == Vector2D(x, y)) return false;
+	this->_maxWinDem.setX(x);
+	this->_maxWinDem.setY(y);
 	return true;
 }
 
 void			Game::run(void) {
 	Board board;
-	bool updateWin;
+	char msg[] = "Error!! Window too small.";
 
-	while (1) {
+	board.addPieceToPoint(-3, 7, 'c');
+	board.addPieceToPoint(0, 5, 'c');
+	board.addPieceToPoint(0, 2, 'c');
+	do {
 		if (wgetch(this->_window) == 'q') break;
-		updateWin = updateWinDem();
-		if (updateWin) {
+		if (updateWinDem()) {
 			clear();
-			board.tick(this->_maxWinDem);
-			mvprintw(this->_maxWinDem.getY() - 7, 5, "Width: %d and Height: %d", this->_maxWinDem.getX(), this->_maxWinDem.getY());
-			wborder(this->_window, '|', '|', '-', '-', 'o', 'o', 'o', 'o');
+			if (isWindowToSmall()) {
+				mvprintw((int)(this->_maxWinDem.getY() * 0.5f), (int)((this->_maxWinDem.getX() - strlen(msg)) * 0.5f),"%s",msg);
+			} else {
+				board.tick(this->_maxWinDem);
+				mvprintw(this->_maxWinDem.getY() - 5, 5, "Width: %d and Height: %d", this->_maxWinDem.getX(), this->_maxWinDem.getY());
+				wborder(this->_window, '|', '|', '-', '-', 'o', 'o', 'o', 'o');
+			}
 		}
 		wrefresh(this->_window);
-	}
+	} while(true);
 	return;
+}
+
+bool            Game::isWindowToSmall(void) {
+	if (this->_maxWinDem > Game::minWinDem)
+		return false;
+	/* Commented out because resizeterm func does not currently work
+	else if (this->_maxWinDem.getX() <= Game::minWinDem.getX() && this->_maxWinDem.getY() > Game::minWinDem.getY())
+		resizeterm(this->_maxWinDem.getY(), Game::minWinDem.getX());
+	else if (this->_maxWinDem.getY() <= Game::minWinDem.getY() && this->_maxWinDem.getX() > Game::minWinDem.getX())
+		resizeterm(Game::minWinDem.getY(), this->_maxWinDem.getX());
+	else
+		resizeterm(Game::minWinDem.getY(), Game::minWinDem.getX());
+	*/
+	return true;
 }
 
 void        	Game::destroyWin(void) {

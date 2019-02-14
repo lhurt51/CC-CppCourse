@@ -5,7 +5,8 @@
 
 	class Player : public Actor {
 
-		WINDOW					*_window;
+		unsigned int				_id;
+		WINDOW						*_window;
 		int							_input;
 		bool						_bExitReq;
 		static Vector2D	_spawnLoc;
@@ -16,9 +17,10 @@
 		Player(Player const &src);
 		virtual ~Player(void);
 
-		Player					&operator=(Player const &rhs);
+		Player						&operator=(Player const &rhs);
 
 		// Getters
+		int							getPlayerID(void) const;
 		int							getUserInput(void) const;
 		bool						getExitReq(void) const;
 
@@ -30,6 +32,7 @@
 	private:
 
 		void 						_checkPos(void);
+		bool 						_checkInput(void);
 		void						_handleUserInput(void);
 
 	};

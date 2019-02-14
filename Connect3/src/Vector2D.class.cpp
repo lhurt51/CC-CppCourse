@@ -44,23 +44,23 @@ Vector2D::~Vector2D(void) {
   return;
 }
 
-int_fast32_t		Vector2D::getX(void) const {
+int_fast32_t    Vector2D::getX(void) const {
 	return this->_x;
 }
 
-int_fast32_t		Vector2D::getY(void) const {
+int_fast32_t    Vector2D::getY(void) const {
 	return this->_y;
 }
 
-void	Vector2D::setX(int_fast32_t x) {
+void            Vector2D::setX(int_fast32_t x) {
 	this->_x = x;
 }
 
-void	Vector2D::setY(int_fast32_t y) {
+void            Vector2D::setY(int_fast32_t y) {
 	this->_y = y;
 }
 
-Vector2D	&Vector2D::operator=(Vector2D const &rhs) {
+Vector2D        &Vector2D::operator=(Vector2D const &rhs) {
 	if (this != &rhs) {
 		this->_x = rhs.getX();
 		this->_y = rhs.getY();
@@ -68,11 +68,11 @@ Vector2D	&Vector2D::operator=(Vector2D const &rhs) {
 	return *this;
 }
 
-Vector2D	Vector2D::operator+(Vector2D const &rhs) const {
+Vector2D        Vector2D::operator+(Vector2D const &rhs) const {
 	return Vector2D(this->_x + rhs.getX(), this->_y + rhs.getY());
 }
 
-Vector2D	&Vector2D::operator+=(Vector2D const &rhs) {
+Vector2D        &Vector2D::operator+=(Vector2D const &rhs) {
     if (this != &rhs) {
         this->_x += rhs.getX();
         this->_y += rhs.getY();
@@ -80,11 +80,11 @@ Vector2D	&Vector2D::operator+=(Vector2D const &rhs) {
 	return *this;
 }
 
-Vector2D	Vector2D::operator-(Vector2D const &rhs) const {
+Vector2D        Vector2D::operator-(Vector2D const &rhs) const {
 	return Vector2D(this->_x - rhs.getX(), this->_y - rhs.getY());
 }
 
-Vector2D	&Vector2D::operator-=(Vector2D const &rhs) {
+Vector2D        &Vector2D::operator-=(Vector2D const &rhs) {
     if (this != &rhs) {
         this->_x -= rhs.getX();
         this->_y -= rhs.getY();
@@ -92,11 +92,11 @@ Vector2D	&Vector2D::operator-=(Vector2D const &rhs) {
     return *this;
 }
 
-Vector2D	Vector2D::operator*(Vector2D const &rhs) const {
+Vector2D        Vector2D::operator*(Vector2D const &rhs) const {
 	return Vector2D(this->_x * rhs.getX(), this->_y * rhs.getY());
 }
 
-Vector2D	&Vector2D::operator*=(Vector2D const &rhs) {
+Vector2D        &Vector2D::operator*=(Vector2D const &rhs) {
     if (this != &rhs) {
         this->_x *= rhs.getX();
         this->_y *= rhs.getY();
@@ -104,11 +104,11 @@ Vector2D	&Vector2D::operator*=(Vector2D const &rhs) {
     return *this;
 }
 
-Vector2D	Vector2D::operator/(Vector2D const &rhs) const {
+Vector2D        Vector2D::operator/(Vector2D const &rhs) const {
 	return Vector2D(this->_x / rhs.getX(), this->_y / rhs.getY());
 }
 
-Vector2D	&Vector2D::operator/=(Vector2D const &rhs) {
+Vector2D        &Vector2D::operator/=(Vector2D const &rhs) {
     if (this != &rhs) {
         this->_x /= rhs.getX();
         this->_y /= rhs.getY();
@@ -116,14 +116,30 @@ Vector2D	&Vector2D::operator/=(Vector2D const &rhs) {
     return *this;
 }
 
-bool	Vector2D::operator==(Vector2D const &rhs) const {
+bool            Vector2D::operator>(Vector2D const &rhs) const {
+    return (this->_x > rhs.getX() && this->_y > rhs.getY());
+}
+
+bool            Vector2D::operator<(Vector2D const &rhs) const {
+    return (this->_x < rhs.getX() && this->_y < rhs.getY());
+}
+
+bool            Vector2D::operator>=(Vector2D const &rhs) const {
+    return (this->_x >= rhs.getX() && this->_y >= rhs.getY());
+}
+
+bool            Vector2D::operator<=(Vector2D const &rhs) const {
+    return (this->_x <= rhs.getX() && this->_y <= rhs.getY());
+}
+
+bool            Vector2D::operator==(Vector2D const &rhs) const {
 	return (this->_x == rhs.getX() && this->_y == rhs.getY());
 }
 
-bool	Vector2D::operator!=(Vector2D const &rhs) const {
+bool            Vector2D::operator!=(Vector2D const &rhs) const {
 	return !(this->_x == rhs.getX() && this->_y == rhs.getY());
 }
 
-std::ostream	&operator<<(std::ostream &o, Vector2D const &i) {
+std::ostream    &operator<<(std::ostream &o, Vector2D const &i) {
 	return o << "Vector2D (" << i.getX() << "," << i.getY() << ")";
 }

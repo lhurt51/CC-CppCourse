@@ -39,6 +39,10 @@
     Vector2D          &operator*=(Vector2D const &rhs);
     Vector2D          operator/(Vector2D const &rhs) const;
     Vector2D          &operator/=(Vector2D const &rhs);
+    bool              operator>(Vector2D const &rhs) const;
+    bool              operator<(Vector2D const &rhs) const;
+    bool              operator>=(Vector2D const &rhs) const;
+    bool              operator<=(Vector2D const &rhs) const;
     bool              operator==(Vector2D const &rhs) const;
     bool              operator!=(Vector2D const &rhs) const;
 

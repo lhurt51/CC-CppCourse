@@ -56,9 +56,9 @@ void		Board::initBoard(void) {
 	for (int i = BOARD_ROW - 1; i >= 0; i--)
 		this->_board[i] = new char[BOARD_COLUMN];
 	// Initialize the board to dots as empty space
-	for (int x = BOARD_ROW - 1; x >= 0; x--) {
-		for (int y = BOARD_COLUMN - 1; y >= 0; y--)
-			this->_board[x][y] = '.';
+	for (int x = BOARD_COLUMN - 1; x >= 0; x--) {
+		for (int y = BOARD_ROW - 1; y >= 0; y--)
+			this->_board[y][x] = '.';
 	}
 }
 
@@ -67,9 +67,15 @@ bool		Board::addPieceToPoint(int row, int col, char c) {
 	// long as the boards empty
 	if (row >= BOARD_ROW || row < 0 || col >= BOARD_COLUMN || col < 0)
 		return false;
-	else if(this->_board[row][col] == '.' && (row - 1 >= 0 || this->_board[row - 1][col] != '.')) {
-		this->_board[row][col] = c;
-		return true;
+	else if(this->_board[row][col] == '.') {
+		if (row == 0) {
+			this->_board[row][col] = c;
+			return true;
+		}
+		else if (this->_board[row - 1][col] != '.') {
+			this->_board[row][col] = c;
+			return true;
+		}
 	}
 	return false;
 }

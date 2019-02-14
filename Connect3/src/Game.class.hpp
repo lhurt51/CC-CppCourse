@@ -24,7 +24,12 @@
 
     // All the setters
     bool            updateWinDem(void);
+
+    // Methods
     void            run(void);
+    bool            isWindowToSmall(void);
+
+    // Destructors
     void            destroyWin(void);
   };
 
