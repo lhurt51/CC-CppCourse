@@ -27,6 +27,9 @@
 		void		initBoard(void);
 		bool		addPieceToPoint(int row, int col, char c);
 
+		// Destructor
+		void		deleteBoard(void);
+
 		// Misc. helper methods
 		bool		isColFull(int col) const;
 		bool		isColEmpty(int col) const;

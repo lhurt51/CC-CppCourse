@@ -18,16 +18,17 @@
 
 #include <ncurses.h>
 #include "Player.class.hpp"
+#include "Game.class.hpp"
 
 static int		conID = 0;
 
 Vector2D		Player::_spawnLoc = Vector2D();
 
-Player::Player(WINDOW *window, char const sprite) : Actor(Vector2D(0), sprite), _id(conID++), _window(window), _bExitReq(false) {
+Player::Player(char const sprite) : Actor(Vector2D(0), sprite), _id(conID++), _bExitReq(false) {
 	return;
 }
 
-Player::Player(Player const &src) : Actor(src) {
+Player::Player(Player const &src) : Actor(src), _id(src.getPlayerID()) {
 	*this = src;
 	return;
 }
@@ -38,7 +39,7 @@ Player::~Player(void) {
 
 Player			&Player::operator=(Player const &rhs) {
 	if (this != &rhs) {
-		this->_pos = rhs.getPos();
+		(unsigned int&)this->_id = rhs.getPlayerID();
 		this->_input = rhs.getUserInput();
 		this->_bExitReq = rhs.getExitReq();
 	}
@@ -64,18 +65,20 @@ bool				Player::setSpawnLoc(Vector2D spawnLoc) {
 }
 
 void				Player::tick(void) {
-	this->_input = wgetch(this->_window);
-	if (!this->_checkInput()) return;
+	static int i = 0;
+
+	this->_input = wgetch(Game::getWindow());
+	if (!this->_checkInput() && i != 0) return;
+	else if (i == 0) i++;
 	this->clear();
 	this->_handleUserInput();
-	this->_checkPos();
 	this->draw();
 }
 
 void 				Player::_checkPos(void) {
-	if (this->getPos().getY() != Player::_spawnLoc.getY()) this->getPos().setY(Player::_spawnLoc.getY());
-	if (this->getPos().getX() > 5 + Player::_spawnLoc.getX()) this->getPos().setX(Player::_spawnLoc.getX());
-	else if (this->getPos().getX() < Player::_spawnLoc.getX()) this->getPos().setX(Player::_spawnLoc.getX() + 5);
+	if (this->getPos().getY() != Player::_spawnLoc.getY()) this->_pos.setY(Player::_spawnLoc.getY());
+	if (this->getPos().getX() > Player::_spawnLoc.getX() + 5) this->_pos.setX(Player::_spawnLoc.getX());
+	else if (this->getPos().getX() < Player::_spawnLoc.getX()) this->_pos.setX(Player::_spawnLoc.getX() + 5);
 
 }
 
@@ -107,6 +110,7 @@ void				Player::_handleUserInput(void) {
 		default:
 			break;
 	}
+	this->_checkPos();
 }
 
 std::ostream	&operator<<(std::ostream &o, Player const &i) {

@@ -6,15 +6,14 @@
 
 	class Player : public Actor {
 
-		unsigned int				_id;
-		WINDOW						*_window;
+		unsigned int const			_id;
 		int							_input;
 		bool						_bExitReq;
-		static Vector2D	_spawnLoc;
+		static Vector2D				_spawnLoc;
 
 	public:
 
-		Player(WINDOW *window, char const sprite);
+		Player(char const sprite);
 		Player(Player const &src);
 		virtual ~Player(void);
 
@@ -26,7 +25,7 @@
 		bool						getExitReq(void) const;
 
 		// Setters
-		static bool			setSpawnLoc(Vector2D spawnLoc);
+		static bool					setSpawnLoc(Vector2D spawnLoc);
 
 		void						tick(void);
 

@@ -6,13 +6,10 @@
   #include "Vector2D.class.hpp"
 
   class Game {
-    WINDOW*         _window;
+    static WINDOW*  _window;
     Vector2D        _maxWinDem;
 
   public:
-    // Static so it is accessable outside the class
-    static Vector2D minWinDem;
-
     Game(void);
     Game(Game const &src);
     ~Game(void);
@@ -20,7 +17,7 @@
     Game            &operator=(Game const &rhs);
 
     // All the getters
-    WINDOW*         getWindow(void) const;
+    static WINDOW*  getWindow(void);
     Vector2D        getWinMaxDem(void) const;
 
     // All the setters
