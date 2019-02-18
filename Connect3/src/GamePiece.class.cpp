@@ -10,7 +10,7 @@
 *
 * Only need to connect 3
 * There will be 3 players
-* Only need to connect verticle and horizontal
+* Only need to connect vertical and horizontal
 * Use a board of 5 by 6 with header for the column number
 * Use ASCII graphics
 *
@@ -18,7 +18,7 @@
 
 #include "GamePiece.class.hpp"
 
-GamePiece::GamePiece(Board *board, char const sprite, Vector2D pos) : Actor(pos, sprite), _bCanClear(false) , _startPos(pos), _board(board) {
+GamePiece::GamePiece(Board *board, char const sprite, Vector2D const pos) : Actor(pos, sprite), _bCanClear(false) , _startPos(pos), _board(board) {
 	return;
 }
 
@@ -51,7 +51,7 @@ bool		GamePiece::getCanClear(void) const {
 	return this->_bCanClear;
 }
 
-bool		GamePiece::setStartPos(Vector2D vec) {
+bool		GamePiece::setStartPos(Vector2D const vec) {
 	if (this->_startPos == vec) return false;
 	(Vector2D&)this->_startPos = vec;
 	return true;

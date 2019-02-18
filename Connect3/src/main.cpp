@@ -10,7 +10,7 @@
 *
 * Only need to connect 3
 * There will be 3 players
-* Only need to connect verticle and horizontal
+* Only need to connect vertical and horizontal
 * Use a board of 5 by 6 with header for the column number
 * Use ASCII graphics
 *

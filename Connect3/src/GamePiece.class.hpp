@@ -12,7 +12,7 @@
 
 	public:
 
-		GamePiece(Board *board, char const sprite, Vector2D pos);
+		GamePiece(Board *board, char const sprite, Vector2D const pos);
 		GamePiece(GamePiece const &src);
 		virtual ~GamePiece(void);
 
@@ -24,7 +24,7 @@
 		Board			*getBoard(void) const;
 
 		//Setters
-		bool			setStartPos(Vector2D vec);
+		bool			setStartPos(Vector2D const vec);
 
 		void			tick(void);
 
