@@ -16,18 +16,15 @@
 *
 ******************************************************************************/
 
-#include <typedefs.hpp>
-#include <ncurses.h>
 #include "Board.class.hpp"
-#include "Vector2D.class.hpp"
 #include "Player.class.hpp"
 
-Board::Board(void) : _bCanUpdate(true) {
+Board::Board(void) : Actor(Vector2D(DEFAULT_SPAWN), ' '), _playerSpawn(Vector2D(DEFAULT_SPAWN)) {
 	initBoard();
 	return;
 }
 
-Board::Board(Board const &src) {
+Board::Board(Board const &src) : Actor(src) {
 	*this = src;
 	return;
 }
@@ -39,18 +36,18 @@ Board::~Board(void) {
 
 Board		&Board::operator=(Board const &rhs) {
 	if (this != &rhs) {
-		this->_bCanUpdate = rhs.getBoardCanUpdate();
 		this->_board = rhs.getBoard();
+		this->_playerSpawn = rhs.getPlayerSpawn();
 	}
 	return *this;
 }
 
-bool		Board::getBoardCanUpdate(void) const {
-	return this->_bCanUpdate;
-}
-
 char		**Board::getBoard(void) const {
 	return this->_board;
+}
+
+Vector2D	Board::getPlayerSpawn(void) const {
+	return this->_playerSpawn;
 }
 
 void		Board::initBoard(void) {
@@ -105,27 +102,53 @@ bool		Board::isColEmpty(int col) const {
 		return false;
 }
 
-void		Board::tick(Vector2D maxWinDem) {
-	_drawBoardToScreen(maxWinDem);
+void		Board::updateBoard(int col) {
+	if (!IS_COL_INVALID(col)) _drawBoardColToScreen(false, col);
+	else _drawBoardToScreen(false);
 }
 
-void		Board::_drawBoardToScreen(Vector2D maxWinDem) const {
+void		Board::tick(void) {
+	this->_playerSpawn = Vector2D(this->getPos().getX() - (BOARD_COLUMN - 1), this->getPos().getY() - (BOARD_ROW + 1));
+	if (!this->_bCanDraw) return;
+	redraw();
+}
+
+void 		Board::_checkPos(void) {
+	return;
+}
+
+void		Board::_draw(void) const {
+	_drawBoardToScreen(false);
+	return;
+}
+
+void		Board::_clear(void) const {
+	_drawBoardToScreen(true);
+	return;
+}
+
+void		Board::_drawBoardToScreen(bool clear) const {
 	char msg[] = "543210";
 
-	for (int y = BOARD_ROW + 2; y >= 0; y--) {
+	for (int y = BOARD_ROW + 3; y >= 0; y--) {
 		for (int x = BOARD_COLUMN - 1; x >= 0 ; x--) {
 			if (!IS_ROW_INVALID(y))
-				mvaddch(HALF_OF_VAL(maxWinDem.getY()) - y, HALF_OF_VAL(maxWinDem.getX()) - x, this->_board[y][x]);
-			else if (y == BOARD_ROW + 2)
-				mvaddch(HALF_OF_VAL(maxWinDem.getY()) - y, HALF_OF_VAL(maxWinDem.getX()) - x, msg[x]);
-			else if (y == BOARD_ROW + 1 && x == BOARD_COLUMN - 1)
-				Player::setSpawnLoc(Vector2D(HALF_OF_VAL(maxWinDem.getX()) - x, HALF_OF_VAL(maxWinDem.getY()) - y));
+				mvaddch(this->getPos().getY() - y, this->getPos().getX() - x, (clear) ? ' ' : this->_board[y][x]);
+			else if (y == BOARD_ROW + 3)
+				mvaddch(this->getPos().getY() - y, this->getPos().getX() - x, (clear) ? ' ' : msg[x]);
 		}
+	}
+}
+
+void			Board::_drawBoardColToScreen(bool clear, int col) const {
+	if (IS_COL_INVALID(col)) return;
+	for (int y = BOARD_ROW - 1; y >= 0; y--) {
+		mvaddch(this->getPos().getY() - y, this->getPos().getX() - col, (clear) ? ' ' : this->_board[y][col]);
 	}
 }
 
 std::ostream	&operator<<(std::ostream &o, Board const &i) {
 	return o << "Board Info:" << std::endl <<
-	"Can Update?: " << i.getBoardCanUpdate() << std::endl <<
+	"player spawn" << i.getPlayerSpawn() << std::endl <<
 	"board: " << i.getBoard() << std::endl;
 }

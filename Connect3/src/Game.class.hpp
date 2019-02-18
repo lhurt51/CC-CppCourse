@@ -1,7 +1,6 @@
 #ifndef GAME_CLASS_HPP
   #define GAME_CLASS_HPP
 
-  #include <includes.hpp>
   #include <ncurses.h>
   #include "Vector2D.class.hpp"
 

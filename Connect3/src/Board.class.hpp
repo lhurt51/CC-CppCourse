@@ -1,44 +1,56 @@
 #ifndef BOARD_CLASS_HPP
 	#define BOARD_CLASS_HPP
 
-	#include <includes.hpp>
-	#include "Vector2D.class.hpp"
+	#include "Actor.class.hpp"
 
-	class Board {
+	class Board : public Actor {
 
 		// A 2D char array acting as a board
-		bool	_bCanUpdate;
-		char	**_board;
+		char		**_board;
+		// A vector for the player to spawn at
+		Vector2D	_playerSpawn;
 
 	public:
-		// Constructors
+		// Constructors --
 		Board(void);
 		Board(Board const &src);
 		~Board(void);
 
-		// Overload operators
+		// Overload operators --
 		Board		&operator=(Board const &rhs);
 
-		// Getters
-		bool		getBoardCanUpdate(void) const;
+		// Getters --
 		char		**getBoard(void) const;
+		Vector2D	getPlayerSpawn(void) const;
 
-		// Setters
+		// Setters --
 		void		initBoard(void);
 		bool		addPieceToPoint(int row, int col, char c);
 
-		// Destructor
+		// Destructor --
 		void		deleteBoard(void);
 
-		// Misc. helper methods
+		// Misc. helper methods --
 		bool		isColFull(int col) const;
 		bool		isColEmpty(int col) const;
 
-		void		tick(Vector2D maxWinDem);
+		void		updateBoard(int col);
+
+		// Actor method implementation
+		void		tick(void);
+
+	protected:
+
+		// Overload Actor Methods --
+		void 		_checkPos(void);
+		void		_draw(void) const;
+		void 		_clear(void) const;
 
 	private:
 
-		void		_drawBoardToScreen(Vector2D maxWinDem) const;
+		// Private print functions
+		void		_drawBoardToScreen(bool clear) const;
+		void		_drawBoardColToScreen(bool clear, int col) const;
 	};
 
 	// To print the board info

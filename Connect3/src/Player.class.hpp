@@ -1,19 +1,20 @@
 #ifndef PLAYER_CLASS_HPP
 	#define PLAYER_CLASS_HPP
 
-	#include <includes.hpp>
 	#include "Actor.class.hpp"
+	#include "Board.class.hpp"
 
 	class Player : public Actor {
 
 		unsigned int const			_id;
-		int							_input;
+		int							_xDif;
 		bool						_bExitReq;
-		static Vector2D				_spawnLoc;
+		bool						_updatePos;
+		Board						*_board;
 
 	public:
 
-		Player(char const sprite);
+		Player(Board *board, char const sprite);
 		Player(Player const &src);
 		virtual ~Player(void);
 
@@ -21,19 +22,26 @@
 
 		// Getters
 		int							getPlayerID(void) const;
-		int							getUserInput(void) const;
+		int							getXDif(void) const;
 		bool						getExitReq(void) const;
+		bool						getUpdatePos(void) const;
+		Board						*getBoard(void) const;
 
 		// Setters
-		static bool					setSpawnLoc(Vector2D spawnLoc);
+		void						setXDif(int xDif);
+		void						setUpdatePos(bool bShould);
+		bool						setBoard(Board* board);
 
 		void						tick(void);
 
-	private:
+	protected:
 
 		void 						_checkPos(void);
-		bool 						_checkInput(void);
-		void						_handleUserInput(void);
+
+	private:
+
+		bool 						_checkInput(int input);
+		void						_handleUserInput(int input);
 
 	};
 

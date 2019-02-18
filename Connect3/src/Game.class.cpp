@@ -16,10 +16,10 @@
 *
 ******************************************************************************/
 
-#include <typedefs.hpp>
 #include "Game.class.hpp"
 #include "Board.class.hpp"
 #include "Player.class.hpp"
+#include "GamePiece.class.hpp"
 
 WINDOW			*Game::_window = NULL;
 
@@ -75,7 +75,8 @@ bool        	Game::updateWinDem(void) {
 
 void			Game::run(void) {
 	Board board;
-	Player player1('G');
+	Player player1(&board, 'G');
+	GamePiece piece(&board, 'X', Vector2D(15, 15));
 	char msg[] = "Error! Window too small";
 
 	board.addPieceToPoint(-3, 7, 'a');
@@ -90,15 +91,24 @@ void			Game::run(void) {
 		if (updateWinDem()) {
 			clear();
 			if (isWindowToSmall()) {
+				board.setCanDraw(false);
+				player1.setCanDraw(false);
+				piece.setCanDraw(false);
 				mvprintw(HALF_OF_VAL(this->_maxWinDem.getY()), HALF_OF_VAL(this->_maxWinDem.getX()) - HALF_OF_VAL(strlen(msg)),"%s",msg);
 			} else {
-				board.tick(this->_maxWinDem);
-				player1.tick();
+				board.setCanDraw(true);
+				player1.setCanDraw(true);
+				piece.setCanDraw(true);
+				board.setPos(Vector2D(HALF_OF_VAL(this->_maxWinDem.getX()), HALF_OF_VAL(this->_maxWinDem.getY())));
+				player1.setUpdatePos(true);
 				mvprintw(this->_maxWinDem.getY() - 5, 5, "Width: %d and Height: %d", this->_maxWinDem.getX(), this->_maxWinDem.getY());
-				wborder(Game::_window, '|', '|', '-', '-', 'o', 'o', 'o', 'o');
 			}
+			wborder(Game::_window, '|', '|', '-', '-', 'o', 'o', 'o', 'o');
+		} else {
+			board.tick();
+			player1.tick();
+			piece.tick();
 		}
-		player1.tick();
 		wrefresh(Game::_window);
 	} while(true);
 	return;

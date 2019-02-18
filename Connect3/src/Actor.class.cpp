@@ -16,10 +16,9 @@
 *
 ******************************************************************************/
 
-#include <ncurses.h>
 #include "Actor.class.hpp"
 
-Actor::Actor(Vector2D pos, char const sprite) : _pos(pos), _sprite(sprite) {
+Actor::Actor(Vector2D pos, char const sprite) : _bCanDraw(false), _pos(pos), _sprite(sprite) {
 	return;
 }
 
@@ -29,13 +28,21 @@ Actor::Actor(Actor const &src) : _sprite(src.getSprite()) {
 }
 
 Actor::~Actor(void) {
-	this->clear();
+	_clear();
 	return;
 }
 
 Actor 	&Actor::operator=(Actor const &rhs) {
-	if (this != &rhs) this->_pos = rhs.getPos();
+	if (this != &rhs) {
+		this->_bCanDraw = rhs.getCanDraw();
+		this->_pos = rhs.getPos();
+		(char&)this->_sprite = rhs.getSprite();
+	}
 	return *this;
+}
+
+bool		Actor::getCanDraw(void) const {
+	return this->_bCanDraw;
 }
 
 Vector2D	Actor::getPos(void) const {
@@ -48,21 +55,38 @@ char		Actor::getSprite(void) const {
 
 bool 		Actor::setPos(Vector2D pos) {
 	if (this->_pos == pos) return false;
-	else this->_pos = pos;
+	_clear();
+	this->_pos = pos;
+	_checkPos();
+	if (this->_bCanDraw) _draw();
 	return true;
+}
+
+void		Actor::setCanDraw(bool bCanDraw) {
+	if (this->_bCanDraw == bCanDraw) return;
+	this->_bCanDraw = bCanDraw;
 }
 
 bool		Actor::move(Vector2D dst) {
 	if (dst == Vector2D(0, 0)) return false;
-	else this->_pos += dst;
+	_clear();
+	this->_pos += dst;
+	_checkPos();
+	if (this->_bCanDraw) _draw();
 	return true;
 }
 
-void 		Actor::draw(void) {
+void		Actor::redraw(void) {
+	_clear();
+	_checkPos();
+	if (this->_bCanDraw) _draw();
+}
+
+void 		Actor::_draw(void) const {
 	mvaddch(this->_pos.getY(), this->_pos.getX(), this->_sprite);
 }
 
-void 		Actor::clear(void) {
+void 		Actor::_clear(void) const {
 	mvaddch(this->_pos.getY(), this->_pos.getX(), ' ');
 }
 

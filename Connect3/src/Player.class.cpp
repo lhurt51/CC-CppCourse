@@ -16,15 +16,12 @@
 *
 ******************************************************************************/
 
-#include <ncurses.h>
 #include "Player.class.hpp"
 #include "Game.class.hpp"
 
 static int		conID = 0;
 
-Vector2D		Player::_spawnLoc = Vector2D();
-
-Player::Player(char const sprite) : Actor(Vector2D(0), sprite), _id(conID++), _bExitReq(false) {
+Player::Player(Board *board, char const sprite) : Actor(Vector2D(DEFAULT_SPAWN), sprite), _id(conID++), _xDif(0), _bExitReq(false), _updatePos(false), _board(board) {
 	return;
 }
 
@@ -40,8 +37,10 @@ Player::~Player(void) {
 Player			&Player::operator=(Player const &rhs) {
 	if (this != &rhs) {
 		(unsigned int&)this->_id = rhs.getPlayerID();
-		this->_input = rhs.getUserInput();
+		this->_xDif = rhs.getXDif();
 		this->_bExitReq = rhs.getExitReq();
+		this->_updatePos = rhs.getUpdatePos();
+		this->_board = rhs.getBoard();
 	}
 	return *this;
 }
@@ -50,40 +49,56 @@ int					Player::getPlayerID(void) const {
 	return this->_id;
 }
 
-int					Player::getUserInput(void) const {
-	return this->_input;
+int					Player::getXDif(void) const {
+	return this->_xDif;
 }
 
 bool				Player::getExitReq(void) const {
 	return this->_bExitReq;
 }
 
-bool				Player::setSpawnLoc(Vector2D spawnLoc) {
-	if (Player::_spawnLoc == spawnLoc) return false;
-	Player::_spawnLoc = spawnLoc;
+bool				Player::getUpdatePos(void) const {
+	return this->_updatePos;
+}
+
+Board				*Player::getBoard(void) const {
+	return this->_board;
+}
+
+void				Player::setXDif(int xDif) {
+	if (xDif < 0) this->_xDif = 5;
+	else if (xDif > 5) this->_xDif = 0;
+	else this->_xDif = xDif;
+}
+
+void				Player::setUpdatePos(bool bShouldUpdate) {
+	if (this->_updatePos == bShouldUpdate) return;
+	this->_updatePos = bShouldUpdate;
+}
+
+bool				Player::setBoard(Board* board) {
+	if (this->_board == board) return false;
+	this->_board = board;
 	return true;
 }
 
 void				Player::tick(void) {
-	static int i = 0;
-
-	this->_input = wgetch(Game::getWindow());
-	if (!this->_checkInput() && i != 0) return;
-	else if (i == 0) i++;
-	this->clear();
-	this->_handleUserInput();
-	this->draw();
+	if (this->_updatePos) {
+		this->redraw();
+		this->_updatePos = false;
+	}
+	int input = wgetch(Game::getWindow());
+	if (this->_checkInput(input)) this->_handleUserInput(input);
 }
 
 void 				Player::_checkPos(void) {
-	if (this->getPos().getY() != Player::_spawnLoc.getY()) this->_pos.setY(Player::_spawnLoc.getY());
-	if (this->getPos().getX() > Player::_spawnLoc.getX() + 5) this->_pos.setX(Player::_spawnLoc.getX());
-	else if (this->getPos().getX() < Player::_spawnLoc.getX()) this->_pos.setX(Player::_spawnLoc.getX() + 5);
+	if (getPos().getY() != getBoard()->getPlayerSpawn().getY()) _pos.setY(getBoard()->getPlayerSpawn().getY());
+	if (getPos().getX() != getBoard()->getPlayerSpawn().getX() + _xDif) _pos.setX(getBoard()->getPlayerSpawn().getX() + _xDif);
 
 }
 
-bool 				Player::_checkInput(void) {
-	switch (this->_input) {
+bool 				Player::_checkInput(int input) {
+	switch (input) {
 		case 'q':
 		case KEY_LEFT:
 		case 'a':
@@ -95,28 +110,29 @@ bool 				Player::_checkInput(void) {
 	}
 }
 
-void				Player::_handleUserInput(void) {
-	switch(this->_input) {
+void				Player::_handleUserInput(int input) {
+	switch(input) {
 		case 'q':
-			this->_bExitReq = true;
+			_bExitReq = true;
 			break;
 		case KEY_LEFT:
 		case 'a':
-			this->move(Vector2D(-1, 0));
+			setXDif(_xDif - 1);
+			move(Vector2D(-1, 0));
 			break;
 		case KEY_RIGHT:
 		case 'd':
-			this->move(Vector2D(1, 0));
+			setXDif(_xDif + 1);
+			move(Vector2D(1, 0));
 		default:
 			break;
 	}
-	this->_checkPos();
 }
 
 std::ostream	&operator<<(std::ostream &o, Player const &i) {
 	return o << "Player Info:" << std::endl <<
-	"pos: " << i.getPos() << std::endl <<
-	"sprite: " << i.getSprite() << std::endl <<
-	"input: " << i.getUserInput() << std::endl <<
-	"exit req: " << i.getExitReq() << std::endl;
+	"id: " << i.getPlayerID() << std::endl <<
+	"x-dif: " << i.getXDif() << std::endl <<
+	"exit req: " << i.getExitReq() << std::endl <<
+	"update pos?: " << i.getUpdatePos() << std::endl;
 }

@@ -1,6 +1,8 @@
 #ifndef ACTOR_CLASS_HPP
 	#define ACTOR_CLASS_HPP
 
+	#include <ncurses.h>
+	#include <typedefs.hpp>
 	#include <includes.hpp>
 	#include "Vector2D.class.hpp"
 
@@ -8,8 +10,9 @@
 
 	protected:
 
+		bool				_bCanDraw;
 		Vector2D			_pos;
-		char const		_sprite;
+		char const			_sprite;
 
 	public:
 
@@ -19,16 +22,23 @@
 
 		Actor					&operator=(Actor const &rhs);
 
-		Vector2D			getPos(void) const;
+		bool					getCanDraw(void) const;
+		Vector2D				getPos(void) const;
 		char					getSprite(void) const;
 
+		void					setCanDraw(bool bCanDraw);
 		bool 					setPos(Vector2D pos);
 
 		bool					move(Vector2D dst);
-		void 					draw(void);
-		void 					clear(void);
+		void					redraw(void);
 
-		virtual void	tick(void) = 0;
+		virtual void			tick(void) = 0;
+
+	protected:
+
+		virtual void			_checkPos(void) = 0;
+		virtual void 			_draw(void) const;
+		virtual void 			_clear(void) const;
 
 	};
 
