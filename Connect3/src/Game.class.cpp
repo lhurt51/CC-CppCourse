@@ -101,13 +101,17 @@ void			Game::run(void) {
 				piece.setCanDraw(true);
 				board.setPos(Vector2D(HALF_OF_VAL(this->_maxWinDem.getX()), HALF_OF_VAL(this->_maxWinDem.getY())));
 				player1.setUpdatePos(true);
+				piece.setStartPos(player1.getPos());
 				mvprintw(this->_maxWinDem.getY() - 5, 5, "Width: %d and Height: %d", this->_maxWinDem.getX(), this->_maxWinDem.getY());
 			}
 			wborder(Game::_window, '|', '|', '-', '-', 'o', 'o', 'o', 'o');
 		} else {
 			board.tick();
 			player1.tick();
+			piece.setStartPos(player1.getPos());
 			piece.tick();
+			Vector2D tmp = board.worldToBoard(piece.getPos());
+			mvprintw(this->_maxWinDem.getY() - 6, 5, "Piece board pos: %d, %d", tmp.getX(), tmp.getY());
 		}
 		wrefresh(Game::_window);
 	} while(true);

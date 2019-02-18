@@ -72,9 +72,25 @@ void		GamePiece::tick(void) {
 }
 
 void 		GamePiece::_checkPos(void) {
+	Vector2D tmp = getBoard()->worldToBoard(this->getPos());
+
 	if (this->getPos().getX() != this->_startPos.getX()) this->_pos.setX(this->_startPos.getX());
-	if (this->getPos().getY() < this->_startPos.getY() - 7) this->_pos.setY(this->_startPos.getY());
-	else if (this->getPos().getY() > this->_startPos.getY()) this->_pos.setY(this->_startPos.getY() - 7);
+	if (getBoard()->addPieceToPoint(tmp.getY(), tmp.getX(), this->getSprite())) {
+		_bCanClear = true;
+		_bCanDraw = false;
+		getPos().setY(this->_startPos.getY() + BOARD_COLUMN + 1);
+		getBoard()->redraw();
+	}
+	if (this->getPos().getY() > this->_startPos.getY() + BOARD_COLUMN) this->_pos.setY(this->_startPos.getY() + BOARD_COLUMN + 1);
+	//else if (this->getPos().getY() < this->_startPos.getY() + 1) this->_pos.setY(this->_startPos.getY() + BOARD_COLUMN);
+}
+
+void		GamePiece::_clear(void) const {
+	Vector2D tmp = getBoard()->worldToBoard(this->getPos());
+	if (tmp == Vector2D(-1))
+		mvaddch(this->_pos.getY(), this->_pos.getX(), ' ');
+	else
+		mvaddch(this->_pos.getY(), this->_pos.getX(), getBoard()->getBoard()[tmp.getY()][tmp.getX()]);
 }
 
 std::ostream	&operator<<(std::ostream &o, GamePiece const &i) {

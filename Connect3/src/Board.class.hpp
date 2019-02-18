@@ -33,10 +33,11 @@
 		// Misc. helper methods --
 		bool		isColFull(int col) const;
 		bool		isColEmpty(int col) const;
+		Vector2D	worldToBoard(Vector2D world);
 
 		void		updateBoard(int col);
 
-		// Actor method implementation
+		// Actor method implementation --
 		void		tick(void);
 
 	protected:
@@ -48,7 +49,7 @@
 
 	private:
 
-		// Private print functions
+		// Private print functions --
 		void		_drawBoardToScreen(bool clear) const;
 		void		_drawBoardColToScreen(bool clear, int col) const;
 	};

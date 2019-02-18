@@ -31,6 +31,7 @@
 	protected:
 
 		void 			_checkPos(void);
+		void			_clear(void) const;
 
 	};
 

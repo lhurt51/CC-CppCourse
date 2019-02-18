@@ -68,7 +68,7 @@ bool		Board::addPieceToPoint(int row, int col, char c) {
 	// long as the boards empty
 	if (IS_SIZE_INVALID(row, col) || isColFull(col))
 		return false;
-	else if(isColEmpty(col) || (this->_board[row][col] == '.' && this->_board[row - 1][col] != '.'))
+	else if((isColEmpty(col) && row == 0) || (this->_board[row][col] == '.' && this->_board[row - 1][col] != '.'))
 		this->_board[row][col] = c;
 	else
 		return false;
@@ -102,6 +102,14 @@ bool		Board::isColEmpty(int col) const {
 		return false;
 }
 
+Vector2D	Board::worldToBoard(Vector2D world) {
+	Vector2D board = Vector2D(getPos().getX() - world.getX(), getPos().getY() - world.getY());
+	if (IS_SIZE_INVALID(board.getY(), board.getX()))
+		return Vector2D(-1, -1);
+	else
+		return board;
+}
+
 void		Board::updateBoard(int col) {
 	if (!IS_COL_INVALID(col)) _drawBoardColToScreen(false, col);
 	else _drawBoardToScreen(false);
@@ -110,7 +118,7 @@ void		Board::updateBoard(int col) {
 void		Board::tick(void) {
 	this->_playerSpawn = Vector2D(this->getPos().getX() - (BOARD_COLUMN - 1), this->getPos().getY() - (BOARD_ROW + 1));
 	if (!this->_bCanDraw) return;
-	redraw();
+	//redraw();
 }
 
 void 		Board::_checkPos(void) {
@@ -128,22 +136,20 @@ void		Board::_clear(void) const {
 }
 
 void		Board::_drawBoardToScreen(bool clear) const {
-	char msg[] = "543210";
-
-	for (int y = BOARD_ROW + 3; y >= 0; y--) {
-		for (int x = BOARD_COLUMN - 1; x >= 0 ; x--) {
-			if (!IS_ROW_INVALID(y))
-				mvaddch(this->getPos().getY() - y, this->getPos().getX() - x, (clear) ? ' ' : this->_board[y][x]);
-			else if (y == BOARD_ROW + 3)
-				mvaddch(this->getPos().getY() - y, this->getPos().getX() - x, (clear) ? ' ' : msg[x]);
-		}
+	for (int x = BOARD_COLUMN - 1; x >= 0 ; x--) {
+		_drawBoardColToScreen(clear, x);
 	}
 }
 
 void			Board::_drawBoardColToScreen(bool clear, int col) const {
+	char msg[] = "543210";
+
 	if (IS_COL_INVALID(col)) return;
-	for (int y = BOARD_ROW - 1; y >= 0; y--) {
-		mvaddch(this->getPos().getY() - y, this->getPos().getX() - col, (clear) ? ' ' : this->_board[y][col]);
+	for (int y = BOARD_ROW + 3; y >= 0; y--) {
+		if (!IS_ROW_INVALID(y))
+			mvaddch(this->getPos().getY() - y, this->getPos().getX() - col, (clear) ? ' ' : this->_board[y][col]);
+		else if (y == BOARD_ROW + 3)
+			mvaddch(this->getPos().getY() - y, this->getPos().getX() - col, (clear) ? ' ' : msg[col]);
 	}
 }
 
