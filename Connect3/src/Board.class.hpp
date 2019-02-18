@@ -13,6 +13,7 @@
 	public:
 		// Constructors --
 		Board(void);
+		Board(Vector2D pos);
 		Board(Board const &src);
 		~Board(void);
 
@@ -34,8 +35,6 @@
 		bool		isColFull(int col) const;
 		bool		isColEmpty(int col) const;
 		Vector2D	worldToBoard(Vector2D world);
-
-		void		updateBoard(int col);
 
 		// Actor method implementation --
 		void		tick(void);

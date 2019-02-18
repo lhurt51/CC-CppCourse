@@ -34,7 +34,6 @@ Game::Game(void) {
 	curs_set(0);
 	if (!has_colors()) {
 		std::cout << "Error: Terminal does not support color" << std::endl;
-		this->~Game();
 		return;
 	}
 	start_color();
@@ -52,7 +51,10 @@ Game::~Game(void) {
 }
 
 Game			&Game::operator=(Game const &rhs) {
-	if (this != &rhs) Game::_window = rhs.getWindow();
+	if (this != &rhs) {
+		Game::_window = rhs.getWindow();
+		this->_maxWinDem = rhs.getWinMaxDem();
+	}
 	return *this;
 }
 
@@ -65,7 +67,7 @@ Vector2D		Game::getWinMaxDem(void) const {
 }
 
 bool        	Game::updateWinDem(void) {
-	int x, y;
+	unsigned int x, y;
 
 	getmaxyx(Game::_window, y, x);
 	if (this->_maxWinDem == Vector2D(x, y)) return false;

@@ -21,7 +21,7 @@
 
 static int		conID = 0;
 
-Player::Player(Board *board, char const sprite) : Actor(Vector2D(DEFAULT_SPAWN), sprite), _id(conID++), _xDif(0), _bExitReq(false), _updatePos(false), _board(board) {
+Player::Player(Board *board, char const sprite) : Actor(Vector2D(DEFAULT_SPAWN), sprite), _id(conID++), _board(board), _xDif(0), _bExitReq(false), _bSpawnPiece(false), _updatePos(false) {
 	return;
 }
 
@@ -37,16 +37,21 @@ Player::~Player(void) {
 Player			&Player::operator=(Player const &rhs) {
 	if (this != &rhs) {
 		(unsigned int&)this->_id = rhs.getPlayerID();
+		this->_board = rhs.getBoard();
 		this->_xDif = rhs.getXDif();
 		this->_bExitReq = rhs.getExitReq();
+		this->_bSpawnPiece = rhs.getSpawnPiece();
 		this->_updatePos = rhs.getUpdatePos();
-		this->_board = rhs.getBoard();
 	}
 	return *this;
 }
 
 int					Player::getPlayerID(void) const {
 	return this->_id;
+}
+
+Board				*Player::getBoard(void) const {
+	return this->_board;
 }
 
 int					Player::getXDif(void) const {
@@ -57,12 +62,18 @@ bool				Player::getExitReq(void) const {
 	return this->_bExitReq;
 }
 
+bool				Player::getSpawnPiece(void) const {
+	return this->_bSpawnPiece;
+}
+
 bool				Player::getUpdatePos(void) const {
 	return this->_updatePos;
 }
 
-Board				*Player::getBoard(void) const {
-	return this->_board;
+bool				Player::setBoard(Board* board) {
+	if (this->_board == board) return false;
+	this->_board = board;
+	return true;
 }
 
 void				Player::setXDif(int xDif) {
@@ -76,10 +87,12 @@ void				Player::setUpdatePos(bool bShouldUpdate) {
 	this->_updatePos = bShouldUpdate;
 }
 
-bool				Player::setBoard(Board* board) {
-	if (this->_board == board) return false;
-	this->_board = board;
-	return true;
+GamePiece			*Player::createPiece(void) {
+	Vector2D tmp = _board->worldToBoard(getPos());
+
+	if (this->_bSpawnPiece || !_board->isColFull(tmp.getX()))
+		return new GamePiece(this->_board, this->_sprite, this->getPos());
+	return NULL;
 }
 
 void				Player::tick(void) {
@@ -124,6 +137,10 @@ void				Player::_handleUserInput(int input) {
 		case 'd':
 			setXDif(_xDif + 1);
 			move(Vector2D(1, 0));
+			break;
+		case 'e':
+			_bSpawnPiece = true;
+			break;
 		default:
 			break;
 	}

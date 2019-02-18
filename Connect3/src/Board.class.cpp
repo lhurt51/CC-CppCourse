@@ -24,6 +24,11 @@ Board::Board(void) : Actor(Vector2D(DEFAULT_SPAWN), ' '), _playerSpawn(Vector2D(
 	return;
 }
 
+Board::Board(Vector2D pos) : Actor(Vector2D(pos), ' '), _playerSpawn(Vector2D(DEFAULT_SPAWN)) {
+	initBoard();
+	return;
+}
+
 Board::Board(Board const &src) : Actor(src) {
 	*this = src;
 	return;
@@ -110,29 +115,20 @@ Vector2D	Board::worldToBoard(Vector2D world) {
 		return board;
 }
 
-void		Board::updateBoard(int col) {
-	if (!IS_COL_INVALID(col)) _drawBoardColToScreen(false, col);
-	else _drawBoardToScreen(false);
-}
-
 void		Board::tick(void) {
-	this->_playerSpawn = Vector2D(this->getPos().getX() - (BOARD_COLUMN - 1), this->getPos().getY() - (BOARD_ROW + 1));
-	if (!this->_bCanDraw) return;
-	//redraw();
+	return;
 }
 
 void 		Board::_checkPos(void) {
-	return;
+	this->_playerSpawn = Vector2D(this->getPos().getX() - (BOARD_COLUMN - 1), this->getPos().getY() - (BOARD_ROW + 1));
 }
 
 void		Board::_draw(void) const {
 	_drawBoardToScreen(false);
-	return;
 }
 
 void		Board::_clear(void) const {
 	_drawBoardToScreen(true);
-	return;
 }
 
 void		Board::_drawBoardToScreen(bool clear) const {

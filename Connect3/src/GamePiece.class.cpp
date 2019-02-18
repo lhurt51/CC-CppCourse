@@ -33,6 +33,7 @@ GamePiece::~GamePiece(void) {
 
 GamePiece	&GamePiece::operator=(GamePiece const &rhs) {
 	if (this != &rhs) {
+		this->_bCanClear = rhs.getCanClear();
 		(Vector2D&)this->_startPos = rhs.getStartPos();
 		this->_board = rhs.getBoard();
 	}
@@ -60,10 +61,10 @@ bool		GamePiece::setStartPos(Vector2D const vec) {
 void		GamePiece::tick(void) {
 	static int frame = 0;
 
+	if (this->_bCanClear) return;
 	if (frame % 25000 == 0) {
-		//if (this->_board->addPieceToPoint())
 		move(Vector2D(0, 1));
-		if (frame > 100) this->_bCanClear = true;
+		//if (frame > 100) this->_bCanClear = true;
 	} else if (frame > 25000) {
 		frame = 1;
 	}
@@ -75,14 +76,12 @@ void 		GamePiece::_checkPos(void) {
 	Vector2D tmp = getBoard()->worldToBoard(this->getPos());
 
 	if (this->getPos().getX() != this->_startPos.getX()) this->_pos.setX(this->_startPos.getX());
-	if (getBoard()->addPieceToPoint(tmp.getY(), tmp.getX(), this->getSprite())) {
+	if (getBoard()->addPieceToPoint(tmp.getY(), tmp.getX(), this->getSprite()) || this->getPos().getY() > this->_startPos.getY() + BOARD_COLUMN) {
 		_bCanClear = true;
 		_bCanDraw = false;
 		getPos().setY(this->_startPos.getY() + BOARD_COLUMN + 1);
 		getBoard()->redraw();
 	}
-	if (this->getPos().getY() > this->_startPos.getY() + BOARD_COLUMN) this->_pos.setY(this->_startPos.getY() + BOARD_COLUMN + 1);
-	//else if (this->getPos().getY() < this->_startPos.getY() + 1) this->_pos.setY(this->_startPos.getY() + BOARD_COLUMN);
 }
 
 void		GamePiece::_clear(void) const {
