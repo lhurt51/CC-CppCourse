@@ -39,7 +39,10 @@ GameState			&GameState::operator=(GameState const &rhs) {
 	if (this != &rhs) {
 		this->_winDem = rhs.getWinDem();
 		this->_curState = rhs.getCurState();
+		this->_curPlayer = rhs.getCurPlayer();
 		this->_board = rhs.getBoard();
+		this->_players = rhs.getPlayers();
+		this->_gamePiece = rhs.getGamePiece();
 	}
 	return *this;
 }
@@ -101,6 +104,7 @@ void				GameState::setBoard(Vector2D pos) {
 
 void				GameState::setPlayers(Board *board) {
 	char randomChar[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	// char usedSprites[AMOUNT_OF_PLAYERS];
 
 	if (board == nullptr) return;
 	// initialize random seed
@@ -108,6 +112,7 @@ void				GameState::setPlayers(Board *board) {
 	// Reserve space for the players
 	this->_players.reserve(AMOUNT_OF_PLAYERS);
 	for (unsigned int i = 0; i < AMOUNT_OF_PLAYERS; i++) {
+		// Need to fix rand finding two identical sprites !!!!!!
 		char const randC = randomChar[(std::rand() % (strlen(randomChar) - 1))];
 		this->_players.push_back(Player(board, randC));
 	}

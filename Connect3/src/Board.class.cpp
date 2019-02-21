@@ -110,11 +110,19 @@ bool		Board::isColEmpty(int col) const {
 
 Vector2D	Board::worldToBoard(Vector2D world) {
 	Vector2D board = Vector2D(getPos().getX() - world.getX(), getPos().getY() - world.getY());
-	
+
 	if (IS_SIZE_INVALID(board.getY(), board.getX()))
 		return Vector2D(-1, -1);
 	else
 		return board;
+}
+
+// Check for win game status
+bool		Board::checkForWinGame(Vector2D world, char c) {
+	// NEED TO FIND A WAY TO IMPLEMENT BEFORE PLAYER TURN OVER
+	Vector2D board = worldToBoard(world);
+
+	if (board != Vector2D(-1)) return;
 }
 
 void		Board::tick(void) {

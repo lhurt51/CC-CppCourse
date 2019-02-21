@@ -35,6 +35,7 @@
 		bool		isColFull(int col) const;
 		bool		isColEmpty(int col) const;
 		Vector2D	worldToBoard(Vector2D world);
+		bool		checkForWinGame(int x, int y, char c);
 
 		// Actor method implementation --
 		void		tick(void);
