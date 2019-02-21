@@ -16,6 +16,7 @@
 *
 ******************************************************************************/
 
+#include <time.h>
 #include "GameState.class.hpp"
 #include "Game.class.hpp"
 
@@ -99,6 +100,9 @@ void				GameState::setPlayers(Board *board) {
 	char randomChar[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	if (board == nullptr) return;
+	// initialize random seed
+  	srand (time(NULL));
+	// Reserve space for the players
 	this->_players.reserve(AMOUNT_OF_PLAYERS);
 	for (unsigned int i = 0; i < AMOUNT_OF_PLAYERS; i++) {
 		char const randC = randomChar[(std::rand() % (strlen(randomChar) - 1))];
