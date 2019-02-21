@@ -7,6 +7,7 @@
 	class GamePiece : public Actor {
 
 		bool			_bCanClear;
+		bool			_bFoundPos;
 		Vector2D const	_startPos;
 		Board			*_board;
 
@@ -20,6 +21,7 @@
 
 		// Getters
 		bool			getCanClear(void) const;
+		bool			getFoundPos(void) const;
 		Vector2D		getStartPos(void) const;
 		Board			*getBoard(void) const;
 

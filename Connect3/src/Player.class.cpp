@@ -19,24 +19,26 @@
 #include "Player.class.hpp"
 #include "Game.class.hpp"
 
-static int		conID = 0;
-
-Player::Player(Board *board, char const sprite) : Actor(Vector2D(board->getPlayerSpawn()), sprite), _id(conID++), _board(board), _xDif(0), _bIsTurn(false), _bExitReq(false), _bSpawnPiece(false) {
+// Default Constructor
+Player::Player(Board *board, char const sprite) : Actor(Vector2D(board->getPlayerSpawn()), sprite), _board(board), _xDif(0), _bIsTurn(false), _bExitReq(false), _bSpawnPiece(false) {
 	return;
 }
 
-Player::Player(Player const &src) : Actor(src), _id(src.getPlayerID()) {
+// Copy constructor
+Player::Player(Player const &src) : Actor(src) {
 	*this = src;
 	return;
 }
 
+// Deconstructor
 Player::~Player(void) {
 	return;
 }
 
+// Overloaded equal sign for copy constructor
 Player			&Player::operator=(Player const &rhs) {
 	if (this != &rhs) {
-		(unsigned int&)this->_id = rhs.getPlayerID();
+		// NEED TO IMPROVE!!
 		this->_board = rhs.getBoard();
 		this->_xDif = rhs.getXDif();
 		this->_bExitReq = rhs.getExitReq();
@@ -45,10 +47,7 @@ Player			&Player::operator=(Player const &rhs) {
 	return *this;
 }
 
-int					Player::getPlayerID(void) const {
-	return this->_id;
-}
-
+// Getters vvvvvvv
 Board				*Player::getBoard(void) const {
 	return this->_board;
 }
@@ -61,6 +60,10 @@ bool				Player::getIsTurn(void) const {
 	return this->_bIsTurn;
 }
 
+bool				Player::getCanInput(void) const {
+	return this->_bCanInput;
+}
+
 bool				Player::getExitReq(void) const {
 	return this->_bExitReq;
 }
@@ -68,85 +71,105 @@ bool				Player::getExitReq(void) const {
 bool				Player::getSpawnPiece(void) const {
 	return this->_bSpawnPiece;
 }
+// Getters ^^^^^^^
 
-bool				Player::setBoard(Board* board) {
-	if (this->_board == board) return false;
-	this->_board = board;
-	return true;
-}
-
+// To move the players position
 void				Player::setXDif(int xDif) {
 	if (xDif < 0) this->_xDif = 5;
 	else if (xDif > 5) this->_xDif = 0;
 	else this->_xDif = xDif;
 }
 
+// Setting can input
+void				Player::setCanInput(bool bCanInput) {
+	if (this->_bCanInput == bCanInput) return;
+	this->_bCanInput = bCanInput;
+}
+
+// If it is not there turn the player will not draw
 void				Player::setIsTurn(bool bIsTurn) {
 	if (this->_bIsTurn == bIsTurn)
 		return;
-	else if (bIsTurn == true)
+	else if (bIsTurn == true) {
 		this->_bCanDraw = true;
-	else
+		this->_bCanInput = true;
+	} else
 		this->_bCanDraw = false;
 	this->_bIsTurn = bIsTurn;
 }
 
+// Checks does the player need to update
 void				Player::shouldUpdate(void) {
 	if (this->_bIsTurn) this->redraw();
 }
 
+// Spawn a GamePiece if the button has been pressed and col is not full
 GamePiece			*Player::createPiece(void) {
 	Vector2D tmp = _board->worldToBoard(Vector2D(getPos().getX(), getPos().getY() + 2));
 
 	if (_bSpawnPiece) {
 		_bSpawnPiece = false;
-		if (!_board->isColFull(tmp.getX()))
+		if (!_board->isColFull(tmp.getX())) {
+			_bCanInput = false;
 			return new GamePiece(_board, _sprite, Vector2D(getPos().getX(), getPos().getY() + 1));
+		}
 	}
 	return nullptr;
 }
 
+// On tick handle the players input if it is that players turn
 void				Player::tick(void) {
-	//int input = wgetch(Game::getWindow());
-
 	if (this->_bIsTurn) {
 		_handleUserInput(wgetch(Game::getWindow()));
 	}
 }
 
+// Checks the pos to see if it is within the range on X + 4 with no Y movement
 void 				Player::_checkPos(void) {
 	if (getPos().getY() != getBoard()->getPlayerSpawn().getY()) _pos.setY(getBoard()->getPlayerSpawn().getY());
 	if (getPos().getX() != getBoard()->getPlayerSpawn().getX() + _xDif) _pos.setX(getBoard()->getPlayerSpawn().getX() + _xDif);
 
 }
 
+// Handles the users input as long as the player can draw and can input
 void				Player::_handleUserInput(int input) {
-	if (!this->_bCanDraw) return;
-	switch(input) {
-		case 'q':
-			_bExitReq = true;
-			break;
-		case KEY_LEFT:
-		case 'a':
-			setXDif(_xDif - 1);
-			move(Vector2D(-1, 0));
-			break;
-		case KEY_RIGHT:
-		case 'd':
-			setXDif(_xDif + 1);
-			move(Vector2D(1, 0));
-			break;
-		case 'e':
-			_bSpawnPiece = true;
-			break;
-		default:
-			break;
+	// NEED TO DISABLE MOVEMENT ON PIECE SPAWN!!!
+	if (!this->_bCanDraw || !this->_bCanInput) {
+		switch(input) {
+			case 'q':
+				_bExitReq = true;
+				break;
+			default:
+				break;
+		}
+	} else {
+		switch(input) {
+			case 'q':
+				_bExitReq = true;
+				break;
+			case KEY_LEFT:
+			case 'a':
+				setXDif(_xDif - 1);
+				move(Vector2D(-1, 0));
+				break;
+			case KEY_RIGHT:
+			case 'd':
+				setXDif(_xDif + 1);
+				move(Vector2D(1, 0));
+				break;
+			case 'e':
+				_bSpawnPiece = true;
+				break;
+			default:
+				break;
+		}
 	}
 }
 
+// Prints the players attributes
 std::ostream	&operator<<(std::ostream &o, Player const &i) {
+	// NEEDS IMPROVEMENT!!!
 	return o << "Player Info:" << std::endl <<
-	"id: " << i.getPlayerID() << std::endl <<
 	"x-dif: " << i.getXDif() << std::endl <<
 	"exit req: " << i.getExitReq() << std::endl;
 }

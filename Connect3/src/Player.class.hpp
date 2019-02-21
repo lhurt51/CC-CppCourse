@@ -7,37 +7,47 @@
 
 	class Player : public Actor {
 
-		unsigned int const			_id;
+		// Storing a ref to the board
 		Board						*_board;
+		// The difference in x for the actors pos
 		int							_xDif;
+		// Is it this players turn
 		bool						_bIsTurn;
+		// Prevent this player from spawning or moving
+		bool						_bCanInput;
+		// Did this player request an exit
 		bool						_bExitReq;
+		// Did this player request a spawn piece
 		bool						_bSpawnPiece;
 
 	public:
 
+		// Constructors --
 		Player(Board *board, char const sprite);
 		Player(Player const &src);
 		virtual ~Player(void);
 
+		// Overload operators --
 		Player						&operator=(Player const &rhs);
 
-		// Getters
-		int							getPlayerID(void) const;
+		// Getters --
 		Board 						*getBoard(void) const;
 		int							getXDif(void) const;
 		bool						getIsTurn(void) const;
+		bool						getCanInput(void) const;
 		bool						getExitReq(void) const;
 		bool						getSpawnPiece(void) const;
 
-		// Setters
-		bool						setBoard(Board* board);
+		// Setters --
 		void						setXDif(int xDif);
+		void						setCanInput(bool bCanInput);
 		void						setIsTurn(bool bIsTurn);
-		void						shouldUpdate(void);
 
+		// Helper methods --
+		void						shouldUpdate(void);
 		GamePiece					*createPiece(void);
 
+		// Virtual override functions --
 		void						tick(void);
 
 	protected:
@@ -46,6 +56,7 @@
 
 	private:
 
+		// Private functions --
 		void						_handleUserInput(int input);
 
 	};

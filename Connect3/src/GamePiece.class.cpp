@@ -19,7 +19,7 @@
 #include "GamePiece.class.hpp"
 #include "Game.class.hpp"
 
-GamePiece::GamePiece(Board *board, char const sprite, Vector2D const pos) : Actor(pos, sprite), _bCanClear(false) , _startPos(pos), _board(board) {
+GamePiece::GamePiece(Board *board, char const sprite, Vector2D const pos) : Actor(pos, sprite), _bCanClear(false), _bFoundPos(false), _startPos(pos), _board(board) {
 	return;
 }
 
@@ -41,16 +41,20 @@ GamePiece	&GamePiece::operator=(GamePiece const &rhs) {
 	return *this;
 }
 
+bool		GamePiece::getCanClear(void) const {
+	return this->_bCanClear;
+}
+
+bool		GamePiece::getFoundPos(void) const {
+	return this->_bFoundPos;
+}
+
 Vector2D	GamePiece::getStartPos(void) const {
 	return this->_startPos;
 }
 
 Board		*GamePiece::getBoard(void) const {
 	return this->_board;
-}
-
-bool		GamePiece::getCanClear(void) const {
-	return this->_bCanClear;
 }
 
 bool		GamePiece::setStartPos(Vector2D const vec) {
@@ -75,11 +79,16 @@ void 		GamePiece::_checkPos(void) {
 	Vector2D tmp = getBoard()->worldToBoard(getPos());
 
 	if (getPos().getX() != _startPos.getX()) _pos.setX(_startPos.getX());
-	if (getBoard()->addPieceToPoint(tmp.getY(), tmp.getX(), getSprite()) || getPos().getY() > _startPos.getY() + BOARD_COLUMN) {
+	if (getBoard()->addPieceToPoint(tmp.getY(), tmp.getX(), getSprite())) {
+		_bCanClear = true;
+		_bCanDraw = false;
+		_bFoundPos = true;
+		_pos.setY(this->_startPos.getY() + BOARD_COLUMN);
+		getBoard()->redraw();
+	} else if (getPos().getY() > _startPos.getY() + BOARD_COLUMN) {
 		_bCanClear = true;
 		_bCanDraw = false;
 		_pos.setY(this->_startPos.getY() + BOARD_COLUMN);
-		getBoard()->redraw();
 	}
 }
 
