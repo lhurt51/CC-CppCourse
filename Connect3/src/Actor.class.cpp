@@ -17,6 +17,7 @@
 ******************************************************************************/
 
 #include "Actor.class.hpp"
+#include "Game.class.hpp"
 
 Actor::Actor(Vector2D pos, char const sprite) : _bCanDraw(false), _pos(pos), _sprite(sprite) {
 	return;
@@ -53,13 +54,11 @@ char		Actor::getSprite(void) const {
 	return this->_sprite;
 }
 
-bool 		Actor::setPos(Vector2D pos) {
-	if (this->_pos == pos) return false;
+void 		Actor::setPos(Vector2D pos) {
 	_clear();
 	this->_pos = pos;
 	_checkPos();
-	if (this->_bCanDraw) _draw();
-	return true;
+	if (_bCanDraw) _draw();
 }
 
 void		Actor::setCanDraw(bool bCanDraw) {
@@ -70,23 +69,31 @@ void		Actor::setCanDraw(bool bCanDraw) {
 bool		Actor::move(Vector2D dst) {
 	if (dst == Vector2D(0, 0)) return false;
 	_clear();
-	this->_pos += dst;
+	_pos += dst;
 	_checkPos();
-	if (this->_bCanDraw) _draw();
+	if (_bCanDraw) _draw();
 	return true;
 }
 
 void		Actor::redraw(void) {
 	_clear();
 	_checkPos();
-	if (this->_bCanDraw) _draw();
+	if (_bCanDraw) _draw();
 }
 
 void 		Actor::_draw(void) const {
+	chtype c;
+
+	c = mvwinch(Game::getWindow(), this->_pos.getY(), _pos.getX());
+	if ((char)c == this->_sprite) return;
 	mvaddch(this->_pos.getY(), this->_pos.getX(), this->_sprite);
 }
 
 void 		Actor::_clear(void) const {
+	chtype c;
+
+	c = mvwinch(Game::getWindow(), this->_pos.getY(), _pos.getX());
+	if ((char)c != this->_sprite) return;
 	mvaddch(this->_pos.getY(), this->_pos.getX(), ' ');
 }
 

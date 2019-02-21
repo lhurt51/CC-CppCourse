@@ -18,6 +18,7 @@
 
 #include "Board.class.hpp"
 #include "Player.class.hpp"
+#include "Game.class.hpp"
 
 Board::Board(void) : Actor(Vector2D(DEFAULT_SPAWN), ' '), _playerSpawn(Vector2D(DEFAULT_SPAWN)) {
 	initBoard();
@@ -109,6 +110,7 @@ bool		Board::isColEmpty(int col) const {
 
 Vector2D	Board::worldToBoard(Vector2D world) {
 	Vector2D board = Vector2D(getPos().getX() - world.getX(), getPos().getY() - world.getY());
+	
 	if (IS_SIZE_INVALID(board.getY(), board.getX()))
 		return Vector2D(-1, -1);
 	else
@@ -143,10 +145,19 @@ void			Board::_drawBoardColToScreen(bool clear, int col) const {
 	if (IS_COL_INVALID(col)) return;
 	for (int y = BOARD_ROW + 3; y >= 0; y--) {
 		if (!IS_ROW_INVALID(y))
-			mvaddch(this->getPos().getY() - y, this->getPos().getX() - col, (clear) ? ' ' : this->_board[y][col]);
+			_printChar(clear,  this->_board[y][col], this->getPos().getX() - col, this->getPos().getY() - y);
 		else if (y == BOARD_ROW + 3)
-			mvaddch(this->getPos().getY() - y, this->getPos().getX() - col, (clear) ? ' ' : msg[col]);
+			_printChar(clear, msg[col], this->getPos().getX() - col, this->getPos().getY() - y);
 	}
+}
+
+void			Board::_printChar(bool clear, char c, int x, int y) const {
+	chtype test;
+
+	test = mvwinch(Game::getWindow(), y, x);
+	if (clear == false && (char)test == c) return;
+	else if (clear == true && (char)test != c) return;
+	mvaddch(y, x, (clear) ? ' ' : c);
 }
 
 std::ostream	&operator<<(std::ostream &o, Board const &i) {

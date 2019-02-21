@@ -10,9 +10,9 @@
 		unsigned int const			_id;
 		Board						*_board;
 		int							_xDif;
+		bool						_bIsTurn;
 		bool						_bExitReq;
 		bool						_bSpawnPiece;
-		bool						_updatePos;
 
 	public:
 
@@ -26,14 +26,15 @@
 		int							getPlayerID(void) const;
 		Board 						*getBoard(void) const;
 		int							getXDif(void) const;
+		bool						getIsTurn(void) const;
 		bool						getExitReq(void) const;
 		bool						getSpawnPiece(void) const;
-		bool						getUpdatePos(void) const;
 
 		// Setters
 		bool						setBoard(Board* board);
 		void						setXDif(int xDif);
-		void						setUpdatePos(bool bShould);
+		void						setIsTurn(bool bIsTurn);
+		void						shouldUpdate(void);
 
 		GamePiece					*createPiece(void);
 
@@ -45,7 +46,6 @@
 
 	private:
 
-		bool 						_checkInput(int input);
 		void						_handleUserInput(int input);
 
 	};

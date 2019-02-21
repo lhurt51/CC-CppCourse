@@ -12,6 +12,7 @@ SRCS =	$(addprefix $(SDIR)/, \
 			main.cpp \
 			Vector2D.class.cpp \
 			Game.class.cpp \
+			GameState.class.cpp \
 			Board.class.cpp \
 			Actor.class.cpp \
 			Player.class.cpp \

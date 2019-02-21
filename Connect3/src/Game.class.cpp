@@ -88,6 +88,7 @@ void			Game::run(void) {
 	board.addPieceToPoint(0, 1, 'e');
 	board.addPieceToPoint(1, 2, 'f');
 	board.addPieceToPoint(3, 2, 'g');
+	player1.setIsTurn(true);
 	do {
 		if (player1.getExitReq()) break;
 		if (updateWinDem()) {
@@ -102,7 +103,7 @@ void			Game::run(void) {
 				player1.setCanDraw(true);
 				piece.setCanDraw(true);
 				board.setPos(Vector2D(HALF_OF_VAL(this->_maxWinDem.getX()), HALF_OF_VAL(this->_maxWinDem.getY())));
-				player1.setUpdatePos(true);
+				player1.shouldUpdate();
 				piece.setStartPos(player1.getPos());
 				mvprintw(this->_maxWinDem.getY() - 5, 5, "Width: %d and Height: %d", this->_maxWinDem.getX(), this->_maxWinDem.getY());
 			}

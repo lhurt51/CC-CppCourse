@@ -21,7 +21,7 @@
 
 static int		conID = 0;
 
-Player::Player(Board *board, char const sprite) : Actor(Vector2D(DEFAULT_SPAWN), sprite), _id(conID++), _board(board), _xDif(0), _bExitReq(false), _bSpawnPiece(false), _updatePos(false) {
+Player::Player(Board *board, char const sprite) : Actor(Vector2D(board->getPlayerSpawn()), sprite), _id(conID++), _board(board), _xDif(0), _bIsTurn(false), _bExitReq(false), _bSpawnPiece(false) {
 	return;
 }
 
@@ -41,7 +41,7 @@ Player			&Player::operator=(Player const &rhs) {
 		this->_xDif = rhs.getXDif();
 		this->_bExitReq = rhs.getExitReq();
 		this->_bSpawnPiece = rhs.getSpawnPiece();
-		this->_updatePos = rhs.getUpdatePos();
+		//this->_updatePos = rhs.getUpdatePos();
 	}
 	return *this;
 }
@@ -58,6 +58,10 @@ int					Player::getXDif(void) const {
 	return this->_xDif;
 }
 
+bool				Player::getIsTurn(void) const {
+	return this->_bIsTurn;
+}
+
 bool				Player::getExitReq(void) const {
 	return this->_bExitReq;
 }
@@ -66,9 +70,10 @@ bool				Player::getSpawnPiece(void) const {
 	return this->_bSpawnPiece;
 }
 
+/*
 bool				Player::getUpdatePos(void) const {
 	return this->_updatePos;
-}
+}*/
 
 bool				Player::setBoard(Board* board) {
 	if (this->_board == board) return false;
@@ -82,45 +87,41 @@ void				Player::setXDif(int xDif) {
 	else this->_xDif = xDif;
 }
 
-void				Player::setUpdatePos(bool bShouldUpdate) {
-	if (this->_updatePos == bShouldUpdate) return;
-	this->_updatePos = bShouldUpdate;
+void				Player::setIsTurn(bool bIsTurn) {
+	if (this->_bIsTurn == bIsTurn)
+		return;
+	else if (bIsTurn == true) {
+		this->_bCanDraw = true;
+	} else {
+		this->_bCanDraw = false;
+	}
+	this->_bIsTurn = bIsTurn;
+}
+
+void				Player::shouldUpdate(void) {
+	if (this->_bIsTurn) this->redraw();
 }
 
 GamePiece			*Player::createPiece(void) {
-	Vector2D tmp = _board->worldToBoard(getPos());
+	Vector2D tmp = _board->worldToBoard(Vector2D(getPos().getX(), getPos().getY() + 2));
 
-	if (this->_bSpawnPiece || !_board->isColFull(tmp.getX()))
+	if (this->_bSpawnPiece && !_board->isColFull(tmp.getX())) {
+		this->_bSpawnPiece = false;
 		return new GamePiece(this->_board, this->_sprite, this->getPos());
+	}
 	return NULL;
 }
 
 void				Player::tick(void) {
-	if (this->_updatePos) {
-		this->redraw();
-		this->_updatePos = false;
+	if (this->_bIsTurn && this->_bCanDraw) {
+		_handleUserInput(wgetch(Game::getWindow()));
 	}
-	int input = wgetch(Game::getWindow());
-	if (this->_checkInput(input)) this->_handleUserInput(input);
 }
 
 void 				Player::_checkPos(void) {
 	if (getPos().getY() != getBoard()->getPlayerSpawn().getY()) _pos.setY(getBoard()->getPlayerSpawn().getY());
 	if (getPos().getX() != getBoard()->getPlayerSpawn().getX() + _xDif) _pos.setX(getBoard()->getPlayerSpawn().getX() + _xDif);
 
-}
-
-bool 				Player::_checkInput(int input) {
-	switch (input) {
-		case 'q':
-		case KEY_LEFT:
-		case 'a':
-		case KEY_RIGHT:
-		case 'd':
-			return true;
-		default:
-			return false;
-	}
 }
 
 void				Player::_handleUserInput(int input) {
@@ -150,6 +151,6 @@ std::ostream	&operator<<(std::ostream &o, Player const &i) {
 	return o << "Player Info:" << std::endl <<
 	"id: " << i.getPlayerID() << std::endl <<
 	"x-dif: " << i.getXDif() << std::endl <<
-	"exit req: " << i.getExitReq() << std::endl <<
-	"update pos?: " << i.getUpdatePos() << std::endl;
+	"exit req: " << i.getExitReq() << std::endl; /*<<
+	"update pos?: " << i.getUpdatePos() << std::endl;*/
 }

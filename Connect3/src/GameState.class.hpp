@@ -1,38 +1,67 @@
 #ifndef GAME_STATE_CLASS_HPP
 	#define GAME_STATE_CLASS_HPP
 
-	#include "Actor.class.hpp"
+	#include <vector>
+	#include "Board.class.hpp"
+	#include "Player.class.hpp"
+	#include "GamePiece.class.hpp"
+
+	enum					State {
+							LOADING,
+							PLAYING,
+							GAMEOVER
+	};
 
 	class GameState {
 
 		Vector2D 			_winDem;
-		GameState::State	_curState;
-		Actor				*_actors;
+		State				_curState;
+		Actor				*_actors[AMOUNT_OF_PLAYERS + 2];
+		Board				*_board;
+		std::vector<Player>	_players;
+		GamePiece			*_gamePiece;
 
 	public:
-
-		enum				State {
-							LOADING,
-							PLAYING,
-							GAMEOVER
-		};
-
+		// Constructors --
 		GameState(void);
-		GameState(Vector2D _winDem);
+		GameState(Vector2D winDem);
 		GameState(GameState const &src);
 		~GameState(void);
 
+		// Overload operators --
 		GameState			&operator=(GameState const &rhs);
 
+		// Getters --
 		Vector2D			getWinDem(void) const;
-		Game::State			getCurState(void) const;
-		Actors				*getAllActors(void) const;
+		State				getCurState(void) const;
+		Board				*getBoard(void) const;
+		std::vector<Player>	getPlayers(void) const;
+		GamePiece			*getGamePiece(void) const;
+
+		// Setters --
+		void				setWinDem(Vector2D winDem);
+		void				setCurState(State curState);
+		void				setBoard(Vector2D pos);
+		void				setPlayers(Board *board);
+		void				setGamePiece(Player *player);
+
+
+		// Helper methods
+		void				initAllActors(void);
+		void				deleteAllActors(void);
+		void				runMainLoop(void);
+		void				runWinUpdate(bool bIsToSmall);
 
 	private:
+
+		// De-constructors --
+		void				_deleteBoard(void);
+		void				_deletePlayers(void);
+		void				_deleteGamePiece(void);
 
 	};
 
 	// To print the game state info
-	std::ostream      				&operator<<(std::ostream &o, GameState const &i);
+	std::ostream      		&operator<<(std::ostream &o, GameState const &i);
 
 #endif

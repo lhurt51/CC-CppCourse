@@ -27,7 +27,7 @@
 		char					getSprite(void) const;
 
 		void					setCanDraw(bool bCanDraw);
-		bool 					setPos(Vector2D pos);
+		void 					setPos(Vector2D pos);
 
 		bool					move(Vector2D dst);
 		void					redraw(void);

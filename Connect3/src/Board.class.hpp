@@ -51,6 +51,7 @@
 		// Private print functions --
 		void		_drawBoardToScreen(bool clear) const;
 		void		_drawBoardColToScreen(bool clear, int col) const;
+		void		_printChar(bool clear, char c, int x, int y) const;
 	};
 
 	// To print the board info
