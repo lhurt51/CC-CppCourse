@@ -19,8 +19,10 @@
 #include "Game.class.hpp"
 #include "GameState.class.hpp"
 
-WINDOW			*Game::_window = NULL;
+// Initializing the static window to null
+WINDOW			*Game::_window = nullptr;
 
+// Initializing the window with ncurses
 Game::Game(void) {
 	Game::_window = initscr();
 	cbreak();
@@ -30,24 +32,29 @@ Game::Game(void) {
 	keypad(Game::_window, true);
 	nodelay(Game::_window, true);
 	curs_set(0);
+	/* Because I do not use colors yet --
 	if (!has_colors()) {
 		std::cout << "Error: Terminal does not support color" << std::endl;
 		return;
 	}
 	start_color();
+	*/
 	return;
 }
 
+// Copy constructor --
 Game::Game(Game const &src) {
 	*this = src;
 	return;
 }
 
+// Deconstructor --
 Game::~Game(void) {
 	destroyWin();
 	return;
 }
 
+// Overload equal sign for copy constructor
 Game			&Game::operator=(Game const &rhs) {
 	if (this != &rhs) {
 		Game::_window = rhs.getWindow();
@@ -56,6 +63,7 @@ Game			&Game::operator=(Game const &rhs) {
 	return *this;
 }
 
+// Getters --
 WINDOW*			Game::getWindow(void) {
 	return Game::_window;
 }
@@ -64,6 +72,7 @@ Vector2D		Game::getWinMaxDem(void) const {
 	return this->_maxWinDem;
 }
 
+// Update the win demension
 bool        	Game::updateWinDem(void) {
 	unsigned int x, y;
 
@@ -73,6 +82,7 @@ bool        	Game::updateWinDem(void) {
 	return true;
 }
 
+// Run the window loop
 void			Game::run(void) {
 	GameState *gameState;
 
@@ -92,6 +102,7 @@ void			Game::run(void) {
 	return;
 }
 
+// Check the win demensions
 bool            Game::isWindowToSmall(void) {
 	if (this->_maxWinDem > Vector2D(MIN_WIN_SIZE))
 		return false;
@@ -106,6 +117,7 @@ bool            Game::isWindowToSmall(void) {
 	return true;
 }
 
+// Destroy the window and clear any artifacts
 void        	Game::destroyWin(void) {
 	wborder(Game::_window, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	wrefresh(Game::_window);
@@ -115,6 +127,7 @@ void        	Game::destroyWin(void) {
 	return;
 }
 
+// To print out all of the games attributes
 std::ostream	&operator<<(std::ostream &o, Game const &i) {
 	return o << "Game Thread Info:" << std::endl <<
 	"Window addr: " << i.getWindow() << std::endl <<

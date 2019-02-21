@@ -9,24 +9,27 @@
     Vector2D        _maxWinDem;
 
   public:
+
+    // Constructors --
     Game(void);
     Game(Game const &src);
     ~Game(void);
 
+    // Overload operators --
     Game            &operator=(Game const &rhs);
 
-    // All the getters
+    // Getters --
     static WINDOW*  getWindow(void);
     Vector2D        getWinMaxDem(void) const;
 
-    // All the setters
+    // Setters --
     bool            updateWinDem(void);
 
-    // Methods
+    // Helper methods --
     void            run(void);
     bool            isWindowToSmall(void);
 
-    // Destructors
+    // Destructors --
     void            destroyWin(void);
   };
 
