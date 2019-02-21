@@ -79,7 +79,10 @@ void				GameState::setCurState(State curState) {
 }
 
 void					GameState::setCurPlayer(int player) {
-	if (_curPlayer != player) _curPlayer = player;
+	if (_curPlayer != player)
+		_curPlayer = player;
+	if (_curPlayer > AMOUNT_OF_PLAYERS - 1)
+		_curPlayer = 0;
 	for (unsigned int i = 0; i < _players.size(); i++) {
 		if (_curPlayer == (int)i)
 			_players[i].setIsTurn(true);
@@ -158,6 +161,8 @@ void				GameState::checkGamePiece(void) {
 		_gamePiece = _players[_curPlayer].createPiece();
 	else {
 		if (_gamePiece->getCanClear()) {
+			if (_gamePiece->getFoundPos())
+				setCurPlayer(_curPlayer + 1);
 			_actors[4] = nullptr;
 			delete _gamePiece;
 			_gamePiece = nullptr;
@@ -169,8 +174,19 @@ void				GameState::checkGamePiece(void) {
 }
 
 void				GameState::runMainLoop(void) {
-	tickAllActors();
-	checkGamePiece();
+	switch (_curState) {
+		case LOADING:
+			_curState = PLAYING;
+			runWinUpdate(_winDem, false);
+		case PLAYING:
+			tickAllActors();
+			checkGamePiece();
+			break;
+		case GAMEOVER:
+			break;
+		default:
+			break;
+	}
 }
 
 void				GameState::runWinUpdate(Vector2D winDem, bool bIsToSmall) {
@@ -184,7 +200,7 @@ void				GameState::runWinUpdate(Vector2D winDem, bool bIsToSmall) {
 	} else {
 		setAllActorsCanDraw(true);
 		_board->setPos(Vector2D(HALF_OF_VAL(_winDem.getX()), HALF_OF_VAL(_winDem.getY())));
-		setCurPlayer(1);
+		setCurPlayer(_curPlayer);
 		_players[_curPlayer].shouldUpdate();
 		mvprintw(_winDem.getY() - 5, 5, "Width: %d and Height: %d", _winDem.getX(), _winDem.getY());
 	}

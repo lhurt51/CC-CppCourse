@@ -96,6 +96,7 @@ void				Player::setIsTurn(bool bIsTurn) {
 	} else
 		this->_bCanDraw = false;
 	this->_bIsTurn = bIsTurn;
+	redraw();
 }
 
 // Checks does the player need to update
