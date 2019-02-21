@@ -84,11 +84,10 @@ void				Player::setXDif(int xDif) {
 void				Player::setIsTurn(bool bIsTurn) {
 	if (this->_bIsTurn == bIsTurn)
 		return;
-	else if (bIsTurn == true) {
+	else if (bIsTurn == true)
 		this->_bCanDraw = true;
-	} else {
+	else
 		this->_bCanDraw = false;
-	}
 	this->_bIsTurn = bIsTurn;
 }
 
@@ -108,7 +107,9 @@ GamePiece			*Player::createPiece(void) {
 }
 
 void				Player::tick(void) {
-	if (this->_bIsTurn && this->_bCanDraw) {
+	//int input = wgetch(Game::getWindow());
+
+	if (this->_bIsTurn) {
 		_handleUserInput(wgetch(Game::getWindow()));
 	}
 }
@@ -120,6 +121,7 @@ void 				Player::_checkPos(void) {
 }
 
 void				Player::_handleUserInput(int input) {
+	if (!this->_bCanDraw) return;
 	switch(input) {
 		case 'q':
 			_bExitReq = true;

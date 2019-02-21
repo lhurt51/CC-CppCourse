@@ -149,8 +149,7 @@ void 				GameState::tickAllActors(void) {
 	}
 }
 
-void				GameState::runMainLoop(void) {
-	tickAllActors();
+void				GameState::checkGamePiece(void) {
 	if (_gamePiece == nullptr)
 		_gamePiece = _players[_curPlayer].createPiece();
 	else {
@@ -158,12 +157,16 @@ void				GameState::runMainLoop(void) {
 			_actors[4] = nullptr;
 			delete _gamePiece;
 			_gamePiece = nullptr;
-		} else {
-			_gamePiece->setStartPos(Vector2D(_players[_curPlayer].getPos().getX(), _players[_curPlayer].getPos().getY() + 1));
+		} else if (_actors[4] == nullptr) {
 			_actors[4] = _gamePiece;
-			if (_actors[4]) _actors[4]->setCanDraw(true);
+			_actors[4]->setCanDraw(true);
 		}
 	}
+}
+
+void				GameState::runMainLoop(void) {
+	tickAllActors();
+	checkGamePiece();
 }
 
 void				GameState::runWinUpdate(bool bIsToSmall) {
@@ -171,7 +174,6 @@ void				GameState::runWinUpdate(bool bIsToSmall) {
 
 	clear();
 	if (bIsToSmall) {
-		setCurPlayer(5);
 		setAllActorsCanDraw(false);
 		mvprintw(HALF_OF_VAL(_winDem.getY()), HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen(msg)),"%s",msg);
 	} else {

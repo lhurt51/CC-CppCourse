@@ -54,6 +54,7 @@
 		void				deleteAllActors(void);
 		void				setAllActorsCanDraw(bool bCanDraw);
 		void 				tickAllActors(void);
+		void				checkGamePiece(void);
 		void				runMainLoop(void);
 		void				runWinUpdate(bool bIsToSmall);
 
