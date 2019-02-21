@@ -56,7 +56,7 @@
 		void 				tickAllActors(void);
 		void				checkGamePiece(void);
 		void				runMainLoop(void);
-		void				runWinUpdate(bool bIsToSmall);
+		void				runWinUpdate(Vector2D winDem, bool bIsToSmall);
 
 	private:
 

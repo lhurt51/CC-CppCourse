@@ -173,10 +173,11 @@ void				GameState::runMainLoop(void) {
 	checkGamePiece();
 }
 
-void				GameState::runWinUpdate(bool bIsToSmall) {
+void				GameState::runWinUpdate(Vector2D winDem, bool bIsToSmall) {
 	char msg[] = "Error! Window too small";
 
 	clear();
+	setWinDem(winDem);
 	if (bIsToSmall) {
 		setAllActorsCanDraw(false);
 		mvprintw(HALF_OF_VAL(_winDem.getY()), HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen(msg)),"%s",msg);

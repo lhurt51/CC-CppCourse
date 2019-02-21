@@ -75,15 +75,14 @@ bool        	Game::updateWinDem(void) {
 
 void			Game::run(void) {
 	GameState *gameState;
-	
+
 	clear();
 	updateWinDem();
 	gameState = new GameState(_maxWinDem);
 	do {
 		if (gameState->bShouldExit()) break;
 		if (updateWinDem()) {
-			gameState->setWinDem(_maxWinDem);
-			gameState->runWinUpdate(isWindowToSmall());
+			gameState->runWinUpdate(_maxWinDem, isWindowToSmall());
 		} else {
 			gameState->runMainLoop();
 		}
