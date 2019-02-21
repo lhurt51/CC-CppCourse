@@ -19,12 +19,8 @@
 #include "GameState.class.hpp"
 #include "Game.class.hpp"
 
-GameState::GameState(void) : _winDem(Vector2D(0)), _curState(LOADING) {
-	setBoard(Vector2D(-1));
-	return;
-}
-
-GameState::GameState(Vector2D winDem) : _winDem(winDem), _curState(LOADING) {
+GameState::GameState(Vector2D winDem) : _winDem(winDem), _curState(LOADING), _curPlayer(0) {
+	initAllActors();
 	return;
 }
 
@@ -34,7 +30,7 @@ GameState::GameState(GameState const &src) {
 }
 
 GameState::~GameState(void) {
-	_deleteBoard();
+	deleteAllActors();
 	return;
 }
 
@@ -53,6 +49,10 @@ Vector2D			GameState::getWinDem(void) const {
 
 State				GameState::getCurState(void) const {
 	return this->_curState;
+}
+
+int					GameState::getCurPlayer(void) const {
+	return this->_curPlayer;
 }
 
 Board				*GameState::getBoard(void) const {
@@ -77,6 +77,17 @@ void				GameState::setCurState(State curState) {
 	this->_curState = curState;
 }
 
+void					GameState::setCurPlayer(int player) {
+	if (_curPlayer != player) _curPlayer = player;
+	for (unsigned int i = 0; i < _players.size(); i++) {
+		if (_curPlayer == (int)i)
+			_players[i].setIsTurn(true);
+		else
+			_players[i].setIsTurn(false);
+		_players[i].shouldUpdate();
+	}
+}
+
 void				GameState::setBoard(Vector2D pos) {
 	if (pos >= Vector2D(0))
 		this->_board = new Board(pos);
@@ -85,24 +96,32 @@ void				GameState::setBoard(Vector2D pos) {
 }
 
 void				GameState::setPlayers(Board *board) {
-	char randomChar[] = "abcdefghijklmnopqrstuvwxyz";
+	char randomChar[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-	if (board == NULL) return;
+	if (board == nullptr) return;
 	this->_players.reserve(AMOUNT_OF_PLAYERS);
-	for (int i = 0; i < AMOUNT_OF_PLAYERS; i++) {
-		char const randC = randomChar[(rand() % strlen(randomChar))];
+	for (unsigned int i = 0; i < AMOUNT_OF_PLAYERS; i++) {
+		char const randC = randomChar[(std::rand() % (strlen(randomChar) - 1))];
 		this->_players.push_back(Player(board, randC));
 	}
 }
 
 void				GameState::setGamePiece(Player *player) {
-	if (player == NULL) return;
-	this->_gamePiece = new GamePiece(player->getBoard(), player->getSprite(), player->getPos());
+	if (player == nullptr) return;
+	this->_gamePiece = player->createPiece();
+}
+
+bool				GameState::bShouldExit(void) {
+	for (unsigned int i = 0; i < _players.size(); i++) {
+		if (_players[i].getExitReq())
+			return true;
+	}
+	return false;
 }
 
 void				GameState::initAllActors(void) {
 	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++)
-		_actors[i] = NULL;
+		_actors[i] = nullptr;
 	setBoard(Vector2D(HALF_OF_VAL(_winDem.getX()), HALF_OF_VAL(_winDem.getY())));
 	_actors[0] = this->_board;
 	setPlayers(this->_board);
@@ -111,14 +130,40 @@ void				GameState::initAllActors(void) {
 }
 
 void				GameState::deleteAllActors(void) {
+	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++)
+		_actors[i] = nullptr;
+	_deleteBoard();
+	_deletePlayers();
+	_deleteGamePiece();
+}
+
+void				GameState::setAllActorsCanDraw(bool bCanDraw) {
 	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++) {
-		delete _actors[i];
-		_actors[i] = NULL;
+		if (_actors[i]) _actors[i]->setCanDraw(bCanDraw);
+	}
+}
+
+void 				GameState::tickAllActors(void) {
+	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++) {
+		if (_actors[i]) _actors[i]->tick();
 	}
 }
 
 void				GameState::runMainLoop(void) {
-
+	tickAllActors();
+	if (_gamePiece == nullptr)
+		_gamePiece = _players[_curPlayer].createPiece();
+	else {
+		if (_gamePiece->getCanClear()) {
+			_actors[4] = nullptr;
+			delete _gamePiece;
+			_gamePiece = nullptr;
+		} else {
+			_gamePiece->setStartPos(Vector2D(_players[_curPlayer].getPos().getX(), _players[_curPlayer].getPos().getY() + 1));
+			_actors[4] = _gamePiece;
+			if (_actors[4]) _actors[4]->setCanDraw(true);
+		}
+	}
 }
 
 void				GameState::runWinUpdate(bool bIsToSmall) {
@@ -126,14 +171,14 @@ void				GameState::runWinUpdate(bool bIsToSmall) {
 
 	clear();
 	if (bIsToSmall) {
-		// board.setCanDraw(false);
-		// player1.setCanDraw(false);
+		setCurPlayer(5);
+		setAllActorsCanDraw(false);
 		mvprintw(HALF_OF_VAL(_winDem.getY()), HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen(msg)),"%s",msg);
 	} else {
-		// board.setCanDraw(true);
-		// player1.setCanDraw(true);
-		// board.setPos(Vector2D(HALF_OF_VAL(_winDem.getX()), HALF_OF_VAL(this->_winDem.getY())));
-		// player1.shouldUpdate();
+		setAllActorsCanDraw(true);
+		_board->setPos(Vector2D(HALF_OF_VAL(_winDem.getX()), HALF_OF_VAL(_winDem.getY())));
+		setCurPlayer(1);
+		_players[_curPlayer].shouldUpdate();
 		mvprintw(_winDem.getY() - 5, 5, "Width: %d and Height: %d", _winDem.getX(), _winDem.getY());
 	}
 	wborder(Game::getWindow(), '|', '|', '-', '-', 'o', 'o', 'o', 'o');

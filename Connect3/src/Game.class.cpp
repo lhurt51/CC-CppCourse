@@ -17,9 +17,7 @@
 ******************************************************************************/
 
 #include "Game.class.hpp"
-#include "Board.class.hpp"
-#include "Player.class.hpp"
-#include "GamePiece.class.hpp"
+#include "GameState.class.hpp"
 
 WINDOW			*Game::_window = NULL;
 
@@ -76,48 +74,22 @@ bool        	Game::updateWinDem(void) {
 }
 
 void			Game::run(void) {
-	Board board;
-	Player player1(&board, 'G');
-	GamePiece piece(&board, 'X', Vector2D(15, 15));
-	char msg[] = "Error! Window too small";
-
-	board.addPieceToPoint(-3, 7, 'a');
-	board.addPieceToPoint(0, 5, 'b');
-	board.addPieceToPoint(0, 2, 'c');
-	board.addPieceToPoint(1, 1, 'd');
-	board.addPieceToPoint(0, 1, 'e');
-	board.addPieceToPoint(1, 2, 'f');
-	board.addPieceToPoint(3, 2, 'g');
-	player1.setIsTurn(true);
+	GameState *gameState;
+	
+	clear();
+	updateWinDem();
+	gameState = new GameState(_maxWinDem);
 	do {
-		if (player1.getExitReq()) break;
+		if (gameState->bShouldExit()) break;
 		if (updateWinDem()) {
-			clear();
-			if (isWindowToSmall()) {
-				board.setCanDraw(false);
-				player1.setCanDraw(false);
-				piece.setCanDraw(false);
-				mvprintw(HALF_OF_VAL(this->_maxWinDem.getY()), HALF_OF_VAL(this->_maxWinDem.getX()) - HALF_OF_VAL(strlen(msg)),"%s",msg);
-			} else {
-				board.setCanDraw(true);
-				player1.setCanDraw(true);
-				piece.setCanDraw(true);
-				board.setPos(Vector2D(HALF_OF_VAL(this->_maxWinDem.getX()), HALF_OF_VAL(this->_maxWinDem.getY())));
-				player1.shouldUpdate();
-				piece.setStartPos(player1.getPos());
-				mvprintw(this->_maxWinDem.getY() - 5, 5, "Width: %d and Height: %d", this->_maxWinDem.getX(), this->_maxWinDem.getY());
-			}
-			wborder(Game::_window, '|', '|', '-', '-', 'o', 'o', 'o', 'o');
+			gameState->setWinDem(_maxWinDem);
+			gameState->runWinUpdate(isWindowToSmall());
 		} else {
-			board.tick();
-			player1.tick();
-			piece.setStartPos(player1.getPos());
-			piece.tick();
-			Vector2D tmp = board.worldToBoard(piece.getPos());
-			mvprintw(this->_maxWinDem.getY() - 6, 5, "Piece board pos: %d, %d", tmp.getX(), tmp.getY());
+			gameState->runMainLoop();
 		}
 		wrefresh(Game::_window);
 	} while(true);
+	delete gameState;
 	return;
 }
 

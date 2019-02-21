@@ -17,6 +17,7 @@
 ******************************************************************************/
 
 #include "GamePiece.class.hpp"
+#include "Game.class.hpp"
 
 GamePiece::GamePiece(Board *board, char const sprite, Vector2D const pos) : Actor(pos, sprite), _bCanClear(false) , _startPos(pos), _board(board) {
 	return;
@@ -62,13 +63,11 @@ void		GamePiece::tick(void) {
 	static int frame = 0;
 
 	if (this->_bCanClear) return;
-	if (frame % 25000 == 0) {
+	if (frame % 25000 == 0)
 		move(Vector2D(0, 1));
-		//if (frame > 100) this->_bCanClear = true;
-	} else if (frame > 25000) {
+	else if (frame > 25000)
 		frame = 1;
-	}
-	redraw();
+	// redraw();
 	frame++;
 }
 
@@ -79,7 +78,7 @@ void 		GamePiece::_checkPos(void) {
 	if (getBoard()->addPieceToPoint(tmp.getY(), tmp.getX(), getSprite()) || getPos().getY() > _startPos.getY() + BOARD_COLUMN) {
 		_bCanClear = true;
 		_bCanDraw = false;
-		getPos().setY(this->_startPos.getY() + BOARD_COLUMN);
+		_pos.setY(this->_startPos.getY() + BOARD_COLUMN);
 		getBoard()->redraw();
 	}
 }
@@ -87,6 +86,7 @@ void 		GamePiece::_checkPos(void) {
 void		GamePiece::_clear(void) const {
 	Vector2D tmp = getBoard()->worldToBoard(getPos());
 
+	if (this->_bCanClear) return;
 	if (tmp == Vector2D(-1))
 		mvaddch(_pos.getY(), _pos.getX(), ' ');
 	else

@@ -41,7 +41,6 @@ Player			&Player::operator=(Player const &rhs) {
 		this->_xDif = rhs.getXDif();
 		this->_bExitReq = rhs.getExitReq();
 		this->_bSpawnPiece = rhs.getSpawnPiece();
-		//this->_updatePos = rhs.getUpdatePos();
 	}
 	return *this;
 }
@@ -69,11 +68,6 @@ bool				Player::getExitReq(void) const {
 bool				Player::getSpawnPiece(void) const {
 	return this->_bSpawnPiece;
 }
-
-/*
-bool				Player::getUpdatePos(void) const {
-	return this->_updatePos;
-}*/
 
 bool				Player::setBoard(Board* board) {
 	if (this->_board == board) return false;
@@ -105,11 +99,12 @@ void				Player::shouldUpdate(void) {
 GamePiece			*Player::createPiece(void) {
 	Vector2D tmp = _board->worldToBoard(Vector2D(getPos().getX(), getPos().getY() + 2));
 
-	if (this->_bSpawnPiece && !_board->isColFull(tmp.getX())) {
-		this->_bSpawnPiece = false;
-		return new GamePiece(this->_board, this->_sprite, this->getPos());
+	if (_bSpawnPiece) {
+		_bSpawnPiece = false;
+		if (!_board->isColFull(tmp.getX()))
+			return new GamePiece(_board, _sprite, Vector2D(getPos().getX(), getPos().getY() + 1));
 	}
-	return NULL;
+	return nullptr;
 }
 
 void				Player::tick(void) {
@@ -151,6 +146,5 @@ std::ostream	&operator<<(std::ostream &o, Player const &i) {
 	return o << "Player Info:" << std::endl <<
 	"id: " << i.getPlayerID() << std::endl <<
 	"x-dif: " << i.getXDif() << std::endl <<
-	"exit req: " << i.getExitReq() << std::endl; /*<<
-	"update pos?: " << i.getUpdatePos() << std::endl;*/
+	"exit req: " << i.getExitReq() << std::endl;
 }

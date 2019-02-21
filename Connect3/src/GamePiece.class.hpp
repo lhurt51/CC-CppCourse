@@ -14,7 +14,7 @@
 
 		GamePiece(Board *board, char const sprite, Vector2D const pos);
 		GamePiece(GamePiece const &src);
-		virtual ~GamePiece(void);
+		~GamePiece(void);
 
 		GamePiece		&operator=(GamePiece const &rhs);
 

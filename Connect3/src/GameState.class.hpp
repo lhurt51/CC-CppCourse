@@ -16,6 +16,7 @@
 
 		Vector2D 			_winDem;
 		State				_curState;
+		int					_curPlayer;
 		Actor				*_actors[AMOUNT_OF_PLAYERS + 2];
 		Board				*_board;
 		std::vector<Player>	_players;
@@ -23,7 +24,6 @@
 
 	public:
 		// Constructors --
-		GameState(void);
 		GameState(Vector2D winDem);
 		GameState(GameState const &src);
 		~GameState(void);
@@ -34,6 +34,7 @@
 		// Getters --
 		Vector2D			getWinDem(void) const;
 		State				getCurState(void) const;
+		int					getCurPlayer(void) const;
 		Board				*getBoard(void) const;
 		std::vector<Player>	getPlayers(void) const;
 		GamePiece			*getGamePiece(void) const;
@@ -41,14 +42,18 @@
 		// Setters --
 		void				setWinDem(Vector2D winDem);
 		void				setCurState(State curState);
+		void				setCurPlayer(int player);
 		void				setBoard(Vector2D pos);
 		void				setPlayers(Board *board);
 		void				setGamePiece(Player *player);
 
 
 		// Helper methods
+		bool				bShouldExit(void);
 		void				initAllActors(void);
 		void				deleteAllActors(void);
+		void				setAllActorsCanDraw(bool bCanDraw);
+		void 				tickAllActors(void);
 		void				runMainLoop(void);
 		void				runWinUpdate(bool bIsToSmall);
 

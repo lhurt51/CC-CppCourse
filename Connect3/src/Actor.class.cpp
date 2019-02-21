@@ -84,17 +84,17 @@ void		Actor::redraw(void) {
 void 		Actor::_draw(void) const {
 	chtype c;
 
-	c = mvwinch(Game::getWindow(), this->_pos.getY(), _pos.getX());
-	if ((char)c == this->_sprite) return;
-	mvaddch(this->_pos.getY(), this->_pos.getX(), this->_sprite);
+	c = mvwinch(Game::getWindow(), _pos.getY(), _pos.getX());
+	if ((char)c == _sprite) return;
+	mvaddch(_pos.getY(), _pos.getX(), _sprite);
 }
 
 void 		Actor::_clear(void) const {
 	chtype c;
 
-	c = mvwinch(Game::getWindow(), this->_pos.getY(), _pos.getX());
-	if ((char)c != this->_sprite) return;
-	mvaddch(this->_pos.getY(), this->_pos.getX(), ' ');
+	c = mvwinch(Game::getWindow(), _pos.getY(), _pos.getX());
+	if ((char)c != _sprite) return;
+	mvaddch(_pos.getY(), _pos.getX(), ' ');
 }
 
 std::ostream	&operator<<(std::ostream &o, Actor const &i) {
