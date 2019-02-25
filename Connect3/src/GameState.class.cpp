@@ -293,7 +293,7 @@ void				GameState::_gameOverWindowRedraw(void) {
 	mvprintw(HALF_OF_VAL(_winDem.getY()) + 1, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Player #%d has won!")), "Player #%d has won!", _curPlayer + 1);
 }
 
-// Outstream overload for testing
+// Out stream overload for testing
 std::ostream		&operator<<(std::ostream &o, GameState const &i) {
 	return o << "Game State Info:" << std::endl <<
 	"window demensions: " << i.getWinDem() << std::endl <<
