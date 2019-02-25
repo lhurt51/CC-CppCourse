@@ -20,7 +20,7 @@
 #include "Player.class.hpp"
 #include "Game.class.hpp"
 
-Board::Board(void) : Actor(Vector2D(DEFAULT_SPAWN), ' '), _playerSpawn(Vector2D(DEFAULT_SPAWN)) {
+Board::Board(void) : Actor(Vector2D(DEFAULT_SPAWN), ' '), _bHasWon(false), _winningC(' '), _playerSpawn(Vector2D(DEFAULT_SPAWN)) {
 	initBoard();
 	return;
 }
@@ -42,10 +42,20 @@ Board::~Board(void) {
 
 Board		&Board::operator=(Board const &rhs) {
 	if (this != &rhs) {
+		this->_bHasWon = rhs.getHasWon();
+		this->_winningC = rhs.getWinningChar();
 		this->_board = rhs.getBoard();
 		this->_playerSpawn = rhs.getPlayerSpawn();
 	}
 	return *this;
+}
+
+bool		Board::getHasWon(void) const {
+	return this->_bHasWon;
+}
+
+char		Board::getWinningChar(void) const {
+	return this->_winningC;
 }
 
 char		**Board::getBoard(void) const {
@@ -78,6 +88,7 @@ bool		Board::addPieceToPoint(int row, int col, char c) {
 		this->_board[row][col] = c;
 	else
 		return false;
+	checkForWinGame(Vector2D(col, row), c);
 	return true;
 }
 
@@ -118,11 +129,42 @@ Vector2D	Board::worldToBoard(Vector2D world) {
 }
 
 // Check for win game status
-bool		Board::checkForWinGame(Vector2D world, char c) {
+void		Board::checkForWinGame(Vector2D pos, char c) {
+	int i = 0;
 	// NEED TO FIND A WAY TO IMPLEMENT BEFORE PLAYER TURN OVER
-	Vector2D board = worldToBoard(world);
 
-	if (board != Vector2D(-1)) return;
+	if (IS_SIZE_INVALID(pos.getY(), pos.getX()) || _board[pos.getY()][pos.getX()] != c) return;
+	if (!IS_COL_INVALID(pos.getX() + 1) && _board[pos.getY()][pos.getX() + 1] == c) {
+		i++;
+		if (!IS_COL_INVALID(pos.getX() + 2) && _board[pos.getY()][pos.getX() + 2] == c) {
+			this->_bHasWon = true;
+			this->_winningC = c;
+			return;
+		}
+	}
+	if (!IS_COL_INVALID(pos.getX() - 1) && _board[pos.getY()][pos.getX() - 1] == c) {
+		if (++i == 2 || (!IS_COL_INVALID(pos.getX() - 2) && _board[pos.getY()][pos.getX() - 2] == c)) {
+			this->_bHasWon = true;
+			this->_winningC = c;
+			return;
+		}
+	}
+	i = 0;
+	if (!IS_ROW_INVALID(pos.getY() + 1) && _board[pos.getY() + 1][pos.getX()] == c) {
+		i++;
+		if (!IS_ROW_INVALID(pos.getY() + 2) && _board[pos.getY() + 2][pos.getX()] == c) {
+			this->_bHasWon = true;
+			this->_winningC = c;
+			return;
+		}
+	}
+	if (!IS_ROW_INVALID(pos.getY() - 1) && _board[pos.getY() - 1][pos.getX()] == c) {
+		if (++i == 2 || (!IS_ROW_INVALID(pos.getY() - 2) && _board[pos.getY() - 2][pos.getX()] == c)) {
+			this->_bHasWon = true;
+			this->_winningC = c;
+			return;
+		}
+	}
 }
 
 void		Board::tick(void) {

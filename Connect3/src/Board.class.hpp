@@ -5,6 +5,8 @@
 
 	class Board : public Actor {
 
+		bool		_bHasWon;
+		char		_winningC;
 		// A 2D char array acting as a board
 		char		**_board;
 		// A vector for the player to spawn at
@@ -21,6 +23,8 @@
 		Board		&operator=(Board const &rhs);
 
 		// Getters --
+		bool		getHasWon(void) const;
+		char		getWinningChar(void) const;
 		char		**getBoard(void) const;
 		Vector2D	getPlayerSpawn(void) const;
 
@@ -35,7 +39,7 @@
 		bool		isColFull(int col) const;
 		bool		isColEmpty(int col) const;
 		Vector2D	worldToBoard(Vector2D world);
-		bool		checkForWinGame(int x, int y, char c);
+		void		checkForWinGame(Vector2D pos, char c);
 
 		// Actor method implementation --
 		void		tick(void);

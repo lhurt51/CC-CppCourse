@@ -91,7 +91,7 @@ void			Game::run(void) {
 	gameState = new GameState(_maxWinDem);
 	do {
 		if (gameState->bShouldExit()) break;
-		if (updateWinDem()) {
+		if (updateWinDem() || gameState->getCurState() == LOADING) {
 			gameState->runWinUpdate(_maxWinDem, isWindowToSmall());
 		} else {
 			gameState->runMainLoop();

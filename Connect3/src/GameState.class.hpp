@@ -50,20 +50,29 @@
 
 		// Helper methods
 		bool				bShouldExit(void);
-		void				initAllActors(void);
-		void				deleteAllActors(void);
-		void				setAllActorsCanDraw(bool bCanDraw);
-		void 				tickAllActors(void);
-		void				checkGamePiece(void);
 		void				runMainLoop(void);
 		void				runWinUpdate(Vector2D winDem, bool bIsToSmall);
 
 	private:
 
-		// De-constructors --
+		// Private Constructors --
+		void				_initAllActors(void);
+
+		// Private De-constructors --
+		void				_deleteAllActors(void);
 		void				_deleteBoard(void);
 		void				_deletePlayers(void);
 		void				_deleteGamePiece(void);
+
+		// Private setters --
+		void				_setAllActorsCanDraw(bool bCanDraw);
+
+		// Private helper methods --
+		void				_checkGamePiece(void);
+		void				_handleGameOver(void);
+		void 				_tickAllActors(void);
+		void				_mainWindowRedraw(void);
+		void				_gameOverWindowRedraw(void);
 
 	};
 
