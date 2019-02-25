@@ -20,21 +20,25 @@
 #include "GameState.class.hpp"
 #include "Game.class.hpp"
 
+// Initializer for windem Constructor
 GameState::GameState(Vector2D winDem) : _winDem(winDem), _curState(LOADING), _curPlayer(0) {
 	_initAllActors();
 	return;
 }
 
+// Copy constructor
 GameState::GameState(GameState const &src) {
 	*this = src;
 	return;
 }
 
+// Deconstructor
 GameState::~GameState(void) {
 	_deleteAllActors();
 	return;
 }
 
+// Equal sign overload for the copy constructor
 GameState			&GameState::operator=(GameState const &rhs) {
 	if (this != &rhs) {
 		this->_winDem = rhs.getWinDem();
@@ -47,6 +51,7 @@ GameState			&GameState::operator=(GameState const &rhs) {
 	return *this;
 }
 
+// Game State Getters --
 Vector2D			GameState::getWinDem(void) const {
 	return this->_winDem;
 }
@@ -70,7 +75,9 @@ std::vector<Player>	GameState::getPlayers(void) const {
 GamePiece			*GameState::getGamePiece(void) const {
 	return this->_gamePiece;
 }
+// Game State Getters --
 
+// Game State Setters --
 void				GameState::setWinDem(Vector2D winDem) {
 	if (this->_winDem == winDem) return;
 	this->_winDem = winDem;
@@ -93,7 +100,7 @@ void					GameState::setCurPlayer(int player) {
 			_players[i].setIsTurn(false);
 		_players[i].shouldUpdate();
 	}
-	mvprintw(_winDem.getY() - 7, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Current Player - Player #%d")), "Current Player - Player #%d", _curPlayer);
+	mvprintw(_winDem.getY() - 7, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Current Player - Player #%d")), "Current Player - Player #%d", _curPlayer + 1);
 }
 
 void				GameState::setBoard(Vector2D pos) {
@@ -123,7 +130,9 @@ void				GameState::setGamePiece(Player *player) {
 	if (player == nullptr) return;
 	this->_gamePiece = player->createPiece();
 }
+// Game State Setters --
 
+// Check for exit request a request break from program
 bool				GameState::bShouldExit(void) {
 	for (unsigned int i = 0; i < _players.size(); i++) {
 		if (_players[i].getExitReq())
@@ -132,6 +141,7 @@ bool				GameState::bShouldExit(void) {
 	return false;
 }
 
+// Run the main game loop base on the current state
 void				GameState::runMainLoop(void) {
 	switch (_curState) {
 		case LOADING:
@@ -148,6 +158,7 @@ void				GameState::runMainLoop(void) {
 	}
 }
 
+// Run a window update checking for a too small screen otherwise based off of current state
 void				GameState::runWinUpdate(Vector2D winDem, bool bIsToSmall) {
 	char title[] = "Connect 3";
 	char error[] = "Window too small";
@@ -175,6 +186,7 @@ void				GameState::runWinUpdate(Vector2D winDem, bool bIsToSmall) {
 	wborder(Game::getWindow(), '|', '|', '-', '-', 'o', 'o', 'o', 'o');
 }
 
+// Initialize all pointer attributes
 void				GameState::_initAllActors(void) {
 	// Initialize a list of actors to nullptr
 	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++)
@@ -190,6 +202,7 @@ void				GameState::_initAllActors(void) {
 		_actors[i] = &this->_players[i - 1];
 }
 
+// Delete all pointer attributes
 void				GameState::_deleteAllActors(void) {
 	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++)
 		_actors[i] = nullptr;
@@ -198,6 +211,7 @@ void				GameState::_deleteAllActors(void) {
 	_deleteGamePiece();
 }
 
+// Delete the board if the Board is not null
 void				GameState::_deleteBoard(void) {
 	if (this->_board != nullptr) {
 		delete this->_board;
@@ -205,10 +219,12 @@ void				GameState::_deleteBoard(void) {
 	}
 }
 
+// Delete the players if the players array is not empty
 void				GameState::_deletePlayers(void) {
 	if (!this->_players.empty()) this->_players.clear();
 }
 
+// Delete the game piece if it exists
 void				GameState::_deleteGamePiece(void) {
 	if (this->_gamePiece != nullptr) {
 		delete this->_gamePiece;
@@ -216,12 +232,14 @@ void				GameState::_deleteGamePiece(void) {
 	}
 }
 
+// Set all actors can draw to the input param
 void				GameState::_setAllActorsCanDraw(bool bCanDraw) {
 	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++) {
 		if (_actors[i]) _actors[i]->setCanDraw(bCanDraw);
 	}
 }
 
+// Check if there is a game piece and if it is placed check for win game state
 void				GameState::_checkGamePiece(void) {
 	if (_gamePiece == nullptr) {
 		_gamePiece = _players[_curPlayer].createPiece();
@@ -243,6 +261,7 @@ void				GameState::_checkGamePiece(void) {
 	}
 }
 
+// Handle game over state for main loop
 void				GameState::_handleGameOver(void) {
 	static int i = 0;
 
@@ -253,24 +272,28 @@ void				GameState::_handleGameOver(void) {
 	_tickAllActors();
 }
 
+// Tick all actors in the actors list
 void 				GameState::_tickAllActors(void) {
 	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++) {
 		if (_actors[i]) _actors[i]->tick();
 	}
 }
 
+// The Main window redraw for loading and playing game states
 void				GameState::_mainWindowRedraw(void) {
 	_setAllActorsCanDraw(true);
 	_board->setPos(Vector2D(HALF_OF_VAL(_winDem.getX()) + HALF_OF_VAL(BOARD_COLUMN), HALF_OF_VAL(_winDem.getY()) + HALF_OF_VAL(BOARD_ROW)));
 	setCurPlayer(_curPlayer);
 }
 
+// Game over window redraw for when the game is over
 void				GameState::_gameOverWindowRedraw(void) {
 	_setAllActorsCanDraw(false);
 	mvprintw(HALF_OF_VAL(_winDem.getY()), HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Game Over!")), "Game Over!");
 	mvprintw(HALF_OF_VAL(_winDem.getY()) + 1, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Player #%d has won!")), "Player #%d has won!", _curPlayer + 1);
 }
 
+// Outstream overload for testing
 std::ostream		&operator<<(std::ostream &o, GameState const &i) {
 	return o << "Game State Info:" << std::endl <<
 	"window demensions: " << i.getWinDem() << std::endl <<

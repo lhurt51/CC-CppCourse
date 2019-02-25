@@ -6,6 +6,7 @@
 	#include "Player.class.hpp"
 	#include "GamePiece.class.hpp"
 
+	// To keep track of the state of the game
 	enum					State {
 							LOADING,
 							PLAYING,
@@ -14,12 +15,19 @@
 
 	class GameState {
 
+		// Storing window demensions
 		Vector2D 			_winDem;
+		// Storing the cur state of the game
 		State				_curState;
+		// Storing the int of the cur player
 		int					_curPlayer;
+		// Storing all actors, total is 5 (1 for the board) (1 for a gamepiece) (3 for players)
 		Actor				*_actors[AMOUNT_OF_PLAYERS + 2];
+		// A pointer to the board being stored in memory
 		Board				*_board;
+		// An array of players
 		std::vector<Player>	_players;
+		// A pointer to the game piece that might be stored
 		GamePiece			*_gamePiece;
 
 	public:

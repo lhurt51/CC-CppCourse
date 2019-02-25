@@ -5,7 +5,9 @@
 
 	class Board : public Actor {
 
+		// Checking if the game is won
 		bool		_bHasWon;
+		// Stores the character that has won
 		char		_winningC;
 		// A 2D char array acting as a board
 		char		**_board;
