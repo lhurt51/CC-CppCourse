@@ -182,6 +182,7 @@ void				GameState::runWinUpdate(Vector2D winDem, bool bIsToSmall) {
 				break;
 		}
 		mvprintw(3, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen(title)), title);
+		mvprintw(_winDem.getY() - 3, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Press Q to exit")), "Press Q to exit");
 	}
 	wborder(Game::getWindow(), '|', '|', '-', '-', 'o', 'o', 'o', 'o');
 }
