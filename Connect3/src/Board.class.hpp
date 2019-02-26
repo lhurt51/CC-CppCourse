@@ -39,6 +39,7 @@
 
 		// Misc. helper methods --
 		bool		isColFull(int col) const;
+		bool		isBoardFull(void) const;
 		bool		isColEmpty(int col) const;
 		Vector2D	worldToBoard(Vector2D world);
 		void		checkForWinGame(Vector2D pos, char c);
