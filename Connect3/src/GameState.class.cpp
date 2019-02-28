@@ -182,6 +182,7 @@ void				GameState::runWinUpdate(Vector2D winDem, bool bIsToSmall) {
 				break;
 		}
 		mvprintw(3, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen(title)), title);
+		mvprintw(_winDem.getY() - 3, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Press Q to exit")), "Press Q to exit");
 	}
 	wborder(Game::getWindow(), '|', '|', '-', '-', 'o', 'o', 'o', 'o');
 }
@@ -246,14 +247,15 @@ void				GameState::_checkGamePiece(void) {
 		if (_gamePiece != nullptr && _actors[4] == nullptr) {
 			_actors[4] = _gamePiece;
 			_actors[4]->setCanDraw(true);
+		} else if (_board->isBoardFull()) {
+			setCurState(GAMEOVER);
+			_curPlayer = -1;
 		}
 	} else {
 		if (_gamePiece->getCanClear()) {
 			if (_gamePiece->getFoundPos()) {
-				if (_board->getHasWon())
-					setCurState(GAMEOVER);
-				else
-					setCurPlayer(_curPlayer + 1);
+				if (_board->getHasWon()) setCurState(GAMEOVER);
+				else setCurPlayer(_curPlayer + 1);
 			}
 			_actors[4] = nullptr;
 			_deleteGamePiece();
@@ -290,7 +292,8 @@ void				GameState::_mainWindowRedraw(void) {
 void				GameState::_gameOverWindowRedraw(void) {
 	_setAllActorsCanDraw(false);
 	mvprintw(HALF_OF_VAL(_winDem.getY()), HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Game Over!")), "Game Over!");
-	mvprintw(HALF_OF_VAL(_winDem.getY()) + 1, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Player #%d has won!")), "Player #%d has won!", _curPlayer + 1);
+	if (_curPlayer == -1) mvprintw(HALF_OF_VAL(_winDem.getY()) + 1, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Game ended in a stalemate")), "Game ended in a stalemate");
+	else mvprintw(HALF_OF_VAL(_winDem.getY()) + 1, HALF_OF_VAL(_winDem.getX()) - HALF_OF_VAL(strlen("Player #%d has won!")), "Player #%d has won!", _curPlayer + 1);
 }
 
 // Out stream overload for testing

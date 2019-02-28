@@ -120,6 +120,16 @@ bool		Board::isColFull(int col) const {
 		return false;
 }
 
+// Check if the whole board is full
+bool		Board::isBoardFull(void) const {
+	int counter = 0;
+
+	for (int i = BOARD_COLUMN - 1; i >= 0; i--) {
+		if (isColFull(i)) counter++;
+	}
+	return (counter == BOARD_COLUMN);
+}
+
 // Check if board col is empty
 bool		Board::isColEmpty(int col) const {
 	// Look if the col is empty
