@@ -23,16 +23,13 @@ int main() {
     Vector2D<uint_fast32_t> v1(4, 5);
     Vector2D<uint_fast32_t> v2(2, 2);
     Vector2D<float> v3(7.0f, 11.0f);
+    Vector2D<float> v4(2.0f, 5.0f);
 
-    std::cout << v1 << std::endl;
-    v1 /= v2;
-    std::cout << v1 << std::endl;
-    v1 *= 10;
-    std::cout << v1 << std::endl;
-    v1 /= 2;
-    std::cout << v1 << std::endl;
-    v3 /= 2.0f;
-    std::cout << v3 << std::endl;
+    std::cout << v1 + v2 << std::endl;
+    std::cout << v1 / v2 << std::endl;
+    std::cout << v1 * (uint_fast32_t)3 << std::endl;
+    std::cout << (uint_fast32_t)3 * v1 << std::endl;
+    std::cout << v3 / v4 << std::endl;
     // Initialize a new game called my game
     //Game myGame;
 

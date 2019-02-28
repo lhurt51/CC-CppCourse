@@ -99,7 +99,56 @@ Vector2D<T>         Vector2D<T>::operator-(void) const {
     return Vector2D<T>(-x, -y);
 }
 
+///-----------------------------VVVV
+/* ALL DO NOT ALLOW ME to IMPLEMENT IN CPP FOR SOME REASON
+template<typename T>
+Vector2D<T>        operator+(const Vector2D<T> l, const Vector2D<T> r) {
+  return Vector2D<T>(l) += r;
+}
+
+template<typename T>
+Vector2D<T>               operator-(const Vector2D<T> l, const Vector2D<T> r) {
+  return Vector2D<T>(l) -= r;
+}
+
+template<typename T>
+Vector2D<T>               operator*(const Vector2D<T> l, const Vector2D<T> r) {
+  return Vector2D<T>(l) *= r;
+}
+
+template<typename T>
+Vector2D<T>               operator/(const Vector2D<T> l, const Vector2D<T> r) {
+  return Vector2D<T>(l) /= r;
+}
+
+template<typename T>
+Vector2D<T>               operator*(const T s, const Vector2D<T> v) {
+  return Vector2D<T>(v) *= s;
+}
+
+template<typename T>
+Vector2D<T>               operator*(const Vector2D<T> v, const T s) {
+  return Vector2D<T>(v) *= s;
+}
+
+template<typename T>
+Vector2D<T>               operator/(const T s, const Vector2D<T> v) {
+  return Vector2D<T>(v) /= s;
+}
+
+template<typename T>
+Vector2D<T>               operator/(const Vector2D<T> v, const T s) {
+  return Vector2D<T>(v) /= s;
+}
+*/
+
 template class Vector2D<int>;
 template class Vector2D<unsigned int>;
+template class Vector2D<short>;
+template class Vector2D<unsigned short>;
+template class Vector2D<long>;
+template class Vector2D<unsigned long>;
+template class Vector2D<long long>;
+template class Vector2D<unsigned long long>;
 template class Vector2D<double>;
 template class Vector2D<float>;

@@ -1,6 +1,6 @@
 CC =	clang++
 
-FLAG =	-g -Wall -Wextra -Werror -std=c++98 -I ./headers
+FLAG =	-g -Wall -Wextra -Werror -std=c++11 -I ./headers
 
 NAME =	connect3
 
