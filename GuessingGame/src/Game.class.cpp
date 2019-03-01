@@ -16,11 +16,12 @@
 *
 ******************************************************************************/
 
+#include <typedefs.hpp>
 #include "Game.class.hpp"
 #include "GameState.class.hpp"
 
 // Initializing the static window to null
-WINDOW			*Game::_window = nullptr;
+WINDOW					*Game::_window = nullptr;
 
 // Initializing the window with ncurses
 Game::Game(void) {
@@ -54,48 +55,32 @@ Game::~Game(void) {
 	return;
 }
 
-// Overload equal sign for copy constructor
-Game			&Game::operator=(Game const &rhs) {
-	if (this != &rhs) {
-		Game::_window = rhs.getWindow();
-		this->_maxWinDem = rhs.getWinMaxDem();
-	}
-	return *this;
-}
-
 // Getters --
-WINDOW*			Game::getWindow(void) {
+WINDOW*					Game::getWindow(void) {
 	return Game::_window;
 }
 
-Vector2D		Game::getWinMaxDem(void) const {
-	return this->_maxWinDem;
-}
-
 // Update the win demension
-bool        	Game::updateWinDem(void) {
+bool        			Game::updateWinDem(GameState& gameState) {
 	unsigned int x, y;
 
 	getmaxyx(Game::_window, y, x);
-	if (this->_maxWinDem == Vector2D(x, y)) return false;
-	this->_maxWinDem = Vector2D(x, y);
+	if (gameState.getWinDem() == Vector2D<uint_fast32_t>(x, y)) return false;
+	gameState.setWinDem(Vector2D<uint_fast32_t>(x, y));
 	return true;
 }
 
 // Run the window loop
-void			Game::run(void) {
+void					Game::run(void) {
 	GameState *gameState;
 
+	gameState = new GameState(Vector2D<uint_fast32_t>(5));
 	clear();
-	updateWinDem();
-	gameState = new GameState(_maxWinDem);
+	Game::updateWinDem(*gameState);
 	do {
-		if (gameState->bShouldExit()) break;
-		if (updateWinDem() || gameState->getCurState() == LOADING) {
-			gameState->runWinUpdate(_maxWinDem, isWindowToSmall());
-		} else {
-			gameState->runMainLoop();
-		}
+		//if (gameState->bShouldExit()) break;
+		Game::updateWinDem(*gameState);
+		gameState->runMainLoop();
 		wrefresh(Game::_window);
 	} while(true);
 	delete gameState;
@@ -103,22 +88,21 @@ void			Game::run(void) {
 }
 
 // Check the win demensions
-bool            Game::isWindowToSmall(void) {
-	if (this->_maxWinDem > Vector2D(MIN_WIN_SIZE))
-		return false;
+bool            		Game::isWindowToSmall(void) {
+	unsigned int x, y;
+
+	getmaxyx(Game::_window, y, x);
+	if (Vector2D<uint_fast32_t>(x, y) <= Vector2D<uint_fast32_t>(MIN_WIN_SIZE, MIN_WIN_SIZE)) return false;
 	/* Commented out because resizeterm func does not currently work
-	else if (this->_maxWinDem.getX() <= MIN_WIN_SIZE && this->_maxWinDem.getY() > MIN_WIN_SIZE)
-		resizeterm(this->_maxWinDem.getY(), Game::minWinDem.getX());
-	else if (this->_maxWinDem.getY() <= MIN_WIN_SIZE && this->_maxWinDem.getX() > MIN_WIN_SIZE)
-		resizeterm(Game::minWinDem.getY(), this->_maxWinDem.getX());
-	else
-		resizeterm(Game::minWinDem.getY(), Game::minWinDem.getX());
+	else if (this->_maxWinDem.getX() <= MIN_WIN_SIZE && this->_maxWinDem.getY() > MIN_WIN_SIZE) resizeterm(this->_maxWinDem.getY(), Game::minWinDem.getX());
+	else if (this->_maxWinDem.getY() <= MIN_WIN_SIZE && this->_maxWinDem.getX() > MIN_WIN_SIZE) resizeterm(Game::minWinDem.getY(), this->_maxWinDem.getX());
+	else resizeterm(Game::minWinDem.getY(), Game::minWinDem.getX());
 	*/
 	return true;
 }
 
 // Destroy the window and clear any artifacts
-void        	Game::destroyWin(void) {
+void        			Game::destroyWin(void) {
 	wborder(Game::_window, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	wrefresh(Game::_window);
 	delwin(Game::_window);
@@ -128,8 +112,7 @@ void        	Game::destroyWin(void) {
 }
 
 // To print out all of the games attributes
-std::ostream	&operator<<(std::ostream &o, Game const &i) {
+std::ostream			&operator<<(std::ostream &o, Game const &i) {
 	return o << "Game Thread Info:" << std::endl <<
-	"Window addr: " << i.getWindow() << std::endl <<
-	"Window demension: " << i.getWinMaxDem() << std::endl;
+	"Window addr: " << i.getWindow() << std::endl;
 }

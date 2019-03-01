@@ -2,11 +2,10 @@
   #define GAME_CLASS_HPP
 
   #include <ncurses.h>
-  #include "Vector2D.class.hpp"
+  #include "GameState.class.hpp"
 
   class Game {
-    static WINDOW*  _window;
-    //Vector2D        _maxWinDem;
+    static WINDOW*              _window;
 
   public:
 
@@ -15,25 +14,21 @@
     Game(Game const &src);
     ~Game(void);
 
-    // Overload operators --
-    Game            &operator=(Game const &rhs);
-
     // Getters --
-    static WINDOW*  getWindow(void);
-    //Vector2D        getWinMaxDem(void) const;
+    static WINDOW*              getWindow(void);
 
-    // Setters --
-    bool            updateWinDem(void);
+    // Non Static update window --
+    static bool                 updateWinDem(GameState& gameState);
 
-    // Helper methods --
-    void            run(void);
-    bool            isWindowToSmall(void);
+    // Static helper methods --
+    static void                 run(void);
+    static bool                 isWindowToSmall(void);
 
     // Destructors --
-    void            destroyWin(void);
+    static void                  destroyWin(void);
   };
 
   // To print the game thread info
-  std::ostream      &operator<<(std::ostream &o, Game const &i);
+  std::ostream                  &operator<<(std::ostream &o, Game const &i);
 
 #endif

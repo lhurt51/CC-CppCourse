@@ -1,9 +1,9 @@
 #ifndef VECTOR2D_CLASS_HPP
   #define VECTOR2D_CLASS_HPP
 
-  #include <includes.hpp>
+  #include <iostream>
   #include <tuple>
-  #include <set>
+  #include <cmath>
   #include <cfloat>
   #include <climits>
 
@@ -31,12 +31,12 @@
     Vector2D&               operator/=(const Vector2D& v);
     Vector2D&               operator*=(const T& s);
     Vector2D&               operator/=(const T& s);
-    Vector2D                operator-(void) const;
+    Vector2D                operator-(void) const { return Vector2D<T>(-x, -y); };
 
-    friend bool             operator>(const Vector2D& l, const Vector2D& r) { return std::tie(l.x, l.y) < std::tie(r.x, r.y); };
-    friend bool             operator<(const Vector2D& l, const Vector2D& r) { return r < l; };
-    friend bool             operator>=(const Vector2D& l, const Vector2D& r) { return !(l < r); };
-    friend bool             operator<=(const Vector2D& l, const Vector2D& r) { return !(r < l); };
+    friend bool             operator<(const Vector2D& l, const Vector2D& r) { return std::tie(l.x, l.y) < std::tie(r.x, r.y); };
+    friend bool             operator<=(const Vector2D& l, const Vector2D& r) { return !(l < r); };
+    friend bool             operator>(const Vector2D& l, const Vector2D& r) { return r < l; };
+    friend bool             operator>=(const Vector2D& l, const Vector2D& r) { return !(r < l); };
     friend bool             operator==(const Vector2D& l, const Vector2D& r) { return std::tie(l.x, l.y) == std::tie(r.x, r.y); };
     friend bool             operator!=(const Vector2D& l, const Vector2D& r) { return !(l == r); };
 
@@ -64,9 +64,9 @@
 
   // Utility Functions
   template<typename T>
-  T                         DotProduct(const Vector2D<T>& a, const Vector2D<T>& b);
+  extern T                  DotProduct(const Vector2D<T>& a, const Vector2D<T>& b);
   template<typename T>
-  T                         CrossProduct(const Vector2D<T>& a, const Vector2D<T>& b);
+  extern T                  CrossProduct(const Vector2D<T>& a, const Vector2D<T>& b);
   template<typename T>
   T                         EuclideanNorm(const Vector2D<T>& v);
   template<typename T>

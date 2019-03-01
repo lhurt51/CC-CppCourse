@@ -94,13 +94,14 @@ Vector2D<T>&        Vector2D<T>::operator/=(const T& s) {
     return *this;
 }
 
+/* Inline implementation so no need for the cpp
 template<typename T>
 Vector2D<T>         Vector2D<T>::operator-(void) const {
     return Vector2D<T>(-x, -y);
 }
 
-///-----------------------------VVVV
-/* ALL DO NOT ALLOW ME to IMPLEMENT IN CPP FOR SOME REASON
+\\\-----------------------------VVVVVVVVV-----------------------------------///
+ALL DO NOT ALLOW ME to IMPLEMENT IN CPP FOR SOME REASON
 template<typename T>
 Vector2D<T>        operator+(const Vector2D<T> l, const Vector2D<T> r) {
   return Vector2D<T>(l) += r;
@@ -138,17 +139,58 @@ Vector2D<T>               operator/(const T s, const Vector2D<T> v) {
 
 template<typename T>
 Vector2D<T>               operator/(const Vector2D<T> v, const T s) {
-  return Vector2D<T>(v) /= s;
+      return Vector2D<T>(v) /= s;
 }
+\\\-----------------------------^^^^^^^^^-----------------------------------///
 */
 
-template class Vector2D<int>;
-template class Vector2D<unsigned int>;
-template class Vector2D<short>;
-template class Vector2D<unsigned short>;
-template class Vector2D<long>;
-template class Vector2D<unsigned long>;
-template class Vector2D<long long>;
-template class Vector2D<unsigned long long>;
-template class Vector2D<double>;
-template class Vector2D<float>;
+template<typename T>
+T                         DotProduct(const Vector2D<T>& a, const Vector2D<T>& b) {
+    return ((a.x * b.x) + (a.y + b.y));
+}
+
+template<typename T>
+T                         CrossProduct(const Vector2D<T>& a, const Vector2D<T>& b) {
+    return ((a.x * b.y) - (a.y * b.x));
+}
+
+
+template<typename T>
+T                         EuclideanNorm(const Vector2D<T>& v) {
+    return std::sqrt((v.x * v.x) + (v.y * v.y));
+}
+
+template<typename T>
+Vector2D<T>               Normal(const Vector2D<T>& v) {
+    float magnitude = EuclideanNorm(v);
+    return Vector2D<T>(v.x / magnitude, v.y / magnitude);
+}
+
+template<typename T>
+Vector2D<T>               Perpendicular(const Vector2D<T>& v) {
+    return Vector2D<T>(v.y, -v.x);
+}
+
+template<typename T>
+bool                      Inersect(const Vector2D<T>& line1A, const Vector2D<T>& line1B, const Vector2D<T>& line2A, const Vector2D<T>& line2B) {
+    Vector2D<T> p = line1A;
+    Vector2D<T> r = line1B - line1A;
+    Vector2D<T> q = line2A;
+    Vector2D<T> s = line2B - line2A;
+
+    float t = CrossProduct((q - p), s) / CrossProduct(r, s);
+    float u = CrossProduct((q - p), r) / CrossProduct(r, s);
+
+    return (0.0 <= t && t <= 1.0) && (0.0 <= u && u <= 1.0);
+}
+
+template<typename T>
+Vector2D<T>               GetInersect(const Vector2D<T>& line1A, const Vector2D<T>& line1B, const Vector2D<T>& line2A, const Vector2D<T>& line2B) {
+    float pX = CrossProduct(line1A, line1B) * (line2A.x - line2B.x) -
+                CrossProduct(line2A, line2B) * (line1A.x - line1B.x);
+    float pY = CrossProduct(line1A, line1B) * (line2A.y - line2B.y) -
+                CrossProduct(line2A, line2B) * (line1A.y - line1B.y);
+    float denom = (line1A.x - line1B.x) * (line2A.y - line2B.y) -
+                (line1A.y - line1B.y) * (line2A.x - line2B.x);
+    return Vector2D<T>(pX / denom, pY / denom);
+}

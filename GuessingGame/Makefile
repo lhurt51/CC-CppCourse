@@ -10,7 +10,9 @@ SDIR =	./src
 
 SRCS =	$(addprefix $(SDIR)/, \
 			main.cpp \
-			Vector2D.class.cpp \
+			Vector2D-impl.class.cpp \
+			Game.class.cpp \
+			GameState.class.cpp \
 		)
 
 FDIR =	frame
