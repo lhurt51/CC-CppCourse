@@ -6,24 +6,36 @@
 * 2/6/2019
 *
 * Assignment Requirement:
-* Develop and test a connect - 4 like game except:
-*
-* Only need to connect 3
-* There will be 3 players
-* Only need to connect vertical and horizontal
-* Use a board of 5 by 6 with header for the column number
-* Use ASCII graphics
+* - Ask the user to guess a whole number between 1 and 1000 or character 'A'
+*   to 'Z'
+* - Your program will try to find the number
+* - Keep track of the number of guesses by the computer
+* - Use Recursive one of two search techniques: linear search or binary search
+*   or randomize guess of a number.
+* - Use a template class so the program could be used for integer or character,
+*   your test function within your class should run with integer first then a
+*   character
+* - Use a randomized random number or letter generator for the item to guess
+* - Allow the computer to have only 15 guesses
+* - Your game class will have two functions or methods: playTheGame and static
+*   Test
+* - Your game shall have two modes: automatic where the computer tries to guess
+*   you number without any input from you (except for the guess number) and
+*   manual mode where each guess of the computer requires your input of Higher,
+*   Lower, Right
 *
 ******************************************************************************/
 
 #include "Actor.class.hpp"
 #include "Game.class.hpp"
 
-Actor::Actor(Vector2D pos, char const sprite) : _bCanDraw(false), _bCanClear(false) _pos(pos), _sprite(sprite) {
+unsigned int			Actor::actorCount = 0;
+
+Actor::Actor(Vector2D pos, char const sprite) : _id(Actor::actorCount++), _bCanDraw(false), _bCanClear(false) _pos(pos), _sprite(sprite) {
 	return;
 }
 
-Actor::Actor(Actor const &src) : _sprite(src.getSprite()) {
+Actor::Actor(Actor const &src) : _id(src.getId()), _sprite(src.getSprite()) {
 	*this = src;
 	return;
 }
@@ -35,12 +47,17 @@ Actor::~Actor(void) {
 
 Actor 	&Actor::operator=(Actor const &rhs) {
 	if (this != &rhs) {
+		(int&)this->_id = rhs.getId();
 		this->_bCanDraw = rhs.getCanDraw();
 		this->_bCanClear = rhs.getCanClear();
 		this->_pos = rhs.getPos();
 		(char&)this->_sprite = rhs.getSprite();
 	}
 	return *this;
+}
+
+int			Actor::getId(void) const {
+	return this->_id;
 }
 
 bool		Actor::getCanDraw(void) const {

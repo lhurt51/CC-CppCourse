@@ -6,13 +6,23 @@
 * 2/6/2019
 *
 * Assignment Requirement:
-* Develop and test a connect - 4 like game except:
-*
-* Only need to connect 3
-* There will be 3 players
-* Only need to connect vertical and horizontal
-* Use a board of 5 by 6 with header for the column number
-* Use ASCII graphics
+* - Ask the user to guess a whole number between 1 and 1000 or character 'A'
+*   to 'Z'
+* - Your program will try to find the number
+* - Keep track of the number of guesses by the computer
+* - Use Recursive one of two search techniques: linear search or binary search
+*   or randomize guess of a number.
+* - Use a template class so the program could be used for integer or character,
+*   your test function within your class should run with integer first then a
+*   character
+* - Use a randomized random number or letter generator for the item to guess
+* - Allow the computer to have only 15 guesses
+* - Your game class will have two functions or methods: playTheGame and static
+*   Test
+* - Your game shall have two modes: automatic where the computer tries to guess
+*   you number without any input from you (except for the guess number) and
+*   manual mode where each guess of the computer requires your input of Higher,
+*   Lower, Right
 *
 ******************************************************************************/
 
@@ -65,9 +75,13 @@ void					GameState::setWinDem(Vector2D<uint_fast32_t> winDem) {
 	setCurState(LOADING);
 }
 
-void					GameState::setCurState(State curState) {
-	if (this->_curState == curState) return;
+State					GameState::setCurState(State curState) {
+	static State lastState;
+
+	if (this->_curState == curState) return lastState;
+	lastState = this->_curState;
 	this->_curState = curState;
+	return lastState;
 }
 // Game State Setters --
 
@@ -86,13 +100,16 @@ bool					GameState::bShouldExit(void) {
 void					GameState::runMainLoop(void) {
 	switch (_curState) {
 		case LOADING:
-			_curState = PLAYING;
+			_curState = setCurState(LOADING);
 			runWinUpdate(Game::isWindowToSmall());
+			break;
 		case PLAYING:
 			//_tickAllActors();
 			break;
 		case GAMEOVER:
 			_handleGameOver();
+			break;
+		case EXITING:
 			break;
 		default:
 			break;
@@ -101,17 +118,13 @@ void					GameState::runMainLoop(void) {
 
 // Run a window update checking for a too small screen otherwise based off of current state
 void					GameState::runWinUpdate(bool bIsToSmall) {
-	char title[] = "Connect 3";
-	char error[] = "Window too small";
-
 	clear();
 	if (bIsToSmall) {
 		//_setAllActorsCanDraw(false);
-		mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(error)), error);
+		mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(WIN_2_SMALL_MSG)), WIN_2_SMALL_MSG);
 	} else {
 		switch(_curState) {
 			case LOADING:
-				_curState = PLAYING;
 			case PLAYING:
 				_mainWindowRedraw();
 				break;
@@ -121,7 +134,7 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 			default:
 				break;
 		}
-		mvprintw(3, HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(title)), title);
+		mvprintw(3, HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_NAME)), GAME_NAME);
 	}
 	wborder(Game::getWindow(), '|', '|', '-', '-', 'o', 'o', 'o', 'o');
 }
@@ -150,13 +163,7 @@ void					GameState::_setAllActorsCanDraw(bool bCanDraw) {
 
 // Handle game over state for main loop
 void				GameState::_handleGameOver(void) {
-	static int i = 0;
-
-	if (i == 0) {
-		runWinUpdate(false);
-		i++;
-	}
-	//_tickAllActors();
+	setCurState(LOADING);
 }
 
 // Tick all actors in the actors list
@@ -176,8 +183,8 @@ void				GameState::_mainWindowRedraw(void) {
 // Game over window redraw for when the game is over
 void				GameState::_gameOverWindowRedraw(void) {
 	//_setAllActorsCanDraw(false);
-	mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen("Game Over!")), "Game Over!");
-	//mvprintw(HALF_OF_VAL(_winDem.y) + 1, HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen("Player #%d has won!")), "Player #%d has won!", _curPlayer + 1);
+	mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_OVER_MSG)), GAME_OVER_MSG);
+	//mvprintw(HALF_OF_VAL(_winDem.y) + 1, HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_OVER_STATS)), GAME_OVER_STATS, 3);
 }
 
 // Out stream overload for testing

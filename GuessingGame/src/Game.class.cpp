@@ -6,13 +6,23 @@
 * 2/6/2019
 *
 * Assignment Requirement:
-* Develop and test a connect - 4 like game except:
-*
-* Only need to connect 3
-* There will be 3 players
-* Only need to connect vertical and horizontal
-* Use a board of 5 by 6 with header for the column number
-* Use ASCII graphics
+* - Ask the user to guess a whole number between 1 and 1000 or character 'A'
+*   to 'Z'
+* - Your program will try to find the number
+* - Keep track of the number of guesses by the computer
+* - Use Recursive one of two search techniques: linear search or binary search
+*   or randomize guess of a number.
+* - Use a template class so the program could be used for integer or character,
+*   your test function within your class should run with integer first then a
+*   character
+* - Use a randomized random number or letter generator for the item to guess
+* - Allow the computer to have only 15 guesses
+* - Your game class will have two functions or methods: playTheGame and static
+*   Test
+* - Your game shall have two modes: automatic where the computer tries to guess
+*   you number without any input from you (except for the guess number) and
+*   manual mode where each guess of the computer requires your input of Higher,
+*   Lower, Right
 *
 ******************************************************************************/
 
@@ -23,8 +33,12 @@
 // Initializing the static window to null
 WINDOW					*Game::_window = nullptr;
 
-// Initializing the window with ncurses
-Game::Game(void) {
+// Getters --
+WINDOW*					Game::getWindow(void) {
+	return Game::_window;
+}
+
+void                 	Game::initWindow(void) {
 	Game::_window = initscr();
 	cbreak();
 	noecho();
@@ -40,34 +54,14 @@ Game::Game(void) {
 	}
 	start_color();
 	*/
-	return;
-}
-
-// Copy constructor --
-Game::Game(Game const &src) {
-	*this = src;
-	return;
-}
-
-// Deconstructor --
-Game::~Game(void) {
-	destroyWin();
-	return;
-}
-
-// Getters --
-WINDOW*					Game::getWindow(void) {
-	return Game::_window;
 }
 
 // Update the win demension
-bool        			Game::updateWinDem(GameState& gameState) {
+void        			Game::updateWinDem(GameState& gameState) {
 	unsigned int x, y;
 
 	getmaxyx(Game::_window, y, x);
-	if (gameState.getWinDem() == Vector2D<uint_fast32_t>(x, y)) return false;
 	gameState.setWinDem(Vector2D<uint_fast32_t>(x, y));
-	return true;
 }
 
 // Run the window loop
@@ -78,7 +72,7 @@ void					Game::run(void) {
 	clear();
 	Game::updateWinDem(*gameState);
 	do {
-		//if (gameState->bShouldExit()) break;
+		if (gameState->getCurState() == EXITING) break;
 		Game::updateWinDem(*gameState);
 		gameState->runMainLoop();
 		wrefresh(Game::_window);
@@ -92,12 +86,7 @@ bool            		Game::isWindowToSmall(void) {
 	unsigned int x, y;
 
 	getmaxyx(Game::_window, y, x);
-	if (Vector2D<uint_fast32_t>(x, y) <= Vector2D<uint_fast32_t>(MIN_WIN_SIZE, MIN_WIN_SIZE)) return false;
-	/* Commented out because resizeterm func does not currently work
-	else if (this->_maxWinDem.getX() <= MIN_WIN_SIZE && this->_maxWinDem.getY() > MIN_WIN_SIZE) resizeterm(this->_maxWinDem.getY(), Game::minWinDem.getX());
-	else if (this->_maxWinDem.getY() <= MIN_WIN_SIZE && this->_maxWinDem.getX() > MIN_WIN_SIZE) resizeterm(Game::minWinDem.getY(), this->_maxWinDem.getX());
-	else resizeterm(Game::minWinDem.getY(), Game::minWinDem.getX());
-	*/
+	if (x > MIN_WIN_SIZE && y > MIN_WIN_SIZE) return false;
 	return true;
 }
 

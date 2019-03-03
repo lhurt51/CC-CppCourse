@@ -8,6 +8,8 @@
 
 	class Actor {
 
+		unsigned int const			_id;
+
 	protected:
 
 		bool						_bCanDraw;
@@ -16,6 +18,8 @@
 		char const					_sprite;
 
 	public:
+		
+		static unsigned int			actorCount;
 
 		Actor(Vector2D pos, char const sprite);
 		Actor(Actor const &src);
@@ -23,6 +27,7 @@
 
 		Actor						&operator=(Actor const &rhs);
 
+		int							getId(void) const;
 		bool						getCanDraw(void) const;
 		bool						getCanClear(void) const;
 		Vector2D					getPos(void) const;

@@ -26,17 +26,4 @@
 *
 ******************************************************************************/
 
-#include "Game.class.hpp"
-
-int main() {
-    // Initialize a new game called my game
-    Game::initWindow();
-
-    // Run the game
-    Game::run();
-
-    Game::destroyWin();
-
-    // On exit return 0
-    return 0;
-}
+#include "Guessing.class.hpp"

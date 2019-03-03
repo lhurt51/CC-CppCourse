@@ -9,18 +9,12 @@
 
   public:
 
-    // Constructors --
-    Game(void);
-    Game(Game const &src);
-    ~Game(void);
-
     // Getters --
     static WINDOW*              getWindow(void);
 
-    // Non Static update window --
-    static bool                 updateWinDem(GameState& gameState);
-
     // Static helper methods --
+    static void                 initWindow(void);
+    static void                 updateWinDem(GameState& gameState);
     static void                 run(void);
     static bool                 isWindowToSmall(void);
 

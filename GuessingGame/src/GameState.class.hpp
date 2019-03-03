@@ -6,6 +6,7 @@
 	// To keep track of the state of the game
 	enum							State {
 									LOADING,
+									STARTING,
 									PLAYING,
 									GAMEOVER,
 									EXITING
@@ -35,7 +36,7 @@
 
 		// Setters --
 		void						setWinDem(Vector2D<uint_fast32_t> winDem);
-		void						setCurState(State curState);
+		State						setCurState(State curState);
 
 		// Helper methods
 		bool						bShouldExit(void);
@@ -54,6 +55,8 @@
 		//void						_setAllActorsCanDraw(bool bCanDraw);
 
 		// Private helper methods --
+		void						_startMainGame(void);
+		void						_handleMainGame(void);
 		void						_handleGameOver(void);
 		//void 						_tickAllActors(void);
 		void						_mainWindowRedraw(void);
