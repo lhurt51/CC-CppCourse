@@ -17,6 +17,7 @@
     static void                 updateWinDem(GameState& gameState);
     static void                 run(void);
     static bool                 isWindowToSmall(void);
+    static float                calculateFPS(void);
 
     // Destructors --
     static void                  destroyWin(void);

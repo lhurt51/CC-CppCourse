@@ -28,7 +28,7 @@
 
 #include "Player.class.hpp"
 
-Player::Player(Vector2D<uint_fast32_t> pos) : Actor(pos, '-'), bCanInput(true), _bExitReq(false), _bIsTyping(false) {
+Player::Player(void) : Actor(Vector2D<uint_fast32_t>(DEFAULT_SPAWN), ' '), bCanInput(true), _bExitReq(false), _bIsTyping(false) {
 	return;
 }
 
@@ -87,7 +87,9 @@ void				Player::tick(void) {
 
 // Overloaded Protected Actor Methods --
 void				Player::_checkPos(void) {
-
+	Vector2D<uint_fast32_t> default(DEFAULT_SPAWN);
+	
+	if (_pos != default) _pos = default;
 }
 
 // Handle the users input

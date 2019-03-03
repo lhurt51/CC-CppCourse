@@ -15,7 +15,7 @@
 	public:
 
 		// Constructors --
-		Player(Vector2D<uint_fast32_t> pos);
+		Player(void);
 		Player(Player const &src);
 		virtual ~Player(void);
 

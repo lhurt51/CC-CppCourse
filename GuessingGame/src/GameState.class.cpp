@@ -76,10 +76,10 @@ void					GameState::setWinDem(Vector2D<uint_fast32_t> winDem) {
 }
 
 State					GameState::setCurState(State curState) {
-	static State lastState;
+	static State lastState = STARTING;
 
 	if (this->_curState == curState) return lastState;
-	lastState = this->_curState;
+	else if (_curState != LOADING) lastState = this->_curState;
 	this->_curState = curState;
 	return lastState;
 }
@@ -98,12 +98,19 @@ bool					GameState::bShouldExit(void) {
 
 // Run the main game loop base on the current state
 void					GameState::runMainLoop(void) {
+	float fps;
+
 	switch (_curState) {
 		case LOADING:
-			_curState = setCurState(LOADING);
+			setCurState(setCurState(LOADING));
 			runWinUpdate(Game::isWindowToSmall());
 			break;
+		case STARTING:
+			setCurState(PLAYING);
+			break;
 		case PLAYING:
+			fps = Game::calculateFPS();
+			mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_FPS)) - HALF_OF_VAL(std::to_string(fps).length()), GAME_FPS, fps);
 			//_tickAllActors();
 			break;
 		case GAMEOVER:
@@ -125,12 +132,16 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 	} else {
 		switch(_curState) {
 			case LOADING:
+			case STARTING:
+				break;
 			case PLAYING:
 				_mainWindowRedraw();
 				break;
 			case GAMEOVER:
 				_gameOverWindowRedraw();
 				break;
+			case EXITING:
+
 			default:
 				break;
 		}

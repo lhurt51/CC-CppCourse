@@ -27,6 +27,7 @@
 ******************************************************************************/
 
 #include <typedefs.hpp>
+#include <time.h>
 #include "Game.class.hpp"
 #include "GameState.class.hpp"
 
@@ -54,6 +55,7 @@ void                 	Game::initWindow(void) {
 	}
 	start_color();
 	*/
+	Game::calculateFPS();
 }
 
 // Update the win demension
@@ -88,6 +90,31 @@ bool            		Game::isWindowToSmall(void) {
 	getmaxyx(Game::_window, y, x);
 	if (x > MIN_WIN_SIZE && y > MIN_WIN_SIZE) return false;
 	return true;
+}
+
+float                	Game::calculateFPS(void) {
+	static int		frames = 0;
+	static double	startTime = 0;
+	static bool		first = TRUE;
+	static float	fps = 0.0f;
+	static time_t	systemTime = time (NULL);
+	float			timePassed = time(NULL) - systemTime;
+
+	if (first)
+	{
+	    frames = 0;
+	    startTime = timePassed;
+	    first = FALSE;
+	    return 0.0;
+	}
+	frames++;
+	if (timePassed - startTime > 0.25 && frames > 10)
+	{
+	    fps = (double) frames / (timePassed - startTime);
+	    startTime = timePassed;
+	    frames = 0;
+	}
+	return fps;
 }
 
 // Destroy the window and clear any artifacts
