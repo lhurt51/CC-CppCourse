@@ -2,6 +2,7 @@
   #define GAME_ENGINE_CLASS_HPP
 
   #include <ncurses.h>
+  #include <includes.hpp>
   #include "GameState.class.hpp"
 
   class GameEngine {
@@ -17,9 +18,10 @@
     static WINDOW*              getWindow(void);
 
     // Static helper methods --
-    static bool                 isWindowToSmall(Vector2D<uint_fast32_t> v);
+    static bool                 isWindowToSmall(const Vector2D<uint_fast32_t> v);
+    static float                calculateDT(void);
     static float                calculateFPS(void);
-    static void                 printMiddle(Vector2D<uint_fast32_t> pos, std::string msg, Vector2D<uint_fast32_t> size);
+    static void                 printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg, const bool clear);
 
     // Regular class methods --
     void                        start(void);
@@ -36,5 +38,7 @@ private:
 
   // To print the game thread info
   std::ostream                  &operator<<(std::ostream &o, GameEngine const &i);
+
+  std::vector<std::string>      split(const std::string& s, char delimiter);
 
 #endif

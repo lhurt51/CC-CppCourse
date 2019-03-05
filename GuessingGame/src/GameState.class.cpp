@@ -98,7 +98,8 @@ bool					GameState::bShouldExit(void) {
 
 // Run the main game loop base on the current state
 void					GameState::runMainLoop(void) {
-	float fps;
+	float	fps;
+	char	buffer[128];
 
 	switch (_curState) {
 		case LOADING:
@@ -110,7 +111,8 @@ void					GameState::runMainLoop(void) {
 			break;
 		case PLAYING:
 			fps = GameEngine::calculateFPS();
-			mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_FPS)) - HALF_OF_VAL(std::to_string(fps).length()), GAME_FPS, fps);
+			snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
+			GameEngine::printMiddle(_winDem, buffer, false);
 			//_tickAllActors();
 			break;
 		case GAMEOVER:
@@ -151,7 +153,13 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 }
 
 void						GameState::runState(float deltaTime) {
+	if (deltaTime < 0.0) return;
+	char	buffer[128];
+	float fps = GameEngine::calculateFPS();
+	Vector2D<uint_fast32_t> msgPos(_winDem.x, HALF_OF_VAL(_winDem.y));
 
+	snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
+	GameEngine::printMiddle(msgPos, buffer, false);
 }
 
 // Initialize all pointer attributes

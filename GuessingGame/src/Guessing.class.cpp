@@ -27,3 +27,27 @@
 ******************************************************************************/
 
 #include "Guessing.class.hpp"
+
+template<typename T>
+int binary_search(const std::vector<T>& vec, int start, int end, const T& key)
+{
+    // Termination condition: start index greater than end index
+    if(start > end) return -1;
+
+    // Find the middle element of the vector and use that for splitting
+    // the array into two pieces.
+    const int middle = start + ((end - start) / 2);
+
+    if(vec[middle] == key)
+    {
+        return middle;
+    }
+    else if(vec[middle] > key)
+    {
+        return binary_search(vec, start, middle - 1, key);
+    }
+    else
+    {
+        return binary_search(vec, middle + 1, end, key);
+    }
+}

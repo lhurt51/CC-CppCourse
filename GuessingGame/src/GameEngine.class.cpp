@@ -26,8 +26,9 @@
 *
 ******************************************************************************/
 
-#include <typedefs.hpp>
 #include <time.h>
+#include <sstream>
+#include <typedefs.hpp>
 #include "GameEngine.class.hpp"
 #include "GameState.class.hpp"
 
@@ -50,9 +51,15 @@ WINDOW*					GameEngine::getWindow(void) {
 }
 
 // Static check the win demensions
-bool            		GameEngine::isWindowToSmall(Vector2D<uint_fast32_t> v) {
+bool            		GameEngine::isWindowToSmall(const Vector2D<uint_fast32_t> v) {
 	if (v.x > MIN_WIN_SIZE && v.y > MIN_WIN_SIZE) return false;
 	return true;
+}
+
+float                GameEngine::calculateDT(void) {
+	static time_t	systemTime = time (NULL);
+	float			timePassed = time(NULL) - systemTime;
+	return timePassed;
 }
 
 float                	GameEngine::calculateFPS(void) {
@@ -80,17 +87,29 @@ float                	GameEngine::calculateFPS(void) {
 	return fps;
 }
 
-void                 printMiddle(Vector2D<uint_fast32_t> pos, std::string msg, Vector2D<uint_fast32_t> size) {
-	mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(msg)), GAME_OVER_MSG);
+void                 GameEngine::printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg, const bool clear) {
+	std::vector<std::string> strs;
+
+	strs = split(msg, '\n');
+	for (unsigned int i = 0; i < strs.size(); i++) {
+		unsigned int halfOfString = HALF_OF_VAL(strs[i].length());
+
+		if (!clear) mvprintw(HALF_OF_VAL(pos.y + i), HALF_OF_VAL(pos.x) - halfOfString, strs[i].c_str());
+		else
+		{
+			for (unsigned int j = -halfOfString; j < halfOfString; j++ )
+				mvaddch(HALF_OF_VAL(pos.y + i), HALF_OF_VAL(pos.x) + j, ' ');
+		}
+	}
 }
 
 // Run the window loop
 void					GameEngine::start(void) {
-	//GameState *gameState;
+	GameState *gameState;
 
-	//gameState = new GameState(Vector2D<uint_fast32_t>(5));
-	//clear();
-	//Game::updateWinDem(*gameState);
+	gameState = new GameState(Vector2D<uint_fast32_t>(5));
+	clear();
+	_updateWinDem(*gameState);
 	_initWindow();
 	do {
 		/*
@@ -98,11 +117,11 @@ void					GameEngine::start(void) {
 		Game::updateWinDem(*gameState);
 		gameState->runMainLoop();
 		*/
-
+		gameState->runState(0.0f);
 		wrefresh(GameEngine::_window);
 	} while(true);
+	delete gameState;
 	_destroyWin();
-	//delete gameState;
 	return;
 }
 
@@ -144,4 +163,17 @@ void        			GameEngine::_destroyWin(void) {
 std::ostream			&operator<<(std::ostream &o, GameEngine const &i) {
 	return o << "Game Thread Info:" << std::endl <<
 	"Window addr: " << i.getWindow() << std::endl;
+}
+
+std::vector<std::string> split(const std::string& s, char delimiter)
+{
+   std::vector<std::string> tokens;
+   std::string token;
+   std::istringstream tokenStream(s);
+
+   while (std::getline(tokenStream, token, delimiter))
+   {
+      tokens.push_back(token);
+   }
+   return tokens;
 }
