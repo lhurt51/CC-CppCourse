@@ -28,71 +28,34 @@
 
 #include <typedefs.hpp>
 #include <time.h>
-#include "Game.class.hpp"
+#include "GameEngine.class.hpp"
 #include "GameState.class.hpp"
 
 // Initializing the static window to null
-WINDOW					*Game::_window = nullptr;
+WINDOW					*GameEngine::_window = nullptr;
 
-// Getters --
-WINDOW*					Game::getWindow(void) {
-	return Game::_window;
-}
-
-void                 	Game::initWindow(void) {
-	Game::_window = initscr();
-	cbreak();
-	noecho();
-	clear();
-	wrefresh(Game::_window);
-	keypad(Game::_window, true);
-	nodelay(Game::_window, true);
-	curs_set(0);
-	/* Because I do not use colors yet --
-	if (!has_colors()) {
-		std::cout << "Error: Terminal does not support color" << std::endl;
-		return;
-	}
-	start_color();
-	*/
-	Game::calculateFPS();
-}
-
-// Update the win demension
-void        			Game::updateWinDem(GameState& gameState) {
-	unsigned int x, y;
-
-	getmaxyx(Game::_window, y, x);
-	gameState.setWinDem(Vector2D<uint_fast32_t>(x, y));
-}
-
-// Run the window loop
-void					Game::run(void) {
-	GameState *gameState;
-
-	gameState = new GameState(Vector2D<uint_fast32_t>(5));
-	clear();
-	Game::updateWinDem(*gameState);
-	do {
-		if (gameState->getCurState() == EXITING) break;
-		Game::updateWinDem(*gameState);
-		gameState->runMainLoop();
-		wrefresh(Game::_window);
-	} while(true);
-	delete gameState;
+GameEngine::GameEngine(void) {
+	GameEngine::_window = initscr();
 	return;
 }
 
-// Check the win demensions
-bool            		Game::isWindowToSmall(void) {
-	unsigned int x, y;
+GameEngine::~GameEngine(void) {
+	GameEngine::_window = nullptr;
+	return;
+}
 
-	getmaxyx(Game::_window, y, x);
-	if (x > MIN_WIN_SIZE && y > MIN_WIN_SIZE) return false;
+// Static Getters --
+WINDOW*					GameEngine::getWindow(void) {
+	return GameEngine::_window;
+}
+
+// Static check the win demensions
+bool            		GameEngine::isWindowToSmall(Vector2D<uint_fast32_t> v) {
+	if (v.x > MIN_WIN_SIZE && v.y > MIN_WIN_SIZE) return false;
 	return true;
 }
 
-float                	Game::calculateFPS(void) {
+float                	GameEngine::calculateFPS(void) {
 	static int		frames = 0;
 	static double	startTime = 0;
 	static bool		first = TRUE;
@@ -117,18 +80,68 @@ float                	Game::calculateFPS(void) {
 	return fps;
 }
 
+void                 printMiddle(Vector2D<uint_fast32_t> pos, std::string msg, Vector2D<uint_fast32_t> size) {
+	mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(msg)), GAME_OVER_MSG);
+}
+
+// Run the window loop
+void					GameEngine::start(void) {
+	//GameState *gameState;
+
+	//gameState = new GameState(Vector2D<uint_fast32_t>(5));
+	//clear();
+	//Game::updateWinDem(*gameState);
+	_initWindow();
+	do {
+		/*
+		if (gameState->getCurState() == EXITING) break;
+		Game::updateWinDem(*gameState);
+		gameState->runMainLoop();
+		*/
+
+		wrefresh(GameEngine::_window);
+	} while(true);
+	_destroyWin();
+	//delete gameState;
+	return;
+}
+
+// Static update the win demension
+void        			GameEngine::_updateWinDem(GameState& gameState) {
+	unsigned int x, y;
+
+	getmaxyx(GameEngine::_window, y, x);
+	gameState.setWinDem(Vector2D<uint_fast32_t>(x, y));
+}
+
+void                 	GameEngine::_initWindow(void) {
+	cbreak();
+	noecho();
+	clear();
+	wrefresh(GameEngine::_window);
+	keypad(GameEngine::_window, true);
+	nodelay(GameEngine::_window, true);
+	curs_set(0);
+	/* Because I do not use colors yet --
+	if (!has_colors()) {
+		std::cout << "Error: Terminal does not support color" << std::endl;
+		return;
+	}
+	start_color();
+	*/
+}
+
 // Destroy the window and clear any artifacts
-void        			Game::destroyWin(void) {
-	wborder(Game::_window, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wrefresh(Game::_window);
-	delwin(Game::_window);
+void        			GameEngine::_destroyWin(void) {
+	wborder(GameEngine::_window, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	wrefresh(GameEngine::_window);
+	delwin(GameEngine::_window);
 	endwin();
-	Game::_window = NULL;
 	return;
 }
 
 // To print out all of the games attributes
-std::ostream			&operator<<(std::ostream &o, Game const &i) {
+std::ostream			&operator<<(std::ostream &o, GameEngine const &i) {
 	return o << "Game Thread Info:" << std::endl <<
 	"Window addr: " << i.getWindow() << std::endl;
 }

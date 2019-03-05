@@ -28,7 +28,7 @@
 
 #include <time.h>
 #include <typedefs.hpp>
-#include "Game.class.hpp"
+#include "GameEngine.class.hpp"
 #include "GameState.class.hpp"
 
 // Initializer for windem Constructor
@@ -103,13 +103,13 @@ void					GameState::runMainLoop(void) {
 	switch (_curState) {
 		case LOADING:
 			setCurState(setCurState(LOADING));
-			runWinUpdate(Game::isWindowToSmall());
+			runWinUpdate(GameEngine::isWindowToSmall(_winDem));
 			break;
 		case STARTING:
 			setCurState(PLAYING);
 			break;
 		case PLAYING:
-			fps = Game::calculateFPS();
+			fps = GameEngine::calculateFPS();
 			mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_FPS)) - HALF_OF_VAL(std::to_string(fps).length()), GAME_FPS, fps);
 			//_tickAllActors();
 			break;
@@ -147,7 +147,11 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 		}
 		mvprintw(3, HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_NAME)), GAME_NAME);
 	}
-	wborder(Game::getWindow(), '|', '|', '-', '-', 'o', 'o', 'o', 'o');
+	wborder(GameEngine::getWindow(), BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
+}
+
+void						GameState::runState(float deltaTime) {
+
 }
 
 // Initialize all pointer attributes

@@ -8,6 +8,7 @@
 									LOADING,
 									STARTING,
 									PLAYING,
+									PAUSE,
 									GAMEOVER,
 									EXITING
 	};
@@ -18,7 +19,7 @@
 		Vector2D<uint_fast32_t> 	_winDem;
 		// Storing the cur state of the game
 		State						_curState;
-		// Storing all actors, total is 5 (1 for the board) (1 for a gamepiece) (3 for players)
+		// Storing all actors
 		//Actor						*_actors[AMOUNT_OF_PLAYERS + 2];
 
 	public:
@@ -43,7 +44,13 @@
 		void						runMainLoop(void);
 		void						runWinUpdate(bool bIsToSmall);
 
+		// Run the state
+		void						runState(float deltaTime);
+
 	private:
+
+		void                        _input(void);
+		void                        _draw(void);
 
 		// Private Constructors --
 		//void						_initAllActors(void);

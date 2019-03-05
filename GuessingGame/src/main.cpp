@@ -26,16 +26,12 @@
 *
 ******************************************************************************/
 
-#include "Game.class.hpp"
+#include "GameEngine.class.hpp"
 
 int main() {
-    // Initialize a new game called my game
-    Game::initWindow();
+    GameEngine game;
 
-    // Run the game
-    Game::run();
-
-    Game::destroyWin();
+    game.start();
 
     // On exit return 0
     return 0;
