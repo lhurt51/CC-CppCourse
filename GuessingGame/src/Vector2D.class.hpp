@@ -3,9 +3,6 @@
 
   #include <iostream>
   #include <tuple>
-  #include <cmath>
-  #include <cfloat>
-  #include <climits>
 
   template<typename T>
   class Vector2D {

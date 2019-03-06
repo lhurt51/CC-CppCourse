@@ -5,12 +5,10 @@
 
 	class Player : public Actor {
 
-		// Checks if the user can input
-		bool				_bCanInput;
-		// Checks if the user wants to exit the program
-		bool				_bExitReq;
 		// Checks if the user is typing their input
 		bool				_bIsTyping;
+		bool				_mRightPressed;
+		bool				_mLeftPressed;
 
 	public:
 
@@ -23,27 +21,18 @@
 		Player&				operator=(Player const &rhs);
 
 		// Getters --
-		bool				getCanInput(void) const;
-		bool				getExitReq(void) const;
 		bool				getIsTyping(void) const;
 
 		// Setters --
-		void				setCanInput(bool bCanInput);
-		void				setExitReq(bool bExitReq);
-		void				setIsTyping(bool bIsTyping);
+		void				startTyping(void);
+		void				stopTyping(void);
+		void				moveRight(void);
+		void				stopRight(void);
+		void				moveLeft(void);
+		void				stopLeft(void);
 
 		// Overloaded Public Actor Methods --
 		void				tick(void);
-
-	protected:
-
-		// Overloaded Protected Actor Methods --
-		void				_checkPos(void);
-
-	private:
-
-		// Handle the users input
-		void				_handleUserInput(int input);
 
 	};
 

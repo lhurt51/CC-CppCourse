@@ -26,6 +26,9 @@
 *
 ******************************************************************************/
 
+#include <cmath>
+#include <cfloat>
+#include <climits>
 #include "Vector2D.class.hpp"
 
 // Initialize the vector to 0, 0

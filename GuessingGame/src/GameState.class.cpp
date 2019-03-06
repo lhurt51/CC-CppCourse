@@ -27,13 +27,13 @@
 ******************************************************************************/
 
 #include <time.h>
+#include <ncurses.h>
 #include <typedefs.hpp>
-#include "GameEngine.class.hpp"
 #include "GameState.class.hpp"
+#include "GameEngine.class.hpp"
 
-// Initializer for windem Constructor
+// Initializer for window dimensions Constructor
 GameState::GameState(Vector2D<uint_fast32_t> winDem) : _winDem(winDem), _curState(LOADING) {
-	//_initAllActors();
 	return;
 }
 
@@ -45,7 +45,6 @@ GameState::GameState(GameState const &src) {
 
 // Deconstructor
 GameState::~GameState(void) {
-	//_deleteAllActors();
 	return;
 }
 
@@ -130,7 +129,7 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 	clear();
 	if (bIsToSmall) {
 		//_setAllActorsCanDraw(false);
-		mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(WIN_2_SMALL_MSG)), WIN_2_SMALL_MSG);
+		GameEngine::printMiddle(_winDem, WIN_2_SMALL_MSG);
 	} else {
 		switch(_curState) {
 			case LOADING:
@@ -147,12 +146,22 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 			default:
 				break;
 		}
-		mvprintw(3, HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_NAME)), GAME_NAME);
+		GameEngine::printPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_winDem.x), 3), GAME_NAME);
 	}
-	//wborder(GameEngine::getWindow(), BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
+	GameEngine::printBorder();
+}
+
+void					GameState::handleInput(int input) {
+	if (input == 'q') setCurState(EXITING);
 }
 
 bool						GameState::runState(void) {
+	_draw();
+	if (_curState == EXITING) return false;
+	return true;
+}
+
+void                        GameState::_draw(void) {
 	static Vector2D<uint_fast32_t> lastDem;
 	static float fps = GameEngine::calculateFPS();
 
@@ -166,49 +175,12 @@ bool						GameState::runState(void) {
 		GameEngine::printBorder();
 	}
 	lastDem = _winDem;
-	if (_curState == EXITING) return false;
-	return true;
 }
-
-void					GameState::handleInput(int input) {
-	if (input == 'q') setCurState(EXITING);
-}
-
-// Initialize all pointer attributes
-/*
-void					GameState::_initAllActors(void) {
-	// Initialize a list of actors to nullptr
-	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++)
-		_actors[i] = nullptr;
-}
-
-// Delete all pointer attributes
-void					GameState::_deleteAllActors(void) {
-	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++)
-		_actors[i] = nullptr;
-}
-
-// Set all actors can draw to the input param
-void					GameState::_setAllActorsCanDraw(bool bCanDraw) {
-	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++) {
-		if (_actors[i]) _actors[i]->setCanDraw(bCanDraw);
-	}
-}
-*/
 
 // Handle game over state for main loop
 void				GameState::_handleGameOver(void) {
 	setCurState(LOADING);
 }
-
-// Tick all actors in the actors list
-/*
-void 				GameState::_tickAllActors(void) {
-	for (unsigned int i = 0; i < sizeof(_actors) / sizeof(*_actors); i++) {
-		if (_actors[i]) _actors[i]->tick();
-	}
-}
-*/
 
 // The Main window redraw for loading and playing game states
 void				GameState::_mainWindowRedraw(void) {

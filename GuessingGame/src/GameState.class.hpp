@@ -1,6 +1,7 @@
 #ifndef GAME_STATE_CLASS_HPP
 	#define GAME_STATE_CLASS_HPP
 
+	#include <includes.hpp>
 	#include "Vector2D.class.hpp"
 
 	// To keep track of the state of the game
@@ -19,8 +20,6 @@
 		Vector2D<uint_fast32_t> 	_winDem;
 		// Storing the cur state of the game
 		State						_curState;
-		// Storing all actors
-		//Actor						*_actors[AMOUNT_OF_PLAYERS + 2];
 
 	public:
 		// Constructors --
@@ -51,20 +50,10 @@
 	private:
 		void                        _draw(void);
 
-		// Private Constructors --
-		//void						_initAllActors(void);
-
-		// Private De-constructors --
-		//void						_deleteAllActors(void);
-
-		// Private setters --
-		//void						_setAllActorsCanDraw(bool bCanDraw);
-
 		// Private helper methods --
 		void						_startMainGame(void);
 		void						_handleMainGame(void);
 		void						_handleGameOver(void);
-		//void 						_tickAllActors(void);
 		void						_mainWindowRedraw(void);
 		void						_gameOverWindowRedraw(void);
 

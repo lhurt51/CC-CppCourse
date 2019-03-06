@@ -28,10 +28,11 @@
 
 #include <time.h>
 #include <sstream>
-#include <unistd.h>
+#include <ncurses.h>
 #include <typedefs.hpp>
-#include "GameEngine.class.hpp"
+#include "Vector2D.class.hpp"
 #include "GameState.class.hpp"
+#include "GameEngine.class.hpp"
 
 // Initializing the static window to null
 WINDOW					*GameEngine::_window = nullptr;
@@ -114,7 +115,6 @@ void					GameEngine::start(void) {
 		_handleInput(*gameState);
 		if (!gameState->runState()) break;
 		wrefresh(GameEngine::_window);
-		//usleep(12000);
 	} while(true);
 	delete gameState;
 	_destroyWin();

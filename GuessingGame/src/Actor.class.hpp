@@ -1,9 +1,10 @@
 #ifndef ACTOR_CLASS_HPP
 	#define ACTOR_CLASS_HPP
 
-	#include <typedefs.hpp>
 	#include <includes.hpp>
-	#include "Vector2D.class.hpp"
+
+	template<typename T>
+    class Vector2D;
 
 	class Actor {
 
@@ -15,6 +16,9 @@
 		bool						_bCanClear;
 		Vector2D<uint_fast32_t>		_pos;
 		std::string const			&_sprite;
+
+		static unsigned int			_actorCount;
+		static std::vector<Actor*>	_allActors;
 
 	public:
 
@@ -36,16 +40,18 @@
 
 		bool						move(Vector2D<uint_fast32_t> dst);
 
-		virtual void				tick(float deltaTime) = 0;
+		virtual void				tick(void) = 0;
 
 		// Actor Statics ------
-	protected:
-
-		static unsigned int			_actorCount;
-
-	public:
-
-		static std::vector<Actor*>	allActors;
+		static std::vector<Actor*>	getAllActors(void);
+		static Actor*				getActor(unsigned index);
+		static int					findActorIndex(Actor &actor);
+		static void					addActor(Actor &actor);
+		static void					removeActor(unsigned index);
+		static void					tickAllActors(void);
+		static void					setAllActorsCanDraw(bool bCanDraw);
+		static void					setActorCanDraw(unsigned index, bool bCanDraw);
+		static void					setActorCanClear(unsigned index, bool bCanClear);
 
 	};
 

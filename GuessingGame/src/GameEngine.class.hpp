@@ -1,9 +1,14 @@
 #ifndef GAME_ENGINE_CLASS_HPP
   #define GAME_ENGINE_CLASS_HPP
 
-  #include <ncurses.h>
   #include <includes.hpp>
-  #include "GameState.class.hpp"
+
+  typedef struct _win_st WINDOW;
+
+  template<typename T>
+  class Vector2D;
+
+  class GameState;
 
   class GameEngine {
     // Keeping track of a reference to the window

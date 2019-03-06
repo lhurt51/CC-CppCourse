@@ -28,7 +28,7 @@
 
 #include "Player.class.hpp"
 
-Player::Player(void) : Actor(Vector2D<uint_fast32_t>(DEFAULT_SPAWN), ' '), bCanInput(true), _bExitReq(false), _bIsTyping(false) {
+Player::Player(void) : Actor(Vector2D<uint_fast32_t>(DEFAULT_SPAWN), ""), bCanInput(true), _bExitReq(false), _bIsTyping(false) {
 	return;
 }
 
@@ -44,55 +44,42 @@ Player::~Player(void) {
 // Overload operators --
 Player&				Player::operator=(Player const &rhs) {
 	if (this != &rhs) {
-		this->_bCanInput = rhs.getCanInput();
-		this->_bExitReq = rhs.getExitReq();
 		this->_bIsTyping = rhs.getIsTyping();
 	}
 	return *this;
 }
 
 // Getters --
-bool				Player::getCanInput(void) const {
-	return this->_bCanInput;
-}
-
-bool				Player::getExitReq(void) const {
-	return this->_bExitReq;
-}
-
 bool				Player::getIsTyping(void) const {
 	return this->_bIsTyping;
 }
 
 // Setters --
-void				Player::setCanInput(bool bCanInput) {
-	if (this->_bCanInput == bCanInput) return;
-	this->_bCanInput = bCanInput;
+void				Player::startTyping(void) {
+	this->_bIsTyping = true;
 }
 
-void				Player::setExitReq(bool bExitReq) {
-	if (this->_bExitReq == bExitReq) return;
-	this->_bExitReq = bExitReq;
+void				Player::stopTyping(void) {
+	this->_bIsTyping = false;
 }
 
-void				Player::setIsTyping(bool bIsTyping) {
-	if (this->_bIsTyping == bIsTyping) return;
-	this->_bIsTyping = bIsTyping;
+void				moveRight(void) {
+	_mRightPressed = true;
+}
+
+void				stopRight(void) {
+	_mRightPressed = false;
+}
+
+void				moveLeft(void) {
+	_mLeftPressed = true;
+}
+
+void				stopLeft(void) {
+	_mLeftPressed = false;
 }
 
 // Overloaded Public Actor Methods --
 void				Player::tick(void) {
-
-}
-
-// Overloaded Protected Actor Methods --
-void				Player::_checkPos(void) {
-	Vector2D<uint_fast32_t> default(DEFAULT_SPAWN);
-	
-	if (_pos != default) _pos = default;
-}
-
-// Handle the users input
-void				Player::_handleUserInput(int input) {
 
 }

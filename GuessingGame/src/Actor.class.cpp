@@ -26,11 +26,15 @@
 *
 ******************************************************************************/
 
+#include <typedefs.hpp>
+#include "Vector2D.class.hpp"
 #include "Actor.class.hpp"
 
 unsigned int			Actor::_actorCount = 0;
+std::vector<Actor*>		Actor::_allActors;
 
 Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite) : _id(Actor::_actorCount++), _bCanDraw(false), _bCanClear(false), _pos(pos), _sprite(sprite) {
+	Actor::addActor(*this);
 	return;
 }
 
@@ -40,6 +44,7 @@ Actor::Actor(Actor const &src) : _id(src.getId()), _sprite(src.getSprite()) {
 }
 
 Actor::~Actor(void) {
+	Actor::removeActor(Actor::findActorIndex(*this));
 	return;
 }
 
@@ -95,21 +100,52 @@ bool		Actor::move(Vector2D<uint_fast32_t> dst) {
 	return true;
 }
 
-/*
-void		Actor::redraw(void) {
-	_checkPos();
-	_draw();
+std::vector<Actor*>	Actor::getAllActors(void) {
+	return Actor::_allActors;
 }
 
-void 		Actor::_draw(void) const {
-	static Vector2D<uint_fast32_t> lastPos();
-
-	if (lastPos == this->_pos) return;
-	if ((char)mvwinch(Game::getWindow(), lastPos.y, lastPos.x) == _sprite) mvaddch(lastPos.y, lastPos.x, ' ');
-	if (_bCanDraw && (char)mvwinch(Game::getWindow(), _pos.y, _pos.x) != _sprite) mvaddch(_pos.y, _pos.x, _sprite);
-	lastPos = this->_pos;
+Actor*				Actor::getActor(unsigned index) {
+	if (index >= Actor::_allActors.size()) return nullptr;
+	return Actor::_allActors[index];
 }
-*/
+
+int					Actor::findActorIndex(Actor &actor) {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		if (Actor::_allActors[i] == &actor) return i;
+	}
+	return -1;
+}
+
+void				Actor::addActor(Actor &actor) {
+	Actor::_allActors.push_back(&actor);
+}
+
+void				Actor::removeActor(unsigned index) {
+	if (index >= Actor::_allActors.size()) return;
+	Actor::_allActors.erase(Actor::_allActors.begin() + index);
+}
+
+void				Actor::tickAllActors(void) {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		Actor::_allActors[i]->tick();
+	}
+}
+
+void				Actor::setAllActorsCanDraw(bool bCanDraw) {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		Actor::_allActors[i]->setCanDraw(bCanDraw);
+	}
+}
+
+void				Actor::setActorCanDraw(unsigned index, bool bCanDraw) {
+	if (index >= Actor::_allActors.size()) return;
+	Actor::_allActors[index]->setCanDraw(bCanDraw);
+}
+
+void				Actor::setActorCanClear(unsigned index, bool bCanClear) {
+	if (index >= Actor::_allActors.size()) return;
+	Actor::_allActors[index]->setCanClear(bCanClear);
+}
 
 std::ostream	&operator<<(std::ostream &o, Actor const &i) {
 	return o << "Actor Info:" << std::endl <<
