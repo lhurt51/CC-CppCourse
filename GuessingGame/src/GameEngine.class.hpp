@@ -19,9 +19,10 @@
 
     // Static helper methods --
     static bool                 isWindowToSmall(const Vector2D<uint_fast32_t> v);
-    static float                calculateDT(void);
     static float                calculateFPS(void);
-    static void                 printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg, const bool clear);
+    static void                 printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg);
+    static void                 printPos(const Vector2D<uint_fast32_t> pos, const std::string msg);
+    static void                 printBorder();
 
     // Regular class methods --
     void                        start(void);
@@ -31,6 +32,7 @@ private:
 
     // Private class methods --
     void                        _updateWinDem(GameState& gameState);
+    void                        _handleInput(GameState& gameState);
 
     // Destructors --
     void                        _destroyWin(void);
@@ -39,6 +41,7 @@ private:
   // To print the game thread info
   std::ostream                  &operator<<(std::ostream &o, GameEngine const &i);
 
+  // A string split function because I cant access boost functions
   std::vector<std::string>      split(const std::string& s, char delimiter);
 
 #endif

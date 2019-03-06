@@ -28,6 +28,7 @@
 
 #include <time.h>
 #include <sstream>
+#include <unistd.h>
 #include <typedefs.hpp>
 #include "GameEngine.class.hpp"
 #include "GameState.class.hpp"
@@ -56,12 +57,6 @@ bool            		GameEngine::isWindowToSmall(const Vector2D<uint_fast32_t> v) {
 	return true;
 }
 
-float                GameEngine::calculateDT(void) {
-	static time_t	systemTime = time (NULL);
-	float			timePassed = time(NULL) - systemTime;
-	return timePassed;
-}
-
 float                	GameEngine::calculateFPS(void) {
 	static int		frames = 0;
 	static double	startTime = 0;
@@ -87,50 +82,55 @@ float                	GameEngine::calculateFPS(void) {
 	return fps;
 }
 
-void                 GameEngine::printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg, const bool clear) {
+void                 GameEngine::printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg) {
 	std::vector<std::string> strs;
 
 	strs = split(msg, '\n');
-	for (unsigned int i = 0; i < strs.size(); i++) {
-		unsigned int halfOfString = HALF_OF_VAL(strs[i].length());
+	for (unsigned int i = 0; i < strs.size(); i++)
+		mvprintw(HALF_OF_VAL(pos.y) + i, HALF_OF_VAL(pos.x) - HALF_OF_VAL(strs[i].length()), strs[i].c_str());
+}
 
-		if (!clear) mvprintw(HALF_OF_VAL(pos.y + i), HALF_OF_VAL(pos.x) - halfOfString, strs[i].c_str());
-		else
-		{
-			for (unsigned int j = -halfOfString; j < halfOfString; j++ )
-				mvaddch(HALF_OF_VAL(pos.y + i), HALF_OF_VAL(pos.x) + j, ' ');
-		}
-	}
+void                 GameEngine::printPos(const Vector2D<uint_fast32_t> pos, const std::string msg) {
+	std::vector<std::string> strs;
+
+	strs = split(msg, '\n');
+	for (unsigned int i = 0; i < strs.size(); i++)
+		mvprintw(pos.y + i, pos.x - HALF_OF_VAL(strs[i].length()), strs[i].c_str());
+}
+
+void                 GameEngine::printBorder() {
+	wborder(GameEngine::getWindow(), BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
 }
 
 // Run the window loop
 void					GameEngine::start(void) {
-	GameState *gameState;
+	GameState *gameState = new GameState(Vector2D<uint_fast32_t>(5));
 
-	gameState = new GameState(Vector2D<uint_fast32_t>(5));
 	clear();
-	_updateWinDem(*gameState);
 	_initWindow();
+	_updateWinDem(*gameState);
 	do {
-		/*
-		if (gameState->getCurState() == EXITING) break;
-		Game::updateWinDem(*gameState);
-		gameState->runMainLoop();
-		*/
-		gameState->runState(0.0f);
+		_updateWinDem(*gameState);
+		_handleInput(*gameState);
+		if (!gameState->runState()) break;
 		wrefresh(GameEngine::_window);
+		//usleep(12000);
 	} while(true);
 	delete gameState;
 	_destroyWin();
 	return;
 }
 
-// Static update the win demension
+// Update the win demension
 void        			GameEngine::_updateWinDem(GameState& gameState) {
 	unsigned int x, y;
 
 	getmaxyx(GameEngine::_window, y, x);
 	gameState.setWinDem(Vector2D<uint_fast32_t>(x, y));
+}
+
+void					GameEngine::_handleInput(GameState& gameState) {
+	gameState.handleInput(wgetch(GameEngine::_window));
 }
 
 void                 	GameEngine::_initWindow(void) {
@@ -171,9 +171,6 @@ std::vector<std::string> split(const std::string& s, char delimiter)
    std::string token;
    std::istringstream tokenStream(s);
 
-   while (std::getline(tokenStream, token, delimiter))
-   {
-      tokens.push_back(token);
-   }
+   while (std::getline(tokenStream, token, delimiter)) tokens.push_back(token);
    return tokens;
 }

@@ -112,7 +112,7 @@ void					GameState::runMainLoop(void) {
 		case PLAYING:
 			fps = GameEngine::calculateFPS();
 			snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
-			GameEngine::printMiddle(_winDem, buffer, false);
+			GameEngine::printMiddle(_winDem, buffer);
 			//_tickAllActors();
 			break;
 		case GAMEOVER:
@@ -149,17 +149,29 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 		}
 		mvprintw(3, HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_NAME)), GAME_NAME);
 	}
-	wborder(GameEngine::getWindow(), BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
+	//wborder(GameEngine::getWindow(), BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
 }
 
-void						GameState::runState(float deltaTime) {
-	if (deltaTime < 0.0) return;
-	char	buffer[128];
-	float fps = GameEngine::calculateFPS();
-	Vector2D<uint_fast32_t> msgPos(_winDem.x, HALF_OF_VAL(_winDem.y));
+bool						GameState::runState(void) {
+	static Vector2D<uint_fast32_t> lastDem;
+	static float fps = GameEngine::calculateFPS();
 
-	snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
-	GameEngine::printMiddle(msgPos, buffer, false);
+	if (_winDem != lastDem || fps != GameEngine::calculateFPS()) {
+		clear();
+		char	buffer[128];
+
+		fps = GameEngine::calculateFPS();
+		snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
+		GameEngine::printMiddle(_winDem, buffer);
+		GameEngine::printBorder();
+	}
+	lastDem = _winDem;
+	if (_curState == EXITING) return false;
+	return true;
+}
+
+void					GameState::handleInput(int input) {
+	if (input == 'q') setCurState(EXITING);
 }
 
 // Initialize all pointer attributes
@@ -206,7 +218,8 @@ void				GameState::_mainWindowRedraw(void) {
 // Game over window redraw for when the game is over
 void				GameState::_gameOverWindowRedraw(void) {
 	//_setAllActorsCanDraw(false);
-	mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_OVER_MSG)), GAME_OVER_MSG);
+	GameEngine::printMiddle(_winDem, GAME_OVER_MSG);
+	//mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_OVER_MSG)), GAME_OVER_MSG);
 	//mvprintw(HALF_OF_VAL(_winDem.y) + 1, HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_OVER_STATS)), GAME_OVER_STATS, 3);
 }
 

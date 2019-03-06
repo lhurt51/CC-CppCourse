@@ -18,8 +18,6 @@
 
 	public:
 
-		static unsigned int			actorCount;
-
 		Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite);
 		Actor(Actor const &src);
 		virtual ~Actor(void);
@@ -39,6 +37,15 @@
 		bool						move(Vector2D<uint_fast32_t> dst);
 
 		virtual void				tick(float deltaTime) = 0;
+
+		// Actor Statics ------
+	protected:
+
+		static unsigned int			_actorCount;
+
+	public:
+
+		static std::vector<Actor*>	allActors;
 
 	};
 

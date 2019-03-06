@@ -43,13 +43,12 @@
 		bool						bShouldExit(void);
 		void						runMainLoop(void);
 		void						runWinUpdate(bool bIsToSmall);
+		void                        handleInput(int input);
 
 		// Run the state
-		void						runState(float deltaTime);
+		bool						runState(void);
 
 	private:
-
-		void                        _input(void);
 		void                        _draw(void);
 
 		// Private Constructors --

@@ -28,9 +28,9 @@
 
 #include "Actor.class.hpp"
 
-unsigned int			Actor::actorCount = 0;
+unsigned int			Actor::_actorCount = 0;
 
-Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite) : _id(Actor::actorCount++), _bCanDraw(false), _bCanClear(false), _pos(pos), _sprite(sprite) {
+Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite) : _id(Actor::_actorCount++), _bCanDraw(false), _bCanClear(false), _pos(pos), _sprite(sprite) {
 	return;
 }
 
