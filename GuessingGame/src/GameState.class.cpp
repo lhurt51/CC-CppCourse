@@ -29,11 +29,16 @@
 #include <time.h>
 #include <ncurses.h>
 #include <typedefs.hpp>
+#include "Vector2D.class.hpp"
+#include "Actor.class.hpp"
+#include "Player.class.hpp"
 #include "GameState.class.hpp"
 #include "GameEngine.class.hpp"
 
 // Initializer for window dimensions Constructor
 GameState::GameState(Vector2D<uint_fast32_t> winDem) : _winDem(winDem), _curState(LOADING) {
+	_player = new Player();
+	//Actor::addActor(_player);
 	return;
 }
 
@@ -45,6 +50,8 @@ GameState::GameState(GameState const &src) {
 
 // Deconstructor
 GameState::~GameState(void) {
+	delete _player;
+	_player = nullptr;
 	return;
 }
 
@@ -153,10 +160,16 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 
 void					GameState::handleInput(int input) {
 	if (input == 'q') setCurState(EXITING);
+	if (input == 'a') _player->moveLeft();
+	else _player->stopLeft();
+	if (input == 'd') _player->moveRight();
+	else _player->stopRight();
 }
 
 bool						GameState::runState(void) {
 	_draw();
+	Actor::tickAllActors();
+	if (_player->getPos().x >= _winDem.x) delete Actor::getAllActors()[Actor::findActorIndex(*(Actor*)(_player))];
 	if (_curState == EXITING) return false;
 	return true;
 }
@@ -171,6 +184,7 @@ void                        GameState::_draw(void) {
 
 		fps = GameEngine::calculateFPS();
 		snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
+		Actor::printAllActors();
 		GameEngine::printMiddle(_winDem, buffer);
 		GameEngine::printBorder();
 	}
@@ -191,8 +205,6 @@ void				GameState::_mainWindowRedraw(void) {
 void				GameState::_gameOverWindowRedraw(void) {
 	//_setAllActorsCanDraw(false);
 	GameEngine::printMiddle(_winDem, GAME_OVER_MSG);
-	//mvprintw(HALF_OF_VAL(_winDem.y), HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_OVER_MSG)), GAME_OVER_MSG);
-	//mvprintw(HALF_OF_VAL(_winDem.y) + 1, HALF_OF_VAL(_winDem.x) - HALF_OF_VAL(strlen(GAME_OVER_STATS)), GAME_OVER_STATS, 3);
 }
 
 // Out stream overload for testing

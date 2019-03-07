@@ -26,8 +26,9 @@
 *
 ******************************************************************************/
 
-#include <time.h>
+#include <vector>
 #include <sstream>
+#include <time.h>
 #include <ncurses.h>
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"

@@ -2,6 +2,7 @@
 	#define ACTOR_CLASS_HPP
 
 	#include <includes.hpp>
+	#include <vector>
 
 	template<typename T>
     class Vector2D;
@@ -46,9 +47,10 @@
 		static std::vector<Actor*>	getAllActors(void);
 		static Actor*				getActor(unsigned index);
 		static int					findActorIndex(Actor &actor);
-		static void					addActor(Actor &actor);
+		static void					addActor(Actor *actor);
 		static void					removeActor(unsigned index);
 		static void					tickAllActors(void);
+		static void					printAllActors(void);
 		static void					setAllActorsCanDraw(bool bCanDraw);
 		static void					setActorCanDraw(unsigned index, bool bCanDraw);
 		static void					setActorCanClear(unsigned index, bool bCanClear);

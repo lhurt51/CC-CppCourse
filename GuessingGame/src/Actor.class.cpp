@@ -28,13 +28,14 @@
 
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
+#include "GameEngine.class.hpp"
 #include "Actor.class.hpp"
 
 unsigned int			Actor::_actorCount = 0;
 std::vector<Actor*>		Actor::_allActors;
 
 Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite) : _id(Actor::_actorCount++), _bCanDraw(false), _bCanClear(false), _pos(pos), _sprite(sprite) {
-	Actor::addActor(*this);
+	Actor::addActor(this);
 	return;
 }
 
@@ -44,7 +45,8 @@ Actor::Actor(Actor const &src) : _id(src.getId()), _sprite(src.getSprite()) {
 }
 
 Actor::~Actor(void) {
-	Actor::removeActor(Actor::findActorIndex(*this));
+	// int index = Actor::findActorIndex(*this);
+	// if (index >= 0) Actor::removeActor(index);
 	return;
 }
 
@@ -116,18 +118,25 @@ int					Actor::findActorIndex(Actor &actor) {
 	return -1;
 }
 
-void				Actor::addActor(Actor &actor) {
-	Actor::_allActors.push_back(&actor);
+void				Actor::addActor(Actor *actor) {
+	Actor::_allActors.push_back(actor);
 }
 
 void				Actor::removeActor(unsigned index) {
 	if (index >= Actor::_allActors.size()) return;
 	Actor::_allActors.erase(Actor::_allActors.begin() + index);
+	Actor::_allActors[index] = nullptr;
 }
 
 void				Actor::tickAllActors(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		Actor::_allActors[i]->tick();
+	}
+}
+
+void				Actor::printAllActors(void) {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		GameEngine::printPos(Actor::_allActors[i]->getPos(), Actor::_allActors[i]->getSprite());
 	}
 }
 

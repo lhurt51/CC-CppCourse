@@ -26,14 +26,19 @@
 *
 ******************************************************************************/
 
+#include <typedefs.hpp>
+#include "Vector2D.class.hpp"
+#include "Actor.class.hpp"
 #include "Player.class.hpp"
 
-Player::Player(void) : Actor(Vector2D<uint_fast32_t>(DEFAULT_SPAWN), ""), bCanInput(true), _bExitReq(false), _bIsTyping(false) {
+const std::string playerSprite = "Player";
+
+Player::Player(void) : Actor(Vector2D<uint_fast32_t>(DEFAULT_SPAWN), playerSprite), _bIsTyping(false), _mRightPressed(false), _mLeftPressed(false) {
 	return;
 }
 
 Player::Player(Player const &src) : Actor(src) {
-	*this = src
+	*this = src;
 	return;
 }
 
@@ -45,6 +50,8 @@ Player::~Player(void) {
 Player&				Player::operator=(Player const &rhs) {
 	if (this != &rhs) {
 		this->_bIsTyping = rhs.getIsTyping();
+		this->_mRightPressed = rhs.getPressingRight();
+		this->_mLeftPressed = rhs.getPressingLeft();
 	}
 	return *this;
 }
@@ -52,6 +59,14 @@ Player&				Player::operator=(Player const &rhs) {
 // Getters --
 bool				Player::getIsTyping(void) const {
 	return this->_bIsTyping;
+}
+
+bool				Player::getPressingRight(void) const {
+	return this->_mRightPressed;
+}
+
+bool				Player::getPressingLeft(void) const {
+	return this->_mLeftPressed;
 }
 
 // Setters --
@@ -63,23 +78,24 @@ void				Player::stopTyping(void) {
 	this->_bIsTyping = false;
 }
 
-void				moveRight(void) {
-	_mRightPressed = true;
+void				Player::moveRight(void) {
+	this->_mRightPressed = true;
 }
 
-void				stopRight(void) {
-	_mRightPressed = false;
+void				Player::stopRight(void) {
+	this->_mRightPressed = false;
 }
 
-void				moveLeft(void) {
-	_mLeftPressed = true;
+void				Player::moveLeft(void) {
+	this->_mLeftPressed = true;
 }
 
-void				stopLeft(void) {
-	_mLeftPressed = false;
+void				Player::stopLeft(void) {
+	this->_mLeftPressed = false;
 }
 
 // Overloaded Public Actor Methods --
 void				Player::tick(void) {
-
+	if (_mRightPressed) _pos.x += 1;
+	if (_mLeftPressed) _pos.x -= 1;
 }

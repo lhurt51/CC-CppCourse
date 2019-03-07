@@ -28,7 +28,6 @@
 
 #include <includes.hpp>
 #include "GameEngine.class.hpp"
-#include "GameState.class.hpp"
 
 int main() {
     GameEngine game;

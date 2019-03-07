@@ -4,7 +4,7 @@
   // Program name
   #define GAME_NAME "Guessing Game"
   // Default Values
-  #define DEFAULT_SPAWN 2
+  #define DEFAULT_SPAWN 7
   #define DEFAULT_PLAYER_SPRITE ' '
   // Window values
   #define MIN_WIN_SIZE 30

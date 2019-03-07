@@ -1,6 +1,7 @@
 #ifndef PLAYER_CLASS_HPP
 	#define PLAYER_CLASS_HPP
 
+	#include <includes.hpp>
 	#include "Actor.class.hpp"
 
 	class Player : public Actor {
@@ -22,6 +23,8 @@
 
 		// Getters --
 		bool				getIsTyping(void) const;
+		bool				getPressingRight(void) const;
+		bool				getPressingLeft(void) const;
 
 		// Setters --
 		void				startTyping(void);

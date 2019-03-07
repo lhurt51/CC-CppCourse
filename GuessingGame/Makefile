@@ -14,6 +14,7 @@ SRCS =	$(addprefix $(SDIR)/, \
 			GameEngine.class.cpp \
 			GameState.class.cpp \
 			Actor.class.cpp \
+			Player.class.cpp \
 		)
 
 FDIR =	frame

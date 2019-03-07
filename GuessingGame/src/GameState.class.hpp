@@ -2,7 +2,11 @@
 	#define GAME_STATE_CLASS_HPP
 
 	#include <includes.hpp>
-	#include "Vector2D.class.hpp"
+
+	template<typename T>
+    class Vector2D;
+
+	class Player;
 
 	// To keep track of the state of the game
 	enum							State {
@@ -20,6 +24,8 @@
 		Vector2D<uint_fast32_t> 	_winDem;
 		// Storing the cur state of the game
 		State						_curState;
+
+		Player						*_player;
 
 	public:
 		// Constructors --
