@@ -9,8 +9,6 @@
 
 	class Actor {
 
-		unsigned int const			_id;
-
 	protected:
 
 		bool						_bCanDraw;
@@ -18,7 +16,6 @@
 		Vector2D<uint_fast32_t>		_pos;
 		std::string const			&_sprite;
 
-		static unsigned int			_actorCount;
 		static std::vector<Actor*>	_allActors;
 
 	public:
@@ -29,7 +26,7 @@
 
 		Actor						&operator=(Actor const &rhs);
 
-		int							getId(void) const;
+		int							getAllActorsIndex(void);
 		bool						getCanDraw(void) const;
 		bool						getCanClear(void) const;
 		Vector2D<uint_fast32_t>		getPos(void) const;
@@ -45,12 +42,13 @@
 
 		// Actor Statics ------
 		static std::vector<Actor*>	getAllActors(void);
+		static void					removeActors(void);
+		static void					tickAllActors(void);
+		static void					printAllActors(void);
 		static Actor*				getActor(unsigned index);
 		static int					findActorIndex(Actor &actor);
 		static void					addActor(Actor *actor);
-		static void					removeActor(unsigned index);
-		static void					tickAllActors(void);
-		static void					printAllActors(void);
+		static void					removeActor(Actor &actor);
 		static void					setAllActorsCanDraw(bool bCanDraw);
 		static void					setActorCanDraw(unsigned index, bool bCanDraw);
 		static void					setActorCanClear(unsigned index, bool bCanClear);

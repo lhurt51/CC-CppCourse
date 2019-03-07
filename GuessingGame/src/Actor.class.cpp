@@ -31,28 +31,25 @@
 #include "GameEngine.class.hpp"
 #include "Actor.class.hpp"
 
-unsigned int			Actor::_actorCount = 0;
 std::vector<Actor*>		Actor::_allActors;
 
-Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite) : _id(Actor::_actorCount++), _bCanDraw(false), _bCanClear(false), _pos(pos), _sprite(sprite) {
+Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite) : _bCanDraw(false), _bCanClear(false), _pos(pos), _sprite(sprite) {
 	Actor::addActor(this);
 	return;
 }
 
-Actor::Actor(Actor const &src) : _id(src.getId()), _sprite(src.getSprite()) {
+Actor::Actor(Actor const &src) : _sprite(src.getSprite()) {
 	*this = src;
 	return;
 }
 
 Actor::~Actor(void) {
-	// int index = Actor::findActorIndex(*this);
-	// if (index >= 0) Actor::removeActor(index);
+	Actor::removeActor(*this);
 	return;
 }
 
 Actor					&Actor::operator=(Actor const &rhs) {
 	if (this != &rhs) {
-		(int&)this->_id = rhs.getId();
 		this->_bCanDraw = rhs.getCanDraw();
 		this->_bCanClear = rhs.getCanClear();
 		this->_pos = rhs.getPos();
@@ -61,8 +58,8 @@ Actor					&Actor::operator=(Actor const &rhs) {
 	return *this;
 }
 
-int						Actor::getId(void) const {
-	return this->_id;
+int						Actor::getAllActorsIndex(void) {
+	return Actor::findActorIndex(*this);
 }
 
 bool					Actor::getCanDraw(void) const {
@@ -106,6 +103,26 @@ std::vector<Actor*>	Actor::getAllActors(void) {
 	return Actor::_allActors;
 }
 
+void				Actor::removeActors(void) {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		if (Actor::_allActors[i]->getCanClear()) {
+			Actor::_allActors.erase(Actor::_allActors.begin() + i);
+		}
+	}
+}
+
+void				Actor::tickAllActors(void) {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		Actor::_allActors[i]->tick();
+	}
+}
+
+void				Actor::printAllActors(void) {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		GameEngine::printPos(Actor::_allActors[i]->getPos(), Actor::_allActors[i]->getSprite());
+	}
+}
+
 Actor*				Actor::getActor(unsigned index) {
 	if (index >= Actor::_allActors.size()) return nullptr;
 	return Actor::_allActors[index];
@@ -122,21 +139,9 @@ void				Actor::addActor(Actor *actor) {
 	Actor::_allActors.push_back(actor);
 }
 
-void				Actor::removeActor(unsigned index) {
-	if (index >= Actor::_allActors.size()) return;
-	Actor::_allActors.erase(Actor::_allActors.begin() + index);
-	Actor::_allActors[index] = nullptr;
-}
-
-void				Actor::tickAllActors(void) {
+void				Actor::removeActor(Actor &actor) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
-		Actor::_allActors[i]->tick();
-	}
-}
-
-void				Actor::printAllActors(void) {
-	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
-		GameEngine::printPos(Actor::_allActors[i]->getPos(), Actor::_allActors[i]->getSprite());
+		if (Actor::_allActors[i] == &actor) Actor::_allActors.erase(Actor::_allActors.begin() + i);
 	}
 }
 

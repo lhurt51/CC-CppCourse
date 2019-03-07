@@ -38,7 +38,6 @@
 // Initializer for window dimensions Constructor
 GameState::GameState(Vector2D<uint_fast32_t> winDem) : _winDem(winDem), _curState(LOADING) {
 	_player = new Player();
-	//Actor::addActor(_player);
 	return;
 }
 
@@ -50,8 +49,6 @@ GameState::GameState(GameState const &src) {
 
 // Deconstructor
 GameState::~GameState(void) {
-	delete _player;
-	_player = nullptr;
 	return;
 }
 
@@ -90,17 +87,6 @@ State					GameState::setCurState(State curState) {
 	return lastState;
 }
 // Game State Setters --
-
-// Check for exit request a request break from program
-/*
-bool					GameState::bShouldExit(void) {
-	for (unsigned int i = 0; i < _players.size(); i++) {
-		if (_players[i].getExitReq())
-			return true;
-	}
-	return false;
-}
-*/
 
 // Run the main game loop base on the current state
 void					GameState::runMainLoop(void) {
@@ -160,6 +146,7 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 
 void					GameState::handleInput(int input) {
 	if (input == 'q') setCurState(EXITING);
+	if (_player == nullptr) return;
 	if (input == 'a') _player->moveLeft();
 	else _player->stopLeft();
 	if (input == 'd') _player->moveRight();
@@ -169,7 +156,10 @@ void					GameState::handleInput(int input) {
 bool						GameState::runState(void) {
 	_draw();
 	Actor::tickAllActors();
-	if (_player->getPos().x >= _winDem.x) delete Actor::getAllActors()[Actor::findActorIndex(*(Actor*)(_player))];
+	if (_player != nullptr && _player->getPos().x >= _winDem.x) {
+		delete _player;
+		_player = nullptr;
+	}
 	if (_curState == EXITING) return false;
 	return true;
 }

@@ -16,7 +16,7 @@
 		// Constructors --
 		Player(void);
 		Player(Player const &src);
-		virtual ~Player(void);
+		~Player(void);
 
 		// Overload operators --
 		Player&				operator=(Player const &rhs);
