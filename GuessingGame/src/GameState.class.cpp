@@ -36,7 +36,7 @@
 #include "GameEngine.class.hpp"
 
 // Initializer for window dimensions Constructor
-GameState::GameState(Vector2D<uint_fast32_t> winDem) : _winDem(winDem), _curState(LOADING) {
+GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(LOADING) {
 	_player = new Player();
 	return;
 }
@@ -62,7 +62,7 @@ GameState				&GameState::operator=(GameState const &rhs) {
 }
 
 // Game State Getters --
-Vector2D<uint_fast32_t>	GameState::getWinDem(void) const {
+Vector2D<uint_fast32_t> const	GameState::getWinDem(void) const {
 	return this->_winDem;
 }
 
@@ -72,7 +72,7 @@ State					GameState::getCurState(void) const {
 // Game State Getters --
 
 // Game State Setters --
-void					GameState::setWinDem(Vector2D<uint_fast32_t> winDem) {
+void					GameState::setWinDem(Vector2D<uint_fast32_t> const winDem) {
 	if (this->_winDem == winDem) return;
 	this->_winDem = winDem;
 	setCurState(LOADING);
@@ -118,7 +118,7 @@ void					GameState::runMainLoop(void) {
 }
 
 // Run a window update checking for a too small screen otherwise based off of current state
-void					GameState::runWinUpdate(bool bIsToSmall) {
+void					GameState::runWinUpdate(bool const bIsToSmall) {
 	clear();
 	if (bIsToSmall) {
 		//_setAllActorsCanDraw(false);
@@ -135,7 +135,7 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 				_gameOverWindowRedraw();
 				break;
 			case EXITING:
-
+				break;
 			default:
 				break;
 		}
@@ -146,17 +146,18 @@ void					GameState::runWinUpdate(bool bIsToSmall) {
 
 void					GameState::handleInput(int input) {
 	if (input == 'q') setCurState(EXITING);
-	if (_player == nullptr) return;
-	if (input == 'a') _player->moveLeft();
-	else _player->stopLeft();
-	if (input == 'd') _player->moveRight();
-	else _player->stopRight();
+	else if (_player) {
+		if (input == 'a') _player->moveLeft();
+		else _player->stopLeft();
+		if (input == 'd') _player->moveRight();
+		else _player->stopRight();
+	}
 }
 
 bool						GameState::runState(void) {
 	_draw();
 	Actor::tickAllActors();
-	if (_player != nullptr && _player->getPos().x >= _winDem.x) {
+	if (_player && _player->getPos().x >= _winDem.x) {
 		delete _player;
 		_player = nullptr;
 	}

@@ -24,12 +24,12 @@
 		Vector2D<uint_fast32_t> 	_winDem;
 		// Storing the cur state of the game
 		State						_curState;
-
+		// Storing a pointer to the player
 		Player						*_player;
 
 	public:
 		// Constructors --
-		GameState(Vector2D<uint_fast32_t> winDem);
+		GameState(Vector2D<uint_fast32_t> const winDem);
 		GameState(GameState const &src);
 		~GameState(void);
 
@@ -37,17 +37,17 @@
 		GameState					&operator=(GameState const &rhs);
 
 		// Getters --
-		Vector2D<uint_fast32_t>		getWinDem(void) const;
+		Vector2D<uint_fast32_t> const	getWinDem(void) const;
 		State						getCurState(void) const;
 
 		// Setters --
-		void						setWinDem(Vector2D<uint_fast32_t> winDem);
+		void						setWinDem(Vector2D<uint_fast32_t> const winDem);
 		State						setCurState(State curState);
 
 		// Helper methods
 		bool						bShouldExit(void);
 		void						runMainLoop(void);
-		void						runWinUpdate(bool bIsToSmall);
+		void						runWinUpdate(bool const bIsToSmall);
 		void                        handleInput(int input);
 
 		// Run the state

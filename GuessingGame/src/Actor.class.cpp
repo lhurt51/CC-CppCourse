@@ -58,7 +58,7 @@ Actor					&Actor::operator=(Actor const &rhs) {
 	return *this;
 }
 
-int						Actor::getAllActorsIndex(void) {
+int						Actor::getThisIndexInAllActors(void) {
 	return Actor::findActorIndex(*this);
 }
 

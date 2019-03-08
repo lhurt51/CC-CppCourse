@@ -26,7 +26,7 @@
 
 		Actor						&operator=(Actor const &rhs);
 
-		int							getAllActorsIndex(void);
+		int							getThisIndexInAllActors(void);
 		bool						getCanDraw(void) const;
 		bool						getCanClear(void) const;
 		Vector2D<uint_fast32_t>		getPos(void) const;

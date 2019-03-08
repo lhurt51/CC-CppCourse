@@ -36,7 +36,7 @@
 #include "GameEngine.class.hpp"
 
 // Initializing the static window to null
-WINDOW					*GameEngine::_window = nullptr;
+WINDOW						*GameEngine::_window = nullptr;
 
 GameEngine::GameEngine(void) {
 	GameEngine::_window = initscr();
@@ -49,17 +49,17 @@ GameEngine::~GameEngine(void) {
 }
 
 // Static Getters --
-WINDOW*					GameEngine::getWindow(void) {
+WINDOW*						GameEngine::getWindow(void) {
 	return GameEngine::_window;
 }
 
 // Static check the win demensions
-bool            		GameEngine::isWindowToSmall(const Vector2D<uint_fast32_t> v) {
+bool						GameEngine::isWindowToSmall(const Vector2D<uint_fast32_t> v) {
 	if (v.x > MIN_WIN_SIZE && v.y > MIN_WIN_SIZE) return false;
 	return true;
 }
 
-float                	GameEngine::calculateFPS(void) {
+float						GameEngine::calculateFPS(void) {
 	static int		frames = 0;
 	static double	startTime = 0;
 	static bool		first = TRUE;
@@ -84,7 +84,7 @@ float                	GameEngine::calculateFPS(void) {
 	return fps;
 }
 
-void                 GameEngine::printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg) {
+void						GameEngine::printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg) {
 	std::vector<std::string> strs;
 
 	strs = split(msg, '\n');
@@ -92,7 +92,7 @@ void                 GameEngine::printMiddle(const Vector2D<uint_fast32_t> pos, 
 		mvprintw(HALF_OF_VAL(pos.y) + i, HALF_OF_VAL(pos.x) - HALF_OF_VAL(strs[i].length()), strs[i].c_str());
 }
 
-void                 GameEngine::printPos(const Vector2D<uint_fast32_t> pos, const std::string msg) {
+void						GameEngine::printPos(const Vector2D<uint_fast32_t> pos, const std::string msg) {
 	std::vector<std::string> strs;
 
 	strs = split(msg, '\n');
@@ -100,15 +100,14 @@ void                 GameEngine::printPos(const Vector2D<uint_fast32_t> pos, con
 		mvprintw(pos.y + i, pos.x - HALF_OF_VAL(strs[i].length()), strs[i].c_str());
 }
 
-void                 GameEngine::printBorder() {
+void						GameEngine::printBorder() {
 	wborder(GameEngine::getWindow(), BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
 }
 
 // Run the window loop
-void					GameEngine::start(void) {
+void						GameEngine::start(void) {
 	GameState *gameState = new GameState(Vector2D<uint_fast32_t>(5));
 
-	clear();
 	_initWindow();
 	_updateWinDem(*gameState);
 	do {
@@ -123,7 +122,7 @@ void					GameEngine::start(void) {
 }
 
 // Update the win demension
-void        			GameEngine::_updateWinDem(GameState& gameState) {
+void						GameEngine::_updateWinDem(GameState& gameState) {
 	unsigned int x, y;
 
 	getmaxyx(GameEngine::_window, y, x);
@@ -134,7 +133,7 @@ void					GameEngine::_handleInput(GameState& gameState) {
 	gameState.handleInput(wgetch(GameEngine::_window));
 }
 
-void                 	GameEngine::_initWindow(void) {
+void						GameEngine::_initWindow(void) {
 	cbreak();
 	noecho();
 	clear();
@@ -152,21 +151,22 @@ void                 	GameEngine::_initWindow(void) {
 }
 
 // Destroy the window and clear any artifacts
-void        			GameEngine::_destroyWin(void) {
+void						GameEngine::_destroyWin(void) {
 	wborder(GameEngine::_window, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	wrefresh(GameEngine::_window);
 	delwin(GameEngine::_window);
+	clear();
 	endwin();
 	return;
 }
 
 // To print out all of the games attributes
-std::ostream			&operator<<(std::ostream &o, GameEngine const &i) {
+std::ostream				&operator<<(std::ostream &o, GameEngine const &i) {
 	return o << "Game Thread Info:" << std::endl <<
 	"Window addr: " << i.getWindow() << std::endl;
 }
 
-std::vector<std::string> split(const std::string& s, char delimiter)
+std::vector<std::string>	split(const std::string& s, char const delimiter)
 {
    std::vector<std::string> tokens;
    std::string token;

@@ -3,13 +3,15 @@
 
   #include <includes.hpp>
 
+  // Forward declaring classes and types
   typedef struct _win_st WINDOW;
-
   template<typename T>
+
   class Vector2D;
 
   class GameState;
 
+  // Game Engine class responsible for handling the window
   class GameEngine {
     // Keeping track of a reference to the window
     static WINDOW*              _window;
@@ -19,7 +21,7 @@
     GameEngine(void);
     ~GameEngine(void);
 
-    // Getters --
+    // Static getters
     static WINDOW*              getWindow(void);
 
     // Static helper methods --
@@ -33,6 +35,7 @@
     void                        start(void);
 
 private:
+    // Private Initializer --
     void                        _initWindow(void);
 
     // Private class methods --
@@ -47,6 +50,6 @@ private:
   std::ostream                  &operator<<(std::ostream &o, GameEngine const &i);
 
   // A string split function because I cant access boost functions
-  std::vector<std::string>      split(const std::string& s, char delimiter);
+  std::vector<std::string>      split(const std::string& s, char const delimiter);
 
 #endif
