@@ -94,6 +94,12 @@ void				Player::stopLeft(void) {
 	this->_mLeftPressed = false;
 }
 
+bool				Player::move(Vector2D<uint_fast32_t> dst) {
+	if (dst == Vector2D<uint_fast32_t>()) return false;
+	_pos += dst;
+	return true;
+}
+
 // Overloaded Public Actor Methods --
 void				Player::tick(void) {
 	if (_mRightPressed) _pos.x += 1;

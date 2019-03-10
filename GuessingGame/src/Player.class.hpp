@@ -34,6 +34,9 @@
 		void				moveLeft(void);
 		void				stopLeft(void);
 
+		// Helper Methods
+		bool				move(Vector2D<uint_fast32_t> dst);
+
 		// Overloaded Public Actor Methods --
 		void				tick(void);
 

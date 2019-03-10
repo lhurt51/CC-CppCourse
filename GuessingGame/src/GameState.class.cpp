@@ -49,6 +49,7 @@ GameState::GameState(GameState const &src) {
 
 // Deconstructor
 GameState::~GameState(void) {
+	_deletePlayer();
 	return;
 }
 
@@ -69,7 +70,6 @@ Vector2D<uint_fast32_t> const	GameState::getWinDem(void) const {
 State					GameState::getCurState(void) const {
 	return this->_curState;
 }
-// Game State Getters --
 
 // Game State Setters --
 void					GameState::setWinDem(Vector2D<uint_fast32_t> const winDem) {
@@ -86,8 +86,8 @@ State					GameState::setCurState(State curState) {
 	this->_curState = curState;
 	return lastState;
 }
-// Game State Setters --
 
+/*
 // Run the main game loop base on the current state
 void					GameState::runMainLoop(void) {
 	float	fps;
@@ -143,6 +143,7 @@ void					GameState::runWinUpdate(bool const bIsToSmall) {
 	}
 	GameEngine::printBorder();
 }
+*/
 
 void					GameState::handleInput(int input) {
 	if (input == 'q') setCurState(EXITING);
@@ -158,8 +159,7 @@ bool						GameState::runState(void) {
 	_draw();
 	Actor::tickAllActors();
 	if (_player && _player->getPos().x >= _winDem.x) {
-		delete _player;
-		_player = nullptr;
+		_deletePlayer();
 	}
 	if (_curState == EXITING) return false;
 	return true;
@@ -182,6 +182,14 @@ void                        GameState::_draw(void) {
 	lastDem = _winDem;
 }
 
+void				GameState::_deletePlayer(void) {
+	if (_player) {
+		delete _player;
+		_player = nullptr;
+	}
+}
+
+/*
 // Handle game over state for main loop
 void				GameState::_handleGameOver(void) {
 	setCurState(LOADING);
@@ -197,6 +205,7 @@ void				GameState::_gameOverWindowRedraw(void) {
 	//_setAllActorsCanDraw(false);
 	GameEngine::printMiddle(_winDem, GAME_OVER_MSG);
 }
+*/
 
 // Out stream overload for testing
 std::ostream		&operator<<(std::ostream &o, GameState const &i) {

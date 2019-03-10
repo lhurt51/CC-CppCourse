@@ -93,12 +93,6 @@ void		Actor::setCanClear(bool bCanClear) {
 	if (_bCanClear) this->_bCanDraw = false;
 }
 
-bool		Actor::move(Vector2D<uint_fast32_t> dst) {
-	if (dst == Vector2D<uint_fast32_t>()) return false;
-	_pos += dst;
-	return true;
-}
-
 std::vector<Actor*>	Actor::getAllActors(void) {
 	return Actor::_allActors;
 }

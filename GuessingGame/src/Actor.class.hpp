@@ -36,8 +36,6 @@
 		void						setCanClear(bool bCanDraw);
 		void 						setPos(Vector2D<uint_fast32_t> pos);
 
-		bool						move(Vector2D<uint_fast32_t> dst);
-
 		virtual void				tick(void) = 0;
 
 		// Actor Statics ------

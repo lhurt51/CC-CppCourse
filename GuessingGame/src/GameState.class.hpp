@@ -3,29 +3,29 @@
 
 	#include <includes.hpp>
 
+	// Forward declaring classes
 	template<typename T>
     class Vector2D;
 
 	class Player;
 
 	// To keep track of the state of the game
-	enum							State {
-									LOADING,
-									STARTING,
-									PLAYING,
-									PAUSE,
-									GAMEOVER,
-									EXITING
+	enum								State {
+										LOADING,
+										STARTING,
+										PLAYING,
+										GAMEOVER,
+										EXITING
 	};
 
 	class GameState {
 
 		// Storing window demensions
-		Vector2D<uint_fast32_t> 	_winDem;
+		Vector2D<uint_fast32_t> 		_winDem;
 		// Storing the cur state of the game
-		State						_curState;
+		State							_curState;
 		// Storing a pointer to the player
-		Player						*_player;
+		Player							*_player;
 
 	public:
 		// Constructors --
@@ -34,38 +34,39 @@
 		~GameState(void);
 
 		// Overload operators --
-		GameState					&operator=(GameState const &rhs);
+		GameState						&operator=(GameState const &rhs);
 
 		// Getters --
 		Vector2D<uint_fast32_t> const	getWinDem(void) const;
-		State						getCurState(void) const;
+		State							getCurState(void) const;
 
 		// Setters --
-		void						setWinDem(Vector2D<uint_fast32_t> const winDem);
-		State						setCurState(State curState);
+		void							setWinDem(Vector2D<uint_fast32_t> const winDem);
+		State							setCurState(State curState);
 
 		// Helper methods
-		bool						bShouldExit(void);
-		void						runMainLoop(void);
-		void						runWinUpdate(bool const bIsToSmall);
-		void                        handleInput(int input);
+		void                        	handleInput(int input);
 
 		// Run the state
-		bool						runState(void);
+		bool							runState(void);
 
 	private:
-		void                        _draw(void);
-
 		// Private helper methods --
-		void						_startMainGame(void);
-		void						_handleMainGame(void);
-		void						_handleGameOver(void);
-		void						_mainWindowRedraw(void);
-		void						_gameOverWindowRedraw(void);
+		void                        	_draw(void);
+		void							_handleLoadingState(void);
+		void							_handleStartingState(void);
+		void							_handlePlayingState(void);
+		void 							_handleGameOverState(void);
+		void							_handleExitingState(void);
+
+		// Private Initializers
+
+		// Private Delete --
+		void							_deletePlayer(void);
 
 	};
 
 	// To print the game state info
-	std::ostream      		&operator<<(std::ostream &o, GameState const &i);
+	std::ostream      					&operator<<(std::ostream &o, GameState const &i);
 
 #endif
