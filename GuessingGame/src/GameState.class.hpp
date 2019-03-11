@@ -9,23 +9,28 @@
 
 	class Player;
 
+	class MenuHandler;
+
 	// To keep track of the state of the game
 	enum								State {
 										LOADING,
 										STARTING,
 										PLAYING,
 										GAMEOVER,
+										ERROR,
 										EXITING
 	};
 
 	class GameState {
 
-		// Storing window demensions
+		// Storing window dimensions
 		Vector2D<uint_fast32_t> 		_winDem;
 		// Storing the cur state of the game
 		State							_curState;
 		// Storing a pointer to the player
 		Player							*_player;
+		// Storing a pointer to a menu handler
+		MenuHandler						*_menuHandler;
 
 	public:
 		// Constructors --
@@ -57,12 +62,14 @@
 		void							_handleStartingState(void);
 		void							_handlePlayingState(void);
 		void 							_handleGameOverState(void);
+		void 							_handleErrorState(void);
 		void							_handleExitingState(void);
 
 		// Private Initializers
 
 		// Private Delete --
 		void							_deletePlayer(void);
+		void							_deleteMenuHandler(void);
 
 	};
 

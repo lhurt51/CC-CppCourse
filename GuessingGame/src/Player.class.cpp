@@ -97,11 +97,12 @@ void				Player::stopLeft(void) {
 bool				Player::move(Vector2D<uint_fast32_t> dst) {
 	if (dst == Vector2D<uint_fast32_t>()) return false;
 	_pos += dst;
+	_bNeedsUpdate = true;
 	return true;
 }
 
 // Overloaded Public Actor Methods --
 void				Player::tick(void) {
-	if (_mRightPressed) _pos.x += 1;
-	if (_mLeftPressed) _pos.x -= 1;
+	if (_mRightPressed) move(Vector2D<uint_fast32_t>(1, 0));
+	if (_mLeftPressed) move(Vector2D<uint_fast32_t>(-1, 0));
 }

@@ -13,6 +13,7 @@
 
 		bool						_bCanDraw;
 		bool						_bCanClear;
+		bool						_bNeedsUpdate;
 		Vector2D<uint_fast32_t>		_pos;
 		std::string const			&_sprite;
 
@@ -29,11 +30,13 @@
 		int							getThisIndexInAllActors(void);
 		bool						getCanDraw(void) const;
 		bool						getCanClear(void) const;
+		bool						getNeedsUpdate(void) const;
 		Vector2D<uint_fast32_t>		getPos(void) const;
 		std::string	const			&getSprite(void) const;
 
 		void						setCanDraw(bool bCanDraw);
-		void						setCanClear(bool bCanDraw);
+		void						setCanClear(void);
+		void						resetNeedsUpdate(void);
 		void 						setPos(Vector2D<uint_fast32_t> pos);
 
 		virtual void				tick(void) = 0;
@@ -49,7 +52,11 @@
 		static void					removeActor(Actor &actor);
 		static void					setAllActorsCanDraw(bool bCanDraw);
 		static void					setActorCanDraw(unsigned index, bool bCanDraw);
-		static void					setActorCanClear(unsigned index, bool bCanClear);
+		static void					setAllActorsCanClear();
+		static void					setActorCanClear(unsigned index);
+		static void					resetAllActorsNeedsUpdate();
+		static void					resetActorNeedsUpdate(unsigned index);
+		static bool					anyActorNeedsUpdate(void);
 
 	};
 

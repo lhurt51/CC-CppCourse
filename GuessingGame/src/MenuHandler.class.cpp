@@ -26,5 +26,60 @@
 *
 ******************************************************************************/
 
-#include "MenuItems.class.hpp"
+#include "Vector2D.class.hpp"
+#include "GameState.class.hpp"
+#include "MenuItem.class.hpp"
 #include "MenuHandler.class.hpp"
+
+MenuHandler::MenuHandler(GameState &state, std::string const &title) : _state(state), _title(title) {
+	return;
+}
+
+MenuHandler::MenuHandler(MenuHandler const &src) : _state(src.getGameState()), _title(src.getTitle()) {
+	*this = src;
+	return;
+}
+
+MenuHandler::~MenuHandler(void) {
+	return;
+}
+
+// Overload operators --
+MenuHandler				&MenuHandler::operator=(MenuHandler const &rhs) {
+	if (this != &rhs) {
+		this->_itemIndex = rhs.getItemIndex();
+		this->_items = rhs.getAllItems();
+	}
+	return *this;
+}
+
+GameState				&MenuHandler::getGameState(void) const {
+	return this->_state;
+}
+
+std::string const		&MenuHandler::getTitle(void) const {
+	return this->_title;
+}
+
+// Getters --
+unsigned int			MenuHandler::getItemIndex(void) const {
+	return this->_itemIndex;
+}
+
+std::vector<MenuItems*>	MenuHandler::getAllItems(void) const {
+	return this->_items;
+}
+
+// Setters --
+void					MenuHandler::setIndexItem(unsigned int const index) {
+	this->_itemIndex = index;
+}
+
+void					MenuHandler::setAllItems(std::vector<MenuItems*> const items) {
+	this->_items = items;
+}
+
+// Helper Methods --
+void					MenuHandler::updateMenus(void) {
+
+}

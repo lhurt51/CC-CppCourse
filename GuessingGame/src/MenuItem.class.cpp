@@ -26,4 +26,42 @@
 *
 ******************************************************************************/
 
+#include "Vector2D.class.hpp"
 #include "MenuItem.class.hpp"
+
+// Constructors --
+MenuItem::MenuItem(Vector2D<uint_fast32_t> const pos, std::string const &sprite) : Actor(pos, sprite), _bIsSelected(false) {
+	return;
+}
+
+MenuItem::MenuItem(MenuItem const &src) : Actor(src) {
+	*this = src;
+	return;
+}
+
+MenuItem::~MenuItem(void) {
+	return;
+}
+
+// Overload operators --
+MenuItem		&MenuItem::operator=(MenuItem const &rhs) {
+	if (this != &rhs) {
+		this->_bIsSelected = rhs.getIsSelected();
+	}
+	return *this;
+}
+
+// Getters --
+bool			MenuItem::getIsSelected(void) const {
+	return this->_bIsSelected;
+}
+
+// Setters --
+void			MenuItem::setIsSelected(bool const bIsSelected) {
+	this->_bIsSelected = bIsSelected;
+}
+
+// Actor abstract method implementation
+void			MenuItem::tick(void) {
+
+}

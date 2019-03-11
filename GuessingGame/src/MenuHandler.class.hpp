@@ -9,32 +9,36 @@
     class Vector2D;
 
 	class MenuItems;
+	class GameState;
 
 	class MenuHandler {
 
-		GameState&			_state;
-		unsigned int		_itemIndex;
-		vector<MenuItems*>	_items;
+		GameState&				_state;
+		std::string const&		_title;
+		unsigned int			_itemIndex;
+		std::vector<MenuItems*>	_items;
 
 	public:
 		// Constructors --
-		MenuHandler(GameState &state);
-		MenuHandler(GameState const &src);
+		MenuHandler(GameState &state, std::string const &title);
+		MenuHandler(MenuHandler const &src);
 		~MenuHandler(void);
 
 		// Overload operators --
-		MenuHandler			&operator=(MenuHandler const &rhs);
+		MenuHandler				&operator=(MenuHandler const &rhs);
 
 		// Getters --
-		unsigned int		getItemIndex(void) const;
-		vector<MenuItems*>	getAllItems(void) const;
+		GameState				&getGameState(void) const;
+		std::string const		&getTitle(void) const;
+		unsigned int			getItemIndex(void) const;
+		std::vector<MenuItems*>	getAllItems(void) const;
 
 		// Setters --
-		void				setIndexItem(unsigned int const index);
-		void				setAllItems(vector<MenuItems*> const items);
+		void					setIndexItem(unsigned int const index);
+		void					setAllItems(std::vector<MenuItems*> const items);
 
 		// Helper Methods --
-		void				updateMenus(void);
+		void					updateMenus(void);
 
 	};
 

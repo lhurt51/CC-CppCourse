@@ -26,17 +26,16 @@
 *
 ******************************************************************************/
 
-#include <time.h>
 #include <ncurses.h>
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
-#include "Actor.class.hpp"
 #include "Player.class.hpp"
+#include "MenuHandler.class.hpp"
 #include "GameState.class.hpp"
 #include "GameEngine.class.hpp"
 
 // Initializer for window dimensions Constructor
-GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(LOADING) {
+GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(LOADING), _menuHandler(nullptr) {
 	_player = new Player();
 	return;
 }
@@ -82,7 +81,7 @@ State					GameState::setCurState(State curState) {
 	static State lastState = STARTING;
 
 	if (this->_curState == curState) return lastState;
-	else if (_curState != LOADING) lastState = this->_curState;
+	else if (_curState != LOADING && _curState != ERROR) lastState = this->_curState;
 	this->_curState = curState;
 	return lastState;
 }
@@ -134,6 +133,8 @@ void					GameState::runWinUpdate(bool const bIsToSmall) {
 			case GAMEOVER:
 				_gameOverWindowRedraw();
 				break;
+			case ERROR:
+
 			case EXITING:
 				break;
 			default:
@@ -156,59 +157,96 @@ void					GameState::handleInput(int input) {
 }
 
 bool						GameState::runState(void) {
-	_draw();
-	Actor::tickAllActors();
-	if (_player && _player->getPos().x >= _winDem.x) {
-		_deletePlayer();
+	if (_player && _player->getPos().x >= _winDem.x) _deletePlayer();
+	switch (_curState) {
+		case LOADING:
+			_handleLoadingState();
+			break;
+		case ERROR:
+			_handleErrorState();
+			break;
+		case EXITING:
+			_handleExitingState();
+			return false;
+		default:
+			Actor::tickAllActors();
+			break;
 	}
-	if (_curState == EXITING) return false;
+	_draw();
 	return true;
 }
 
 void                        GameState::_draw(void) {
 	static Vector2D<uint_fast32_t> lastDem;
 	static float fps = GameEngine::calculateFPS();
+	static State lastState;
 
-	if (_winDem != lastDem || fps != GameEngine::calculateFPS()) {
+	lastState = setCurState(_curState);
+	if (Actor::anyActorNeedsUpdate() || _winDem != lastDem || fps != GameEngine::calculateFPS() || lastState != _curState) {
 		clear();
-		char	buffer[128];
+		if (_curState == ERROR)
+			GameEngine::printMiddle(_winDem, WIN_2_SMALL_MSG);
+		else {
+			char	buffer[128];
 
-		fps = GameEngine::calculateFPS();
-		snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
+			fps = GameEngine::calculateFPS();
+			snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
+			GameEngine::printMiddle(_winDem, buffer);
+			GameEngine::printBorder();
+		}
 		Actor::printAllActors();
-		GameEngine::printMiddle(_winDem, buffer);
-		GameEngine::printBorder();
+		Actor::resetAllActorsNeedsUpdate();
 	}
 	lastDem = _winDem;
 }
 
-void				GameState::_deletePlayer(void) {
+void						GameState::_handleLoadingState(void) {
+	if(GameEngine::isWindowToSmall(_winDem)) {
+		Actor::setAllActorsCanDraw(false);
+		setCurState(ERROR);
+	} else {
+		Actor::setAllActorsCanDraw(true);
+		setCurState(setCurState(LOADING));
+	}
+}
+
+void						GameState::_handleStartingState(void) {
+
+}
+
+void						GameState::_handlePlayingState(void) {
+
+}
+
+void 						GameState::_handleGameOverState(void) {
+
+}
+
+void 						GameState::_handleErrorState(void) {
+	Actor::setAllActorsCanDraw(false);
+}
+
+void						GameState::_handleExitingState(void) {
+	_deletePlayer();
+	_deleteMenuHandler();
+}
+
+void						GameState::_deletePlayer(void) {
 	if (_player) {
 		delete _player;
 		_player = nullptr;
 	}
 }
 
-/*
-// Handle game over state for main loop
-void				GameState::_handleGameOver(void) {
-	setCurState(LOADING);
+void						GameState::_deleteMenuHandler(void) {
+	if (_menuHandler) {
+		delete _menuHandler;
+		_menuHandler = nullptr;
+	}
 }
-
-// The Main window redraw for loading and playing game states
-void				GameState::_mainWindowRedraw(void) {
-	//_setAllActorsCanDraw(true);
-}
-
-// Game over window redraw for when the game is over
-void				GameState::_gameOverWindowRedraw(void) {
-	//_setAllActorsCanDraw(false);
-	GameEngine::printMiddle(_winDem, GAME_OVER_MSG);
-}
-*/
 
 // Out stream overload for testing
-std::ostream		&operator<<(std::ostream &o, GameState const &i) {
+std::ostream				&operator<<(std::ostream &o, GameState const &i) {
 	return o << "Game State Info:" << std::endl <<
 	"window demensions: " << i.getWinDem() << std::endl <<
 	"state: " << i.getCurState() << std::endl;

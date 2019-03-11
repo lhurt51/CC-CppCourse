@@ -28,12 +28,12 @@
 
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
-#include "GameEngine.class.hpp"
 #include "Actor.class.hpp"
+#include "GameEngine.class.hpp"
 
 std::vector<Actor*>		Actor::_allActors;
 
-Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite) : _bCanDraw(false), _bCanClear(false), _pos(pos), _sprite(sprite) {
+Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite) : _bCanDraw(false), _bCanClear(false), _bNeedsUpdate(true), _pos(pos), _sprite(sprite) {
 	Actor::addActor(this);
 	return;
 }
@@ -52,6 +52,7 @@ Actor					&Actor::operator=(Actor const &rhs) {
 	if (this != &rhs) {
 		this->_bCanDraw = rhs.getCanDraw();
 		this->_bCanClear = rhs.getCanClear();
+		this->_bNeedsUpdate = rhs.getNeedsUpdate();
 		this->_pos = rhs.getPos();
 		(std::string&)this->_sprite = rhs.getSprite();
 	}
@@ -70,6 +71,10 @@ bool					Actor::getCanClear(void) const {
 	return this->_bCanClear;
 }
 
+bool					Actor::getNeedsUpdate(void) const {
+	return this->_bNeedsUpdate;
+}
+
 Vector2D<uint_fast32_t>	Actor::getPos(void) const {
 	return this->_pos;
 }
@@ -80,17 +85,23 @@ std::string	const		&Actor::getSprite(void) const {
 
 void 		Actor::setPos(Vector2D<uint_fast32_t> pos) {
 	this->_pos = pos;
+	this->_bNeedsUpdate = true;
 }
 
 void		Actor::setCanDraw(bool bCanDraw) {
 	if (this->_bCanDraw == bCanDraw) return;
 	this->_bCanDraw = bCanDraw;
+	this->_bNeedsUpdate = true;
 }
 
-void		Actor::setCanClear(bool bCanClear) {
-	if (this->_bCanClear == bCanClear) return;
-	this->_bCanClear = bCanClear;
-	if (_bCanClear) this->_bCanDraw = false;
+void		Actor::setCanClear() {
+	this->_bCanClear = true;
+	this->_bCanDraw = false;
+	this->_bNeedsUpdate = true;
+}
+
+void		Actor::resetNeedsUpdate(void) {
+	this->_bNeedsUpdate = false;
 }
 
 std::vector<Actor*>	Actor::getAllActors(void) {
@@ -113,7 +124,8 @@ void				Actor::tickAllActors(void) {
 
 void				Actor::printAllActors(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
-		GameEngine::printPos(Actor::_allActors[i]->getPos(), Actor::_allActors[i]->getSprite());
+		if (Actor::_allActors[i]->getCanDraw())
+			GameEngine::printPos(Actor::_allActors[i]->getPos(), Actor::_allActors[i]->getSprite());
 	}
 }
 
@@ -135,7 +147,8 @@ void				Actor::addActor(Actor *actor) {
 
 void				Actor::removeActor(Actor &actor) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
-		if (Actor::_allActors[i] == &actor) Actor::_allActors.erase(Actor::_allActors.begin() + i);
+		if (Actor::_allActors[i] == &actor)
+			Actor::_allActors.erase(Actor::_allActors.begin() + i);
 	}
 }
 
@@ -150,9 +163,33 @@ void				Actor::setActorCanDraw(unsigned index, bool bCanDraw) {
 	Actor::_allActors[index]->setCanDraw(bCanDraw);
 }
 
-void				Actor::setActorCanClear(unsigned index, bool bCanClear) {
+void				Actor::setAllActorsCanClear() {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		Actor::_allActors[i]->setCanClear();
+	}
+}
+
+void				Actor::setActorCanClear(unsigned index) {
 	if (index >= Actor::_allActors.size()) return;
-	Actor::_allActors[index]->setCanClear(bCanClear);
+	Actor::_allActors[index]->setCanClear();
+}
+
+void				Actor::resetAllActorsNeedsUpdate() {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		Actor::_allActors[i]->resetNeedsUpdate();
+	}
+}
+
+void				Actor::resetActorNeedsUpdate(unsigned index) {
+	if (index >= Actor::_allActors.size()) return;
+	Actor::_allActors[index]->resetNeedsUpdate();
+}
+
+bool				Actor::anyActorNeedsUpdate(void) {
+	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		if (Actor::_allActors[i]->getNeedsUpdate()) return true;
+	}
+	return false;
 }
 
 std::ostream	&operator<<(std::ostream &o, Actor const &i) {
