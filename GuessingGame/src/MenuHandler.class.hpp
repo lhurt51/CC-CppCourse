@@ -2,6 +2,7 @@
 	#define MENU_HANDLER_CLASS_HPP
 
 	#include <includes.hpp>
+	// Including vector for the menu items
 	#include <vector>
 
 	// Forward declaring classes
@@ -11,9 +12,13 @@
 
 	class MenuHandler {
 
+		// The game state so it can reference and act on the state
 		GameState&				_state;
+		// The title of the Menu
 		std::string const		_title;
+		// The selected item index
 		unsigned int			_itemIndex;
+		// All items in the menu
 		std::vector<MenuItem*>	_items;
 
 	public:
@@ -36,6 +41,7 @@
 		void					decreaseIndexItem(void);
 
 		// Helper Methods --
+		void					doExecute(void);
 		void					updateMenus(void);
 
 	private:
@@ -44,6 +50,7 @@
 		void					_createItems(std::vector<std::string> const items);
 
 		// Private helper Methods --
+		MenuItem*				_chooseMenuItem(unsigned int i, unsigned int vLen, std::string const item);
 		Vector2D<uint_fast32_t>	_createVerticalList(unsigned int i, unsigned int vecLen);
 		Vector2D<uint_fast32_t>	_createHorizontalList(unsigned int i, unsigned int vecLen, unsigned int strLen);
 		void					_resetSelectedIndex(void);

@@ -48,7 +48,7 @@ GameEngine::~GameEngine(void) {
 	return;
 }
 
-// Static Getters --
+// Static Getter --
 WINDOW*						GameEngine::getWindow(void) {
 	return GameEngine::_window;
 }
@@ -59,6 +59,7 @@ bool						GameEngine::isWindowToSmall(const Vector2D<uint_fast32_t> v) {
 	return true;
 }
 
+// Static get the fps based on a 0.25 sec interval
 float						GameEngine::calculateFPS(void) {
 	static int		frames = 0;
 	static double	startTime = 0;
@@ -84,6 +85,7 @@ float						GameEngine::calculateFPS(void) {
 	return fps;
 }
 
+// Print a message to the center of the screen
 void						GameEngine::printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg) {
 	std::vector<std::string> strs;
 
@@ -92,6 +94,7 @@ void						GameEngine::printMiddle(const Vector2D<uint_fast32_t> pos, const std::
 		mvprintw(HALF_OF_VAL(pos.y) + i, HALF_OF_VAL(pos.x) - HALF_OF_VAL(strs[i].length()), strs[i].c_str());
 }
 
+// Print a message at the specified point
 void						GameEngine::printPos(const Vector2D<uint_fast32_t> pos, const std::string msg) {
 	std::vector<std::string> strs;
 
@@ -100,10 +103,12 @@ void						GameEngine::printPos(const Vector2D<uint_fast32_t> pos, const std::str
 		mvprintw(pos.y + i, pos.x - HALF_OF_VAL(strs[i].length()), strs[i].c_str());
 }
 
+// Print the boarder around the screen
 void						GameEngine::printBorder(void) {
 	wborder(GameEngine::getWindow(), BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
 }
 
+// Add an attribute for the selected menu item only
 void                 		GameEngine::useMenuAttr(bool bUse) {
 	if (bUse) attron(A_STANDOUT | A_BOLD | A_BLINK);
 	else attroff(A_STANDOUT | A_BOLD | A_BLINK);
@@ -111,10 +116,9 @@ void                 		GameEngine::useMenuAttr(bool bUse) {
 
 // Run the window loop
 void						GameEngine::start(void) {
-	GameState *gameState = new GameState(Vector2D<uint_fast32_t>(5));
+	GameState *gameState = new GameState(Vector2D<uint_fast32_t>(MIN_WIN_SIZE + 5));
 
 	_initWindow();
-	_updateWinDem(*gameState);
 	do {
 		_updateWinDem(*gameState);
 		_handleInput(*gameState);
@@ -134,10 +138,12 @@ void						GameEngine::_updateWinDem(GameState& gameState) {
 	gameState.setWinDem(Vector2D<uint_fast32_t>(x, y));
 }
 
+// Handle the input for the game state
 void					GameEngine::_handleInput(GameState& gameState) {
 	gameState.handleInput(wgetch(GameEngine::_window));
 }
 
+// Initialize the window with ncurses
 void						GameEngine::_initWindow(void) {
 	cbreak();
 	noecho();
@@ -171,6 +177,7 @@ std::ostream				&operator<<(std::ostream &o, GameEngine const &i) {
 	"Window addr: " << i.getWindow() << std::endl;
 }
 
+// Global function to help me split actor sprites
 std::vector<std::string>	split(const std::string& s, char const delimiter)
 {
    std::vector<std::string> tokens;

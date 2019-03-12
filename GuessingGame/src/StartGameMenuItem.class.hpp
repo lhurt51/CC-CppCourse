@@ -4,19 +4,23 @@
 	#include <includes.hpp>
 	#include "MenuItem.class.hpp"
 
+	class 					GameState;
+
 	class StartGameMenuItem : public MenuItem {
 
-		GameState&			gameState;
+		// Reference to game state to change the state
+		GameState&			_gameState;
 
 	public:
 		// Constructors --
 		StartGameMenuItem(GameState &gameState, Vector2D<uint_fast32_t> const pos, std::string const &sprite);
-		StartGameMenuItem(MenuItem const &src);
+		StartGameMenuItem(StartGameMenuItem const &src);
 		~StartGameMenuItem(void);
 
 		// Overload operators --
 		StartGameMenuItem	&operator=(StartGameMenuItem const &rhs);
 
+		// Getters --
 		GameState			&getGameState(void) const;
 
 	protected:

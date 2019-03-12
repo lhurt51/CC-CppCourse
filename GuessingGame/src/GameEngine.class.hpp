@@ -15,10 +15,11 @@
 
   public:
 
+    // Constructors --
     GameEngine(void);
     ~GameEngine(void);
 
-    // Static getters
+    // Static getter --
     static WINDOW*              getWindow(void);
 
     // Static helper methods --

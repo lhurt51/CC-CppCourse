@@ -8,7 +8,7 @@
 	class								Player;
 	class								MenuHandler;
 
-	// To keep track of the state of the game
+	// State enum to keep track of the state of the game
 	enum								State {
 										LOADING,
 										STARTING,

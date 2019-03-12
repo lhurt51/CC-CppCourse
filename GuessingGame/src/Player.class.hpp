@@ -8,7 +8,9 @@
 
 		// Checks if the user is typing their input
 		bool				_bIsTyping;
+		// Checks if the user wants to move right
 		bool				_mRightPressed;
+		// Checks if the user wants to move left
 		bool				_mLeftPressed;
 
 	public:

@@ -29,21 +29,24 @@
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
 #include "GameState.class.hpp"
-#include "MenuItem.class.hpp"
+#include "StartGameMenuItem.class.hpp"
 #include "MenuHandler.class.hpp"
 #include "GameEngine.class.hpp"
 
+// Default constructor to init the state and items
 MenuHandler::MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items) : _state(state), _title(title), _itemIndex(0) {
 	_createItems(items);
 	_resetSelectedIndex();
 	return;
 }
 
+// Copy constructor
 MenuHandler::MenuHandler(MenuHandler const &src) : _state(src.getGameState()), _title(src.getTitle()) {
 	*this = src;
 	return;
 }
 
+// Default deconstructor to delete the items
 MenuHandler::~MenuHandler(void) {
 	_deleteItems();
 	return;
@@ -60,6 +63,7 @@ MenuHandler				&MenuHandler::operator=(MenuHandler const &rhs) {
 	return *this;
 }
 
+// Getters --
 GameState				&MenuHandler::getGameState(void) const {
 	return this->_state;
 }
@@ -68,7 +72,6 @@ std::string const		MenuHandler::getTitle(void) const {
 	return this->_title;
 }
 
-// Getters --
 unsigned int			MenuHandler::getItemIndex(void) const {
 	return this->_itemIndex;
 }
@@ -91,6 +94,12 @@ void					MenuHandler::decreaseIndexItem(void) {
 }
 
 // Helper Methods --
+// To execute the code base on the item choosen
+void					MenuHandler::doExecute(void) {
+	_items[_itemIndex]->setShouldExec(true);
+}
+
+// Update the menu items every redraw
 void					MenuHandler::updateMenus(void) {
 	for (unsigned i = 0; i < _items.size(); i++) {
 		_items[i]->setPos(_createVerticalList(i, _items.size()));
@@ -98,9 +107,20 @@ void					MenuHandler::updateMenus(void) {
 }
 
 // Private helper Methods --
+// Create the list of menu items
 void					MenuHandler::_createItems(std::vector<std::string> const items) {
 	for (unsigned i = 0; i < items.size(); i++) {
-		_items.push_back(new MenuItem(_createVerticalList(i, items.size()), items[i]));
+		_items.push_back(_chooseMenuItem(i, items.size(), items[i]));
+	}
+}
+
+// Choose the class of menu item based on state
+MenuItem*				MenuHandler::_chooseMenuItem(unsigned int i, unsigned int vLen, std::string const item) {
+	switch(_state.getCurState()) {
+		case STARTING:
+		default:
+			return new StartGameMenuItem(_state, _createVerticalList(i, vLen), item);
+
 	}
 }
 
@@ -114,6 +134,7 @@ Vector2D<uint_fast32_t>	MenuHandler::_createHorizontalList(unsigned int i, unsig
 	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDem().x) - (vecLen * HALF_OF_VAL(strLen) + HALF_OF_VAL(MENU_ITEM_SPACE * (vecLen - 1))) + (i * strLen) + (i * MENU_ITEM_SPACE), HALF_OF_VAL(_state.getWinDem().y));
 }
 
+// To reset the selected index for all menu items
 void					MenuHandler::_resetSelectedIndex(void) {
 	for (unsigned i = 0; i < _items.size(); i++) {
 		if (_itemIndex == i) _items[i]->setIsSelected(true);
@@ -121,8 +142,17 @@ void					MenuHandler::_resetSelectedIndex(void) {
 	}
 }
 
+// To delete all items
 void					MenuHandler::_deleteItems(void) {
 	for (std::vector<MenuItem*>::iterator pObj = _items.begin(); pObj != _items.end(); ++pObj)
 		delete *pObj;
 	_items.clear();
+}
+
+// Overload the output operator for testing
+std::ostream      			&operator<<(std::ostream &o, MenuHandler const &i) {
+	return o << "Menu Handler Info:" << std::endl <<
+	"game state: " << i.getGameState() << std::endl <<
+	"title: " << i.getTitle() << std::endl <<
+	"selected index: " << i.getItemIndex() << std::endl;
 }

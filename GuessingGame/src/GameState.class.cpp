@@ -35,15 +35,7 @@
 #include "GameEngine.class.hpp"
 
 // Initializer for window dimensions Constructor
-GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(LOADING) {
-	_player = new Player();
-	std::vector<std::string> myItems;
-	myItems.push_back("item1");
-	myItems.push_back("item2");
-	myItems.push_back("item3");
-	myItems.push_back("item4");
-
-	_menuHandler = new MenuHandler(*this, "Menu", myItems);
+GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING), _player(nullptr), _menuHandler(nullptr) {
 	return;
 }
 
@@ -85,6 +77,7 @@ void							GameState::setWinDem(Vector2D<uint_fast32_t> const winDem) {
 	setCurState(LOADING);
 }
 
+// Set the current state and return the previous state
 State							GameState::setCurState(State curState) {
 	static State lastState = STARTING;
 
@@ -94,6 +87,7 @@ State							GameState::setCurState(State curState) {
 	return lastState;
 }
 
+// Handle the input for all the actors that require input
 void							GameState::handleInput(int input) {
 	if (input == 'q') setCurState(EXITING);
 	if (_player) {
@@ -105,14 +99,22 @@ void							GameState::handleInput(int input) {
 	if (_menuHandler) {
 		if (input == 'w') _menuHandler->decreaseIndexItem();
 		if (input == 's') _menuHandler->increaseIndexItem();
+		if (input == 'e') _menuHandler->doExecute();
 	}
 }
 
+// Run the state based on current state
 bool							GameState::runState(void) {
 	if (_player && _player->getPos().x >= _winDem.x) _deletePlayer();
 	switch (_curState) {
 		case LOADING:
 			_handleLoadingState();
+			break;
+		case STARTING:
+			_handleStartingState();
+			break;
+		case PLAYING:
+			_handlePlayingState();
 			break;
 		case ERROR:
 			_handleErrorState();
@@ -121,20 +123,18 @@ bool							GameState::runState(void) {
 			_handleExitingState();
 			return false;
 		default:
-			Actor::tickAllActors();
 			break;
 	}
 	_draw();
 	return true;
 }
 
+// Redraw the screen with all actors and messages
 void                        	GameState::_draw(void) {
 	static Vector2D<uint_fast32_t> lastDem;
 	static float fps = GameEngine::calculateFPS();
-	static State lastState;
 
-	lastState = setCurState(_curState);
-	if (Actor::anyActorNeedsUpdate() || _winDem != lastDem || fps != GameEngine::calculateFPS() || lastState != _curState) {
+	if (Actor::anyActorNeedsUpdate() || _winDem != lastDem || fps != GameEngine::calculateFPS()) {
 		clear();
 		if (_curState == ERROR)
 			GameEngine::printMiddle(_winDem, WIN_2_SMALL_MSG);
@@ -150,9 +150,9 @@ void                        	GameState::_draw(void) {
 		Actor::printAllActors();
 		Actor::resetAllActorsNeedsUpdate();
 	}
-	lastDem = _winDem;
 }
 
+// Handle the loading state update
 void							GameState::_handleLoadingState(void) {
 	if(GameEngine::isWindowToSmall(_winDem)) {
 		Actor::setAllActorsCanDraw(false);
@@ -163,27 +163,41 @@ void							GameState::_handleLoadingState(void) {
 	}
 }
 
+// Handle the starting state update
 void							GameState::_handleStartingState(void) {
+	if (!_menuHandler) {
+		std::vector<std::string> myItems = { "Play", "Watch", "Exit" };
 
+		_menuHandler = new MenuHandler(*this, "Menu", myItems);
+		_menuHandler->updateMenus();
+	}
+	Actor::tickAllActors();
 }
 
+// Handle playing state update
 void							GameState::_handlePlayingState(void) {
-
+	if (_menuHandler) _deleteMenuHandler();
+	if (!_player) _player = new Player();
+	Actor::tickAllActors();
 }
 
+// Handle game over state update
 void 							GameState::_handleGameOverState(void) {
 
 }
 
+// Handle error state update
 void 							GameState::_handleErrorState(void) {
-
+	return;
 }
 
+// Handle the exiting state update
 void							GameState::_handleExitingState(void) {
 	_deletePlayer();
 	_deleteMenuHandler();
 }
 
+// Delete the player as long as its allocated
 void							GameState::_deletePlayer(void) {
 	if (_player) {
 		_player->setCanClear();
@@ -192,6 +206,7 @@ void							GameState::_deletePlayer(void) {
 	}
 }
 
+// Delete the menu handler as long as its allocated
 void							GameState::_deleteMenuHandler(void) {
 	if (_menuHandler) {
 		delete _menuHandler;

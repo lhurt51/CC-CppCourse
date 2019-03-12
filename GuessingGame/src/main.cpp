@@ -30,10 +30,12 @@
 #include "GameEngine.class.hpp"
 
 int main() {
+    // Creating the game class
     GameEngine game;
 
+    // Starting the game class
     game.start();
 
-    // On exit return 0
+    // On exit return success
     return 0;
 }

@@ -28,6 +28,7 @@
 
 #include "Vector2D.class.cpp"
 
+// All the template implementations so I can use all arithmetic data types
 template class							Vector2D<int>;
 template class							Vector2D<unsigned int>;
 template class							Vector2D<short>;

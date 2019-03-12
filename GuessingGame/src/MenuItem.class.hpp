@@ -6,7 +6,9 @@
 
 	class MenuItem : public Actor {
 
+		// Is the item selected
 		bool			_bIsSelected;
+		// Should the item execute
 		bool			_bShouldExec;
 
 		public:
@@ -31,7 +33,8 @@
 
 	protected:
 
-		//virtual void	_execute(void) = 0;
+		// Abstract method for the derived class
+		virtual void	_execute(void) = 0;
 
 	};
 

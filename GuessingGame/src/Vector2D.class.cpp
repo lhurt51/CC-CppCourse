@@ -56,6 +56,7 @@ Vector2D<T>::Vector2D(const Vector2D& src) {
   return;
 }
 
+// Overload operators --
 template<typename T>
 Vector2D<T>&        Vector2D<T>::operator=(const Vector2D& v) {
 	if (this != &v) {
@@ -114,7 +115,7 @@ Vector2D<T>         Vector2D<T>::operator-(void) const {
 }
 
 \\\-----------------------------VVVVVVVVV-----------------------------------///
-ALL DO NOT ALLOW ME to IMPLEMENT IN CPP FOR SOME REASON
+IMPLEMENTED IN HPP FOR INLINE DECLARATION
 template<typename T>
 Vector2D<T>        operator+(const Vector2D<T> l, const Vector2D<T> r) {
   return Vector2D<T>(l) += r;
@@ -157,6 +158,8 @@ Vector2D<T>               operator/(const Vector2D<T> v, const T s) {
 \\\-----------------------------^^^^^^^^^-----------------------------------///
 */
 
+
+// Utility Functions
 template<typename T>
 T                         DotProduct(const Vector2D<T>& a, const Vector2D<T>& b) {
     return ((a.x * b.x) + (a.y + b.y));

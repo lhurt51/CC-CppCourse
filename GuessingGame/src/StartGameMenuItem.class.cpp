@@ -27,33 +27,39 @@
 ******************************************************************************/
 
 #include "Vector2D.class.hpp"
+#include "GameState.class.hpp"
 #include "StartGameMenuItem.class.hpp"
+#include "GameEngine.class.hpp"
 
-// Constructors --
+// Default constructor for initializing variables
 StartGameMenuItem::StartGameMenuItem(GameState& gameState, Vector2D<uint_fast32_t> const pos, std::string const &sprite) : MenuItem(pos, sprite), _gameState(gameState) {
 	return;
 }
 
+// Copy constructor
 StartGameMenuItem::StartGameMenuItem(StartGameMenuItem const &src) : MenuItem(src), _gameState(src.getGameState()) {
 	*this = src;
 	return;
 }
 
+// Deconstructor
 StartGameMenuItem::~StartGameMenuItem(void) {
 	return;
 }
 
-// Overload operators --
+// Overload equals operators for copy constructor
 StartGameMenuItem		&StartGameMenuItem::operator=(StartGameMenuItem const &rhs) {
 	if (this != &rhs) {}
 	return *this;
 }
 
+// Getters --
 GameState				&StartGameMenuItem::getGameState(void) const {
 	return this->_gameState;
 }
 
 // Menu item abstract method implementation
-void			StartGameMenuItem::_execute(void) {
-	return;
+void					StartGameMenuItem::_execute(void) {
+	GameEngine::printPos(Vector2D<uint_fast32_t>(10), "What is happening?");
+	_gameState.setCurState(PLAYING);
 }

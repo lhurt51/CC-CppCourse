@@ -30,6 +30,7 @@
     Vector2D&               operator/=(const T& s);
     Vector2D                operator-(void) const { return Vector2D<T>(-x, -y); };
 
+    // Friend overload operators for both side overload --
     friend bool             operator<(const Vector2D& l, const Vector2D& r) { return std::tie(l.x, l.y) < std::tie(r.x, r.y); };
     friend bool             operator<=(const Vector2D& l, const Vector2D& r) { return !(l < r); };
     friend bool             operator>(const Vector2D& l, const Vector2D& r) { return r < l; };
@@ -37,6 +38,7 @@
     friend bool             operator==(const Vector2D& l, const Vector2D& r) { return std::tie(l.x, l.y) == std::tie(r.x, r.y); };
     friend bool             operator!=(const Vector2D& l, const Vector2D& r) { return !(l == r); };
 
+    // Outstream overload for testing
     friend std::ostream&    operator<<(std::ostream& o, const Vector2D& i) { return o << "Vector2D (" << i.x << "," << i.y << ")"; };
   };
 

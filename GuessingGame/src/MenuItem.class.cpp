@@ -29,21 +29,23 @@
 #include "Vector2D.class.hpp"
 #include "MenuItem.class.hpp"
 
-// Constructors --
-MenuItem::MenuItem(Vector2D<uint_fast32_t> const pos, std::string const &sprite) : Actor(pos, sprite), _bIsSelected(false) {
+// Default constructors to initialize the pos and sprite
+MenuItem::MenuItem(Vector2D<uint_fast32_t> const pos, std::string const &sprite) : Actor(pos, sprite), _bIsSelected(false), _bShouldExec(false) {
 	return;
 }
 
+// Copy constructor
 MenuItem::MenuItem(MenuItem const &src) : Actor(src) {
 	*this = src;
 	return;
 }
 
+// Deconstructor
 MenuItem::~MenuItem(void) {
 	return;
 }
 
-// Overload operators --
+// Overload equals operator
 MenuItem		&MenuItem::operator=(MenuItem const &rhs) {
 	if (this != &rhs) {
 		this->_bIsSelected = rhs.getIsSelected();
@@ -68,12 +70,16 @@ void			MenuItem::setIsSelected(bool const bIsSelected) {
 	this->_bNeedsUpdate = true;
 }
 
-void			MenuItem::setShouldExec(bool const bIsSelected) {
+void			MenuItem::setShouldExec(bool const bShouldExec) {
 	if (!this->_bIsSelected) return;
-	this->_bIsSelected = bIsSelected;
+	this->_bShouldExec = bShouldExec;
+	this->_bNeedsUpdate = true;
 }
 
-// Actor abstract method implementation
+// Actor abstract method implementation to execute code base on bShouldExec
 void			MenuItem::tick(void) {
-	return;
+	if (_bShouldExec) {
+		_execute();
+		_bShouldExec = false;
+	}
 }

@@ -31,22 +31,26 @@
 #include "Actor.class.hpp"
 #include "Player.class.hpp"
 
+// Initializing the player sprite
 const std::string playerSprite = "Player";
 
+// Default constructor to initialize all attributes
 Player::Player(void) : Actor(Vector2D<uint_fast32_t>(DEFAULT_SPAWN), playerSprite), _bIsTyping(false), _mRightPressed(false), _mLeftPressed(false) {
 	return;
 }
 
+// Copy constructor
 Player::Player(Player const &src) : Actor(src) {
 	*this = src;
 	return;
 }
 
+// Deconstructor
 Player::~Player(void) {
 	return;
 }
 
-// Overload operators --
+// Overload equals operators for copy constructor
 Player&				Player::operator=(Player const &rhs) {
 	if (this != &rhs) {
 		this->_bIsTyping = rhs.getIsTyping();
@@ -94,6 +98,7 @@ void				Player::stopLeft(void) {
 	this->_mLeftPressed = false;
 }
 
+// Move the actor based on a Vector2D
 bool				Player::move(Vector2D<uint_fast32_t> dst) {
 	if (dst == Vector2D<uint_fast32_t>()) return false;
 	_pos += dst;
@@ -101,7 +106,7 @@ bool				Player::move(Vector2D<uint_fast32_t> dst) {
 	return true;
 }
 
-// Overloaded Public Actor Methods --
+// Overloaded Public Actor Method
 void				Player::tick(void) {
 	if (_mRightPressed) move(Vector2D<uint_fast32_t>(1, 0));
 	if (_mLeftPressed) move(Vector2D<uint_fast32_t>(-1, 0));

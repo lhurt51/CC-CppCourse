@@ -32,23 +32,28 @@
 #include "GameEngine.class.hpp"
 #include "MenuItem.class.hpp"
 
+// Initializer for static attributes
 std::vector<Actor*>		Actor::_allActors;
 
-Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(false), _bCanClear(false), _bNeedsUpdate(true), _pos(pos), _sprite(sprite) {
+// Default constructor
+Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(true), _bCanClear(false), _bNeedsUpdate(true), _pos(pos), _sprite(sprite) {
 	Actor::addActor(this);
 	return;
 }
 
+// Copy constructor
 Actor::Actor(Actor const &src) : _sprite(src.getSprite()) {
 	*this = src;
 	return;
 }
 
+// Default deconstructor
 Actor::~Actor(void) {
 	Actor::removeActor(this);
 	return;
 }
 
+// Equal sign overload
 Actor					&Actor::operator=(Actor const &rhs) {
 	if (this != &rhs) {
 		this->_bCanDraw = rhs.getCanDraw();
@@ -60,6 +65,7 @@ Actor					&Actor::operator=(Actor const &rhs) {
 	return *this;
 }
 
+// Getters --
 int						Actor::getThisIndexInAllActors(void) {
 	return Actor::findActorIndex(this);
 }
@@ -84,6 +90,7 @@ std::string	const		Actor::getSprite(void) const {
 	return this->_sprite;
 }
 
+// Setters --
 void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {
 	this->_pos = pos;
 	this->_bNeedsUpdate = true;
@@ -105,10 +112,12 @@ void					Actor::resetNeedsUpdate(void) {
 	this->_bNeedsUpdate = false;
 }
 
+// All static methods
 std::vector<Actor*>		Actor::getAllActors(void) {
 	return Actor::_allActors;
 }
 
+// Remove actors based on can clear
 void					Actor::removeActors(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		if (Actor::_allActors[i]->getCanClear()) {
@@ -117,12 +126,14 @@ void					Actor::removeActors(void) {
 	}
 }
 
+// Tick all actors
 void					Actor::tickAllActors(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		Actor::_allActors[i]->tick();
 	}
 }
 
+// Print all actors to the screen
 void					Actor::printAllActors(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		MenuItem* temp = (MenuItem*)Actor::_allActors[i];
@@ -133,11 +144,13 @@ void					Actor::printAllActors(void) {
 	}
 }
 
+// Get the actors address of a specific index
 Actor*					Actor::getActor(unsigned index) {
 	if (index >= Actor::_allActors.size()) return nullptr;
 	return Actor::_allActors[index];
 }
 
+// Find a specific actors index within all actors list
 int						Actor::findActorIndex(Actor *actor) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		if (Actor::_allActors[i] == actor) return i;
@@ -145,10 +158,12 @@ int						Actor::findActorIndex(Actor *actor) {
 	return -1;
 }
 
+// Add actor to the end of the list
 void					Actor::addActor(Actor *actor) {
 	Actor::_allActors.push_back(actor);
 }
 
+// Remove specific actor from all actors list
 void					Actor::removeActor(Actor *actor) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		if (Actor::_allActors[i] == actor)
@@ -156,39 +171,46 @@ void					Actor::removeActor(Actor *actor) {
 	}
 }
 
+// Reset all bCanClear to the input
 void					Actor::setAllActorsCanDraw(bool bCanDraw) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		Actor::_allActors[i]->setCanDraw(bCanDraw);
 	}
 }
 
+// Reset specific bCanClear to the input
 void					Actor::setActorCanDraw(unsigned index, bool bCanDraw) {
 	if (index >= Actor::_allActors.size()) return;
 	Actor::_allActors[index]->setCanDraw(bCanDraw);
 }
 
+// Reset all bCanClear to false
 void					Actor::setAllActorsCanClear() {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		Actor::_allActors[i]->setCanClear();
 	}
 }
 
+// Reset specific bCanClear to false
 void					Actor::setActorCanClear(unsigned index) {
 	if (index >= Actor::_allActors.size()) return;
 	Actor::_allActors[index]->setCanClear();
 }
 
+// Reset all bNeedUpdates to false
 void					Actor::resetAllActorsNeedsUpdate() {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		Actor::_allActors[i]->resetNeedsUpdate();
 	}
 }
 
+// Reset specific bNeedsUpdate to false
 void					Actor::resetActorNeedsUpdate(unsigned index) {
 	if (index >= Actor::_allActors.size()) return;
 	Actor::_allActors[index]->resetNeedsUpdate();
 }
 
+// Check if any actor needs an update
 bool					Actor::anyActorNeedsUpdate(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		if (Actor::_allActors[i]->getNeedsUpdate()) return true;
@@ -196,10 +218,12 @@ bool					Actor::anyActorNeedsUpdate(void) {
 	return false;
 }
 
+// Output pverload for testing
 std::ostream			&operator<<(std::ostream &o, Actor const &i) {
 	return o << "Actor Info:" << std::endl <<
 	"can draw: " << i.getCanDraw() << std::endl <<
 	"can clear: " << i.getCanClear() << std::endl <<
+	"should update: " << i.getNeedsUpdate() << std::endl <<
 	"pos: " << i.getPos() << std::endl <<
 	"sprite: " << i.getSprite() << std::endl;
 }

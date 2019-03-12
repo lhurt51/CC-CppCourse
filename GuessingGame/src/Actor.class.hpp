@@ -1,7 +1,9 @@
 #ifndef ACTOR_CLASS_HPP
 	#define ACTOR_CLASS_HPP
 
+	// All basic includes
 	#include <includes.hpp>
+	// For using vectors
 	#include <vector>
 
 	// Forward declaring classes
@@ -11,22 +13,31 @@
 
 	protected:
 
+		// Boolean to draw the sprite to the screen
 		bool						_bCanDraw;
+		// Boolean to see if the actor can be cleared
 		bool						_bCanClear;
+		// Boolean to see if the sprite should be updated
 		bool						_bNeedsUpdate;
+		// Vector 2D for a position
 		Vector2D<uint_fast32_t>		_pos;
+		// String for displaying the actor
 		std::string const			_sprite;
 
+		// Static vector for all actors created
 		static std::vector<Actor*>	_allActors;
 
 	public:
 
+		// Constructors --
 		Actor(Vector2D<uint_fast32_t> pos, std::string const sprite);
 		Actor(Actor const &src);
 		virtual ~Actor(void);
 
+		// Overload equals operator
 		Actor						&operator=(Actor const &rhs);
 
+		// Getters --
 		int							getThisIndexInAllActors(void);
 		bool						getCanDraw(void) const;
 		bool						getCanClear(void) const;
@@ -34,11 +45,13 @@
 		Vector2D<uint_fast32_t>		getPos(void) const;
 		std::string	const			getSprite(void) const;
 
+		// Setters --
 		void						setCanDraw(bool bCanDraw);
 		void						setCanClear(void);
 		void						resetNeedsUpdate(void);
 		void 						setPos(Vector2D<uint_fast32_t> pos);
 
+		// An abstract method for implemented classes
 		virtual void				tick(void) = 0;
 
 		// Actor Statics ------
