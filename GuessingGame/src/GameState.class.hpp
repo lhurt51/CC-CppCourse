@@ -12,6 +12,7 @@
 	enum								State {
 										LOADING,
 										STARTING,
+										INPUTING,
 										PLAYING,
 										GAMEOVER,
 										ERROR,
@@ -57,6 +58,7 @@
 		void                        	_draw(void);
 		void							_handleLoadingState(void);
 		void							_handleStartingState(void);
+		void							_handleInputingState(void);
 		void							_handlePlayingState(void);
 		void 							_handleGameOverState(void);
 		void 							_handleErrorState(void);

@@ -30,6 +30,7 @@
 #include "Vector2D.class.hpp"
 #include "GameState.class.hpp"
 #include "StartGameMenuItem.class.hpp"
+#include "ExitGameMenuItem.class.hpp"
 #include "MenuHandler.class.hpp"
 #include "GameEngine.class.hpp"
 
@@ -119,8 +120,9 @@ MenuItem*				MenuHandler::_chooseMenuItem(unsigned int i, unsigned int vLen, std
 	switch(_state.getCurState()) {
 		case STARTING:
 		default:
-			return new StartGameMenuItem(_state, _createVerticalList(i, vLen), item);
-
+			if (i == 0) return new StartGameMenuItem(_state, _createVerticalList(i, vLen), item);
+			else if (i == 1) return new StartGameMenuItem(_state, _createVerticalList(i, vLen), item);
+			else return new ExitGameMenuItem(_state, _createVerticalList(i, vLen), item);
 	}
 }
 

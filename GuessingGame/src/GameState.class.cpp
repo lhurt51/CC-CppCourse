@@ -113,8 +113,14 @@ bool							GameState::runState(void) {
 		case STARTING:
 			_handleStartingState();
 			break;
+		case INPUTING:
+			_handleInputingState();
+			break;
 		case PLAYING:
 			_handlePlayingState();
+			break;
+		case GAMEOVER:
+			_handleGameOverState();
 			break;
 		case ERROR:
 			_handleErrorState();
@@ -172,6 +178,11 @@ void							GameState::_handleStartingState(void) {
 		_menuHandler->updateMenus();
 	}
 	Actor::tickAllActors();
+}
+
+// Handle input state update
+void							GameState::_handleInputingState(void) {
+
 }
 
 // Handle playing state update

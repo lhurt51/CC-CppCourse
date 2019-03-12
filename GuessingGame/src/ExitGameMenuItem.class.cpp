@@ -28,36 +28,36 @@
 
 #include "Vector2D.class.hpp"
 #include "GameState.class.hpp"
-#include "StartGameMenuItem.class.hpp"
+#include "ExitGameMenuItem.class.hpp"
 
 // Default constructor for initializing variables
-StartGameMenuItem::StartGameMenuItem(GameState& gameState, Vector2D<uint_fast32_t> const pos, std::string const &sprite) : MenuItem(pos, sprite), _gameState(gameState) {
+ExitGameMenuItem::ExitGameMenuItem(GameState& gameState, Vector2D<uint_fast32_t> const pos, std::string const &sprite) : MenuItem(pos, sprite), _gameState(gameState) {
 	return;
 }
 
 // Copy constructor
-StartGameMenuItem::StartGameMenuItem(StartGameMenuItem const &src) : MenuItem(src), _gameState(src.getGameState()) {
+ExitGameMenuItem::ExitGameMenuItem(ExitGameMenuItem const &src) : MenuItem(src), _gameState(src.getGameState()) {
 	*this = src;
 	return;
 }
 
 // Deconstructor
-StartGameMenuItem::~StartGameMenuItem(void) {
+ExitGameMenuItem::~ExitGameMenuItem(void) {
 	return;
 }
 
 // Overload equals operators for copy constructor
-StartGameMenuItem		&StartGameMenuItem::operator=(StartGameMenuItem const &rhs) {
+ExitGameMenuItem		&ExitGameMenuItem::operator=(ExitGameMenuItem const &rhs) {
 	if (this != &rhs) {}
 	return *this;
 }
 
 // Getters --
-GameState				&StartGameMenuItem::getGameState(void) const {
+GameState				&ExitGameMenuItem::getGameState(void) const {
 	return this->_gameState;
 }
 
 // Menu item abstract method implementation
-void					StartGameMenuItem::_execute(void) {
-	_gameState.setCurState(PLAYING);
+void					ExitGameMenuItem::_execute(void) {
+	_gameState.setCurState(EXITING);
 }

@@ -18,6 +18,7 @@ SRCS =	$(addprefix $(SDIR)/, \
 			MenuHandler.class.cpp \
 			MenuItem.class.cpp \
 			StartGameMenuItem.class.cpp \
+			ExitGameMenuItem.class.cpp \
 		)
 
 FDIR =	frame
