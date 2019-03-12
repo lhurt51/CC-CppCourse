@@ -6,20 +6,22 @@
 
 	class StartGameMenuItem : public MenuItem {
 
-		bool				_bIsSelected;
-		bool				_bShouldExec;
+		GameState&			gameState;
 
 	public:
 		// Constructors --
-		StartGameMenuItem(Vector2D<uint_fast32_t> const pos, std::string const &sprite);
+		StartGameMenuItem(GameState &gameState, Vector2D<uint_fast32_t> const pos, std::string const &sprite);
 		StartGameMenuItem(MenuItem const &src);
 		~StartGameMenuItem(void);
 
 		// Overload operators --
 		StartGameMenuItem	&operator=(StartGameMenuItem const &rhs);
 
+		GameState			&getGameState(void) const;
+
 	protected:
 
+		// Override Menu Item execute code
 		void				_execute(void);
 
 	};

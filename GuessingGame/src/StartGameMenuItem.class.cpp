@@ -30,11 +30,11 @@
 #include "StartGameMenuItem.class.hpp"
 
 // Constructors --
-StartGameMenuItem::StartGameMenuItem(Vector2D<uint_fast32_t> const pos, std::string const &sprite) : Actor(pos, sprite), _bIsSelected(false) {
+StartGameMenuItem::StartGameMenuItem(GameState& gameState, Vector2D<uint_fast32_t> const pos, std::string const &sprite) : MenuItem(pos, sprite), _gameState(gameState) {
 	return;
 }
 
-StartGameMenuItem::StartGameMenuItem(StartGameMenuItem const &src) : Actor(src) {
+StartGameMenuItem::StartGameMenuItem(StartGameMenuItem const &src) : MenuItem(src), _gameState(src.getGameState()) {
 	*this = src;
 	return;
 }
@@ -45,10 +45,12 @@ StartGameMenuItem::~StartGameMenuItem(void) {
 
 // Overload operators --
 StartGameMenuItem		&StartGameMenuItem::operator=(StartGameMenuItem const &rhs) {
-	if (this != &rhs) {
-
-	}
+	if (this != &rhs) {}
 	return *this;
+}
+
+GameState				&StartGameMenuItem::getGameState(void) const {
+	return this->_gameState;
 }
 
 // Menu item abstract method implementation

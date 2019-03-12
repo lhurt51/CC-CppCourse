@@ -33,8 +33,9 @@
 #include "MenuHandler.class.hpp"
 #include "GameEngine.class.hpp"
 
-MenuHandler::MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items) : _state(state), _title(title) {
+MenuHandler::MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items) : _state(state), _title(title), _itemIndex(0) {
 	_createItems(items);
+	_resetSelectedIndex();
 	return;
 }
 
@@ -44,6 +45,7 @@ MenuHandler::MenuHandler(MenuHandler const &src) : _state(src.getGameState()), _
 }
 
 MenuHandler::~MenuHandler(void) {
+	_deleteItems();
 	return;
 }
 
@@ -76,12 +78,16 @@ std::vector<MenuItem*>	MenuHandler::getAllItems(void) const {
 }
 
 // Setters --
-void					MenuHandler::setIndexItem(unsigned int const index) {
-	this->_itemIndex = index;
+void					MenuHandler::increaseIndexItem(void) {
+	this->_itemIndex++;
+	if (this->_itemIndex >= _items.size()) this->_itemIndex = 0;
+	_resetSelectedIndex();
 }
 
-void					MenuHandler::setAllItems(std::vector<MenuItem*> const items) {
-	this->_items = items;
+void					MenuHandler::decreaseIndexItem(void) {
+	this->_itemIndex--;
+	if (this->_itemIndex >= this->_items.size()) this->_itemIndex = this->_items.size() - 1;
+	_resetSelectedIndex();
 }
 
 // Helper Methods --
@@ -106,4 +112,17 @@ Vector2D<uint_fast32_t>	MenuHandler::_createVerticalList(unsigned int i, unsigne
 // To create the vector pos for a horizontal menu list
 Vector2D<uint_fast32_t>	MenuHandler::_createHorizontalList(unsigned int i, unsigned int vecLen, unsigned int strLen) {
 	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDem().x) - (vecLen * HALF_OF_VAL(strLen) + HALF_OF_VAL(MENU_ITEM_SPACE * (vecLen - 1))) + (i * strLen) + (i * MENU_ITEM_SPACE), HALF_OF_VAL(_state.getWinDem().y));
+}
+
+void					MenuHandler::_resetSelectedIndex(void) {
+	for (unsigned i = 0; i < _items.size(); i++) {
+		if (_itemIndex == i) _items[i]->setIsSelected(true);
+		else _items[i]->setIsSelected(false);
+	}
+}
+
+void					MenuHandler::_deleteItems(void) {
+	for (std::vector<MenuItem*>::iterator pObj = _items.begin(); pObj != _items.end(); ++pObj)
+		delete *pObj;
+	_items.clear();
 }

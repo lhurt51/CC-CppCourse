@@ -4,11 +4,6 @@
 	#include <includes.hpp>
 	#include <vector>
 
-	enum						ItemType {
-								STARTING_MENU,
-								PLAYING_MENU,
-	};
-
 	// Forward declaring classes
 	template<typename T> class	Vector2D;
 	class						MenuItem;
@@ -37,19 +32,24 @@
 		std::vector<MenuItem*>	getAllItems(void) const;
 
 		// Setters --
-		void					setIndexItem(unsigned int const index);
-		void					setAllItems(std::vector<MenuItem*> const items);
+		void					increaseIndexItem(void);
+		void					decreaseIndexItem(void);
 
 		// Helper Methods --
-		void					createItems(std::vector<std::string> const items);
 		void					updateMenus(void);
 
 	private:
 
-		// Private helper Methods --
+		// Private Initializer func --
 		void					_createItems(std::vector<std::string> const items);
+
+		// Private helper Methods --
 		Vector2D<uint_fast32_t>	_createVerticalList(unsigned int i, unsigned int vecLen);
 		Vector2D<uint_fast32_t>	_createHorizontalList(unsigned int i, unsigned int vecLen, unsigned int strLen);
+		void					_resetSelectedIndex(void);
+
+		// Private delete funcs --
+		void					_deleteItems(void);
 
 	};
 

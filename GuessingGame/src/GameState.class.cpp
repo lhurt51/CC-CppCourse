@@ -35,8 +35,15 @@
 #include "GameEngine.class.hpp"
 
 // Initializer for window dimensions Constructor
-GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(LOADING), _menuHandler(nullptr) {
+GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(LOADING) {
 	_player = new Player();
+	std::vector<std::string> myItems;
+	myItems.push_back("item1");
+	myItems.push_back("item2");
+	myItems.push_back("item3");
+	myItems.push_back("item4");
+
+	_menuHandler = new MenuHandler(*this, "Menu", myItems);
 	return;
 }
 
@@ -49,6 +56,7 @@ GameState::GameState(GameState const &src) {
 // Deconstructor
 GameState::~GameState(void) {
 	_deletePlayer();
+	_deleteMenuHandler();
 	return;
 }
 
@@ -88,25 +96,20 @@ State							GameState::setCurState(State curState) {
 
 void							GameState::handleInput(int input) {
 	if (input == 'q') setCurState(EXITING);
-	else if (_player) {
+	if (_player) {
 		if (input == 'a') _player->moveLeft();
 		else _player->stopLeft();
 		if (input == 'd') _player->moveRight();
 		else _player->stopRight();
 	}
+	if (_menuHandler) {
+		if (input == 'w') _menuHandler->decreaseIndexItem();
+		if (input == 's') _menuHandler->increaseIndexItem();
+	}
 }
 
 bool							GameState::runState(void) {
 	if (_player && _player->getPos().x >= _winDem.x) _deletePlayer();
-	if (!_menuHandler) {
-		std::vector<std::string> myItems;
-		myItems.push_back("item1");
-		myItems.push_back("item2");
-		myItems.push_back("item3");
-		myItems.push_back("item4");
-
-		_menuHandler = new MenuHandler(*this, "Menu", myItems);
-	}
 	switch (_curState) {
 		case LOADING:
 			_handleLoadingState();
@@ -183,6 +186,7 @@ void							GameState::_handleExitingState(void) {
 
 void							GameState::_deletePlayer(void) {
 	if (_player) {
+		_player->setCanClear();
 		delete _player;
 		_player = nullptr;
 	}

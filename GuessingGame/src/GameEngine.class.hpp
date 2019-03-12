@@ -26,7 +26,8 @@
     static float                calculateFPS(void);
     static void                 printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg);
     static void                 printPos(const Vector2D<uint_fast32_t> pos, const std::string msg);
-    static void                 printBorder();
+    static void                 printBorder(void);
+    static void                 useMenuAttr(bool bUse);
 
     // Regular class methods --
     void                        start(void);

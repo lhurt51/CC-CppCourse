@@ -100,8 +100,13 @@ void						GameEngine::printPos(const Vector2D<uint_fast32_t> pos, const std::str
 		mvprintw(pos.y + i, pos.x - HALF_OF_VAL(strs[i].length()), strs[i].c_str());
 }
 
-void						GameEngine::printBorder() {
+void						GameEngine::printBorder(void) {
 	wborder(GameEngine::getWindow(), BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
+}
+
+void                 		GameEngine::useMenuAttr(bool bUse) {
+	if (bUse) attron(A_STANDOUT | A_BOLD | A_BLINK);
+	else attroff(A_STANDOUT | A_BOLD | A_BLINK);
 }
 
 // Run the window loop

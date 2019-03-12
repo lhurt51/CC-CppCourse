@@ -30,6 +30,7 @@
 #include "Vector2D.class.hpp"
 #include "Actor.class.hpp"
 #include "GameEngine.class.hpp"
+#include "MenuItem.class.hpp"
 
 std::vector<Actor*>		Actor::_allActors;
 
@@ -124,8 +125,11 @@ void					Actor::tickAllActors(void) {
 
 void					Actor::printAllActors(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
+		MenuItem* temp = (MenuItem*)Actor::_allActors[i];
+		if (temp && temp->getIsSelected()) GameEngine::useMenuAttr(true);
 		if (Actor::_allActors[i]->getCanDraw())
 			GameEngine::printPos(Actor::_allActors[i]->getPos(), Actor::_allActors[i]->getSprite());
+		GameEngine::useMenuAttr(false);
 	}
 }
 

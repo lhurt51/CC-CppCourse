@@ -63,7 +63,9 @@ bool			MenuItem::getShouldExec(void) const {
 
 // Setters --
 void			MenuItem::setIsSelected(bool const bIsSelected) {
+	if (this->_bIsSelected == bIsSelected) return;
 	this->_bIsSelected = bIsSelected;
+	this->_bNeedsUpdate = true;
 }
 
 void			MenuItem::setShouldExec(bool const bIsSelected) {
