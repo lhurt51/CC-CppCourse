@@ -4,12 +4,9 @@
 	#include <includes.hpp>
 
 	// Forward declaring classes
-	template<typename T>
-    class Vector2D;
-
-	class Player;
-
-	class MenuHandler;
+	template<typename T> class			Vector2D;
+	class								Player;
+	class								MenuHandler;
 
 	// To keep track of the state of the game
 	enum								State {

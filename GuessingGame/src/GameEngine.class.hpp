@@ -5,10 +5,7 @@
 
   // Forward declaring classes and types
   typedef struct _win_st WINDOW;
-  template<typename T>
-
-  class Vector2D;
-
+  template<typename T> class Vector2D;
   class GameState;
 
   // Game Engine class responsible for handling the window

@@ -27,51 +27,31 @@
 ******************************************************************************/
 
 #include "Vector2D.class.hpp"
-#include "MenuItem.class.hpp"
+#include "StartGameMenuItem.class.hpp"
 
 // Constructors --
-MenuItem::MenuItem(Vector2D<uint_fast32_t> const pos, std::string const &sprite) : Actor(pos, sprite), _bIsSelected(false) {
+StartGameMenuItem::StartGameMenuItem(Vector2D<uint_fast32_t> const pos, std::string const &sprite) : Actor(pos, sprite), _bIsSelected(false) {
 	return;
 }
 
-MenuItem::MenuItem(MenuItem const &src) : Actor(src) {
+StartGameMenuItem::StartGameMenuItem(StartGameMenuItem const &src) : Actor(src) {
 	*this = src;
 	return;
 }
 
-MenuItem::~MenuItem(void) {
+StartGameMenuItem::~StartGameMenuItem(void) {
 	return;
 }
 
 // Overload operators --
-MenuItem		&MenuItem::operator=(MenuItem const &rhs) {
+StartGameMenuItem		&StartGameMenuItem::operator=(StartGameMenuItem const &rhs) {
 	if (this != &rhs) {
-		this->_bIsSelected = rhs.getIsSelected();
-		this->_bShouldExec = rhs.getShouldExec();
+
 	}
 	return *this;
 }
 
-// Getters --
-bool			MenuItem::getIsSelected(void) const {
-	return this->_bIsSelected;
-}
-
-bool			MenuItem::getShouldExec(void) const {
-	return this->_bShouldExec;
-}
-
-// Setters --
-void			MenuItem::setIsSelected(bool const bIsSelected) {
-	this->_bIsSelected = bIsSelected;
-}
-
-void			MenuItem::setShouldExec(bool const bIsSelected) {
-	if (!this->_bIsSelected) return;
-	this->_bIsSelected = bIsSelected;
-}
-
-// Actor abstract method implementation
-void			MenuItem::tick(void) {
+// Menu item abstract method implementation
+void			StartGameMenuItem::_execute(void) {
 	return;
 }

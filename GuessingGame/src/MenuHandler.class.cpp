@@ -26,12 +26,15 @@
 *
 ******************************************************************************/
 
+#include <typedefs.hpp>
 #include "Vector2D.class.hpp"
 #include "GameState.class.hpp"
 #include "MenuItem.class.hpp"
 #include "MenuHandler.class.hpp"
+#include "GameEngine.class.hpp"
 
-MenuHandler::MenuHandler(GameState &state, std::string const &title) : _state(state), _title(title) {
+MenuHandler::MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items) : _state(state), _title(title) {
+	_createItems(items);
 	return;
 }
 
@@ -47,6 +50,8 @@ MenuHandler::~MenuHandler(void) {
 // Overload operators --
 MenuHandler				&MenuHandler::operator=(MenuHandler const &rhs) {
 	if (this != &rhs) {
+		this->_state = rhs.getGameState();
+		(std::string&)this->_title = rhs.getTitle();
 		this->_itemIndex = rhs.getItemIndex();
 		this->_items = rhs.getAllItems();
 	}
@@ -57,7 +62,7 @@ GameState				&MenuHandler::getGameState(void) const {
 	return this->_state;
 }
 
-std::string const		&MenuHandler::getTitle(void) const {
+std::string const		MenuHandler::getTitle(void) const {
 	return this->_title;
 }
 
@@ -66,7 +71,7 @@ unsigned int			MenuHandler::getItemIndex(void) const {
 	return this->_itemIndex;
 }
 
-std::vector<MenuItems*>	MenuHandler::getAllItems(void) const {
+std::vector<MenuItem*>	MenuHandler::getAllItems(void) const {
 	return this->_items;
 }
 
@@ -75,11 +80,30 @@ void					MenuHandler::setIndexItem(unsigned int const index) {
 	this->_itemIndex = index;
 }
 
-void					MenuHandler::setAllItems(std::vector<MenuItems*> const items) {
+void					MenuHandler::setAllItems(std::vector<MenuItem*> const items) {
 	this->_items = items;
 }
 
 // Helper Methods --
 void					MenuHandler::updateMenus(void) {
+	for (unsigned i = 0; i < _items.size(); i++) {
+		_items[i]->setPos(_createVerticalList(i, _items.size()));
+	}
+}
 
+// Private helper Methods --
+void					MenuHandler::_createItems(std::vector<std::string> const items) {
+	for (unsigned i = 0; i < items.size(); i++) {
+		_items.push_back(new MenuItem(_createVerticalList(i, items.size()), items[i]));
+	}
+}
+
+// To create the vector pos for a vertical menu list
+Vector2D<uint_fast32_t>	MenuHandler::_createVerticalList(unsigned int i, unsigned int vecLen) {
+	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDem().x), HALF_OF_VAL(_state.getWinDem().y) - vecLen + (i * MENU_ITEM_SPACE));
+}
+
+// To create the vector pos for a horizontal menu list
+Vector2D<uint_fast32_t>	MenuHandler::_createHorizontalList(unsigned int i, unsigned int vecLen, unsigned int strLen) {
+	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDem().x) - (vecLen * HALF_OF_VAL(strLen) + HALF_OF_VAL(MENU_ITEM_SPACE * (vecLen - 1))) + (i * strLen) + (i * MENU_ITEM_SPACE), HALF_OF_VAL(_state.getWinDem().y));
 }

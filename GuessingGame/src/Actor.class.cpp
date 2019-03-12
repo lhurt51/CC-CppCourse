@@ -33,7 +33,7 @@
 
 std::vector<Actor*>		Actor::_allActors;
 
-Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite) : _bCanDraw(false), _bCanClear(false), _bNeedsUpdate(true), _pos(pos), _sprite(sprite) {
+Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(false), _bCanClear(false), _bNeedsUpdate(true), _pos(pos), _sprite(sprite) {
 	Actor::addActor(this);
 	return;
 }
@@ -44,7 +44,7 @@ Actor::Actor(Actor const &src) : _sprite(src.getSprite()) {
 }
 
 Actor::~Actor(void) {
-	Actor::removeActor(*this);
+	Actor::removeActor(this);
 	return;
 }
 
@@ -60,7 +60,7 @@ Actor					&Actor::operator=(Actor const &rhs) {
 }
 
 int						Actor::getThisIndexInAllActors(void) {
-	return Actor::findActorIndex(*this);
+	return Actor::findActorIndex(this);
 }
 
 bool					Actor::getCanDraw(void) const {
@@ -79,36 +79,36 @@ Vector2D<uint_fast32_t>	Actor::getPos(void) const {
 	return this->_pos;
 }
 
-std::string	const		&Actor::getSprite(void) const {
+std::string	const		Actor::getSprite(void) const {
 	return this->_sprite;
 }
 
-void 		Actor::setPos(Vector2D<uint_fast32_t> pos) {
+void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {
 	this->_pos = pos;
 	this->_bNeedsUpdate = true;
 }
 
-void		Actor::setCanDraw(bool bCanDraw) {
+void					Actor::setCanDraw(bool bCanDraw) {
 	if (this->_bCanDraw == bCanDraw) return;
 	this->_bCanDraw = bCanDraw;
 	this->_bNeedsUpdate = true;
 }
 
-void		Actor::setCanClear() {
+void					Actor::setCanClear() {
 	this->_bCanClear = true;
 	this->_bCanDraw = false;
 	this->_bNeedsUpdate = true;
 }
 
-void		Actor::resetNeedsUpdate(void) {
+void					Actor::resetNeedsUpdate(void) {
 	this->_bNeedsUpdate = false;
 }
 
-std::vector<Actor*>	Actor::getAllActors(void) {
+std::vector<Actor*>		Actor::getAllActors(void) {
 	return Actor::_allActors;
 }
 
-void				Actor::removeActors(void) {
+void					Actor::removeActors(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		if (Actor::_allActors[i]->getCanClear()) {
 			Actor::_allActors.erase(Actor::_allActors.begin() + i);
@@ -116,83 +116,83 @@ void				Actor::removeActors(void) {
 	}
 }
 
-void				Actor::tickAllActors(void) {
+void					Actor::tickAllActors(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		Actor::_allActors[i]->tick();
 	}
 }
 
-void				Actor::printAllActors(void) {
+void					Actor::printAllActors(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		if (Actor::_allActors[i]->getCanDraw())
 			GameEngine::printPos(Actor::_allActors[i]->getPos(), Actor::_allActors[i]->getSprite());
 	}
 }
 
-Actor*				Actor::getActor(unsigned index) {
+Actor*					Actor::getActor(unsigned index) {
 	if (index >= Actor::_allActors.size()) return nullptr;
 	return Actor::_allActors[index];
 }
 
-int					Actor::findActorIndex(Actor &actor) {
+int						Actor::findActorIndex(Actor *actor) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
-		if (Actor::_allActors[i] == &actor) return i;
+		if (Actor::_allActors[i] == actor) return i;
 	}
 	return -1;
 }
 
-void				Actor::addActor(Actor *actor) {
+void					Actor::addActor(Actor *actor) {
 	Actor::_allActors.push_back(actor);
 }
 
-void				Actor::removeActor(Actor &actor) {
+void					Actor::removeActor(Actor *actor) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
-		if (Actor::_allActors[i] == &actor)
+		if (Actor::_allActors[i] == actor)
 			Actor::_allActors.erase(Actor::_allActors.begin() + i);
 	}
 }
 
-void				Actor::setAllActorsCanDraw(bool bCanDraw) {
+void					Actor::setAllActorsCanDraw(bool bCanDraw) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		Actor::_allActors[i]->setCanDraw(bCanDraw);
 	}
 }
 
-void				Actor::setActorCanDraw(unsigned index, bool bCanDraw) {
+void					Actor::setActorCanDraw(unsigned index, bool bCanDraw) {
 	if (index >= Actor::_allActors.size()) return;
 	Actor::_allActors[index]->setCanDraw(bCanDraw);
 }
 
-void				Actor::setAllActorsCanClear() {
+void					Actor::setAllActorsCanClear() {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		Actor::_allActors[i]->setCanClear();
 	}
 }
 
-void				Actor::setActorCanClear(unsigned index) {
+void					Actor::setActorCanClear(unsigned index) {
 	if (index >= Actor::_allActors.size()) return;
 	Actor::_allActors[index]->setCanClear();
 }
 
-void				Actor::resetAllActorsNeedsUpdate() {
+void					Actor::resetAllActorsNeedsUpdate() {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		Actor::_allActors[i]->resetNeedsUpdate();
 	}
 }
 
-void				Actor::resetActorNeedsUpdate(unsigned index) {
+void					Actor::resetActorNeedsUpdate(unsigned index) {
 	if (index >= Actor::_allActors.size()) return;
 	Actor::_allActors[index]->resetNeedsUpdate();
 }
 
-bool				Actor::anyActorNeedsUpdate(void) {
+bool					Actor::anyActorNeedsUpdate(void) {
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		if (Actor::_allActors[i]->getNeedsUpdate()) return true;
 	}
 	return false;
 }
 
-std::ostream	&operator<<(std::ostream &o, Actor const &i) {
+std::ostream			&operator<<(std::ostream &o, Actor const &i) {
 	return o << "Actor Info:" << std::endl <<
 	"can draw: " << i.getCanDraw() << std::endl <<
 	"can clear: " << i.getCanClear() << std::endl <<

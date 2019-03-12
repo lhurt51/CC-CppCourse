@@ -7,8 +7,9 @@
 	class MenuItem : public Actor {
 
 		bool			_bIsSelected;
+		bool			_bShouldExec;
 
-	public:
+		public:
 		// Constructors --
 		MenuItem(Vector2D<uint_fast32_t> const pos, std::string const &sprite);
 		MenuItem(MenuItem const &src);
@@ -19,16 +20,22 @@
 
 		// Getters --
 		bool			getIsSelected(void) const;
+		bool			getShouldExec(void) const;
 
 		// Setters --
 		void			setIsSelected(bool const bIsSelected);
+		void			setShouldExec(bool const bShouldExec);
 
 		// Actor abstract method implementation
 		void			tick(void);
 
+	protected:
+
+		//virtual void	_execute(void) = 0;
+
 	};
 
 	// To print the game state info
-	std::ostream      					&operator<<(std::ostream &o, MenuItem const &i);
+	std::ostream      	&operator<<(std::ostream &o, MenuItem const &i);
 
 #endif

@@ -4,8 +4,8 @@
 	#include <includes.hpp>
 	#include <vector>
 
-	template<typename T>
-    class Vector2D;
+	// Forward declaring classes
+	template<typename T> class Vector2D;
 
 	class Actor {
 
@@ -15,13 +15,13 @@
 		bool						_bCanClear;
 		bool						_bNeedsUpdate;
 		Vector2D<uint_fast32_t>		_pos;
-		std::string const			&_sprite;
+		std::string const			_sprite;
 
 		static std::vector<Actor*>	_allActors;
 
 	public:
 
-		Actor(Vector2D<uint_fast32_t> pos, std::string const &sprite);
+		Actor(Vector2D<uint_fast32_t> pos, std::string const sprite);
 		Actor(Actor const &src);
 		virtual ~Actor(void);
 
@@ -32,7 +32,7 @@
 		bool						getCanClear(void) const;
 		bool						getNeedsUpdate(void) const;
 		Vector2D<uint_fast32_t>		getPos(void) const;
-		std::string	const			&getSprite(void) const;
+		std::string	const			getSprite(void) const;
 
 		void						setCanDraw(bool bCanDraw);
 		void						setCanClear(void);
@@ -47,9 +47,9 @@
 		static void					tickAllActors(void);
 		static void					printAllActors(void);
 		static Actor*				getActor(unsigned index);
-		static int					findActorIndex(Actor &actor);
+		static int					findActorIndex(Actor *actor);
 		static void					addActor(Actor *actor);
-		static void					removeActor(Actor &actor);
+		static void					removeActor(Actor *actor);
 		static void					setAllActorsCanDraw(bool bCanDraw);
 		static void					setActorCanDraw(unsigned index, bool bCanDraw);
 		static void					setAllActorsCanClear();

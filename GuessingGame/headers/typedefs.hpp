@@ -11,7 +11,10 @@
   #define BORDER_SIDES '|'
   #define BORDER_TOP_BOTTOM '-'
   #define BORDER_CORNERS 'o'
+  // Useful Functions
   #define HALF_OF_VAL(val) ((int)(val * 0.5f))
+  // Menu values
+  #define MENU_ITEM_SPACE 2
   // Default In Game Msgs
   #define GAME_OVER_MSG "Game Over"
   #define GAME_OVER_STATS_S "It took the computer %d tries to guess your choice"
