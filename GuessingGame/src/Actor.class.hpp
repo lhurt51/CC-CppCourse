@@ -50,6 +50,7 @@
 		void						setCanClear(void);
 		void						resetNeedsUpdate(void);
 		void 						setPos(Vector2D<uint_fast32_t> pos);
+		void						setSprite(std::string const sprite);
 
 		// An abstract method for implemented classes
 		virtual void				tick(void) = 0;

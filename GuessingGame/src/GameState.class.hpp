@@ -53,6 +53,7 @@
 
 	private:
 		// Private helper methods --
+		bool							_checkStateChange(void);
 		void                        	_draw(void);
 		void							_handleLoadingState(void);
 		void							_handleStartingState(void);

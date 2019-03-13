@@ -32,6 +32,7 @@
 #include "StartGameMenuItem.class.hpp"
 #include "ExitGameMenuItem.class.hpp"
 #include "TestGameMenuItem.class.hpp"
+#include "BackGameMenuItem.class.hpp"
 #include "MenuHandler.class.hpp"
 
 // Default constructor to init the state and items
@@ -102,7 +103,7 @@ void					MenuHandler::doExecute(void) {
 
 // Update the menu items every redraw
 void					MenuHandler::tick(void) {
-	setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDem().x), 5));
+	setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDem().x), HALF_OF_VAL(_state.getWinDem().y) - ((HALF_OF_VAL(_items.size()) + MENU_ITEM_SPACE) * MENU_ITEM_SPACE)));
 	for (unsigned i = 0; i < _items.size(); i++) {
 		_items[i]->setPos((_bIsHorizontal) ? _createHorizontalList(i, _items.size(), _items[i]->getSprite().length()) : _createVerticalList(i, _items.size()));
 	}
@@ -119,10 +120,14 @@ void					MenuHandler::_createItems(std::vector<std::string> const items) {
 MenuItem*				MenuHandler::_chooseMenuItem(unsigned int i, unsigned int vLen, std::string const item) {
 	switch(_state.getCurState()) {
 		case STARTING:
-		default:
 			if (i == 0) return new StartGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
 			else if (i == 1) return new TestGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
 			else return new ExitGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
+			break;
+		default:
+			if (i == 0) return new BackGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
+			else return new ExitGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
+			break;
 	}
 }
 

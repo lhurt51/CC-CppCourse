@@ -134,6 +134,16 @@ bool							GameState::runState(void) {
 	return true;
 }
 
+bool							GameState::_checkStateChange(void) {
+	static State lastState = setCurState(_curState);
+
+	if (lastState != setCurState(_curState)) {
+		lastState = setCurState(_curState);
+		return true;
+	}
+	return false;
+}
+
 // Redraw the screen with all actors and messages
 void                        	GameState::_draw(void) {
 	static Vector2D<uint_fast32_t> lastDem;
@@ -169,11 +179,14 @@ void							GameState::_handleLoadingState(void) {
 
 // Handle the starting state update
 void							GameState::_handleStartingState(void) {
-	if (!_menuHandler) {
-		std::vector<std::string> myItems = { "Play", "Watch", "Exit" };
+	static bool first = true;
 
-		_menuHandler = new MenuHandler(*this, "Main Menu", myItems, false);
+	if ((first && _menuHandler) || _checkStateChange()) {
+		_deleteMenuHandler();
+		first = false;
 	}
+	if (!_menuHandler)
+		_menuHandler = new MenuHandler(*this, MAIN_MENU_TITLE, { MAIN_MENU_START_B, MAIN_MENU_TEST_B, MAIN_MENU_EXIT_B }, false);
 	Actor::tickAllActors();
 }
 
@@ -184,32 +197,26 @@ void							GameState::_handleInputingState(void) {
 
 // Handle playing state update
 void							GameState::_handlePlayingState(void) {
-	static unsigned int i = 0;
+	static bool first = true;
 
-	if (i == 0 && _menuHandler) {
+	if ((first && _menuHandler) || _checkStateChange()) {
 		_deleteMenuHandler();
-		i++;
+		first = false;
 	}
-	if (!_menuHandler) {
-		std::vector<std::string> myItems = { "Increase", "Decrease" };
-
-		_menuHandler = new MenuHandler(*this, "Game Options", myItems, true);
-	}
+	if (!_menuHandler)
+		_menuHandler = new MenuHandler(*this, IN_GAME_MENU_TITLE, { IN_GAME_MENU_INC_B, IN_GAME_MENU_DEC_B }, true);
 	Actor::tickAllActors();
 }
 
 void							GameState::_handleTestingState(void) {
-static unsigned int i = 0;
+	static bool first = true;
 
-	if (i == 0 && _menuHandler) {
+	if ((first && _menuHandler) || _checkStateChange()) {
 		_deleteMenuHandler();
-		i++;
+		first = false;
 	}
-	if (!_menuHandler) {
-		std::vector<std::string> myItems = { };
-
-		_menuHandler = new MenuHandler(*this, "Watch The Computer Guess", myItems, true);
-	}
+	if (!_menuHandler)
+		_menuHandler = new MenuHandler(*this, TESTING_MENU_TITLE, { TESTING_MENU_EXIT_B }, true);
 	Actor::tickAllActors();
 }
 

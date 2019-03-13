@@ -92,11 +92,6 @@ std::string	const		Actor::getSprite(void) const {
 }
 
 // Setters --
-void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {
-	this->_pos = pos;
-	this->_bNeedsUpdate = true;
-}
-
 void					Actor::setCanDraw(bool bCanDraw) {
 	if (this->_bCanDraw == bCanDraw) return;
 	this->_bCanDraw = bCanDraw;
@@ -111,6 +106,16 @@ void					Actor::setCanClear() {
 
 void					Actor::resetNeedsUpdate(void) {
 	this->_bNeedsUpdate = false;
+}
+
+void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {
+	this->_pos = pos;
+	this->_bNeedsUpdate = true;
+}
+
+void					Actor::setSprite(std::string const sprite) {
+	(std::string&)this->_sprite = sprite;
+	this->_bNeedsUpdate = true;
 }
 
 // All static methods
@@ -141,7 +146,7 @@ void					Actor::printAllActors(void) {
 
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
 		if (!Actor::_allActors[i]->getCanDraw()) continue;
-		
+
 		mI = dynamic_cast<MenuItem*>(Actor::_allActors[i]);
 		mH = dynamic_cast<MenuHandler*>(Actor::_allActors[i]);
 
