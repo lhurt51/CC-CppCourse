@@ -63,8 +63,14 @@ bool				Input::getIsTyping(void) const {
 	return this->_bIsTyping;
 }
 
-// Setters --
+std::string			Input::getPlayerInput(void) const {
+	return this->_playerInput;
+}
 
+// Setters --
+void				Input::addInputToString(int input) {
+	this->_playerInput += (char)input;
+}
 
 // Overloaded Public Actor Method
 void				Input::tick(void) {

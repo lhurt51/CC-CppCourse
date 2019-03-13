@@ -87,7 +87,7 @@ State							GameState::setCurState(State curState) {
 
 // Handle the input for all the actors that require input
 void							GameState::handleInput(int input) {
-	if (input == 'q') setCurState(EXITING);
+	if (input == '`') setCurState(EXITING);
 	if (_menuHandler) {
 		if (_menuHandler->getIsHorizontal()) {
 			if (input == 'a') _menuHandler->decreaseIndexItem();
@@ -96,7 +96,7 @@ void							GameState::handleInput(int input) {
 			if (input == 'w') _menuHandler->decreaseIndexItem();
 			if (input == 's') _menuHandler->increaseIndexItem();
 		}
-		if (input == 'e') _menuHandler->doExecute();
+		if (input == '\n') _menuHandler->doExecute();
 	}
 }
 
@@ -130,6 +130,7 @@ bool							GameState::runState(void) {
 		default:
 			break;
 	}
+	Actor::tickAllActors();
 	_draw();
 	return true;
 }
@@ -187,12 +188,11 @@ void							GameState::_handleStartingState(void) {
 	}
 	if (!_menuHandler)
 		_menuHandler = new MenuHandler(*this, MAIN_MENU_TITLE, { MAIN_MENU_START_B, MAIN_MENU_TEST_B, MAIN_MENU_EXIT_B }, false);
-	Actor::tickAllActors();
 }
 
 // Handle input state update
 void							GameState::_handleInputingState(void) {
-
+	if (_menuHandler) _deleteMenuHandler();
 }
 
 // Handle playing state update
@@ -205,7 +205,6 @@ void							GameState::_handlePlayingState(void) {
 	}
 	if (!_menuHandler)
 		_menuHandler = new MenuHandler(*this, IN_GAME_MENU_TITLE, { IN_GAME_MENU_INC_B, IN_GAME_MENU_DEC_B }, true);
-	Actor::tickAllActors();
 }
 
 void							GameState::_handleTestingState(void) {
@@ -217,12 +216,11 @@ void							GameState::_handleTestingState(void) {
 	}
 	if (!_menuHandler)
 		_menuHandler = new MenuHandler(*this, TESTING_MENU_TITLE, { TESTING_MENU_EXIT_B }, true);
-	Actor::tickAllActors();
 }
 
 // Handle game over state update
 void 							GameState::_handleGameOverState(void) {
-	Actor::tickAllActors();
+	return;
 }
 
 // Handle error state update

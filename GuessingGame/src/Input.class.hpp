@@ -9,7 +9,7 @@
 		// Checks if the user is typing their input
 		bool				_bIsTyping;
 		// Stores the players input
-		std::string			playerInput;
+		std::string			_playerInput;
 
 	public:
 
@@ -23,8 +23,10 @@
 
 		// Getters --
 		bool				getIsTyping(void) const;
+		std::string			getPlayerInput(void) const;
 
 		// Setters --
+		void				addInputToString(int input);
 
 
 		// Helper Methods
