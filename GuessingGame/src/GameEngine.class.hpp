@@ -28,7 +28,8 @@
     static void                 printMiddle(const Vector2D<uint_fast32_t> pos, const std::string msg);
     static void                 printPos(const Vector2D<uint_fast32_t> pos, const std::string msg);
     static void                 printBorder(void);
-    static void                 useMenuAttr(bool bUse);
+    static void                 useMenuTitleAttr(bool bUse);
+    static void                 useMenuItemAttr(bool bUse);
 
     // Regular class methods --
     void                        start(void);

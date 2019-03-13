@@ -109,7 +109,13 @@ void						GameEngine::printBorder(void) {
 }
 
 // Add an attribute for the selected menu item only
-void                 		GameEngine::useMenuAttr(bool bUse) {
+void                 		GameEngine::useMenuTitleAttr(bool bUse) {
+	if (bUse) attron(A_BOLD | A_UNDERLINE);
+	else attroff(A_BOLD | A_UNDERLINE);
+}
+
+// Add an attribute for the selected menu item only
+void                 		GameEngine::useMenuItemAttr(bool bUse) {
 	if (bUse) attron(A_STANDOUT | A_BOLD | A_BLINK);
 	else attroff(A_STANDOUT | A_BOLD | A_BLINK);
 }

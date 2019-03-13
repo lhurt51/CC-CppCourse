@@ -3,27 +3,27 @@
 
 	#include <includes.hpp>
 	// Including vector for the menu items
-	#include <vector>
+	#include "Actor.class.hpp"
 
 	// Forward declaring classes
 	template<typename T> class	Vector2D;
 	class						MenuItem;
 	class						GameState;
 
-	class MenuHandler {
+	class MenuHandler : public Actor {
 
 		// The game state so it can reference and act on the state
 		GameState&				_state;
-		// The title of the Menu
-		std::string const		_title;
 		// The selected item index
 		unsigned int			_itemIndex;
 		// All items in the menu
 		std::vector<MenuItem*>	_items;
+		// Is the menu horizontal
+		bool					_bIsHorizontal;
 
 	public:
 		// Constructors --
-		MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items);
+		MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items, bool bIsHorizontal);
 		MenuHandler(MenuHandler const &src);
 		~MenuHandler(void);
 
@@ -32,9 +32,9 @@
 
 		// Getters --
 		GameState				&getGameState(void) const;
-		std::string const		getTitle(void) const;
 		unsigned int			getItemIndex(void) const;
 		std::vector<MenuItem*>	getAllItems(void) const;
+		bool					getIsHorizontal(void) const;
 
 		// Setters --
 		void					increaseIndexItem(void);
@@ -42,7 +42,9 @@
 
 		// Helper Methods --
 		void					doExecute(void);
-		void					updateMenus(void);
+
+		// Actor overload methods --
+		void					tick(void);
 
 	private:
 

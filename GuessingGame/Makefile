@@ -14,11 +14,12 @@ SRCS =	$(addprefix $(SDIR)/, \
 			GameEngine.class.cpp \
 			GameState.class.cpp \
 			Actor.class.cpp \
-			Player.class.cpp \
 			MenuHandler.class.cpp \
 			MenuItem.class.cpp \
 			StartGameMenuItem.class.cpp \
 			ExitGameMenuItem.class.cpp \
+			TestGameMenuItem.class.cpp \
+			Guessing.class.cpp \
 		)
 
 FDIR =	frame

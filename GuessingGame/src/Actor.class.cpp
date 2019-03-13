@@ -31,6 +31,7 @@
 #include "Actor.class.hpp"
 #include "GameEngine.class.hpp"
 #include "MenuItem.class.hpp"
+#include "MenuHandler.class.hpp"
 
 // Initializer for static attributes
 std::vector<Actor*>		Actor::_allActors;
@@ -135,12 +136,20 @@ void					Actor::tickAllActors(void) {
 
 // Print all actors to the screen
 void					Actor::printAllActors(void) {
+	MenuItem* mI = nullptr;
+	MenuHandler* mH = nullptr;
+
 	for (unsigned i = 0; i < Actor::_allActors.size(); i++) {
-		MenuItem* temp = (MenuItem*)Actor::_allActors[i];
-		if (temp && temp->getIsSelected()) GameEngine::useMenuAttr(true);
-		if (Actor::_allActors[i]->getCanDraw())
-			GameEngine::printPos(Actor::_allActors[i]->getPos(), Actor::_allActors[i]->getSprite());
-		GameEngine::useMenuAttr(false);
+		if (!Actor::_allActors[i]->getCanDraw()) continue;
+		
+		mI = dynamic_cast<MenuItem*>(Actor::_allActors[i]);
+		mH = dynamic_cast<MenuHandler*>(Actor::_allActors[i]);
+
+		if (mI && mI->getIsSelected()) GameEngine::useMenuItemAttr(true);
+		else if (mH) GameEngine::useMenuTitleAttr(true);
+		GameEngine::printPos(Actor::_allActors[i]->getPos(), Actor::_allActors[i]->getSprite());
+		if (mI && mI->getIsSelected()) GameEngine::useMenuItemAttr(false);
+		else if (mH) GameEngine::useMenuTitleAttr(false);
 	}
 }
 

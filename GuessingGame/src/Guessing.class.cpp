@@ -29,7 +29,42 @@
 #include "Guessing.class.hpp"
 
 template<typename T>
-int binary_search(const std::vector<T>& vec, int start, int end, const T& key)
+Guessing<T>::Guessing(std::vector<T> guessingList, T playerInput) : _guessingList(guessingList), _playerInput(playerInput) {
+    return;
+}
+
+template<typename T>
+Guessing<T>::Guessing(Guessing const &src) {
+    *this = src;
+    return;
+}
+
+template<typename T>
+Guessing<T>::~Guessing(void) {
+    return;
+}
+
+template<typename T>
+Guessing<T>&        Guessing<T>::operator=(const Guessing& rhs) {
+	if (this != &rhs) {
+		this->_guessingList = rhs.getGuessingList();
+		this->_playerInput = rhs.getPlayerInput();
+	}
+	return *this;
+}
+
+template<typename T>
+std::vector<T>  Guessing<T>::getGuessingList(void) const {
+    return this->_guessingList;
+}
+
+template<typename T>
+T               Guessing<T>::getPlayerInput(void) const {
+    return this->_playerInput;
+}
+
+template<typename T>
+int             Guessing<T>::binarySearch(const std::vector<T>& vec, int start, int end, const T& key)
 {
     // Termination condition: start index greater than end index
     if(start > end) return -1;
@@ -38,16 +73,7 @@ int binary_search(const std::vector<T>& vec, int start, int end, const T& key)
     // the array into two pieces.
     const int middle = start + ((end - start) / 2);
 
-    if(vec[middle] == key)
-    {
-        return middle;
-    }
-    else if(vec[middle] > key)
-    {
-        return binary_search(vec, start, middle - 1, key);
-    }
-    else
-    {
-        return binary_search(vec, middle + 1, end, key);
-    }
+    if(vec[middle] == key) return middle;
+    else if(vec[middle] > key) return binary_search(vec, start, middle - 1, key);
+    else return binary_search(vec, middle + 1, end, key);
 }

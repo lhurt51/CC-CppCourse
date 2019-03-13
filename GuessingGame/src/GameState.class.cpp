@@ -29,13 +29,12 @@
 #include <ncurses.h>
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
-#include "Player.class.hpp"
 #include "MenuHandler.class.hpp"
 #include "GameState.class.hpp"
 #include "GameEngine.class.hpp"
 
 // Initializer for window dimensions Constructor
-GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING), _player(nullptr), _menuHandler(nullptr) {
+GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING), _menuHandler(nullptr) {
 	return;
 }
 
@@ -47,7 +46,6 @@ GameState::GameState(GameState const &src) {
 
 // Deconstructor
 GameState::~GameState(void) {
-	_deletePlayer();
 	_deleteMenuHandler();
 	return;
 }
@@ -90,22 +88,20 @@ State							GameState::setCurState(State curState) {
 // Handle the input for all the actors that require input
 void							GameState::handleInput(int input) {
 	if (input == 'q') setCurState(EXITING);
-	if (_player) {
-		if (input == 'a') _player->moveLeft();
-		else _player->stopLeft();
-		if (input == 'd') _player->moveRight();
-		else _player->stopRight();
-	}
 	if (_menuHandler) {
-		if (input == 'w') _menuHandler->decreaseIndexItem();
-		if (input == 's') _menuHandler->increaseIndexItem();
+		if (_menuHandler->getIsHorizontal()) {
+			if (input == 'a') _menuHandler->decreaseIndexItem();
+			if (input == 'd') _menuHandler->increaseIndexItem();
+		} else {
+			if (input == 'w') _menuHandler->decreaseIndexItem();
+			if (input == 's') _menuHandler->increaseIndexItem();
+		}
 		if (input == 'e') _menuHandler->doExecute();
 	}
 }
 
 // Run the state based on current state
 bool							GameState::runState(void) {
-	if (_player && _player->getPos().x >= _winDem.x) _deletePlayer();
 	switch (_curState) {
 		case LOADING:
 			_handleLoadingState();
@@ -118,6 +114,9 @@ bool							GameState::runState(void) {
 			break;
 		case PLAYING:
 			_handlePlayingState();
+			break;
+		case TESTING:
+			_handleTestingState();
 			break;
 		case GAMEOVER:
 			_handleGameOverState();
@@ -150,7 +149,6 @@ void                        	GameState::_draw(void) {
 			fps = GameEngine::calculateFPS();
 			snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
 			GameEngine::printPos(Vector2D<uint_fast32_t>(10, 1), buffer);
-			if (_menuHandler) _menuHandler->updateMenus();
 			GameEngine::printBorder();
 		}
 		Actor::printAllActors();
@@ -174,8 +172,7 @@ void							GameState::_handleStartingState(void) {
 	if (!_menuHandler) {
 		std::vector<std::string> myItems = { "Play", "Watch", "Exit" };
 
-		_menuHandler = new MenuHandler(*this, "Menu", myItems);
-		_menuHandler->updateMenus();
+		_menuHandler = new MenuHandler(*this, "Main Menu", myItems, false);
 	}
 	Actor::tickAllActors();
 }
@@ -187,14 +184,38 @@ void							GameState::_handleInputingState(void) {
 
 // Handle playing state update
 void							GameState::_handlePlayingState(void) {
-	if (_menuHandler) _deleteMenuHandler();
-	if (!_player) _player = new Player();
+	static unsigned int i = 0;
+
+	if (i == 0 && _menuHandler) {
+		_deleteMenuHandler();
+		i++;
+	}
+	if (!_menuHandler) {
+		std::vector<std::string> myItems = { "Increase", "Decrease" };
+
+		_menuHandler = new MenuHandler(*this, "Game Options", myItems, true);
+	}
+	Actor::tickAllActors();
+}
+
+void							GameState::_handleTestingState(void) {
+static unsigned int i = 0;
+
+	if (i == 0 && _menuHandler) {
+		_deleteMenuHandler();
+		i++;
+	}
+	if (!_menuHandler) {
+		std::vector<std::string> myItems = { };
+
+		_menuHandler = new MenuHandler(*this, "Watch The Computer Guess", myItems, true);
+	}
 	Actor::tickAllActors();
 }
 
 // Handle game over state update
 void 							GameState::_handleGameOverState(void) {
-
+	Actor::tickAllActors();
 }
 
 // Handle error state update
@@ -204,17 +225,7 @@ void 							GameState::_handleErrorState(void) {
 
 // Handle the exiting state update
 void							GameState::_handleExitingState(void) {
-	_deletePlayer();
 	_deleteMenuHandler();
-}
-
-// Delete the player as long as its allocated
-void							GameState::_deletePlayer(void) {
-	if (_player) {
-		_player->setCanClear();
-		delete _player;
-		_player = nullptr;
-	}
 }
 
 // Delete the menu handler as long as its allocated

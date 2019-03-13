@@ -5,7 +5,6 @@
 
 	// Forward declaring classes
 	template<typename T> class			Vector2D;
-	class								Player;
 	class								MenuHandler;
 
 	// State enum to keep track of the state of the game
@@ -14,6 +13,7 @@
 										STARTING,
 										INPUTING,
 										PLAYING,
+										TESTING,
 										GAMEOVER,
 										ERROR,
 										EXITING
@@ -25,8 +25,6 @@
 		Vector2D<uint_fast32_t> 		_winDem;
 		// Storing the cur state of the game
 		State							_curState;
-		// Storing a pointer to the player
-		Player							*_player;
 		// Storing a pointer to a menu handler
 		MenuHandler						*_menuHandler;
 
@@ -60,6 +58,7 @@
 		void							_handleStartingState(void);
 		void							_handleInputingState(void);
 		void							_handlePlayingState(void);
+		void							_handleTestingState(void);
 		void 							_handleGameOverState(void);
 		void 							_handleErrorState(void);
 		void							_handleExitingState(void);
@@ -67,7 +66,6 @@
 		// Private Initializers
 
 		// Private Delete --
-		void							_deletePlayer(void);
 		void							_deleteMenuHandler(void);
 
 	};
