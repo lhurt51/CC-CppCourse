@@ -2,7 +2,7 @@ CC =	clang++
 
 FLAG =	-g -Wall -Wextra -Werror -std=c++11 -I ./headers
 
-NAME =	connect3
+NAME =	guessing_game
 
 LNC =	-lncurses
 
