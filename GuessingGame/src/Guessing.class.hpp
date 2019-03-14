@@ -16,6 +16,8 @@
         std::vector<T>  _guessingList;
         // The players guess
         T               _playerInput;
+        int             _lastGuess;
+        int             _numOfGuesses;
 
     public:
 
@@ -31,6 +33,8 @@
         GameState&       getGameState(void) const;
         std::vector<T>  getGuessingList(void) const;
         T               getPlayerInput(void) const;
+        int             getLastGuess(void) const;
+        int             getNumOfGuesses(void) const;
 
         // Actor Abstract method overloads
         void            tick(void);

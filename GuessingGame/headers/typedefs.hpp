@@ -38,5 +38,7 @@
   #define HALF_OF_VAL(val) ((int)(val * 0.5f))
   // Default Menu values
   #define MENU_ITEM_SPACE 2
+  // Guesses Class value
+  #define GUESS_NUM_LIMIT 15
 
 #endif

@@ -53,6 +53,8 @@ Guessing<T>&        Guessing<T>::operator=(const Guessing& rhs) {
         this->_gameState = rhs.getGameState();
 		this->_guessingList = rhs.getGuessingList();
 		this->_playerInput = rhs.getPlayerInput();
+		this->_lastGuess = rhs.getLastGuess();
+		this->_numOfGuesses = rhs.getNumOfGuesses();
 	}
 	return *this;
 }
@@ -73,9 +75,32 @@ T               Guessing<T>::getPlayerInput(void) const {
 }
 
 template<typename T>
+int             Guessing<T>::getLastGuess(void) const {
+    return this->_lastGuess;
+}
+
+template<typename T>
+int             Guessing<T>::getNumOfGuesses(void) const {
+    return this->_numOfGuesses;
+}
+
+template<typename T>
 void            Guessing<T>::tick(void) {
+    static unsigned i = 0;
+    static unsigned count = 0;
+
     setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_gameState.getWinDem().x), HALF_OF_VAL(_gameState.getWinDem().y) - 6));
-    return;
+    if (i > 1000) {
+        if (std::is_same<T, char>::value) {
+            if (count == 0) setSprite((std::string&)this->_sprite + std::string(1, _guessingList[_guessingList.size()*0.5]));
+            
+        } else {
+
+        }
+        count++;
+        i = 0;
+    }
+    i++;
 }
 
 template<typename T>
