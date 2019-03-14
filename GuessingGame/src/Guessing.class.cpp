@@ -63,8 +63,9 @@ T               Guessing<T>::getPlayerInput(void) const {
     return this->_playerInput;
 }
 
+/*
 template<typename T>
-int             Guessing<T>::binarySearch(const std::vector<T>& vec, int start, int end, const T& key)
+int             Guessing<T>::binarySearch(int start, int end, const T& key)
 {
     // Termination condition: start index greater than end index
     if(start > end) return -1;
@@ -73,7 +74,8 @@ int             Guessing<T>::binarySearch(const std::vector<T>& vec, int start, 
     // the array into two pieces.
     const int middle = start + ((end - start) / 2);
 
-    if(vec[middle] == key) return middle;
-    else if(vec[middle] > key) return binary_search(vec, start, middle - 1, key);
-    else return binary_search(vec, middle + 1, end, key);
+    if(_guessingList[middle] == key) return middle;
+    else if(_guessingList[middle] > key) return binary_search(start, middle - 1, key);
+    else return binary_search(middle + 1, end, key);
 }
+*/

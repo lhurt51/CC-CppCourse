@@ -31,11 +31,12 @@
 #include "Vector2D.class.hpp"
 #include "MenuHandler.class.hpp"
 #include "Input.class.hpp"
+#include "Guessing.class.hpp"
 #include "GameState.class.hpp"
 #include "GameEngine.class.hpp"
 
 // Initializer for window dimensions Constructor
-GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING), _menuHandler(nullptr), _input(nullptr) {
+GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING), _menuHandler(nullptr), _input(nullptr), _guessInt(nullptr), _guessChar(nullptr) {
 	return;
 }
 
@@ -255,6 +256,21 @@ void							GameState::_initMenuHandler(std::string const title, std::vector<std:
 void							GameState::_initInput(void) {
 	if (!_input)
 		_input = new Input(*this, Vector2D<uint_fast32_t> (HALF_OF_VAL(_winDem.x), HALF_OF_VAL(_winDem.y)));
+}
+
+void							GameState::_initGuessing(void) {
+	const std::vector<char> charInitList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+	std::vector<unsigned> intInitList;
+
+	if (_input && !_input->getIsTyping()) {
+		if (_input->getIsChar()) {
+			_guessChar = new Guessing<char>(charInitList, std::toupper(_input->getSprite()[0]));
+		} else {
+			for (unsigned i = 0; i < 1001; i++)
+				intInitList.push_back(i);
+			_guessInt = new Guessing<unsigned>(intInitList, std::stoi(_input->getSprite()));
+		}
+	}
 }
 
 // Delete the menu handler as long as its allocated

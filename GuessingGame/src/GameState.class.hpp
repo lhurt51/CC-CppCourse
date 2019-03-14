@@ -5,6 +5,7 @@
 
 	// Forward declaring classes
 	template<typename T> class			Vector2D;
+	template<typename T> class			Guessing;
 	class								MenuHandler;
 	class								Input;
 
@@ -29,6 +30,8 @@
 		// Storing a pointer to a menu handler
 		MenuHandler						*_menuHandler;
 		Input							*_input;
+		Guessing<unsigned>				*_guessInt;
+		Guessing<char>					*_guessChar;
 
 	public:
 		bool							bIsPlaying;
@@ -71,6 +74,7 @@
 		// Private Initializers
 		void							_initMenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal);
 		void							_initInput(void);
+		void							_initGuessing(void);
 
 		// Private Delete --
 		void							_deleteMenuHandler(void);

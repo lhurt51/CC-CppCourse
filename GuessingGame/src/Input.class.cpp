@@ -51,8 +51,9 @@ Input::~Input(void) {
 // Overload equals operators for copy constructor
 Input&				Input::operator=(Input const &rhs) {
 	if (this != &rhs) {
-		this->_bIsTyping = rhs.getIsTyping();
 		this->_gameState = rhs.getGameState();
+		this->_bIsTyping = rhs.getIsTyping();
+		this->_bIsChar = rhs.getIsChar();
 	}
 	return *this;
 }
@@ -66,12 +67,20 @@ bool				Input::getIsTyping(void) const {
 	return this->_bIsTyping;
 }
 
+bool				Input::getIsChar(void) const {
+	return this->_bIsChar;
+}
+
 // Setters --
 void				Input::setIsTyping(void) {
 	if (!_bIsTyping) return;
-	if (_is_digits(_sprite)) _bIsTyping = false;
-	else if (_is_alphas(_sprite)) _bIsTyping = false;
-	else addInputToString(-1);
+	if (_is_digits(_sprite)) {
+		_bIsTyping = false;
+		_bIsChar = false;
+	} else if (_is_alphas(_sprite)) {
+		_bIsTyping = false;
+		_bIsChar = true;
+	} else addInputToString(-1);
 }
 
 void				Input::addInputToString(int input) {

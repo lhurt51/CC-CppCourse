@@ -21,7 +21,7 @@
         std::vector<T>  getGuessingList(void) const;
         T               getPlayerInput(void) const;
 
-        int             binarySearch(const std::vector<T>& vec, int start, int end, const T& key);
+        //int             binarySearch(int start, int end, const T& key);
 
     };
 

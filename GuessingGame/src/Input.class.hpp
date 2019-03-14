@@ -10,6 +10,7 @@
 		GameState&			_gameState;
 		// Checks if the user is typing their input
 		bool				_bIsTyping;
+		bool				_bIsChar;
 
 	public:
 
@@ -24,6 +25,7 @@
 		// Getters --
 		GameState			&getGameState(void) const;
 		bool				getIsTyping(void) const;
+		bool				getIsChar(void) const;
 
 		// Setters --
 		void				setIsTyping(void);
