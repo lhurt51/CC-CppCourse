@@ -26,15 +26,18 @@
 *
 ******************************************************************************/
 
+#include <type_traits>
+#include "Vector2D.class.hpp"
+#include "GameState.class.hpp"
 #include "Guessing.class.hpp"
 
 template<typename T>
-Guessing<T>::Guessing(std::vector<T> guessingList, T playerInput) : _guessingList(guessingList), _playerInput(playerInput) {
+Guessing<T>::Guessing(GameState &gameState, std::vector<T> guessingList, T playerInput) : Actor(Vector2D<uint_fast32_t>(HALF_OF_VAL(gameState.getWinDem().x), HALF_OF_VAL(gameState.getWinDem().y) - 6), "Your input is " + ((std::is_same<T, char>::value) ? std::string(1, playerInput) : std::to_string(playerInput)) + "\nIs your input higher or lower than\nThe Computers guess: "), _gameState(gameState), _guessingList(guessingList), _playerInput(playerInput) {
     return;
 }
 
 template<typename T>
-Guessing<T>::Guessing(Guessing const &src) {
+Guessing<T>::Guessing(Guessing const &src) : Actor(src), _gameState(src.getGameState()) {
     *this = src;
     return;
 }
@@ -47,10 +50,16 @@ Guessing<T>::~Guessing(void) {
 template<typename T>
 Guessing<T>&        Guessing<T>::operator=(const Guessing& rhs) {
 	if (this != &rhs) {
+        this->_gameState = rhs.getGameState();
 		this->_guessingList = rhs.getGuessingList();
 		this->_playerInput = rhs.getPlayerInput();
 	}
 	return *this;
+}
+
+template<typename T>
+GameState&      Guessing<T>::getGameState(void) const {
+    return this->_gameState;
 }
 
 template<typename T>
@@ -63,19 +72,45 @@ T               Guessing<T>::getPlayerInput(void) const {
     return this->_playerInput;
 }
 
-/*
 template<typename T>
-int             Guessing<T>::binarySearch(int start, int end, const T& key)
-{
-    // Termination condition: start index greater than end index
-    if(start > end) return -1;
-
-    // Find the middle element of the vector and use that for splitting
-    // the array into two pieces.
-    const int middle = start + ((end - start) / 2);
-
-    if(_guessingList[middle] == key) return middle;
-    else if(_guessingList[middle] > key) return binary_search(start, middle - 1, key);
-    else return binary_search(middle + 1, end, key);
+void            Guessing<T>::tick(void) {
+    setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_gameState.getWinDem().x), HALF_OF_VAL(_gameState.getWinDem().y) - 6));
+    return;
 }
-*/
+
+template<typename T>
+int             Guessing<T>::_binarySearch(unsigned start, unsigned end, const T& key)
+{
+    if (start >= _guessingList.size() && end >= _guessingList.size())
+        return -1;
+    while(start <= end)
+    {
+        int mid = (start+end)/2;
+
+        if(key < _guessingList[mid])
+            end = mid - 1;
+        else if(key > _guessingList[mid])
+            start = mid + 1;
+        else
+            return _guessingList[mid];
+    }
+    return -1;
+}
+
+/*******************************************************************************************\
+* RECURSION DOES NOT WORK WITH TEMPLATES                                                    *
+* template<typename T>                                                                      *
+* int             Guessing<T>::_binarySearch(int start, int end, const T& key)              *
+* {                                                                                         *
+*     // Termination condition: start index greater than end index                          *
+*     if(start > end) return -1;                                                            *
+*                                                                                           *
+*     // Find the middle element of the vector and use that for splitting                   *
+*     // the array into two pieces.                                                         *
+*     const int middle = start + ((end - start) / 2);                                       *
+*                                                                                           *
+*     if(_guessingList[middle] == key) return middle;                                       *
+*     else if(_guessingList[middle] > key) return _binary_search(start, middle - 1, key);   *
+*     else return _binary_search(middle + 1, end, key);                                     *
+* }                                                                                         *
+\*******************************************************************************************/

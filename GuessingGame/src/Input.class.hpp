@@ -5,6 +5,12 @@
 	#include "Actor.class.hpp"
 	#include "GameState.class.hpp"
 
+	/********************************\
+	 * WANT TO ADD INPUT CLASS		*
+	 * AS A MENU ITEM IN THE MENU	*
+	 * HANDLER						*
+	\********************************/
+
 	class Input : public Actor {
 
 		GameState&			_gameState;

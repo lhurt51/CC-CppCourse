@@ -6,6 +6,13 @@
 	// For using vectors
 	#include <vector>
 
+	/********************************\
+	 * WANT TO ADD BASE DISPLAY		*
+	 * CLASS WITH DISPLAY HANDLER	*
+	 * THEN ACTORS WITH ACTOR		*
+	 * HANDLERS						*
+	\********************************/
+
 	// Forward declaring classes
 	template<typename T> class Vector2D;
 

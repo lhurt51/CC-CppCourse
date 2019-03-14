@@ -59,5 +59,5 @@ GameState				&BackGameMenuItem::getGameState(void) const {
 
 // Menu item abstract method implementation
 void					BackGameMenuItem::_execute(void) {
-	_gameState.setCurState(_gameState.setCurState(_gameState.getCurState()));
+	_gameState.setCurState(STARTING);
 }

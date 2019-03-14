@@ -95,7 +95,10 @@ void				Input::addInputToString(int input) {
 		std::string tmp = "";
 		setSprite(tmp + (char)input);
 		first = false;
-	} else setSprite(this->_sprite + (char)input);
+	} else {
+		setSprite(this->_sprite + (char)input);
+		if (getSprite().length() > 3) setIsTyping();
+	}
 }
 
 void				Input::finnishInput(void) {

@@ -49,6 +49,8 @@ GameState::GameState(GameState const &src) {
 // Deconstructor
 GameState::~GameState(void) {
 	_deleteMenuHandler();
+	_deleteInput();
+	_deleteGuessing();
 	return;
 }
 
@@ -166,11 +168,8 @@ void                        	GameState::_draw(void) {
 		if (_curState == ERROR)
 			GameEngine::printMiddle(_winDem, WIN_2_SMALL_MSG);
 		else {
-			char	buffer[128];
-
 			fps = GameEngine::calculateFPS();
-			snprintf(buffer, sizeof(buffer), GAME_FPS, fps);
-			GameEngine::printPos(Vector2D<uint_fast32_t>(10, 1), buffer);
+			GameEngine::printPos(Vector2D<uint_fast32_t>(10, 1), GAME_FPS + std::to_string(fps));
 			GameEngine::printBorder();
 		}
 		Actor::printAllActors();
@@ -197,6 +196,7 @@ void							GameState::_handleStartingState(void) {
 	static bool first = true;
 
 	_deleteInput();
+	_deleteGuessing();
 	if ((first && _menuHandler) || _checkStateChange()) {
 		_deleteMenuHandler();
 		first = false;
@@ -206,6 +206,7 @@ void							GameState::_handleStartingState(void) {
 
 // Handle input state update
 void							GameState::_handleInputingState(void) {
+	_deleteGuessing();
 	if (_menuHandler) _deleteMenuHandler();
 	_initInput();
 }
@@ -225,16 +226,18 @@ void							GameState::_handlePlayingState(void) {
 void							GameState::_handleTestingState(void) {
 	static bool first = true;
 
-	_deleteInput();
 	if ((first && _menuHandler) || _checkStateChange()) {
 		_deleteMenuHandler();
 		first = false;
 	}
+	_initGuessing();
+	_deleteInput();
 	_initMenuHandler(TESTING_MENU_TITLE, { TESTING_MENU_EXIT_B }, true);
 }
 
 // Handle game over state update
 void 							GameState::_handleGameOverState(void) {
+	_deleteGuessing();
 	return;
 }
 
@@ -246,6 +249,8 @@ void 							GameState::_handleErrorState(void) {
 // Handle the exiting state update
 void							GameState::_handleExitingState(void) {
 	_deleteMenuHandler();
+	_deleteInput();
+	_deleteGuessing();
 }
 
 void							GameState::_initMenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal) {
@@ -262,13 +267,13 @@ void							GameState::_initGuessing(void) {
 	const std::vector<char> charInitList = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 	std::vector<unsigned> intInitList;
 
-	if (_input && !_input->getIsTyping()) {
+	if (!_guessInt && !_guessChar && _input && !_input->getIsTyping()) {
 		if (_input->getIsChar()) {
-			_guessChar = new Guessing<char>(charInitList, std::toupper(_input->getSprite()[0]));
+			_guessChar = new Guessing<char>(*this, charInitList, std::toupper(_input->getSprite()[0]));
 		} else {
 			for (unsigned i = 0; i < 1001; i++)
 				intInitList.push_back(i);
-			_guessInt = new Guessing<unsigned>(intInitList, std::stoi(_input->getSprite()));
+			_guessInt = new Guessing<unsigned>(*this, intInitList, std::max(0, std::min(std::stoi(_input->getSprite()), 1000)));
 		}
 	}
 }
@@ -286,6 +291,17 @@ void							GameState::_deleteInput(void) {
 	if (_input) {
 		delete _input;
 		_input = nullptr;
+	}
+}
+
+void							GameState::_deleteGuessing(void) {
+	if (_guessInt) {
+		delete _guessInt;
+		_guessInt = nullptr;
+	}
+	if (_guessChar) {
+		delete _guessChar;
+		_guessChar = nullptr;
 	}
 }
 

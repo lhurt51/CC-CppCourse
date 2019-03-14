@@ -21,6 +21,14 @@
 										EXITING
 	};
 
+	/********************************\
+	 * WANT TO ADD GAME STATE		*
+	 * HANDLER THAT USES THE GAME	*
+	 * ENGINE TO UPDATE A GAME		*
+	 * STATE POINTER TO A NEW		*
+	 * GAME STATE BASED ON STATE	*
+	\********************************/
+
 	class GameState {
 
 		// Storing window dimensions
@@ -79,6 +87,7 @@
 		// Private Delete --
 		void							_deleteMenuHandler(void);
 		void							_deleteInput(void);
+		void							_deleteGuessing(void);
 
 	};
 
