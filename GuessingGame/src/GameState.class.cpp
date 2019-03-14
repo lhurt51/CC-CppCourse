@@ -30,11 +30,12 @@
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
 #include "MenuHandler.class.hpp"
+#include "Input.class.hpp"
 #include "GameState.class.hpp"
 #include "GameEngine.class.hpp"
 
 // Initializer for window dimensions Constructor
-GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING), _menuHandler(nullptr) {
+GameState::GameState(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING), _menuHandler(nullptr), _input(nullptr) {
 	return;
 }
 
@@ -80,7 +81,8 @@ State							GameState::setCurState(State curState) {
 	static State lastState = STARTING;
 
 	if (this->_curState == curState) return lastState;
-	else if (_curState != LOADING && _curState != ERROR) lastState = this->_curState;
+	else if (_curState != LOADING && _curState != ERROR && _curState != INPUTING)
+		lastState = this->_curState;
 	this->_curState = curState;
 	return lastState;
 }
@@ -97,6 +99,14 @@ void							GameState::handleInput(int input) {
 			if (input == 's') _menuHandler->increaseIndexItem();
 		}
 		if (input == '\n') _menuHandler->doExecute();
+	} else if (_input) {
+		if (input == '\n') {
+			_input->setIsTyping();
+		} else if (std::isalpha(input) || std::isdigit(input)) {
+			_input->addInputToString(input);
+		} else {
+			_input->finnishInput();
+		}
 	}
 }
 
@@ -172,6 +182,9 @@ void							GameState::_handleLoadingState(void) {
 	if(GameEngine::isWindowToSmall(_winDem)) {
 		Actor::setAllActorsCanDraw(false);
 		setCurState(ERROR);
+	} else if (_input && _input->getIsTyping()) {
+		Actor::setAllActorsCanDraw(true);
+		setCurState(INPUTING);
 	} else {
 		Actor::setAllActorsCanDraw(true);
 		setCurState(setCurState(LOADING));
@@ -182,40 +195,41 @@ void							GameState::_handleLoadingState(void) {
 void							GameState::_handleStartingState(void) {
 	static bool first = true;
 
+	_deleteInput();
 	if ((first && _menuHandler) || _checkStateChange()) {
 		_deleteMenuHandler();
 		first = false;
 	}
-	if (!_menuHandler)
-		_menuHandler = new MenuHandler(*this, MAIN_MENU_TITLE, { MAIN_MENU_START_B, MAIN_MENU_TEST_B, MAIN_MENU_EXIT_B }, false);
+	_initMenuHandler(MAIN_MENU_TITLE, { MAIN_MENU_START_B, MAIN_MENU_TEST_B, MAIN_MENU_EXIT_B }, false);
 }
 
 // Handle input state update
 void							GameState::_handleInputingState(void) {
 	if (_menuHandler) _deleteMenuHandler();
+	_initInput();
 }
 
 // Handle playing state update
 void							GameState::_handlePlayingState(void) {
 	static bool first = true;
 
+	_deleteInput();
 	if ((first && _menuHandler) || _checkStateChange()) {
 		_deleteMenuHandler();
 		first = false;
 	}
-	if (!_menuHandler)
-		_menuHandler = new MenuHandler(*this, IN_GAME_MENU_TITLE, { IN_GAME_MENU_INC_B, IN_GAME_MENU_DEC_B }, true);
+	_initMenuHandler(IN_GAME_MENU_TITLE, { IN_GAME_MENU_INC_B, IN_GAME_MENU_DEC_B }, true);
 }
 
 void							GameState::_handleTestingState(void) {
 	static bool first = true;
 
+	_deleteInput();
 	if ((first && _menuHandler) || _checkStateChange()) {
 		_deleteMenuHandler();
 		first = false;
 	}
-	if (!_menuHandler)
-		_menuHandler = new MenuHandler(*this, TESTING_MENU_TITLE, { TESTING_MENU_EXIT_B }, true);
+	_initMenuHandler(TESTING_MENU_TITLE, { TESTING_MENU_EXIT_B }, true);
 }
 
 // Handle game over state update
@@ -233,11 +247,29 @@ void							GameState::_handleExitingState(void) {
 	_deleteMenuHandler();
 }
 
+void							GameState::_initMenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal) {
+	if (!_menuHandler)
+		_menuHandler = new MenuHandler(*this, title, items, bIsHorizontal);
+}
+
+void							GameState::_initInput(void) {
+	if (!_input)
+		_input = new Input(*this, Vector2D<uint_fast32_t> (HALF_OF_VAL(_winDem.x), HALF_OF_VAL(_winDem.y)));
+}
+
 // Delete the menu handler as long as its allocated
 void							GameState::_deleteMenuHandler(void) {
 	if (_menuHandler) {
 		delete _menuHandler;
 		_menuHandler = nullptr;
+	}
+}
+
+// Delete the input as long as its allocated
+void							GameState::_deleteInput(void) {
+	if (_input) {
+		delete _input;
+		_input = nullptr;
 	}
 }
 

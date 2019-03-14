@@ -6,6 +6,7 @@
 	// Forward declaring classes
 	template<typename T> class			Vector2D;
 	class								MenuHandler;
+	class								Input;
 
 	// State enum to keep track of the state of the game
 	enum								State {
@@ -27,8 +28,11 @@
 		State							_curState;
 		// Storing a pointer to a menu handler
 		MenuHandler						*_menuHandler;
+		Input							*_input;
 
 	public:
+		bool							bIsPlaying;
+
 		// Constructors --
 		GameState(Vector2D<uint_fast32_t> const winDem);
 		GameState(GameState const &src);
@@ -65,9 +69,12 @@
 		void							_handleExitingState(void);
 
 		// Private Initializers
+		void							_initMenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal);
+		void							_initInput(void);
 
 		// Private Delete --
 		void							_deleteMenuHandler(void);
+		void							_deleteInput(void);
 
 	};
 

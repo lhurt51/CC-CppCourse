@@ -31,16 +31,14 @@
 #include "Actor.class.hpp"
 #include "Input.class.hpp"
 
-// Initializing the player sprite
-const std::string inputSprite = "Please enter a value 'A' to 'Z' or 1 to 1000";
-
 // Default constructor to initialize all attributes
-Input::Input(Vector2D<uint_fast32_t> pos) : Actor(pos, inputSprite), _bIsTyping(false) {
+Input::Input(GameState &gameState, Vector2D<uint_fast32_t> pos) : Actor(pos, INPUT_START_MSG), _gameState(gameState), _bIsTyping(true) {
+	addInputToString(-2);
 	return;
 }
 
 // Copy constructor
-Input::Input(Input const &src) : Actor(src) {
+Input::Input(Input const &src) : Actor(src), _gameState(src.getGameState()) {
 	*this = src;
 	return;
 }
@@ -54,25 +52,59 @@ Input::~Input(void) {
 Input&				Input::operator=(Input const &rhs) {
 	if (this != &rhs) {
 		this->_bIsTyping = rhs.getIsTyping();
+		this->_gameState = rhs.getGameState();
 	}
 	return *this;
 }
 
 // Getters --
+GameState			&Input::getGameState(void) const {
+	return this->_gameState;
+}
+
 bool				Input::getIsTyping(void) const {
 	return this->_bIsTyping;
 }
 
-std::string			Input::getPlayerInput(void) const {
-	return this->_playerInput;
+// Setters --
+void				Input::setIsTyping(void) {
+	if (!_bIsTyping) return;
+	if (_is_digits(_sprite)) _bIsTyping = false;
+	else if (_is_alphas(_sprite)) _bIsTyping = false;
+	else addInputToString(-1);
 }
 
-// Setters --
 void				Input::addInputToString(int input) {
-	this->_playerInput += (char)input;
+	static bool first = true;
+
+	if (!_bIsTyping) return;
+	if (input < 0) {
+		first = true;
+		if (input == -1)
+			setSprite(INPUT_EXIT_MSG);
+	} else if (first) {
+		std::string tmp = "";
+		setSprite(tmp + (char)input);
+		first = false;
+	} else setSprite(this->_sprite + (char)input);
+}
+
+void				Input::finnishInput(void) {
+	if (!_bIsTyping)
+		_gameState.setCurState((_gameState.bIsPlaying) ? PLAYING : TESTING);
 }
 
 // Overloaded Public Actor Method
 void				Input::tick(void) {
-	return;
+	setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_gameState.getWinDem().x), HALF_OF_VAL(_gameState.getWinDem().y)));
+}
+
+bool 				Input::_is_digits(const std::string &str)
+{
+    return std::all_of(str.begin(), str.end(), ::isdigit); // C++11
+}
+
+bool 				Input::_is_alphas(const std::string &str)
+{
+    return std::all_of(str.begin(), str.end(), ::isalpha); // C++11
 }

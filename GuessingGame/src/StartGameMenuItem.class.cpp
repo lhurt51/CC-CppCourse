@@ -59,5 +59,6 @@ GameState				&StartGameMenuItem::getGameState(void) const {
 
 // Menu item abstract method implementation
 void					StartGameMenuItem::_execute(void) {
-	_gameState.setCurState(PLAYING);
+	_gameState.bIsPlaying = true;
+	_gameState.setCurState(INPUTING);
 }

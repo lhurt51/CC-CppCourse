@@ -59,5 +59,6 @@ GameState				&TestGameMenuItem::getGameState(void) const {
 
 // Menu item abstract method implementation
 void					TestGameMenuItem::_execute(void) {
-	_gameState.setCurState(TESTING);
+	_gameState.bIsPlaying = false;
+	_gameState.setCurState(INPUTING);
 }
