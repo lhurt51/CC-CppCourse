@@ -20,6 +20,7 @@ SRCS =	$(addprefix $(SDIR)/, \
 			ExitGameMenuItem.class.cpp \
 			TestGameMenuItem.class.cpp \
 			BackGameMenuItem.class.cpp \
+			EmptyGameMenuItem.class.cpp \
 			Guessing-impl.class.cpp \
 			Input.class.cpp \
 		)

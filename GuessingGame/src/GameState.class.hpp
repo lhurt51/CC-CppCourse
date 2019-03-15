@@ -68,6 +68,7 @@
 
 	private:
 		// Private helper methods --
+		void							_execMenuInput(void);
 		bool							_checkStateChange(void);
 		void                        	_draw(void);
 		void							_handleLoadingState(void);

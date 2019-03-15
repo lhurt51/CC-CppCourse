@@ -101,7 +101,7 @@ void							GameState::handleInput(int input) {
 			if (input == 'w') _menuHandler->decreaseIndexItem();
 			if (input == 's') _menuHandler->increaseIndexItem();
 		}
-		if (input == '\n') _menuHandler->doExecute();
+		if (input == '\n') _execMenuInput();
 	} else if (_input) {
 		if (input == '\n') {
 			_input->setIsTyping();
@@ -146,6 +146,26 @@ bool							GameState::runState(void) {
 	Actor::tickAllActors();
 	_draw();
 	return true;
+}
+
+void							GameState::_execMenuInput(void) {
+	_menuHandler->doExecute();
+	if ((_guessInt || _guessChar) && bIsPlaying) {
+		if (_guessChar) {
+			if (_menuHandler->getItemIndex() == 0) {
+				_guessChar->setShouldIncrease();
+			} else {
+				_guessChar->setShouldDecrease();
+			}
+		}
+		if (_guessInt) {
+			if (_menuHandler->getItemIndex() == 0) {
+				_guessInt->setShouldIncrease();
+			} else {
+				_guessInt->setShouldDecrease();
+			}
+		}
+	}
 }
 
 bool							GameState::_checkStateChange(void) {
@@ -207,7 +227,7 @@ void							GameState::_handleStartingState(void) {
 // Handle input state update
 void							GameState::_handleInputingState(void) {
 	_deleteGuessing();
-	if (_menuHandler) _deleteMenuHandler();
+	_deleteMenuHandler();
 	_initInput();
 }
 
@@ -215,11 +235,11 @@ void							GameState::_handleInputingState(void) {
 void							GameState::_handlePlayingState(void) {
 	static bool first = true;
 
-	_deleteInput();
 	if ((first && _menuHandler) || _checkStateChange()) {
 		_deleteMenuHandler();
 		first = false;
 	}
+	_initGuessing();
 	_initMenuHandler(IN_GAME_MENU_TITLE, { IN_GAME_MENU_INC_B, IN_GAME_MENU_DEC_B }, true);
 }
 
@@ -231,14 +251,18 @@ void							GameState::_handleTestingState(void) {
 		first = false;
 	}
 	_initGuessing();
-	_deleteInput();
 	_initMenuHandler(TESTING_MENU_TITLE, { TESTING_MENU_EXIT_B }, true);
 }
 
 // Handle game over state update
 void 							GameState::_handleGameOverState(void) {
-	_deleteGuessing();
-	return;
+	static bool first = true;
+
+	if ((first && _menuHandler) || _checkStateChange()) {
+		_deleteMenuHandler();
+		first = false;
+	}
+	_initMenuHandler("GAME OVER", { "Back To Main Menu" }, true);
 }
 
 // Handle error state update
@@ -276,6 +300,7 @@ void							GameState::_initGuessing(void) {
 			_guessInt = new Guessing<unsigned>(*this, intInitList, std::max(0, std::min(std::stoi(_input->getSprite()), 1000)));
 		}
 	}
+	_deleteInput();
 }
 
 // Delete the menu handler as long as its allocated

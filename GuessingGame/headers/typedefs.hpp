@@ -5,12 +5,13 @@
   // Default Program msgs
   #define GAME_NAME "Guessing Game"
   // Default In Game Msgs
-  #define GAME_OVER_MSG "Game Over"
-  #define GAME_OVER_STATS_S "It took the computer %d tries to guess your choice"
-  #define GAME_OVER_STATS_E "The computer could not guess your choice"
   #define GAME_FPS "FPS: "
   // Default Errors Msgs
   #define WIN_2_SMALL_MSG "Window too small"
+  // Default Guessing Msgs
+  #define GUESSING_SUCCEDED_B "\nComputer found the value\n in "
+  #define GUESSING_SUCCEDED_E " guesses."
+  #define GUESSING_FAILED "\nComputer failed to find the value"
   // Menu messages
   #define MAIN_MENU_TITLE "Main Menu"
   #define MAIN_MENU_START_B "Play"
@@ -22,9 +23,12 @@
   #define IN_GAME_MENU_EXIT_B "Back to Menu"
   #define TESTING_MENU_TITLE "Watch as the Computer Guesses"
   #define TESTING_MENU_EXIT_B "Back"
+  #define GAME_OVER_TITLE "Game Over"
+  #define GAME_OVER_EXIT_B "Back to Main Menu"
   // Default Input messages
   #define INPUT_START_MSG "Please enter a value 'A' to 'Z' or 1 to 1000"
   #define INPUT_EXIT_MSG "Please enter a string only containing letter or integers"
+
 
   // ALL VALUES -------
   // Default Game Values
@@ -40,5 +44,6 @@
   #define MENU_ITEM_SPACE 2
   // Guesses Class value
   #define GUESS_NUM_LIMIT 15
+  #define GUESS_DELAY 10
 
 #endif

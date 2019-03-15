@@ -16,8 +16,10 @@
         std::vector<T>  _guessingList;
         // The players guess
         T               _playerInput;
-        int             _lastGuess;
-        int             _numOfGuesses;
+        T               _lastGuess;
+        unsigned        _numOfGuesses;
+        bool            _bShouldIncrease;
+        bool            _bShouldDecrease;
 
     public:
 
@@ -30,18 +32,28 @@
         Guessing&        operator=(const Guessing& rhs);
 
         // Getters --
-        GameState&       getGameState(void) const;
+        GameState&      getGameState(void) const;
         std::vector<T>  getGuessingList(void) const;
         T               getPlayerInput(void) const;
-        int             getLastGuess(void) const;
-        int             getNumOfGuesses(void) const;
+        T               getLastGuess(void) const;
+        unsigned        getNumOfGuesses(void) const;
+        bool            getShouldIncrease(void) const;
+        bool            getShouldDecrease(void) const;
+
+        // Setters --
+        void            setShouldIncrease(void);
+        void            setShouldDecrease(void);
+        void            setLastInput(T lastInput);
 
         // Actor Abstract method overloads
         void            tick(void);
 
     private:
-        // Private helper methods
-        int             _binarySearch(unsigned start, unsigned end, const T& key);
+        // Private helper methods --
+        void            _testGame(bool bIsChar);
+        void            _playGame(bool bIsChar);
+        unsigned        _sizeOfLastGuess(bool bIsChar);
+        T               _binarySearch(unsigned start, unsigned end, const T& key);
 
     };
 

@@ -32,7 +32,7 @@
 #include "Guessing.class.hpp"
 
 template<typename T>
-Guessing<T>::Guessing(GameState &gameState, std::vector<T> guessingList, T playerInput) : Actor(Vector2D<uint_fast32_t>(HALF_OF_VAL(gameState.getWinDem().x), HALF_OF_VAL(gameState.getWinDem().y) - 6), "Your input is " + ((std::is_same<T, char>::value) ? std::string(1, playerInput) : std::to_string(playerInput)) + "\nIs your input higher or lower than\nThe Computers guess: "), _gameState(gameState), _guessingList(guessingList), _playerInput(playerInput) {
+Guessing<T>::Guessing(GameState &gameState, std::vector<T> guessingList, T playerInput) : Actor(Vector2D<uint_fast32_t>(HALF_OF_VAL(gameState.getWinDem().x), HALF_OF_VAL(gameState.getWinDem().y) - 7), "Value to Guess: " + ((std::is_same<T, char>::value) ? std::string(1, std::toupper(playerInput)) : std::to_string(playerInput)) + "\nThe Computer Guessed: "), _gameState(gameState), _guessingList(guessingList), _playerInput(playerInput), _lastGuess(0), _numOfGuesses(0), _bShouldIncrease(false), _bShouldDecrease(false) {
     return;
 }
 
@@ -44,6 +44,8 @@ Guessing<T>::Guessing(Guessing const &src) : Actor(src), _gameState(src.getGameS
 
 template<typename T>
 Guessing<T>::~Guessing(void) {
+    _numOfGuesses = GUESS_NUM_LIMIT + 1;
+    _testGame(std::is_same<T, char>::value);
     return;
 }
 
@@ -55,6 +57,8 @@ Guessing<T>&        Guessing<T>::operator=(const Guessing& rhs) {
 		this->_playerInput = rhs.getPlayerInput();
 		this->_lastGuess = rhs.getLastGuess();
 		this->_numOfGuesses = rhs.getNumOfGuesses();
+        this->_bShouldIncrease = rhs.getShouldIncrease();
+        this->_bShouldDecrease = rhs.getShouldDecrease();
 	}
 	return *this;
 }
@@ -75,36 +79,151 @@ T               Guessing<T>::getPlayerInput(void) const {
 }
 
 template<typename T>
-int             Guessing<T>::getLastGuess(void) const {
+T               Guessing<T>::getLastGuess(void) const {
     return this->_lastGuess;
 }
 
 template<typename T>
-int             Guessing<T>::getNumOfGuesses(void) const {
+unsigned        Guessing<T>::getNumOfGuesses(void) const {
     return this->_numOfGuesses;
 }
 
 template<typename T>
+bool            Guessing<T>::getShouldIncrease(void) const {
+    return this->_bShouldIncrease;
+}
+
+template<typename T>
+bool            Guessing<T>::getShouldDecrease(void) const {
+    return this->_bShouldDecrease;
+}
+
+// Setters --
+template<typename T>
+void            Guessing<T>::setShouldIncrease(void) {
+    this->_bShouldIncrease = true;
+}
+
+template<typename T>
+void            Guessing<T>::setShouldDecrease(void) {
+    this->_bShouldDecrease = true;
+}
+
+template<typename T>
+void            Guessing<T>::setLastInput(T lastInput) {
+    if (_lastGuess == lastInput) return;
+    _lastGuess = lastInput;
+    _numOfGuesses++;
+}
+
+// Need a game timer!!!!
+template<typename T>
 void            Guessing<T>::tick(void) {
     static unsigned i = 0;
-    static unsigned count = 0;
 
-    setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_gameState.getWinDem().x), HALF_OF_VAL(_gameState.getWinDem().y) - 6));
+    setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_gameState.getWinDem().x), HALF_OF_VAL(_gameState.getWinDem().y) - 7));
     if (i > 1000) {
-        if (std::is_same<T, char>::value) {
-            if (count == 0) setSprite((std::string&)this->_sprite + std::string(1, _guessingList[_guessingList.size()*0.5]));
-            
-        } else {
-
-        }
-        count++;
+        if (_gameState.bIsPlaying)
+            _playGame(std::is_same<T, char>::value);
+        else
+            _testGame(std::is_same<T, char>::value);
         i = 0;
     }
     i++;
 }
 
 template<typename T>
-int             Guessing<T>::_binarySearch(unsigned start, unsigned end, const T& key)
+void            Guessing<T>::_testGame(bool bIsChar) {
+    static unsigned count = 0;
+    static unsigned start = 0;
+    static unsigned end = _guessingList.size();
+    static unsigned mid = (end + start) / 2;
+    std::string     sprite = this->_sprite;
+
+    if (_numOfGuesses > GUESS_NUM_LIMIT) {
+        count = 0;
+        start = 0;
+        end = _guessingList.size();
+        mid = (end + start) / 2;
+        if (_gameState.getCurState() == TESTING || _gameState.getCurState() == PLAYING)
+            _gameState.setCurState(GAMEOVER);
+        if (_lastGuess != _playerInput && getSprite().find(GUESSING_FAILED) == std::string::npos)
+            sprite += GUESSING_FAILED;
+    } else {
+        if (count % GUESS_DELAY == 0) {
+            if (count >= GUESS_DELAY) {
+                sprite.erase(sprite.end() - _sizeOfLastGuess(bIsChar), sprite.end());
+                if (_lastGuess > _playerInput) {
+                    end = mid;
+                    mid = (end + start) / 2;
+                } else if (_lastGuess < _playerInput) {
+                    start = mid;
+                    mid = (end + start) / 2;
+                }
+            }
+            setLastInput(_binarySearch(start, end, _guessingList[mid]));
+            sprite += (bIsChar) ? std::string(1, std::toupper(_lastGuess)) : std::to_string(_lastGuess);
+            if (_lastGuess == _playerInput) {
+                sprite += GUESSING_SUCCEDED_B + std::to_string(_numOfGuesses) + GUESSING_SUCCEDED_E;
+                _numOfGuesses = GUESS_NUM_LIMIT + 1;
+            }
+        }
+        count++;
+    }
+    setSprite(sprite);
+}
+
+template<typename T>
+void            Guessing<T>::_playGame(bool bIsChar) {
+    static unsigned start = 0;
+    static unsigned end = _guessingList.size();
+    static unsigned mid = (end + start) / 2;
+    std::string     sprite = this->_sprite;
+
+    if (_numOfGuesses > GUESS_NUM_LIMIT || start == end) {
+        start = 0;
+        end = _guessingList.size();
+        mid = (end + start) / 2;
+        _numOfGuesses = GUESS_NUM_LIMIT + 1;
+        if (_gameState.getCurState() == TESTING || _gameState.getCurState() == PLAYING)
+            _gameState.setCurState(GAMEOVER);
+        if (_lastGuess != _playerInput && getSprite().find(GUESSING_FAILED) == std::string::npos)
+            sprite += GUESSING_FAILED;
+    } else {
+        if (_numOfGuesses > 0) {
+            sprite.erase(sprite.end() - _sizeOfLastGuess(bIsChar), sprite.end());
+            if (_bShouldIncrease) {
+                _bShouldIncrease = false;
+                end = mid;
+                mid = (end + start) / 2;
+            } else if (_bShouldDecrease) {
+                _bShouldDecrease = false;
+                start = mid;
+                mid = (end + start) / 2;
+            }
+        }
+        setLastInput(_binarySearch(start, end, _guessingList[mid]));
+        sprite += (bIsChar) ? std::string(1, std::toupper(_lastGuess)) : std::to_string(_lastGuess);
+        if (_lastGuess == _playerInput) {
+            sprite += GUESSING_SUCCEDED_B + std::to_string(_numOfGuesses) + GUESSING_SUCCEDED_E;
+            _numOfGuesses = GUESS_NUM_LIMIT + 1;
+        }
+    }
+    setSprite(sprite);
+}
+
+template<typename T>
+unsigned        Guessing<T>::_sizeOfLastGuess(bool bIsChar) {
+    unsigned size = 0;
+
+    if (bIsChar) return 1;
+    int number = _lastGuess;
+    while (number/=10) size++;
+    return ++size;
+}
+
+template<typename T>
+T               Guessing<T>::_binarySearch(unsigned start, unsigned end, const T& key)
 {
     if (start >= _guessingList.size() && end >= _guessingList.size())
         return -1;

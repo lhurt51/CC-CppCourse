@@ -33,6 +33,7 @@
 #include "ExitGameMenuItem.class.hpp"
 #include "TestGameMenuItem.class.hpp"
 #include "BackGameMenuItem.class.hpp"
+#include "EmptyGameMenuItem.class.hpp"
 #include "MenuHandler.class.hpp"
 
 // Default constructor to init the state and items
@@ -124,9 +125,12 @@ MenuItem*				MenuHandler::_chooseMenuItem(unsigned int i, unsigned int vLen, std
 			else if (i == 1) return new TestGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
 			else return new ExitGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
 			break;
+		case PLAYING:
+			return new EmptyGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
+			break;
+		case TESTING:
 		default:
-			if (i == 0) return new BackGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
-			else return new ExitGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
+			return new BackGameMenuItem(_state, (_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen), item);
 			break;
 	}
 }

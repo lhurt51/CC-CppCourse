@@ -113,7 +113,8 @@ void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {
 	this->_bNeedsUpdate = true;
 }
 
-void					Actor::setSprite(std::string const sprite) {
+void					Actor::setSprite(std::string sprite) {
+	if (_sprite == sprite) return;
 	(std::string&)this->_sprite = sprite;
 	this->_bNeedsUpdate = true;
 }
