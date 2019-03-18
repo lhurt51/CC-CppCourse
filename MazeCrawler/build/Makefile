@@ -340,32 +340,59 @@ src/Player.class.cpp.s:
 	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/Player.class.cpp.s
 .PHONY : src/Player.class.cpp.s
 
-src/StaticRunTimeComponent.class.o: src/StaticRunTimeComponent.class.cpp.o
+src/StaticGameObject.class.o: src/StaticGameObject.class.cpp.o
 
-.PHONY : src/StaticRunTimeComponent.class.o
+.PHONY : src/StaticGameObject.class.o
 
 # target to build an object file
-src/StaticRunTimeComponent.class.cpp.o:
-	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.o
-.PHONY : src/StaticRunTimeComponent.class.cpp.o
+src/StaticGameObject.class.cpp.o:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.o
+.PHONY : src/StaticGameObject.class.cpp.o
 
-src/StaticRunTimeComponent.class.i: src/StaticRunTimeComponent.class.cpp.i
+src/StaticGameObject.class.i: src/StaticGameObject.class.cpp.i
 
-.PHONY : src/StaticRunTimeComponent.class.i
+.PHONY : src/StaticGameObject.class.i
 
 # target to preprocess a source file
-src/StaticRunTimeComponent.class.cpp.i:
-	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.i
-.PHONY : src/StaticRunTimeComponent.class.cpp.i
+src/StaticGameObject.class.cpp.i:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.i
+.PHONY : src/StaticGameObject.class.cpp.i
 
-src/StaticRunTimeComponent.class.s: src/StaticRunTimeComponent.class.cpp.s
+src/StaticGameObject.class.s: src/StaticGameObject.class.cpp.s
 
-.PHONY : src/StaticRunTimeComponent.class.s
+.PHONY : src/StaticGameObject.class.s
 
 # target to generate assembly for a file
-src/StaticRunTimeComponent.class.cpp.s:
-	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.s
-.PHONY : src/StaticRunTimeComponent.class.cpp.s
+src/StaticGameObject.class.cpp.s:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.s
+.PHONY : src/StaticGameObject.class.cpp.s
+
+src/StaticGameObjectHandler.class.o: src/StaticGameObjectHandler.class.cpp.o
+
+.PHONY : src/StaticGameObjectHandler.class.o
+
+# target to build an object file
+src/StaticGameObjectHandler.class.cpp.o:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.o
+.PHONY : src/StaticGameObjectHandler.class.cpp.o
+
+src/StaticGameObjectHandler.class.i: src/StaticGameObjectHandler.class.cpp.i
+
+.PHONY : src/StaticGameObjectHandler.class.i
+
+# target to preprocess a source file
+src/StaticGameObjectHandler.class.cpp.i:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.i
+.PHONY : src/StaticGameObjectHandler.class.cpp.i
+
+src/StaticGameObjectHandler.class.s: src/StaticGameObjectHandler.class.cpp.s
+
+.PHONY : src/StaticGameObjectHandler.class.s
+
+# target to generate assembly for a file
+src/StaticGameObjectHandler.class.cpp.s:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.s
+.PHONY : src/StaticGameObjectHandler.class.cpp.s
 
 src/Timer.class.o: src/Timer.class.cpp.o
 
@@ -508,9 +535,12 @@ help:
 	@echo "... src/Player.class.o"
 	@echo "... src/Player.class.i"
 	@echo "... src/Player.class.s"
-	@echo "... src/StaticRunTimeComponent.class.o"
-	@echo "... src/StaticRunTimeComponent.class.i"
-	@echo "... src/StaticRunTimeComponent.class.s"
+	@echo "... src/StaticGameObject.class.o"
+	@echo "... src/StaticGameObject.class.i"
+	@echo "... src/StaticGameObject.class.s"
+	@echo "... src/StaticGameObjectHandler.class.o"
+	@echo "... src/StaticGameObjectHandler.class.i"
+	@echo "... src/StaticGameObjectHandler.class.s"
 	@echo "... src/Timer.class.o"
 	@echo "... src/Timer.class.i"
 	@echo "... src/Timer.class.s"

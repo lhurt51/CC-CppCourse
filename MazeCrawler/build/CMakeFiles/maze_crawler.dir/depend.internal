@@ -3,12 +3,9 @@
 
 CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.o
  ../include/includes.hpp
- ../include/typedefs.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
- /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameEngine.class.hpp
- /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuHandler.class.hpp
- /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuItem.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o
  ../include/includes.hpp
@@ -20,20 +17,16 @@ CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/GameState.class.cpp.o
  ../include/includes.hpp
- ../include/typedefs.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameState.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameState.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o
  ../include/includes.hpp
  ../include/typedefs.hpp
- /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameEngine.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameState.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameStateHandler.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameStateHandler.class.hpp
- /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Input.class.hpp
- /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuHandler.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o
  ../include/includes.hpp
@@ -42,6 +35,7 @@ CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameState.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Input.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Input.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o
  ../include/includes.hpp
@@ -51,12 +45,14 @@ CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuHandler.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuHandler.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuItem.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/MenuItem.class.cpp.o
  ../include/includes.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuItem.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuItem.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o
  ../include/includes.hpp
@@ -64,15 +60,19 @@ CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Player.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Player.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
-CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.o
+CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.o
  ../include/includes.hpp
- ../include/typedefs.hpp
- /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticRunTimeComponent.class.cpp
- /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticRunTimeComponent.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.cpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
+CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.o
+ ../include/includes.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObjectHandler.class.cpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObjectHandler.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.o
- ../include/includes.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Timer.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Timer.class.hpp
 CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.o

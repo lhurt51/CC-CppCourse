@@ -161,22 +161,35 @@ CMakeFiles/maze_crawler.dir/src/Player.class.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maze_crawler.dir/src/Player.class.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Player.class.cpp -o CMakeFiles/maze_crawler.dir/src/Player.class.cpp.s
 
-CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.o: CMakeFiles/maze_crawler.dir/flags.make
-CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.o: ../src/StaticRunTimeComponent.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticRunTimeComponent.class.cpp
+CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.o: CMakeFiles/maze_crawler.dir/flags.make
+CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.o: ../src/StaticGameObject.class.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.cpp
 
-CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticRunTimeComponent.class.cpp > CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.i
+CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.cpp > CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.i
 
-CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticRunTimeComponent.class.cpp -o CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.s
+CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.cpp -o CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.s
+
+CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.o: CMakeFiles/maze_crawler.dir/flags.make
+CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.o: ../src/StaticGameObjectHandler.class.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObjectHandler.class.cpp
+
+CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObjectHandler.class.cpp > CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.i
+
+CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObjectHandler.class.cpp -o CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.s
 
 CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.o: CMakeFiles/maze_crawler.dir/flags.make
 CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.o: ../src/Timer.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Timer.class.cpp
 
 CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.s: cmake_force
 
 CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.o: CMakeFiles/maze_crawler.dir/flags.make
 CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.o: ../src/Vector2D-impl.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D-impl.class.cpp
 
 CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.i: cmake_force
@@ -202,7 +215,7 @@ CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.s: cmake_force
 
 CMakeFiles/maze_crawler.dir/src/Vector2D.class.cpp.o: CMakeFiles/maze_crawler.dir/flags.make
 CMakeFiles/maze_crawler.dir/src/Vector2D.class.cpp.o: ../src/Vector2D.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/maze_crawler.dir/src/Vector2D.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/maze_crawler.dir/src/Vector2D.class.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/maze_crawler.dir/src/Vector2D.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.cpp
 
 CMakeFiles/maze_crawler.dir/src/Vector2D.class.cpp.i: cmake_force
@@ -215,7 +228,7 @@ CMakeFiles/maze_crawler.dir/src/Vector2D.class.cpp.s: cmake_force
 
 CMakeFiles/maze_crawler.dir/src/main.cpp.o: CMakeFiles/maze_crawler.dir/flags.make
 CMakeFiles/maze_crawler.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/maze_crawler.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/maze_crawler.dir/src/main.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/maze_crawler.dir/src/main.cpp.o -c /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/main.cpp
 
 CMakeFiles/maze_crawler.dir/src/main.cpp.i: cmake_force
@@ -236,7 +249,8 @@ maze_crawler_OBJECTS = \
 "CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o" \
 "CMakeFiles/maze_crawler.dir/src/MenuItem.class.cpp.o" \
 "CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o" \
-"CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.o" \
+"CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.o" \
+"CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.o" \
 "CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.o" \
 "CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.o" \
 "CMakeFiles/maze_crawler.dir/src/Vector2D.class.cpp.o" \
@@ -253,7 +267,8 @@ maze_crawler: CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o
 maze_crawler: CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o
 maze_crawler: CMakeFiles/maze_crawler.dir/src/MenuItem.class.cpp.o
 maze_crawler: CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o
-maze_crawler: CMakeFiles/maze_crawler.dir/src/StaticRunTimeComponent.class.cpp.o
+maze_crawler: CMakeFiles/maze_crawler.dir/src/StaticGameObject.class.cpp.o
+maze_crawler: CMakeFiles/maze_crawler.dir/src/StaticGameObjectHandler.class.cpp.o
 maze_crawler: CMakeFiles/maze_crawler.dir/src/Timer.class.cpp.o
 maze_crawler: CMakeFiles/maze_crawler.dir/src/Vector2D-impl.class.cpp.o
 maze_crawler: CMakeFiles/maze_crawler.dir/src/Vector2D.class.cpp.o
@@ -262,7 +277,7 @@ maze_crawler: CMakeFiles/maze_crawler.dir/build.make
 maze_crawler: /usr/lib/libcurses.dylib
 maze_crawler: /usr/lib/libform.dylib
 maze_crawler: CMakeFiles/maze_crawler.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable maze_crawler"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/liamhurt/code/CC-CppCourse/MazeCrawler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable maze_crawler"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/maze_crawler.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
