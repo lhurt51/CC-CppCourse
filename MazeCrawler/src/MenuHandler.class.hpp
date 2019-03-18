@@ -1,6 +1,7 @@
 #ifndef MENU_HANDLER_CLASS_HPP
 	#define MENU_HANDLER_CLASS_HPP
 
+	/*
 	#include <includes.hpp>
 	// Including vector for the menu items
 	#include "Actor.class.hpp"
@@ -64,5 +65,6 @@
 
 	// To print the game state info
 	std::ostream      			&operator<<(std::ostream &o, MenuHandler const &i);
+	*/
 
 #endif

@@ -41,34 +41,31 @@
 * in each square in the path. The function should display the maze after each	*
 * move, so the user can watch as the maze is solved.							*
 *																				*
-********************************************************************************/
+\*******************************************************************************/
 
-#include <typedefs.hpp>
 #include "Vector2D.class.hpp"
-#include "StaticRunTimeComponent.class.hpp"
+#include "StaticGameObject.class.hpp"
 
 // Default constructor
-StaticRunTimeComponent::StaticRunTimeComponent(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(true), _bCanClear(false), _bNeedsUpdate(true), _pos(pos), _sprite(sprite) {
+StaticGameObject::StaticGameObject(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(true), _pos(pos), _sprite(sprite) {
 	return;
 }
 
 // Copy constructor
-StaticRunTimeComponent::StaticRunTimeComponent(StaticRunTimeComponent const &src) : _sprite(src.getSprite()) {
+StaticGameObject::StaticGameObject(StaticGameObject const &src) : _sprite(src.getSprite()) {
 	*this = src;
 	return;
 }
 
 // Default deconstructor
-StaticRunTimeComponent::~StaticRunTimeComponent(void) {
+StaticGameObject::~StaticGameObject(void) {
 	return;
 }
 
 // Equal sign overload
-StaticRunTimeComponent					&StaticRunTimeComponent::operator=(StaticRunTimeComponent const &rhs) {
+StaticGameObject					&StaticGameObject::operator=(StaticGameObject const &rhs) {
 	if (this != &rhs) {
 		this->_bCanDraw = rhs.getCanDraw();
-		this->_bCanClear = rhs.getCanClear();
-		this->_bNeedsUpdate = rhs.getNeedsUpdate();
 		this->_pos = rhs.getPos();
 		(std::string&)this->_sprite = rhs.getSprite();
 	}
@@ -76,60 +73,33 @@ StaticRunTimeComponent					&StaticRunTimeComponent::operator=(StaticRunTimeCompo
 }
 
 // Getters --
-bool					StaticRunTimeComponent::getCanDraw(void) const {
+bool					StaticGameObject::getCanDraw(void) const {
 	return this->_bCanDraw;
 }
 
-bool					StaticRunTimeComponent::getCanClear(void) const {
-	return this->_bCanClear;
-}
-
-bool					StaticRunTimeComponent::getNeedsUpdate(void) const {
-	return this->_bNeedsUpdate;
-}
-
-Vector2D<uint_fast32_t>	StaticRunTimeComponent::getPos(void) const {
+Vector2D<uint_fast32_t>	StaticGameObject::getPos(void) const {
 	return this->_pos;
 }
 
-std::string	const		StaticRunTimeComponent::getSprite(void) const {
+std::string	const		StaticGameObject::getSprite(void) const {
 	return this->_sprite;
 }
 
 // Setters --
-void					StaticRunTimeComponent::setCanDraw(bool bCanDraw) {
-	if (this->_bCanDraw == bCanDraw) return;
-	this->_bCanDraw = bCanDraw;
-	this->_bNeedsUpdate = true;
+void					StaticGameObject::setCanDraw(bool bCanDraw) {
+	if (this->_bCanDraw != bCanDraw)
+		this->_bCanDraw = bCanDraw;
 }
 
-void					StaticRunTimeComponent::setCanClear() {
-	this->_bCanClear = true;
-	this->_bCanDraw = false;
-	this->_bNeedsUpdate = true;
-}
-
-void					StaticRunTimeComponent::setNeedsUpdate(void) {
-	this->_bNeedsUpdate = false;
-}
-
-void 					StaticRunTimeComponent::setPos(Vector2D<uint_fast32_t> pos) {
-	this->_pos = pos;
-	this->_bNeedsUpdate = true;
-}
-
-void					StaticRunTimeComponent::setSprite(std::string sprite) {
-	if (_sprite == sprite) return;
-	(std::string&)this->_sprite = sprite;
-	this->_bNeedsUpdate = true;
+void 					StaticGameObject::setPos(Vector2D<uint_fast32_t> pos) {
+	if (this->_pos != pos)
+		this->_pos = pos;
 }
 
 // Output pverload for testing
-std::ostream			&operator<<(std::ostream &o, StaticRunTimeComponent const &i) {
-	return o << "StaticRunTimeComponent Info:" << std::endl <<
+std::ostream			&operator<<(std::ostream &o, StaticGameObject const &i) {
+	return o << "StaticGameObject Info:" << std::endl <<
 	"can draw: " << i.getCanDraw() << std::endl <<
-	"can clear: " << i.getCanClear() << std::endl <<
-	"should update: " << i.getNeedsUpdate() << std::endl <<
 	"pos: " << i.getPos() << std::endl <<
 	"sprite: " << i.getSprite() << std::endl;
 }

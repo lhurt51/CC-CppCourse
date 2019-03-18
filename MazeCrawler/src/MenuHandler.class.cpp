@@ -26,6 +26,7 @@
 *
 ******************************************************************************/
 
+/*
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
 #include "GameState.class.hpp"
@@ -116,13 +117,11 @@ void					MenuHandler::_createItems(std::vector<std::string> const items) {
 // Choose the class of menu item based on state
 MenuItem*				MenuHandler::_chooseMenuItem(unsigned int i, unsigned int vLen, std::string const item) {
 	if (item[i] == item[vLen]) return nullptr;
-	/*
 	switch(_state.getCurState()) {
 		default:
 			if (item[i] == item[vLen]) return nullptr;
 			break;
 	}
-	*/
 	return nullptr;
 }
 
@@ -157,3 +156,4 @@ std::ostream      			&operator<<(std::ostream &o, MenuHandler const &i) {
 	"game state: " << i.getGameState() << std::endl <<
 	"selected index: " << i.getItemIndex() << std::endl;
 }
+*/

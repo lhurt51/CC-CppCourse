@@ -1,15 +1,10 @@
 #ifndef INPUT_CLASS_HPP
 	#define INPUT_CLASS_HPP
 
+	/*
 	#include <includes.hpp>
 	#include "Actor.class.hpp"
 	#include "GameState.class.hpp"
-
-	/********************************\
-	 * WANT TO ADD INPUT CLASS		*
-	 * AS A MENU ITEM IN THE MENU	*
-	 * HANDLER						*
-	\********************************/
 
 	class Input : public Actor {
 
@@ -49,5 +44,6 @@
 		bool				_is_alphas(const std::string &str);
 
 	};
+	*/
 
 #endif

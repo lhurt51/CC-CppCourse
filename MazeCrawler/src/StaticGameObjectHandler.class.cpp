@@ -44,71 +44,37 @@
 \*******************************************************************************/
 
 #include "Vector2D.class.hpp"
-#include "Actor.class.hpp"
+#include "StaticGameObjectHandler.class.hpp"
 
 // Default constructor
-Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const sprite) : StaticGameObject(pos, sprite), _bCanClear(false), _bNeedsUpdate(true) {
+StaticGameObjectHandler::StaticGameObjectHandler(void) {
 	return;
 }
 
 // Copy constructor
-Actor::Actor(Actor const &src) : StaticGameObject(src) {
+StaticGameObjectHandler::StaticGameObjectHandler(StaticGameObjectHandler const &src) {
 	*this = src;
 	return;
 }
 
-// Default deconstructor
-Actor::~Actor(void) {
+// Default de-constructor
+StaticGameObjectHandler::~StaticGameObjectHandler(void) {
 	return;
 }
 
 // Equal sign overload
-Actor					&Actor::operator=(Actor const &rhs) {
+StaticGameObjectHandler					&StaticGameObjectHandler::operator=(StaticGameObjectHandler const &rhs) {
 	if (this != &rhs) {
-		this->_bCanClear = rhs.getCanClear();
-		this->_bNeedsUpdate = rhs.getNeedsUpdate();
+		this->_allObjects = rhs.getAllObjects();
 	}
 	return *this;
 }
 
-// Getters --
-bool					Actor::getCanClear(void) const {
-	return this->_bCanClear;
+std::vector<StaticGameObject*>			StaticGameObjectHandler::getAllObjects(void) const {
+	return this->_allObjects;
 }
 
-bool					Actor::getNeedsUpdate(void) const {
-	return this->_bCanClear;
-}
-
-// Setters --
-void					Actor::setCanClear(void) {
-	if (this->_bCanClear)
-		this->_bCanClear = false;
-}
-
-// Sett needs update for
-void					Actor::setNeedsUpdate(void) {
-	if (this->_bNeedsUpdate)
-		this->_bNeedsUpdate = false;
-}
-
-void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {
-	if (this->_pos != pos) {
-		this->_pos = pos;
-		_bNeedsUpdate = true;
-	}
-}
-
-// Set a new sprite for dynamic actors
-void					Actor::setSprite(std::string sprite) {
-	if (this->_sprite == sprite) return;
-	(std::string&)this->_sprite = sprite;
-	_bNeedsUpdate = true;
-}
-
-// Output overload for testing
-std::ostream			&operator<<(std::ostream &o, Actor const &i) {
-	return o << "Actor Info:" << std::endl <<
-	"can clear: " << i.getCanClear() << std::endl <<
-	"needs update: " << i.getNeedsUpdate() << std::endl;
+// Output pverload for testing
+std::ostream			&operator<<(std::ostream &o, StaticGameObjectHandler const &i) {
+	return o << "StaticGameObjectHandler Info:" << &i << std::endl;
 }

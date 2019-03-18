@@ -26,6 +26,7 @@
 *
 ******************************************************************************/
 
+/*
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
 #include "Actor.class.hpp"
@@ -111,3 +112,4 @@ void				Player::tick(void) {
 	if (_mRightPressed) move(Vector2D<uint_fast32_t>(1, 0));
 	if (_mLeftPressed) move(Vector2D<uint_fast32_t>(-1, 0));
 }
+*/

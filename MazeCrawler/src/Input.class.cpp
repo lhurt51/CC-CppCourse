@@ -26,6 +26,7 @@
 *
 ******************************************************************************/
 
+/*
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
 #include "Actor.class.hpp"
@@ -108,7 +109,7 @@ void				Input::finnishInput(void) {
 
 // Overloaded Public Actor Method
 void				Input::tick(void) {
-	setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_gameState.getWinDem().x), HALF_OF_VAL(_gameState.getWinDem().y)));
+	setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_gameState.getWinDim().x), HALF_OF_VAL(_gameState.getWinDim().y)));
 }
 
 bool 				Input::_is_digits(const std::string &str)
@@ -120,3 +121,4 @@ bool 				Input::_is_alphas(const std::string &str)
 {
     return std::all_of(str.begin(), str.end(), ::isalpha); // C++11
 }
+*/

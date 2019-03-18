@@ -1,60 +1,77 @@
-/******************************************************************************
-* Programmer Name:
-* Liam Hurt
-*
-* Date:
-* 2/6/2019
-*
-* Assignment Requirement:
-* - Ask the user to guess a whole number between 1 and 1000 or character 'A'
-*   to 'Z'
-* - Your program will try to find the number
-* - Keep track of the number of guesses by the computer
-* - Use Recursive one of two search techniques: linear search or binary search
-*   or randomize guess of a number.
-* - Use a template class so the program could be used for integer or character,
-*   your test function within your class should run with integer first then a
-*   character
-* - Use a randomized random number or letter generator for the item to guess
-* - Allow the computer to have only 15 guesses
-* - Your game class will have two functions or methods: playTheGame and static
-*   Test
-* - Your game shall have two modes: automatic where the computer tries to guess
-*   you number without any input from you (except for the guess number) and
-*   manual mode where each guess of the computer requires your input of Higher,
-*   Lower, Right
-*
-******************************************************************************/
+/*******************************************************************************\
+* Programmer Name:																*
+* Liam Hurt																		*
+*																				*
+* Date:																			*
+* 3/16/2019																		*
+*																				*
+* Assignment Requirement:														*
+* 7.33 (Maze Traversal) The grid of hashes (#) and dots (.) in Fig. 7.29 is a	*
+* two-dimensional builtin array representation of a maze. In the				*
+* two-dimensional built-in array, the hashes represent the walls of the maze	*
+* and the dots represent squares in the possible paths through the maze. Moves	*
+* can be made only to a location in the built-in array that contains a dot.		*
+* There is a simple algorithm for walking through a maze that guarantees to		*
+* find the exit (assuming that there is an exit). If there is not an exit,		*
+* you’ll arrive at the starting location again. Place your right hand on		*
+* the wall to your right and begin walking forward. Never remove your hand		*
+* from the wall. If the maze turns to the right, you follow the wall to the		*
+* right. As long as you do not remove your hand from the wall, eventually		*
+* you’ll arrive at the exit of the maze. There may be a shorter path than the	*
+* one you’ve taken, but you are guaranteed to get out of the maze if you		*
+* follow the algorithm.															*
+*																				*
+*  # # # # # # # # # # # #														*
+*  # . . . # . . . . . . #														*
+*  . . # . # . # # # # . #														*
+*  # # # . # . . . . # . #														*
+*  # . . . . # # # . # . .														*
+*  # # # # . # . # . # . #														*
+*  # . . # . # . # . # . #														*
+*  # # . # . # . # . # . #														*
+*  # . . . . . . . . # . #														*
+*  # # # # # # . # # # . #														*
+*  # . . . . . . # . . . #														*
+*  # # # # # # # # # # # #														*
+*																				*
+* Write recursive function mazeTraverse to walk through the maze. The function	*
+* should receive arguments that include a 12-by-12 built-in array of chars		*
+* representing the maze and the starting location of the maze. As mazeTraverse	*
+* attempts to locate the exit from the maze, it should place the character X	*
+* in each square in the path. The function should display the maze after each	*
+* move, so the user can watch as the maze is solved.							*
+*																				*
+\*******************************************************************************/
 
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
-#include "MenuHandler.class.hpp"
-#include "Input.class.hpp"
 #include "GameState.class.hpp"
 #include "GameStateHandler.class.hpp"
 #include "GameEngine.class.hpp"
 
-// Initializer for window dimensions Constructor
-GameStateHandler::GameStateHandler(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING) {
+// Initializer for window dimensions Constructor --
+GameStateHandler::GameStateHandler(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING), _gameState(nullptr) {
 	return;
 }
 
-// Copy constructor
+// Copy constructor --
 GameStateHandler::GameStateHandler(GameStateHandler const &src) {
 	*this = src;
 	return;
 }
 
-// Deconstructor
+// De-constructor --
 GameStateHandler::~GameStateHandler(void) {
+	_deleteGameState();
 	return;
 }
 
-// Equal sign overload for the copy constructor
+// Equal sign overload for the copy constructor --
 GameStateHandler						&GameStateHandler::operator=(GameStateHandler const &rhs) {
 	if (this != &rhs) {
 		this->_winDem = rhs.getWinDem();
 		this->_curState = rhs.getCurState();
+		this->_gameState = rhs.getGameState();
 	}
 	return *this;
 }
@@ -100,6 +117,7 @@ void							GameStateHandler::setGameState(GameState *gameState) {
 // Handle the input for all the actors that require input
 void							GameStateHandler::handleInput(int input) {
 	if (input == '`') setCurState(EXITING);
+	if (_gameState) _gameState->handleInput(input);
 }
 
 // Run the state based on current state
@@ -108,30 +126,25 @@ bool							GameStateHandler::runState(void) {
 		case LOADING:
 			_handleLoadingState();
 			break;
-		case STARTING:
-			_handleStartingState();
-			break;
-		case PLAYING:
-			_handlePlayingState();
-			break;
-		case TESTING:
-			_handleTestingState();
-			break;
-		case GAMEOVER:
-			_handleGameOverState();
-			break;
-		case ERROR:
-			_handleErrorState();
-			break;
 		case EXITING:
-			_handleExitingState();
 			return false;
+		default:
+			if (_gameState)
+				_gameState->handleTick();
+			break;
+	}
+	_draw();
+	return true;
+}
+
+void							GameStateHandler::_chooseGameState(void) {
+	_deleteGameState();
+	switch(_curState) {
+		case STARTING:
+			break;
 		default:
 			break;
 	}
-	Actor::tickAllActors();
-	_draw();
-	return true;
 }
 
 bool							GameStateHandler::_checkStateChange(void) {
@@ -139,6 +152,17 @@ bool							GameStateHandler::_checkStateChange(void) {
 
 	if (lastState != setCurState(_curState)) {
 		lastState = setCurState(_curState);
+		_chooseGameState();
+		return true;
+	}
+	return false;
+}
+
+bool							GameStateHandler::_checkWinDimChange(void) {
+	static Vector2D<uint_fast32_t> lastDem = _winDem;
+
+	if (lastDem != _winDem) {
+		lastDem = _winDem;
 		return true;
 	}
 	return false;
@@ -146,10 +170,9 @@ bool							GameStateHandler::_checkStateChange(void) {
 
 // Redraw the screen with all actors and messages
 void                        	GameStateHandler::_draw(void) {
-	static Vector2D<uint_fast32_t> lastDem = _winDem;
 	static float fps = GameEngine::calculateFPS();
 
-	if (Actor::anyActorNeedsUpdate() || lastDem != _winDem || _checkStateChange() || fps != GameEngine::calculateFPS()) {
+	if (_checkWinDimChange() || _checkStateChange() || fps != GameEngine::calculateFPS() || (_gameState && _gameState->checkForActorUpdate())) {
 		GameEngine::clearScreen();
 		if (_curState == ERROR)
 			GameEngine::printMiddle(WIN_2_SMALL_MSG);
@@ -158,56 +181,33 @@ void                        	GameStateHandler::_draw(void) {
 			std::string tmp = GAME_FPS + std::to_string(fps);
 			GameEngine::printPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(tmp.length()) + 2, 1), tmp);
 			GameEngine::printBorder();
+			if (_gameState) _gameState->printAllGameObjects();
 		}
-		Actor::printAllActors();
-		Actor::resetAllActorsNeedsUpdate();
-		lastDem = _winDem;
+		// Actor::resetAllActorsNeedsUpdate();
 	}
 }
 
 // Handle the loading state update
 void							GameStateHandler::_handleLoadingState(void) {
 	if(GameEngine::isWindowToSmall()) {
-		Actor::setAllActorsCanDraw(false);
+		if (_gameState) _gameState->hideAllGameObjects();
 		setCurState(ERROR);
 	} else {
-		Actor::setAllActorsCanDraw(true);
+		if (_gameState) _gameState->showAllGameObjects();
 		setCurState(setCurState(LOADING));
 	}
 }
 
-// Handle the starting state update
-void							GameStateHandler::_handleStartingState(void) {
-	return;
-}
-
-// Handle playing state update
-void							GameStateHandler::_handlePlayingState(void) {
-	return;
-}
-
-void							GameStateHandler::_handleTestingState(void) {
-	return;
-}
-
-// Handle game over state update
-void 							GameStateHandler::_handleGameOverState(void) {
-	return;
-}
-
-// Handle error state update
-void 							GameStateHandler::_handleErrorState(void) {
-	return;
-}
-
-// Handle the exiting state update
-void							GameStateHandler::_handleExitingState(void) {
-	return;
+void							GameStateHandler::_deleteGameState(void) {
+	if (_gameState) {
+		delete _gameState;
+		_gameState = nullptr;
+	}
 }
 
 // Out stream overload for testing
 std::ostream					&operator<<(std::ostream &o, GameStateHandler const &i) {
 	return o << "Game State Info:" << std::endl <<
 	"window demensions: " << i.getWinDem() << std::endl <<
-	"state: " << i.getCurState() << std::endl;
+	"state: " << i.getCurState() << std::endl << i.getGameState();
 }

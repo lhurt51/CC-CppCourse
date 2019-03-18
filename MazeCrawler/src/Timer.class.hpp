@@ -1,7 +1,7 @@
 #ifndef TIMER_CLASS_HPP
 	#define TIMER_CLASS_HPP
 
-	#include <includes.hpp>
+	// For high quality time management
 	#include <chrono>
 
 	class Timer {

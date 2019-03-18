@@ -18,14 +18,6 @@
 										EXITING
 	};
 
-	/********************************\
-	 * WANT TO ADD GAME STATE		*
-	 * HANDLER THAT USES THE GAME	*
-	 * ENGINE TO UPDATE A GAME		*
-	 * STATE POINTER TO A NEW		*
-	 * GAME STATE BASED ON STATE	*
-	\********************************/
-
 	class GameStateHandler {
 
 		// Storing window dimensions
@@ -42,7 +34,7 @@
 		~GameStateHandler(void);
 
 		// Overload operators --
-		GameStateHandler						&operator=(GameStateHandler const &rhs);
+		GameStateHandler				&operator=(GameStateHandler const &rhs);
 
 		// Getters --
 		Vector2D<uint_fast32_t> const	getWinDem(void) const;
@@ -54,27 +46,21 @@
 		State							setCurState(State curState);
 		void							setGameState(GameState *gameState);
 
-		// Helper methods
+		// Public helper methods --
 		void                        	handleInput(int input);
-
-		// Run the state
 		bool							runState(void);
 
 	private:
 		// Private helper methods --
+		void							_chooseGameState(void);
 		bool							_checkStateChange(void);
+		bool							_checkWinDimChange(void);
 		void                        	_draw(void);
 		void							_handleLoadingState(void);
-		void							_handleStartingState(void);
-		void							_handlePlayingState(void);
-		void							_handleTestingState(void);
-		void 							_handleGameOverState(void);
-		void 							_handleErrorState(void);
-		void							_handleExitingState(void);
 
-		// Private Initializers
+		// Private free methods --
+		void							_deleteGameState(void);
 
-		// Private Delete --
 	};
 
 	// To print the game state info

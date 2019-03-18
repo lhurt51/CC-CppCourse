@@ -43,72 +43,53 @@
 *																				*
 \*******************************************************************************/
 
-#include "Vector2D.class.hpp"
-#include "Actor.class.hpp"
+#include "AsynFuncTimer.class.hpp"
 
-// Default constructor
-Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const sprite) : StaticGameObject(pos, sprite), _bCanClear(false), _bNeedsUpdate(true) {
+AsynFuncTimer::AsynFuncTimer(std::function<void(void)> func, const long &interval) : _func(func), _interval(interval) {
 	return;
 }
 
-// Copy constructor
-Actor::Actor(Actor const &src) : StaticGameObject(src) {
-	*this = src;
+AsynFuncTimer::~AsynFuncTimer(void) {
+	stop();
 	return;
 }
 
-// Default deconstructor
-Actor::~Actor(void) {
-	return;
+bool						AsynFuncTimer::isRunning(void) const {
+	return this->_running;
 }
 
-// Equal sign overload
-Actor					&Actor::operator=(Actor const &rhs) {
-	if (this != &rhs) {
-		this->_bCanClear = rhs.getCanClear();
-		this->_bNeedsUpdate = rhs.getNeedsUpdate();
-	}
-	return *this;
+long						AsynFuncTimer::getInterval(void) const {
+	return this->_interval;
 }
 
-// Getters --
-bool					Actor::getCanClear(void) const {
-	return this->_bCanClear;
+AsynFuncTimer*				AsynFuncTimer::setFunc(std::function<void(void)> func) {
+	this->_func = func;
+	return this;
 }
 
-bool					Actor::getNeedsUpdate(void) const {
-	return this->_bCanClear;
+AsynFuncTimer*				AsynFuncTimer::setInterval(const long &interval) {
+	this->_interval = interval;
+	return this;
 }
 
-// Setters --
-void					Actor::setCanClear(void) {
-	if (this->_bCanClear)
-		this->_bCanClear = false;
+void						AsynFuncTimer::start(void) {
+	_running = true;
+	_thread = std::thread([&]() {
+		while (_running) {
+			auto delta = std::chrono::steady_clock::now() + std::chrono::milliseconds(_interval);
+			_func();
+			std::this_thread::sleep_until(delta);
+		}
+	});
+	_thread.detach();
 }
 
-// Sett needs update for
-void					Actor::setNeedsUpdate(void) {
-	if (this->_bNeedsUpdate)
-		this->_bNeedsUpdate = false;
+void						AsynFuncTimer::stop(void) {
+	_running = false;
+	_thread.~thread();
 }
 
-void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {
-	if (this->_pos != pos) {
-		this->_pos = pos;
-		_bNeedsUpdate = true;
-	}
-}
-
-// Set a new sprite for dynamic actors
-void					Actor::setSprite(std::string sprite) {
-	if (this->_sprite == sprite) return;
-	(std::string&)this->_sprite = sprite;
-	_bNeedsUpdate = true;
-}
-
-// Output overload for testing
-std::ostream			&operator<<(std::ostream &o, Actor const &i) {
-	return o << "Actor Info:" << std::endl <<
-	"can clear: " << i.getCanClear() << std::endl <<
-	"needs update: " << i.getNeedsUpdate() << std::endl;
+void						AsynFuncTimer::reset(void) {
+	stop();
+	start();
 }
