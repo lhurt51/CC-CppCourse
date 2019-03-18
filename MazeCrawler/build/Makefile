@@ -151,6 +151,33 @@ src/Actor.class.cpp.s:
 	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.s
 .PHONY : src/Actor.class.cpp.s
 
+src/AsynFuncTimer.class.o: src/AsynFuncTimer.class.cpp.o
+
+.PHONY : src/AsynFuncTimer.class.o
+
+# target to build an object file
+src/AsynFuncTimer.class.cpp.o:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.o
+.PHONY : src/AsynFuncTimer.class.cpp.o
+
+src/AsynFuncTimer.class.i: src/AsynFuncTimer.class.cpp.i
+
+.PHONY : src/AsynFuncTimer.class.i
+
+# target to preprocess a source file
+src/AsynFuncTimer.class.cpp.i:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.i
+.PHONY : src/AsynFuncTimer.class.cpp.i
+
+src/AsynFuncTimer.class.s: src/AsynFuncTimer.class.cpp.s
+
+.PHONY : src/AsynFuncTimer.class.s
+
+# target to generate assembly for a file
+src/AsynFuncTimer.class.cpp.s:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.s
+.PHONY : src/AsynFuncTimer.class.cpp.s
+
 src/GameEngine.class.o: src/GameEngine.class.cpp.o
 
 .PHONY : src/GameEngine.class.o
@@ -514,6 +541,9 @@ help:
 	@echo "... src/Actor.class.o"
 	@echo "... src/Actor.class.i"
 	@echo "... src/Actor.class.s"
+	@echo "... src/AsynFuncTimer.class.o"
+	@echo "... src/AsynFuncTimer.class.i"
+	@echo "... src/AsynFuncTimer.class.s"
 	@echo "... src/GameEngine.class.o"
 	@echo "... src/GameEngine.class.i"
 	@echo "... src/GameEngine.class.s"

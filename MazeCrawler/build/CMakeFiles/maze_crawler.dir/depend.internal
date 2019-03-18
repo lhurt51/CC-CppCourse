@@ -7,6 +7,9 @@ CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.o
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/StaticGameObject.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
+CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.o
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/AsynFuncTimer.class.cpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/AsynFuncTimer.class.hpp
 CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o
  ../include/includes.hpp
  ../include/typedefs.hpp

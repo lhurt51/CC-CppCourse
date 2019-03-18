@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.o"
+  "CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/GameState.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o"

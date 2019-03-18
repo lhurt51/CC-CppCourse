@@ -16,6 +16,7 @@ endif()
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/*.cpp")
 set(OLD_GLOB
   "/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/AsynFuncTimer.class.cpp"
   "/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameEngine.class.cpp"
   "/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameState.class.cpp"
   "/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameStateHandler.class.cpp"
