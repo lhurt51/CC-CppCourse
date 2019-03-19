@@ -2,9 +2,9 @@
 	#define ACTOR_CLASS_HPP
 
 	// For using vectors
-	#include "StaticGameObject.class.hpp"
+	#include "GameObject.class.hpp"
 
-	class Actor : public StaticGameObject {
+	class Actor : public GameObject {
 
 	protected:
 
@@ -41,6 +41,6 @@
 	};
 
 	// To print the actor info
-	std::ostream      &operator<<(std::ostream &o, Actor const &i);
+	std::ostream      				&operator<<(std::ostream &o, Actor const &i);
 
 #endif

@@ -44,26 +44,26 @@
 \*******************************************************************************/
 
 #include "Vector2D.class.hpp"
-#include "StaticGameObject.class.hpp"
+#include "GameObject.class.hpp"
 
 // Default constructor
-StaticGameObject::StaticGameObject(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(true), _pos(pos), _sprite(sprite) {
+GameObject::GameObject(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(true), _pos(pos), _sprite(sprite) {
 	return;
 }
 
 // Copy constructor
-StaticGameObject::StaticGameObject(StaticGameObject const &src) : _sprite(src.getSprite()) {
+GameObject::GameObject(GameObject const &src) : _sprite(src.getSprite()) {
 	*this = src;
 	return;
 }
 
 // Default deconstructor
-StaticGameObject::~StaticGameObject(void) {
+GameObject::~GameObject(void) {
 	return;
 }
 
 // Equal sign overload
-StaticGameObject					&StaticGameObject::operator=(StaticGameObject const &rhs) {
+GameObject					&GameObject::operator=(GameObject const &rhs) {
 	if (this != &rhs) {
 		this->_bCanDraw = rhs.getCanDraw();
 		this->_pos = rhs.getPos();
@@ -73,32 +73,32 @@ StaticGameObject					&StaticGameObject::operator=(StaticGameObject const &rhs) {
 }
 
 // Getters --
-bool					StaticGameObject::getCanDraw(void) const {
+bool					GameObject::getCanDraw(void) const {
 	return this->_bCanDraw;
 }
 
-Vector2D<uint_fast32_t>	StaticGameObject::getPos(void) const {
+Vector2D<uint_fast32_t>	GameObject::getPos(void) const {
 	return this->_pos;
 }
 
-std::string	const		StaticGameObject::getSprite(void) const {
+std::string	const		GameObject::getSprite(void) const {
 	return this->_sprite;
 }
 
 // Setters --
-void					StaticGameObject::setCanDraw(bool bCanDraw) {
+void					GameObject::setCanDraw(bool bCanDraw) {
 	if (this->_bCanDraw != bCanDraw)
 		this->_bCanDraw = bCanDraw;
 }
 
-void 					StaticGameObject::setPos(Vector2D<uint_fast32_t> pos) {
+void 					GameObject::setPos(Vector2D<uint_fast32_t> pos) {
 	if (this->_pos != pos)
 		this->_pos = pos;
 }
 
 // Output pverload for testing
-std::ostream			&operator<<(std::ostream &o, StaticGameObject const &i) {
-	return o << "StaticGameObject Info:" << std::endl <<
+std::ostream			&operator<<(std::ostream &o, GameObject const &i) {
+	return o << "GameObject Info:" << std::endl <<
 	"can draw: " << i.getCanDraw() << std::endl <<
 	"pos: " << i.getPos() << std::endl <<
 	"sprite: " << i.getSprite() << std::endl;

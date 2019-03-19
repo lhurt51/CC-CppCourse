@@ -47,12 +47,12 @@
 #include "Actor.class.hpp"
 
 // Default constructor
-Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const sprite) : StaticGameObject(pos, sprite), _bCanClear(false), _bNeedsUpdate(true) {
+Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const sprite) : GameObject(pos, sprite), _bCanClear(false), _bNeedsUpdate(true) {
 	return;
 }
 
 // Copy constructor
-Actor::Actor(Actor const &src) : StaticGameObject(src) {
+Actor::Actor(Actor const &src) : GameObject(src) {
 	*this = src;
 	return;
 }

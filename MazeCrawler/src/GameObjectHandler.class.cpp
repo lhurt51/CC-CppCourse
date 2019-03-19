@@ -44,37 +44,37 @@
 \*******************************************************************************/
 
 #include "Vector2D.class.hpp"
-#include "StaticGameObjectHandler.class.hpp"
+#include "GameObjectHandler.class.hpp"
 
 // Default constructor
-StaticGameObjectHandler::StaticGameObjectHandler(void) {
+GameObjectHandler::GameObjectHandler(void) {
 	return;
 }
 
 // Copy constructor
-StaticGameObjectHandler::StaticGameObjectHandler(StaticGameObjectHandler const &src) {
+GameObjectHandler::GameObjectHandler(GameObjectHandler const &src) {
 	*this = src;
 	return;
 }
 
 // Default de-constructor
-StaticGameObjectHandler::~StaticGameObjectHandler(void) {
+GameObjectHandler::~GameObjectHandler(void) {
 	return;
 }
 
 // Equal sign overload
-StaticGameObjectHandler					&StaticGameObjectHandler::operator=(StaticGameObjectHandler const &rhs) {
+GameObjectHandler						&GameObjectHandler::operator=(GameObjectHandler const &rhs) {
 	if (this != &rhs) {
 		this->_allObjects = rhs.getAllObjects();
 	}
 	return *this;
 }
 
-std::vector<StaticGameObject*>			StaticGameObjectHandler::getAllObjects(void) const {
+std::vector<GameObject*>				GameObjectHandler::getAllObjects(void) const {
 	return this->_allObjects;
 }
 
 // Output pverload for testing
-std::ostream			&operator<<(std::ostream &o, StaticGameObjectHandler const &i) {
-	return o << "StaticGameObjectHandler Info:" << &i << std::endl;
+std::ostream							&operator<<(std::ostream &o, GameObjectHandler const &i) {
+	return o << "GameObjectHandler Info:" << &i << std::endl;
 }

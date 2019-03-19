@@ -1,5 +1,5 @@
-#ifndef STATIC_GAME_OBJECT_CLASS_HPP
-	#define STATIC_GAME_OBJECT_CLASS_HPP
+#ifndef GAME_OBJECT_CLASS_HPP
+	#define GAME_OBJECT_CLASS_HPP
 
 	// All basic includes
 	#include <includes.hpp>
@@ -7,7 +7,7 @@
 	// Forward declaring classes
 	template<typename T> class Vector2D;
 
-	class StaticGameObject {
+	class GameObject {
 
 	protected:
 
@@ -21,12 +21,12 @@
 	public:
 
 		// Constructors --
-		StaticGameObject(Vector2D<uint_fast32_t> pos, std::string const sprite);
-		StaticGameObject(StaticGameObject const &src);
-		virtual ~StaticGameObject(void);
+		GameObject(Vector2D<uint_fast32_t> pos, std::string const sprite);
+		GameObject(GameObject const &src);
+		virtual ~GameObject(void);
 
 		// Overload equals operator
-		StaticGameObject			&operator=(StaticGameObject const &rhs);
+		GameObject			&operator=(GameObject const &rhs);
 
 		// Getters --
 		bool						getCanDraw(void) const;
@@ -40,6 +40,6 @@
 	};
 
 	// To print the actor info
-	std::ostream      &operator<<(std::ostream &o, StaticGameObject const &i);
+	std::ostream      &operator<<(std::ostream &o, GameObject const &i);
 
 #endif

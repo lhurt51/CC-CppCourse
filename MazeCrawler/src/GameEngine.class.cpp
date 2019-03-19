@@ -147,7 +147,9 @@ void                		GameEngine::_resizeHandler(void) {
 
 // Handle the input for the game state
 void						GameEngine::_handleInput(void) {
-	GameEngine::_gameStateHandler->handleInput(getch());
+	int input;
+	if ((input = getch()) != ERR)
+		GameEngine::_gameStateHandler->handleInput(input);
 }
 
 // Initialize the window with ncurses

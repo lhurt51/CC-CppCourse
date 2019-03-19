@@ -129,8 +129,7 @@ bool							GameStateHandler::runState(void) {
 		case EXITING:
 			return false;
 		default:
-			if (_gameState)
-				_gameState->handleTick();
+			if (_gameState) _gameState->handleTick();
 			break;
 	}
 	_draw();

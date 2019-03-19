@@ -26,7 +26,6 @@
 *
 ******************************************************************************/
 
-/*
 #include "Vector2D.class.hpp"
 #include "MenuItem.class.hpp"
 
@@ -84,4 +83,3 @@ void			MenuItem::tick(void) {
 		_bShouldExec = false;
 	}
 }
-*/
