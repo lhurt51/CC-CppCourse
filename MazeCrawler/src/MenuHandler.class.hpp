@@ -1,17 +1,17 @@
 #ifndef MENU_HANDLER_CLASS_HPP
 	#define MENU_HANDLER_CLASS_HPP
 
-	/*
 	#include <includes.hpp>
+	#include <vector>
 	// Including vector for the menu items
-	#include "Actor.class.hpp"
+	#include "GameObject.class.hpp"
 
 	// Forward declaring classes
 	template<typename T> class	Vector2D;
 	class						MenuItem;
 	class						GameState;
 
-	class MenuHandler : public Actor {
+	class MenuHandler : public GameObject {
 
 		// The game state so it can reference and act on the state
 		GameState&				_state;
@@ -38,6 +38,7 @@
 		bool					getIsHorizontal(void) const;
 
 		// Setters --
+		void 					setPos(Vector2D<uint_fast32_t> pos);
 		void					increaseIndexItem(void);
 		void					decreaseIndexItem(void);
 
@@ -65,6 +66,5 @@
 
 	// To print the game state info
 	std::ostream      			&operator<<(std::ostream &o, MenuHandler const &i);
-	*/
 
 #endif

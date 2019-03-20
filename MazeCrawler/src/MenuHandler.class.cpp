@@ -26,7 +26,6 @@
 *
 ******************************************************************************/
 
-/*
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
 #include "GameState.class.hpp"
@@ -34,14 +33,14 @@
 #include "MenuHandler.class.hpp"
 
 // Default constructor to init the state and items
-MenuHandler::MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items, bool bIsHorizontal) : Actor(Vector2D<uint_fast32_t>(HALF_OF_VAL(state.getWinDem().x), 5), title), _state(state), _itemIndex(0), _bIsHorizontal(bIsHorizontal) {
+MenuHandler::MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items, bool bIsHorizontal) : GameObject(Vector2D<uint_fast32_t>(HALF_OF_VAL(state.getWinDim().x), 5), title), _state(state), _itemIndex(0), _bIsHorizontal(bIsHorizontal) {
 	_createItems(items);
 	_resetSelectedIndex();
 	return;
 }
 
 // Copy constructor
-MenuHandler::MenuHandler(MenuHandler const &src) : Actor(src), _state(src.getGameState()) {
+MenuHandler::MenuHandler(MenuHandler const &src) : GameObject(src), _state(src.getGameState()) {
 	*this = src;
 	return;
 }
@@ -81,6 +80,16 @@ bool					MenuHandler::getIsHorizontal(void) const {
 }
 
 // Setters --
+// (HALF_OF_VAL(_state.getWinDim().x), HALF_OF_VAL(_state.getWinDim().y) - ((_bIsHorizontal) ? MENU_ITEM_SPACE : ((HALF_OF_VAL(_items.size()) + MENU_ITEM_SPACE) * MENU_ITEM_SPACE)))
+void 					MenuHandler::setPos(Vector2D<uint_fast32_t> pos) {
+	if (_pos != pos) {
+		_pos = pos;
+		for (unsigned i = 0; i < _items.size(); i++) {
+			_items[i]->setPos((_bIsHorizontal) ? _createHorizontalList(i, _items.size(), _items[i]->getSprite().length()) : _createVerticalList(i, _items.size()));
+		}
+	}
+}
+
 void					MenuHandler::increaseIndexItem(void) {
 	this->_itemIndex++;
 	if (this->_itemIndex >= _items.size()) this->_itemIndex = 0;
@@ -99,14 +108,6 @@ void					MenuHandler::doExecute(void) {
 	_items[_itemIndex]->setShouldExec(true);
 }
 
-// Update the menu items every redraw
-void					MenuHandler::tick(void) {
-	setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDem().x), HALF_OF_VAL(_state.getWinDem().y) - ((_bIsHorizontal) ? MENU_ITEM_SPACE : ((HALF_OF_VAL(_items.size()) + MENU_ITEM_SPACE) * MENU_ITEM_SPACE))));
-	for (unsigned i = 0; i < _items.size(); i++) {
-		_items[i]->setPos((_bIsHorizontal) ? _createHorizontalList(i, _items.size(), _items[i]->getSprite().length()) : _createVerticalList(i, _items.size()));
-	}
-}
-
 // Private helper Methods --
 // Create the list of menu items
 void					MenuHandler::_createItems(std::vector<std::string> const items) {
@@ -117,22 +118,24 @@ void					MenuHandler::_createItems(std::vector<std::string> const items) {
 // Choose the class of menu item based on state
 MenuItem*				MenuHandler::_chooseMenuItem(unsigned int i, unsigned int vLen, std::string const item) {
 	if (item[i] == item[vLen]) return nullptr;
+	/*
 	switch(_state.getCurState()) {
 		default:
 			if (item[i] == item[vLen]) return nullptr;
 			break;
 	}
+	*/
 	return nullptr;
 }
 
 // To create the vector pos for a vertical menu list
 Vector2D<uint_fast32_t>	MenuHandler::_createVerticalList(unsigned int i, unsigned int vecLen) {
-	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDem().x), HALF_OF_VAL(_state.getWinDem().y) - vecLen + (i * MENU_ITEM_SPACE));
+	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDim().x), HALF_OF_VAL(_state.getWinDim().y) - vecLen + (i * MENU_ITEM_SPACE));
 }
 
 // To create the vector pos for a horizontal menu list
 Vector2D<uint_fast32_t>	MenuHandler::_createHorizontalList(unsigned int i, unsigned int vecLen, unsigned int strLen) {
-	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDem().x) - (HALF_OF_VAL(vecLen) * HALF_OF_VAL(strLen) + HALF_OF_VAL(MENU_ITEM_SPACE * (vecLen - 1))) + (i * strLen) + (i * MENU_ITEM_SPACE), HALF_OF_VAL(_state.getWinDem().y));
+	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDim().x) - (HALF_OF_VAL(vecLen) * HALF_OF_VAL(strLen) + HALF_OF_VAL(MENU_ITEM_SPACE * (vecLen - 1))) + (i * strLen) + (i * MENU_ITEM_SPACE), HALF_OF_VAL(_state.getWinDim().y));
 }
 
 // To reset the selected index for all menu items
@@ -156,4 +159,3 @@ std::ostream      			&operator<<(std::ostream &o, MenuHandler const &i) {
 	"game state: " << i.getGameState() << std::endl <<
 	"selected index: " << i.getItemIndex() << std::endl;
 }
-*/

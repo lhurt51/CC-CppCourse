@@ -44,7 +44,9 @@
 \*******************************************************************************/
 
 #include "Vector2D.class.hpp"
+#include "GameObject.class.hpp"
 #include "GameObjectHandler.class.hpp"
+#include "GameEngine.class.hpp"
 
 // Default constructor
 GameObjectHandler::GameObjectHandler(void) {
@@ -72,6 +74,47 @@ GameObjectHandler						&GameObjectHandler::operator=(GameObjectHandler const &rh
 
 std::vector<GameObject*>				GameObjectHandler::getAllObjects(void) const {
 	return this->_allObjects;
+}
+
+unsigned								GameObjectHandler::findIndex(GameObject *obj) {
+	unsigned start = 0;
+
+	for(GameObject* tmp : _allObjects) {
+		if (tmp == obj) return start;
+		start++;
+	}
+	return start;
+}
+
+GameObject*								GameObjectHandler::findObject(unsigned index) {
+	if (index < _allObjects.size()) return _allObjects[index];
+	return nullptr;
+}
+
+void									GameObjectHandler::addObject(GameObject *obj) {
+	_allObjects.push_back(obj);
+}
+
+void									GameObjectHandler::removeObject(GameObject *obj) {
+	unsigned index = findIndex(obj);
+	if (index < _allObjects.size()) _allObjects.erase(_allObjects.begin() + index);
+}
+
+void									GameObjectHandler::setObjectCanDraw(GameObject *obj, bool bCanDraw) {
+	unsigned index = findIndex(obj);
+	if (index < _allObjects.size()) _allObjects[index]->setCanDraw(bCanDraw);
+}
+
+void									GameObjectHandler::setAllObjectsCanDraw(bool bCanDraw) {
+	for(GameObject* tmp : _allObjects) {
+		tmp->setCanDraw(bCanDraw);
+	}
+}
+
+void									GameObjectHandler::printAllObjects(void) {
+	for(GameObject* tmp : _allObjects) {
+		if(tmp->getCanDraw()) GameEngine::printPos(tmp->getPos(), tmp->getSprite());
+	}
 }
 
 // Output pverload for testing

@@ -29,9 +29,12 @@
 		std::vector<GameObject*>		getAllObjects(void) const;
 
 		// Helper methods --
-		int								findObject(GameObject *obj);
+		unsigned						findIndex(GameObject *obj);
+		GameObject*						findObject(unsigned index);
 		void							addObject(GameObject *obj);
 		void							removeObject(GameObject *obj);
+		void							setObjectCanDraw(GameObject *obj, bool bCanDraw);
+		void							setAllObjectsCanDraw(bool bCanDraw);
 		void							printAllObjects(void);
 
 		// For a dirived class
