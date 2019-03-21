@@ -12,31 +12,23 @@ iostream
 string
 -
 
-../include/typedefs.hpp
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
+GameObject.class.hpp
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
 
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameEngine.class.hpp
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
 includes.hpp
 -
 
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameState.class.hpp
-includes.hpp
--
-
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameStateHandler.class.cpp
-typedefs.hpp
--
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Maze.class.cpp
 Vector2D.class.hpp
 /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
-GameState.class.hpp
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameState.class.hpp
-GameStateHandler.class.hpp
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameStateHandler.class.hpp
-GameEngine.class.hpp
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameEngine.class.hpp
+Maze.class.hpp
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Maze.class.hpp
 
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameStateHandler.class.hpp
-includes.hpp
--
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Maze.class.hpp
+Actor.class.hpp
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
 
 /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 iostream

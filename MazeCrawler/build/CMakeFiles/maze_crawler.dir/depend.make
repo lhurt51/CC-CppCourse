@@ -8,6 +8,14 @@ CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.o: ../src/GameEngine.class.hpp
 CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.o: ../src/GameObject.class.hpp
 CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.o: ../src/Vector2D.class.hpp
 
+CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o: ../include/includes.hpp
+CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o: ../src/Actor.class.hpp
+CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o: ../src/ActorHandler.class.cpp
+CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o: ../src/ActorHandler.class.hpp
+CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o: ../src/GameObject.class.hpp
+CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o: ../src/GameObjectHandler.class.hpp
+CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o: ../src/Vector2D.class.hpp
+
 CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.o: ../src/AsynFuncTimer.class.cpp
 CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.o: ../src/AsynFuncTimer.class.hpp
 
@@ -47,10 +55,17 @@ CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../include/includes.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../include/typedefs.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/Actor.class.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/GameObject.class.hpp
-CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/GameState.class.hpp
+CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/GameStateHandler.class.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/Input.class.cpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/Input.class.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/Vector2D.class.hpp
+
+CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../include/includes.hpp
+CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/Actor.class.hpp
+CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/GameObject.class.hpp
+CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/Maze.class.cpp
+CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/Maze.class.hpp
+CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/Vector2D.class.hpp
 
 CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o: ../include/includes.hpp
 CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o: ../include/typedefs.hpp

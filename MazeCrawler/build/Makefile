@@ -151,6 +151,33 @@ src/Actor.class.cpp.s:
 	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.s
 .PHONY : src/Actor.class.cpp.s
 
+src/ActorHandler.class.o: src/ActorHandler.class.cpp.o
+
+.PHONY : src/ActorHandler.class.o
+
+# target to build an object file
+src/ActorHandler.class.cpp.o:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o
+.PHONY : src/ActorHandler.class.cpp.o
+
+src/ActorHandler.class.i: src/ActorHandler.class.cpp.i
+
+.PHONY : src/ActorHandler.class.i
+
+# target to preprocess a source file
+src/ActorHandler.class.cpp.i:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.i
+.PHONY : src/ActorHandler.class.cpp.i
+
+src/ActorHandler.class.s: src/ActorHandler.class.cpp.s
+
+.PHONY : src/ActorHandler.class.s
+
+# target to generate assembly for a file
+src/ActorHandler.class.cpp.s:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.s
+.PHONY : src/ActorHandler.class.cpp.s
+
 src/AsynFuncTimer.class.o: src/AsynFuncTimer.class.cpp.o
 
 .PHONY : src/AsynFuncTimer.class.o
@@ -339,6 +366,33 @@ src/Input.class.s: src/Input.class.cpp.s
 src/Input.class.cpp.s:
 	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/Input.class.cpp.s
 .PHONY : src/Input.class.cpp.s
+
+src/Maze.class.o: src/Maze.class.cpp.o
+
+.PHONY : src/Maze.class.o
+
+# target to build an object file
+src/Maze.class.cpp.o:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o
+.PHONY : src/Maze.class.cpp.o
+
+src/Maze.class.i: src/Maze.class.cpp.i
+
+.PHONY : src/Maze.class.i
+
+# target to preprocess a source file
+src/Maze.class.cpp.i:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.i
+.PHONY : src/Maze.class.cpp.i
+
+src/Maze.class.s: src/Maze.class.cpp.s
+
+.PHONY : src/Maze.class.s
+
+# target to generate assembly for a file
+src/Maze.class.cpp.s:
+	$(MAKE) -f CMakeFiles/maze_crawler.dir/build.make CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.s
+.PHONY : src/Maze.class.cpp.s
 
 src/MenuHandler.class.o: src/MenuHandler.class.cpp.o
 
@@ -541,6 +595,9 @@ help:
 	@echo "... src/Actor.class.o"
 	@echo "... src/Actor.class.i"
 	@echo "... src/Actor.class.s"
+	@echo "... src/ActorHandler.class.o"
+	@echo "... src/ActorHandler.class.i"
+	@echo "... src/ActorHandler.class.s"
 	@echo "... src/AsynFuncTimer.class.o"
 	@echo "... src/AsynFuncTimer.class.i"
 	@echo "... src/AsynFuncTimer.class.s"
@@ -562,6 +619,9 @@ help:
 	@echo "... src/Input.class.o"
 	@echo "... src/Input.class.i"
 	@echo "... src/Input.class.s"
+	@echo "... src/Maze.class.o"
+	@echo "... src/Maze.class.i"
+	@echo "... src/Maze.class.s"
 	@echo "... src/MenuHandler.class.o"
 	@echo "... src/MenuHandler.class.i"
 	@echo "... src/MenuHandler.class.s"

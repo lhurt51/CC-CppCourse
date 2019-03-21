@@ -8,6 +8,14 @@ CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.o
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameEngine.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
+CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o
+ ../include/includes.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/ActorHandler.class.cpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/ActorHandler.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObjectHandler.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.o
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/AsynFuncTimer.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/AsynFuncTimer.class.hpp
@@ -48,9 +56,16 @@ CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o
  ../include/typedefs.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
- /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameState.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameStateHandler.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Input.class.cpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Input.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
+CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o
+ ../include/includes.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Maze.class.cpp
+ /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Maze.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o
  ../include/includes.hpp

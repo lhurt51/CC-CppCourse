@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/maze_crawler.dir/src/Actor.class.cpp.o"
+  "CMakeFiles/maze_crawler.dir/src/ActorHandler.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/GameObject.class.cpp.o"
@@ -7,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/maze_crawler.dir/src/GameState.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o"
+  "CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/MenuItem.class.cpp.o"
   "CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o"
