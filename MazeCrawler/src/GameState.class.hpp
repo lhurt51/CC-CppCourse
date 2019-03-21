@@ -3,18 +3,12 @@
 
 	#include <includes.hpp>
 
-	// Forward declaring classes
-	template<typename T> class			Vector2D;
-
 	class GameState {
-
-		// Storing window dimensions
-		Vector2D<uint_fast32_t>& 		_winDim;
 
 	public:
 
 		// Constructors --
-		GameState(Vector2D<uint_fast32_t>& winDim);
+		GameState(void);
 		GameState(GameState const &src);
 		virtual ~GameState(void);
 
@@ -22,9 +16,9 @@
 		GameState						&operator=(GameState const &rhs);
 
 		// Getters --
-		Vector2D<uint_fast32_t>&		getWinDim(void) const;
 
 		// Helper methods abstract methods --
+		virtual void					handleResize(void) = 0;
 		virtual void					hideAllGameObjects(void) = 0;
 		virtual void					showAllGameObjects(void) = 0;
 		virtual bool					printAllGameObjects(void) = 0;

@@ -8,12 +8,9 @@
 	// Forward declaring classes
 	template<typename T> class	Vector2D;
 	class						MenuItem;
-	class						GameState;
 
 	class MenuHandler : public GameObject {
 
-		// The game state so it can reference and act on the state
-		GameState&				_state;
 		// The selected item index
 		unsigned int			_itemIndex;
 		// All items in the menu
@@ -23,7 +20,7 @@
 
 	public:
 		// Constructors --
-		MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items, bool bIsHorizontal);
+		MenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal);
 		MenuHandler(MenuHandler const &src);
 		~MenuHandler(void);
 
@@ -31,7 +28,6 @@
 		MenuHandler				&operator=(MenuHandler const &rhs);
 
 		// Getters --
-		GameState				&getGameState(void) const;
 		unsigned int			getItemIndex(void) const;
 		std::vector<MenuItem*>	getAllItems(void) const;
 		bool					getIsHorizontal(void) const;

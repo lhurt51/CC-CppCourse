@@ -28,19 +28,19 @@
 
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
-#include "GameState.class.hpp"
 #include "MenuItem.class.hpp"
 #include "MenuHandler.class.hpp"
+#include "GameStateHandler.class.hpp"
 
 // Default constructor to init the state and items
-MenuHandler::MenuHandler(GameState &state, std::string const title, std::vector<std::string> const items, bool bIsHorizontal) : GameObject(Vector2D<uint_fast32_t>(HALF_OF_VAL(state.getWinDim().x), 5), title), _state(state), _itemIndex(0), _bIsHorizontal(bIsHorizontal) {
+MenuHandler::MenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal) : GameObject(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), 5), title), _itemIndex(0), _bIsHorizontal(bIsHorizontal) {
 	_createItems(items);
 	_resetSelectedIndex();
 	return;
 }
 
 // Copy constructor
-MenuHandler::MenuHandler(MenuHandler const &src) : GameObject(src), _state(src.getGameState()) {
+MenuHandler::MenuHandler(MenuHandler const &src) : GameObject(src) {
 	*this = src;
 	return;
 }
@@ -54,7 +54,6 @@ MenuHandler::~MenuHandler(void) {
 // Overload operators --
 MenuHandler				&MenuHandler::operator=(MenuHandler const &rhs) {
 	if (this != &rhs) {
-		this->_state = rhs.getGameState();
 		this->_itemIndex = rhs.getItemIndex();
 		this->_items = rhs.getAllItems();
 		this->_bIsHorizontal = rhs.getIsHorizontal();
@@ -63,10 +62,6 @@ MenuHandler				&MenuHandler::operator=(MenuHandler const &rhs) {
 }
 
 // Getters --
-GameState				&MenuHandler::getGameState(void) const {
-	return this->_state;
-}
-
 unsigned int			MenuHandler::getItemIndex(void) const {
 	return this->_itemIndex;
 }
@@ -130,12 +125,12 @@ MenuItem*				MenuHandler::_chooseMenuItem(unsigned int i, unsigned int vLen, std
 
 // To create the vector pos for a vertical menu list
 Vector2D<uint_fast32_t>	MenuHandler::_createVerticalList(unsigned int i, unsigned int vecLen) {
-	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDim().x), HALF_OF_VAL(_state.getWinDim().y) - vecLen + (i * MENU_ITEM_SPACE));
+	return Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), HALF_OF_VAL(GameStateHandler::getWinDim().y) - vecLen + (i * MENU_ITEM_SPACE));
 }
 
 // To create the vector pos for a horizontal menu list
 Vector2D<uint_fast32_t>	MenuHandler::_createHorizontalList(unsigned int i, unsigned int vecLen, unsigned int strLen) {
-	return Vector2D<uint_fast32_t>(HALF_OF_VAL(_state.getWinDim().x) - (HALF_OF_VAL(vecLen) * HALF_OF_VAL(strLen) + HALF_OF_VAL(MENU_ITEM_SPACE * (vecLen - 1))) + (i * strLen) + (i * MENU_ITEM_SPACE), HALF_OF_VAL(_state.getWinDim().y));
+	return Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x) - (HALF_OF_VAL(vecLen) * HALF_OF_VAL(strLen) + HALF_OF_VAL(MENU_ITEM_SPACE * (vecLen - 1))) + (i * strLen) + (i * MENU_ITEM_SPACE), HALF_OF_VAL(GameStateHandler::getWinDim().y));
 }
 
 // To reset the selected index for all menu items
@@ -156,6 +151,5 @@ void					MenuHandler::_deleteItems(void) {
 // Overload the output operator for testing
 std::ostream      			&operator<<(std::ostream &o, MenuHandler const &i) {
 	return o << "Menu Handler Info:" << std::endl <<
-	"game state: " << i.getGameState() << std::endl <<
 	"selected index: " << i.getItemIndex() << std::endl;
 }

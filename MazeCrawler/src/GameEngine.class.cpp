@@ -153,7 +153,7 @@ void						GameEngine::start(void) {
 
 // Handle window resize
 void                		GameEngine::_resizeHandler(void) {
-	GameStateHandler::setWinDem(Vector2D<uint_fast32_t>(COLS, LINES));
+	GameStateHandler::setWinDim(Vector2D<uint_fast32_t>(COLS, LINES));
 }
 
 // Handle the input for the game state

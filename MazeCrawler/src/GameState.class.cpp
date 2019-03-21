@@ -43,16 +43,15 @@
 *																				*
 \*******************************************************************************/
 
-#include "Vector2D.class.hpp"
 #include "GameState.class.hpp"
 
 // Initializer for window dimensions Constructor
-GameState::GameState(Vector2D<uint_fast32_t>& winDim) : _winDim(winDim) {
+GameState::GameState(void) {
 	return;
 }
 
 // Copy constructor
-GameState::GameState(GameState const &src) : _winDim(src.getWinDim()) {
+GameState::GameState(GameState const &src) {
 	*this = src;
 	return;
 }
@@ -64,19 +63,13 @@ GameState::~GameState(void) {
 
 // Equal sign overload for the copy constructor
 GameState						&GameState::operator=(GameState const &rhs) {
-	if (this != &rhs) {
-		this->_winDim = rhs.getWinDim();
-	}
+	if (this != &rhs) {}
 	return *this;
 }
 
 // Game State Getters --
-Vector2D<uint_fast32_t>&		GameState::getWinDim(void) const {
-	return this->_winDim;
-}
 
 // Out stream overload for testing
 std::ostream					&operator<<(std::ostream &o, GameState const &i) {
-	return o << "Game State Info:" << std::endl <<
-	"window dimensions: " << i.getWinDim() << std::endl;
+	return o << "Game State Info:" << &i << std::endl;
 }

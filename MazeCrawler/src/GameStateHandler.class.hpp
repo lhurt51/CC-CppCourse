@@ -30,12 +30,12 @@
 	public:
 
 		// Getters --
-		static Vector2D<uint_fast32_t>	getWinDem(void);
+		static Vector2D<uint_fast32_t>	getWinDim(void);
 		static State					getCurState(void);
 		static GameState*				getGameState(void);
 
 		// Setters --
-		static void						setWinDem(Vector2D<uint_fast32_t> winDem);
+		static void						setWinDim(Vector2D<uint_fast32_t> winDem);
 		static State					setCurState(State curState);
 		static void						setGameState(GameState *gameState);
 
