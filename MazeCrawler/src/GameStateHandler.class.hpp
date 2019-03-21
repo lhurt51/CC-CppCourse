@@ -21,45 +21,38 @@
 	class GameStateHandler {
 
 		// Storing window dimensions
-		Vector2D<uint_fast32_t> 		_winDem;
+		static Vector2D<uint_fast32_t> 		_winDem;
 		// Storing the cur state of the game
-		State							_curState;
+		static State						_curState;
 		// Storing current GameState
-		GameState*						_gameState;
+		static GameState*					_gameState;
 
 	public:
-		// Constructors --
-		GameStateHandler(Vector2D<uint_fast32_t> const winDem);
-		GameStateHandler(GameStateHandler const &src);
-		~GameStateHandler(void);
-
-		// Overload operators --
-		GameStateHandler				&operator=(GameStateHandler const &rhs);
 
 		// Getters --
-		Vector2D<uint_fast32_t> const	getWinDem(void) const;
-		State							getCurState(void) const;
-		GameState*						getGameState(void) const;
+		static Vector2D<uint_fast32_t>	getWinDem(void);
+		static State					getCurState(void);
+		static GameState*				getGameState(void);
 
 		// Setters --
-		void							setWinDem(Vector2D<uint_fast32_t> winDem);
-		State							setCurState(State curState);
-		void							setGameState(GameState *gameState);
+		static void						setWinDem(Vector2D<uint_fast32_t> winDem);
+		static State					setCurState(State curState);
+		static void						setGameState(GameState *gameState);
 
 		// Public helper methods --
-		void                        	handleInput(int input);
-		bool							runState(void);
+		static void                     handleInput(int input);
+		static bool						runState(void);
 
 	private:
 		// Private helper methods --
-		void							_chooseGameState(void);
-		bool							_checkStateChange(void);
-		bool							_checkWinDimChange(void);
-		void                        	_draw(void);
-		void							_handleLoadingState(void);
+		static void						_chooseGameState(void);
+		static bool						_checkStateChange(void);
+		static bool						_checkWinDimChange(void);
+		static void                     _draw(void);
+		static void						_handleLoadingState(void);
 
 		// Private free methods --
-		void							_deleteGameState(void);
+		static void						_deleteGameState(void);
 
 	};
 

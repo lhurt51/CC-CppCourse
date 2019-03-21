@@ -7,35 +7,25 @@
 	#include <vector>
 
 	// Forward declaring classes
-	template<typename T> class			Vector2D;
-	class								GameObject;
+	template<typename T> class				Vector2D;
+	class									GameObject;
 
 	class GameObjectHandler {
 
 		// All objects created
-		std::vector<GameObject*> 		_allObjects;
+		static std::vector<GameObject*> 	_allObjects;
 
 	public:
 
-		// Constructors --
-		GameObjectHandler(void);
-		GameObjectHandler(GameObjectHandler const &src);
-		virtual ~GameObjectHandler(void);
-
-		// Overload equals operator --
-		GameObjectHandler				&operator=(GameObjectHandler const &rhs);
-
-		// Getters --
-		std::vector<GameObject*>		getAllObjects(void) const;
-
 		// Helper methods --
-		unsigned						findIndex(GameObject *obj);
-		GameObject*						findObject(unsigned index);
-		void							addObject(GameObject *obj);
-		void							removeObject(GameObject *obj);
-		void							setObjectCanDraw(GameObject *obj, bool bCanDraw);
-		void							setAllObjectsCanDraw(bool bCanDraw);
-		void							printAllObjects(void);
+		static unsigned						findIndex(GameObject *obj);
+		static GameObject*					findObject(unsigned index);
+		static void							addObject(GameObject *obj);
+		static void							removeObject(GameObject *obj);
+		static void 						clearAllObjects(void);
+		static void							setObjectCanDraw(GameObject *obj, bool bCanDraw);
+		static void							setAllObjectsCanDraw(bool bCanDraw);
+		static void							printAllObjects(void);
 
 		// For a dirived class
 		// virtual GameObject*				chooseObect(int type) = 0;

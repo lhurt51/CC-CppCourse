@@ -45,6 +45,7 @@
 
 #include <vector>
 #include <sstream>
+#include <math.h>
 #include <ncurses.h>
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
@@ -52,13 +53,6 @@
 #include "GameStateHandler.class.hpp"
 #include "GameEngine.class.hpp"
 
-// Initializing the static window to null
-GameStateHandler					*GameEngine::_gameStateHandler = nullptr;
-
-// Getters --
-GameStateHandler*					GameEngine::getGameStateHandler(void) {
-	return GameEngine::_gameStateHandler;
-}
 
 // Clear the screen without including ncurses
 void                 		GameEngine::clearScreen(void) {
@@ -85,7 +79,28 @@ float						GameEngine::calculateFPS(void) {
 		systemTime.reset();
 	    frames = 0;
 	}
-	return fps;
+	return round(fps);
+}
+
+Vector2D<uint_fast32_t>  	GameEngine::checkGameObjectPos(Vector2D<uint_fast32_t> pos, const std::string msg) {
+	std::vector<std::string>	strs;
+	unsigned					halfLength;
+	unsigned					halfHeight;
+
+	strs = split(msg, '\n');
+	halfLength = HALF_OF_VAL(maxStringLength(strs));
+	halfHeight = HALF_OF_VAL(strs.size());
+	if ((int)(pos.x - halfLength) < 0) {
+		pos.x = halfLength;
+	} else if ((int)(pos.x + halfHeight) >= COLS) {
+		pos.x = COLS - halfLength;
+	}
+	if ((int)(pos.y - halfHeight) < 0) {
+		pos.y = halfHeight;
+	} else if ((int)(pos.y + halfHeight) >= LINES) {
+		pos.y = LINES - halfHeight;
+	}
+	return pos;
 }
 
 // Print a message to the center of the screen
@@ -125,31 +140,27 @@ void                 		GameEngine::useMenuItemAttr(bool bUse) {
 
 // Run the window loop
 void						GameEngine::start(void) {
-	GameEngine::_gameStateHandler = new GameStateHandler(Vector2D<uint_fast32_t>(MIN_WIN_SIZE + 5));
-
 	GameEngine::_initWindow();
 	do {
 		GameEngine::_resizeHandler();
 		GameEngine::_handleInput();
-		if (!GameEngine::_gameStateHandler->runState())
+		if (!GameStateHandler::runState())
 			break;
 		refresh();
 	} while(true);
 	GameEngine::_destroyWin();
-	delete GameEngine::_gameStateHandler;
-	GameEngine::_gameStateHandler = nullptr;
 }
 
 // Handle window resize
 void                		GameEngine::_resizeHandler(void) {
-	GameEngine::_gameStateHandler->setWinDem(Vector2D<uint_fast32_t>(COLS, LINES));
+	GameStateHandler::setWinDem(Vector2D<uint_fast32_t>(COLS, LINES));
 }
 
 // Handle the input for the game state
 void						GameEngine::_handleInput(void) {
 	int input;
 	if ((input = getch()) != ERR)
-		GameEngine::_gameStateHandler->handleInput(input);
+		GameStateHandler::handleInput(input);
 }
 
 // Initialize the window with ncurses
@@ -181,8 +192,15 @@ void						GameEngine::_destroyWin(void) {
 
 // To print out all of the games attributes
 std::ostream				&operator<<(std::ostream &o, GameEngine const &i) {
-	return o << "Game Thread Info:" << std::endl <<
-	"Game State: " << i.getGameStateHandler() << std::endl;
+	return o << "Game Thread Info:" << &i << std::endl;
+}
+
+unsigned					maxStringLength(std::vector<std::string> strs) {
+	unsigned maxLength = 0;
+	for (std::string str : strs) {
+		if (maxLength < str.length()) maxLength = str.length();
+	}
+	return maxLength;
 }
 
 // Global function to help me split strings

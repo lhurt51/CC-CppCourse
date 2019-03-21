@@ -3,7 +3,6 @@
 
 	#include <includes.hpp>
 	#include <vector>
-	// Including vector for the menu items
 	#include "GameObject.class.hpp"
 
 	// Forward declaring classes
@@ -38,15 +37,14 @@
 		bool					getIsHorizontal(void) const;
 
 		// Setters --
-		void 					setPos(Vector2D<uint_fast32_t> pos);
+		virtual void 			setPos(Vector2D<uint_fast32_t> pos) override;
+
+		// Input setters --
 		void					increaseIndexItem(void);
 		void					decreaseIndexItem(void);
 
 		// Helper Methods --
 		void					doExecute(void);
-
-		// Actor overload methods --
-		void					tick(void);
 
 	private:
 

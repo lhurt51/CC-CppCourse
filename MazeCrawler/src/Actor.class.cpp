@@ -45,6 +45,7 @@
 
 #include "Vector2D.class.hpp"
 #include "Actor.class.hpp"
+#include "GameEngine.class.hpp"
 
 // Default constructor
 Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const sprite) : GameObject(pos, sprite), _bCanClear(false), _bNeedsUpdate(true) {
@@ -94,7 +95,7 @@ void					Actor::setNeedsUpdate(void) {
 
 void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {
 	if (this->_pos != pos) {
-		this->_pos = pos;
+		this->_pos = GameEngine::checkGameObjectPos(pos, _sprite);
 		_bNeedsUpdate = true;
 	}
 }

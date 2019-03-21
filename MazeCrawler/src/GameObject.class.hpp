@@ -37,6 +37,9 @@
 		void						setCanDraw(bool bCanDraw);
 		virtual void 				setPos(Vector2D<uint_fast32_t> pos);
 
+		// Helper methods --
+		virtual void 				draw(void);
+
 	};
 
 	// To print the actor info

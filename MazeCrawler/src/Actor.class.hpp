@@ -32,7 +32,7 @@
 		void						setNeedsUpdate(void);
 
 		// Override/Implement base functionality --
-		void 						setPos(Vector2D<uint_fast32_t> pos);
+		virtual void 				setPos(Vector2D<uint_fast32_t> pos) override;
 		void						setSprite(std::string sprite);
 
 		// An abstract method for implemented classes

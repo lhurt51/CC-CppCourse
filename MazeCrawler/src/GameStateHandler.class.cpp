@@ -49,96 +49,74 @@
 #include "GameStateHandler.class.hpp"
 #include "GameEngine.class.hpp"
 
-// Initializer for window dimensions Constructor --
-GameStateHandler::GameStateHandler(Vector2D<uint_fast32_t> const winDem) : _winDem(winDem), _curState(STARTING), _gameState(nullptr) {
-	return;
-}
-
-// Copy constructor --
-GameStateHandler::GameStateHandler(GameStateHandler const &src) {
-	*this = src;
-	return;
-}
-
-// De-constructor --
-GameStateHandler::~GameStateHandler(void) {
-	_deleteGameState();
-	return;
-}
-
-// Equal sign overload for the copy constructor --
-GameStateHandler						&GameStateHandler::operator=(GameStateHandler const &rhs) {
-	if (this != &rhs) {
-		this->_winDem = rhs.getWinDem();
-		this->_curState = rhs.getCurState();
-		this->_gameState = rhs.getGameState();
-	}
-	return *this;
-}
+Vector2D<uint_fast32_t> 		GameStateHandler::_winDem(MIN_WIN_SIZE);
+State							GameStateHandler::_curState = STARTING;
+GameState*						GameStateHandler::_gameState = nullptr;
 
 // Game State Getters --
-Vector2D<uint_fast32_t> const	GameStateHandler::getWinDem(void) const {
-	return this->_winDem;
+Vector2D<uint_fast32_t>			GameStateHandler::getWinDem(void) {
+	return GameStateHandler::_winDem;
 }
 
-State							GameStateHandler::getCurState(void) const {
-	return this->_curState;
+State							GameStateHandler::getCurState(void) {
+	return GameStateHandler::_curState;
 }
 
-GameState*						GameStateHandler::getGameState(void) const {
-	return this->_gameState;
+GameState*						GameStateHandler::getGameState(void) {
+	return GameStateHandler::_gameState;
 }
 
 // Game State Setters --
 void							GameStateHandler::setWinDem(Vector2D<uint_fast32_t> winDem) {
-	if (this->_winDem == winDem)
+	if (GameStateHandler::_winDem == winDem)
 		return;
-	this->_winDem = winDem;
-	setCurState(LOADING);
+	GameStateHandler::_winDem = winDem;
+	GameStateHandler::setCurState(LOADING);
 }
 
 // Set the current state and return the previous state
 State							GameStateHandler::setCurState(State curState) {
 	static State lastState = STARTING;
 
-	if (this->_curState == curState)
+	if (GameStateHandler::_curState == curState)
 		return lastState;
-	else if (_curState != LOADING && _curState != ERROR)
-		lastState = this->_curState;
-	this->_curState = curState;
+	else if (GameStateHandler::_curState != LOADING && GameStateHandler::_curState != ERROR)
+		lastState = GameStateHandler::_curState;
+	GameStateHandler::_curState = curState;
 	return lastState;
 }
 
 void							GameStateHandler::setGameState(GameState *gameState) {
-	if (this->_gameState == gameState) return;
-	this->_gameState = gameState;
+	if (GameStateHandler::_gameState == gameState) return;
+	GameStateHandler::_gameState = gameState;
 }
 
 // Handle the input for all the actors that require input
 void							GameStateHandler::handleInput(int input) {
-	if (input == '`') setCurState(EXITING);
-	if (_gameState) _gameState->handleInput(input);
+	if (input == '`') GameStateHandler::setCurState(EXITING);
+	if (GameStateHandler::_gameState) GameStateHandler::_gameState->handleInput(input);
 }
 
 // Run the state based on current state
 bool							GameStateHandler::runState(void) {
-	switch (_curState) {
+	switch (GameStateHandler::_curState) {
 		case LOADING:
-			_handleLoadingState();
+			GameStateHandler::_handleLoadingState();
 			break;
 		case EXITING:
+			GameStateHandler::_deleteGameState();
 			return false;
 		default:
-			if (_gameState) _gameState->handleTick();
+			if (GameStateHandler::_gameState) GameStateHandler::_gameState->handleTick();
 			break;
 	}
-	_draw();
+	GameStateHandler::_draw();
 	return true;
 }
 
 void							GameStateHandler::_chooseGameState(void) {
-	_deleteGameState();
-	switch(_curState) {
+	GameStateHandler::_deleteGameState();
+	switch(GameStateHandler::_curState) {
 		case STARTING:
 			break;
 		default:
@@ -147,21 +125,21 @@ void							GameStateHandler::_chooseGameState(void) {
 }
 
 bool							GameStateHandler::_checkStateChange(void) {
-	static State lastState = setCurState(_curState);
+	static State lastState = GameStateHandler::setCurState(_curState);
 
-	if (lastState != setCurState(_curState)) {
-		lastState = setCurState(_curState);
-		_chooseGameState();
+	if (lastState != GameStateHandler::setCurState(_curState)) {
+		lastState = GameStateHandler::setCurState(_curState);
+		GameStateHandler::_chooseGameState();
 		return true;
 	}
 	return false;
 }
 
 bool							GameStateHandler::_checkWinDimChange(void) {
-	static Vector2D<uint_fast32_t> lastDem = _winDem;
+	static Vector2D<uint_fast32_t> lastDem = GameStateHandler::_winDem;
 
-	if (lastDem != _winDem) {
-		lastDem = _winDem;
+	if (lastDem != GameStateHandler::_winDem) {
+		lastDem = GameStateHandler::_winDem;
 		return true;
 	}
 	return false;
@@ -171,7 +149,7 @@ bool							GameStateHandler::_checkWinDimChange(void) {
 void                        	GameStateHandler::_draw(void) {
 	static float fps = GameEngine::calculateFPS();
 
-	if (_checkWinDimChange() || _checkStateChange() || fps != GameEngine::calculateFPS() || (_gameState && _gameState->checkForActorUpdate())) {
+	if (GameStateHandler::_checkWinDimChange() || GameStateHandler::_checkStateChange() || fps != GameEngine::calculateFPS() || (GameStateHandler::_gameState && GameStateHandler::_gameState->checkForActorUpdate())) {
 		GameEngine::clearScreen();
 		if (_curState == ERROR)
 			GameEngine::printMiddle(WIN_2_SMALL_MSG);
@@ -180,7 +158,7 @@ void                        	GameStateHandler::_draw(void) {
 			std::string tmp = GAME_FPS + std::to_string(fps);
 			GameEngine::printPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(tmp.length()) + 2, 1), tmp);
 			GameEngine::printBorder();
-			if (_gameState) _gameState->printAllGameObjects();
+			if (GameStateHandler::_gameState) GameStateHandler::_gameState->printAllGameObjects();
 		}
 		// Actor::resetAllActorsNeedsUpdate();
 	}
@@ -189,18 +167,20 @@ void                        	GameStateHandler::_draw(void) {
 // Handle the loading state update
 void							GameStateHandler::_handleLoadingState(void) {
 	if(GameEngine::isWindowToSmall()) {
-		if (_gameState) _gameState->hideAllGameObjects();
-		setCurState(ERROR);
+		if (GameStateHandler::_gameState)
+			GameStateHandler::_gameState->hideAllGameObjects();
+		GameStateHandler::setCurState(ERROR);
 	} else {
-		if (_gameState) _gameState->showAllGameObjects();
-		setCurState(setCurState(LOADING));
+		if (GameStateHandler::_gameState)
+			GameStateHandler::_gameState->showAllGameObjects();
+		GameStateHandler::setCurState(setCurState(LOADING));
 	}
 }
 
 void							GameStateHandler::_deleteGameState(void) {
-	if (_gameState) {
-		delete _gameState;
-		_gameState = nullptr;
+	if (GameStateHandler::_gameState) {
+		delete GameStateHandler::_gameState;
+		GameStateHandler::_gameState = nullptr;
 	}
 }
 

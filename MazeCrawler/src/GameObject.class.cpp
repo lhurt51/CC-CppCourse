@@ -45,6 +45,7 @@
 
 #include "Vector2D.class.hpp"
 #include "GameObject.class.hpp"
+#include "GameEngine.class.hpp"
 
 // Default constructor
 GameObject::GameObject(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(true), _pos(pos), _sprite(sprite) {
@@ -93,7 +94,11 @@ void					GameObject::setCanDraw(bool bCanDraw) {
 
 void 					GameObject::setPos(Vector2D<uint_fast32_t> pos) {
 	if (this->_pos != pos)
-		this->_pos = pos;
+		this->_pos = GameEngine::checkGameObjectPos(pos, _sprite);
+}
+
+void 					GameObject::draw(void) {
+	if(_bCanDraw) GameEngine::printPos(_pos, _sprite);
 }
 
 // Output pverload for testing
