@@ -12,6 +12,8 @@
 
 	class GameObjectHandler {
 
+	protected:
+
 		// All objects created
 		static std::vector<GameObject*> 	_allObjects;
 

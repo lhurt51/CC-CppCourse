@@ -43,92 +43,77 @@
 *																				*
 \*******************************************************************************/
 
-#include <typedefs.hpp>
 #include "Vector2D.class.hpp"
-#include "Input.class.hpp"
-#include "GameStateHandler.class.hpp"
+#include "Actor.class.hpp"
+#include "ActorHandler.class.hpp"
 
-// Default constructor to initialize all attributes
-Input::Input(Vector2D<uint_fast32_t> pos) : Actor(pos, INPUT_START_MSG), _bIsTyping(true) {
-	addInputToString(-2);
-	return;
-}
+unsigned								ActorHandler::findActorIndex(Actor *obj) {
+	unsigned	start = 0;
+	Actor*		myActor;
 
-// Copy constructor
-Input::Input(Input const &src) : Actor(src) {
-	*this = src;
-	return;
-}
-
-// Deconstructor
-Input::~Input(void) {
-	return;
-}
-
-// Overload equals operators for copy constructor
-Input&				Input::operator=(Input const &rhs) {
-	if (this != &rhs) {
-		this->_bIsTyping = rhs.getIsTyping();
-		this->_bIsChar = rhs.getIsChar();
+	for(GameObject* tmp : _allObjects) {
+		if ((myActor = dynamic_cast<Actor*>(tmp))) {
+			if (myActor == obj)
+				return start;
+		}
+		start++;
 	}
-	return *this;
+	return start;
 }
 
-// Getters --
-bool				Input::getIsTyping(void) const {
-	return this->_bIsTyping;
+Actor*									ActorHandler::findActor(unsigned index) {
+	Actor*		myActor;
+
+	if (index < _allObjects.size() && (myActor = dynamic_cast<Actor*>(_allObjects[index])))
+		return myActor;
+	return nullptr;
 }
 
-bool				Input::getIsChar(void) const {
-	return this->_bIsChar;
+void									ActorHandler::setActorCanClear(Actor *obj) {
+	Actor*		myActor;
+	unsigned index = findActorIndex(obj);
+
+	if (index < _allObjects.size() && (myActor = dynamic_cast<Actor*>(_allObjects[index])))
+		myActor->setCanClear();
 }
 
-// Setters --
-void				Input::setIsTyping(void) {
-	if (!_bIsTyping) return;
-	if (_is_digits(_sprite)) {
-		_bIsTyping = false;
-		_bIsChar = false;
-	} else if (_is_alphas(_sprite)) {
-		_bIsTyping = false;
-		_bIsChar = true;
-	} else addInputToString(-1);
-}
+void									ActorHandler::setAllActorsCanClear(void) {
+	Actor*		myActor;
 
-void				Input::addInputToString(int input) {
-	static bool first = true;
-
-	if (!_bIsTyping) return;
-	if (input < 0) {
-		first = true;
-		if (input == -1)
-			setSprite(INPUT_EXIT_MSG);
-	} else if (first) {
-		std::string tmp = "";
-		setSprite(tmp + (char)input);
-		first = false;
-	} else {
-		setSprite(this->_sprite + (char)input);
-		if (getSprite().length() > 3) setIsTyping();
+	for(GameObject* tmp : _allObjects) {
+		if ((myActor = dynamic_cast<Actor*>(tmp)))
+			myActor->setCanClear();
 	}
 }
 
-void				Input::finnishInput(void) {
-	if (!_bIsTyping) return;
-		GameStateHandler::setCurState(PLAYING);
+void									ActorHandler::setActorNeedsUpdate(Actor *obj) {
+	Actor*		myActor;
+	unsigned index = findActorIndex(obj);
+
+	if (index < _allObjects.size() && (myActor = dynamic_cast<Actor*>(_allObjects[index])))
+		myActor->setNeedsUpdate();
 }
 
-// Overloaded Public Actor Method
-void				Input::tick(void) {
-	setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), HALF_OF_VAL(GameStateHandler::getWinDim().y)));
+void									ActorHandler::setAllActorsNeedsUpdate(void) {
+	Actor*		myActor;
+
+	for(GameObject* tmp : _allObjects) {
+		if ((myActor = dynamic_cast<Actor*>(tmp)))
+			myActor->setNeedsUpdate();
+	}
 }
 
-bool 				Input::_is_digits(const std::string &str)
-{
-    return std::all_of(str.begin(), str.end(), ::isdigit); // C++11
+bool									ActorHandler::anyActorNeedsUpdate(void) {
+	Actor*		myActor;
+
+	for(GameObject* tmp : _allObjects) {
+		if ((myActor = dynamic_cast<Actor*>(tmp)) && myActor->getNeedsUpdate())
+			return true;
+	}
+	return false;
 }
 
-bool 				Input::_is_alphas(const std::string &str)
-{
-    return std::all_of(str.begin(), str.end(), ::isalpha); // C++11
+// Output pverload for testing
+std::ostream							&operator<<(std::ostream &o, ActorHandler const &i) {
+	return o << "ActorHandler Info:" << &i << std::endl;
 }

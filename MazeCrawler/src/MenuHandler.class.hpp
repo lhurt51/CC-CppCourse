@@ -7,14 +7,17 @@
 
 	// Forward declaring classes
 	template<typename T> class	Vector2D;
+	class						GameObject;
 	class						MenuItem;
 
-	class MenuHandler : public GameObject {
+	class MenuHandler {
 
 		// The selected item index
 		unsigned int			_itemIndex;
 		// All items in the menu
 		std::vector<MenuItem*>	_items;
+		// A game object acting as title
+		GameObject*				_title;
 		// Is the menu horizontal
 		bool					_bIsHorizontal;
 
@@ -30,10 +33,11 @@
 		// Getters --
 		unsigned int			getItemIndex(void) const;
 		std::vector<MenuItem*>	getAllItems(void) const;
+		GameObject*				getTitle(void) const;
 		bool					getIsHorizontal(void) const;
 
 		// Setters --
-		virtual void 			setPos(Vector2D<uint_fast32_t> pos) override;
+		//virtual void 			setPos(Vector2D<uint_fast32_t> pos) override;
 
 		// Input setters --
 		void					increaseIndexItem(void);
@@ -45,6 +49,7 @@
 	private:
 
 		// Private Initializer func --
+		void					_createTitle(Vector2D<uint_fast32_t> pos, std::string const title);
 		void					_createItems(std::vector<std::string> const items);
 
 		// Private helper Methods --
@@ -54,6 +59,7 @@
 		void					_resetSelectedIndex(void);
 
 		// Private delete funcs --
+		void					_deleteTitle(void);
 		void					_deleteItems(void);
 
 	};

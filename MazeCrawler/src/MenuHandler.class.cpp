@@ -1,30 +1,47 @@
-/******************************************************************************
-* Programmer Name:
-* Liam Hurt
-*
-* Date:
-* 2/6/2019
-*
-* Assignment Requirement:
-* - Ask the user to guess a whole number between 1 and 1000 or character 'A'
-*   to 'Z'
-* - Your program will try to find the number
-* - Keep track of the number of guesses by the computer
-* - Use Recursive one of two search techniques: linear search or binary search
-*   or randomize guess of a number.
-* - Use a template class so the program could be used for integer or character,
-*   your test function within your class should run with integer first then a
-*   character
-* - Use a randomized random number or letter generator for the item to guess
-* - Allow the computer to have only 15 guesses
-* - Your game class will have two functions or methods: playTheGame and static
-*   Test
-* - Your game shall have two modes: automatic where the computer tries to guess
-*   you number without any input from you (except for the guess number) and
-*   manual mode where each guess of the computer requires your input of Higher,
-*   Lower, Right
-*
-******************************************************************************/
+/*******************************************************************************\
+* Programmer Name:																*
+* Liam Hurt																		*
+*																				*
+* Date:																			*
+* 3/16/2019																		*
+*																				*
+* Assignment Requirement:														*
+* 7.33 (Maze Traversal) The grid of hashes (#) and dots (.) in Fig. 7.29 is a	*
+* two-dimensional builtin array representation of a maze. In the				*
+* two-dimensional built-in array, the hashes represent the walls of the maze	*
+* and the dots represent squares in the possible paths through the maze. Moves	*
+* can be made only to a location in the built-in array that contains a dot.		*
+* There is a simple algorithm for walking through a maze that guarantees to		*
+* find the exit (assuming that there is an exit). If there is not an exit,		*
+* you’ll arrive at the starting location again. Place your right hand on		*
+* the wall to your right and begin walking forward. Never remove your hand		*
+* from the wall. If the maze turns to the right, you follow the wall to the		*
+* right. As long as you do not remove your hand from the wall, eventually		*
+* you’ll arrive at the exit of the maze. There may be a shorter path than the	*
+* one you’ve taken, but you are guaranteed to get out of the maze if you		*
+* follow the algorithm.															*
+*																				*
+*  # # # # # # # # # # # #														*
+*  # . . . # . . . . . . #														*
+*  . . # . # . # # # # . #														*
+*  # # # . # . . . . # . #														*
+*  # . . . . # # # . # . .														*
+*  # # # # . # . # . # . #														*
+*  # . . # . # . # . # . #														*
+*  # # . # . # . # . # . #														*
+*  # . . . . . . . . # . #														*
+*  # # # # # # . # # # . #														*
+*  # . . . . . . # . . . #														*
+*  # # # # # # # # # # # #														*
+*																				*
+* Write recursive function mazeTraverse to walk through the maze. The function	*
+* should receive arguments that include a 12-by-12 built-in array of chars		*
+* representing the maze and the starting location of the maze. As mazeTraverse	*
+* attempts to locate the exit from the maze, it should place the character X	*
+* in each square in the path. The function should display the maze after each	*
+* move, so the user can watch as the maze is solved.							*
+*																				*
+\*******************************************************************************/
 
 #include <typedefs.hpp>
 #include "Vector2D.class.hpp"
@@ -32,21 +49,24 @@
 #include "MenuHandler.class.hpp"
 #include "GameStateHandler.class.hpp"
 
+// Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), 5)
 // Default constructor to init the state and items
-MenuHandler::MenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal) : GameObject(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), 5), title), _itemIndex(0), _bIsHorizontal(bIsHorizontal) {
+MenuHandler::MenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal) : _itemIndex(0), _title(nullptr), _bIsHorizontal(bIsHorizontal) {
+	_createTitle(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), 5), title);
 	_createItems(items);
 	_resetSelectedIndex();
 	return;
 }
 
 // Copy constructor
-MenuHandler::MenuHandler(MenuHandler const &src) : GameObject(src) {
+MenuHandler::MenuHandler(MenuHandler const &src) {
 	*this = src;
 	return;
 }
 
 // Default deconstructor to delete the items
 MenuHandler::~MenuHandler(void) {
+	_deleteTitle();
 	_deleteItems();
 	return;
 }
@@ -70,11 +90,16 @@ std::vector<MenuItem*>	MenuHandler::getAllItems(void) const {
 	return this->_items;
 }
 
+GameObject*				MenuHandler::getTitle(void) const {
+	return this->_title;
+}
+
 bool					MenuHandler::getIsHorizontal(void) const {
 	return this->_bIsHorizontal;
 }
 
 // Setters --
+/*
 // (HALF_OF_VAL(_state.getWinDim().x), HALF_OF_VAL(_state.getWinDim().y) - ((_bIsHorizontal) ? MENU_ITEM_SPACE : ((HALF_OF_VAL(_items.size()) + MENU_ITEM_SPACE) * MENU_ITEM_SPACE)))
 void 					MenuHandler::setPos(Vector2D<uint_fast32_t> pos) {
 	if (_pos != pos) {
@@ -84,6 +109,7 @@ void 					MenuHandler::setPos(Vector2D<uint_fast32_t> pos) {
 		}
 	}
 }
+*/
 
 void					MenuHandler::increaseIndexItem(void) {
 	this->_itemIndex++;
@@ -104,6 +130,12 @@ void					MenuHandler::doExecute(void) {
 }
 
 // Private helper Methods --
+void					MenuHandler::_createTitle(Vector2D<uint_fast32_t> pos, std::string const title) {
+	if (!_title) {
+		_title = new GameObject(pos, title);
+	}
+}
+
 // Create the list of menu items
 void					MenuHandler::_createItems(std::vector<std::string> const items) {
 	for (unsigned i = 0; i < items.size(); i++)
@@ -138,6 +170,13 @@ void					MenuHandler::_resetSelectedIndex(void) {
 	for (unsigned i = 0; i < _items.size(); i++) {
 		if (_itemIndex == i) _items[i]->setIsSelected(true);
 		else _items[i]->setIsSelected(false);
+	}
+}
+
+void					MenuHandler::_deleteTitle(void) {
+	if (_title) {
+		delete _title;
+		_title = nullptr;
 	}
 }
 
