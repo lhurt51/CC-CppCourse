@@ -43,7 +43,7 @@
 *																				*
 \*******************************************************************************/
 
-#include <typedefs.hpp>
+#include <macros/game_state_macros.hpp>
 #include "Vector2D.class.hpp"
 #include "GameState.class.hpp"
 #include "GameStateHandler.class.hpp"

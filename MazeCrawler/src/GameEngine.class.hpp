@@ -16,6 +16,7 @@
     static bool                     isWindowToSmall(void);
     static float                    calculateFPS(void);
     static Vector2D<uint_fast32_t>  checkGameObjectPos(Vector2D<uint_fast32_t> pos, const std::string msg);
+    static Vector2D<uint_fast32_t>  gameObjectSpriteDim(const std::string msg);
     static void                     printMiddle(const std::string msg);
     static void                     printPos(const Vector2D<uint_fast32_t> pos, const std::string msg);
     static void                     printBorder(void);

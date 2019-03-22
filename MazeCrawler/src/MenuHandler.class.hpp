@@ -37,7 +37,7 @@
 		bool					getIsHorizontal(void) const;
 
 		// Setters --
-		//virtual void 			setPos(Vector2D<uint_fast32_t> pos) override;
+		void 					resetPos(void);
 
 		// Input setters --
 		void					increaseIndexItem(void);

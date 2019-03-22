@@ -45,8 +45,9 @@
 
 #include "Vector2D.class.hpp"
 #include "Maze.class.hpp"
+#include "GameEngine.class.hpp"
 
-std::string const	board = {
+std::string const		board = {
   "# # # # # # # # # # # #\n# . . . # . . . . . . #\n. . # . # . # # # # . #\n# # # . # . . . . # . #\n# . . . . # # # . # . .\n# # # # . # . # . # . #\n# . . # . # . # . # . #\n# # . # . # . # . # . #\n# . . . . . . . . # . #\n# # # # # # . # # # . #\n# . . . . . . # . . . #\n# # # # # # # # # # # #\n"
 };
 
@@ -62,13 +63,34 @@ Maze::~Maze(void) {
 	return;
 }
 
-Maze				&Maze::operator=(Maze const &rhs) {
+Maze					&Maze::operator=(Maze const &rhs) {
 	if (this != &rhs) {
-
+		this->_bFoundPath = rhs.getFoundPath();
 	}
 	return *this;
 }
 
-void				Maze::tick(void) {
+// Getters --
+bool					Maze::getFoundPath(void) const {
+	return _bFoundPath;
+}
+
+// Setters --
+void					Maze::setFoundPath(void) {
+	if (!_bFoundPath) _bFoundPath = true;
+}
+
+void					Maze::setSpriteDim(void) {
+	_spriteDim = GameEngine::gameObjectSpriteDim(getSprite());
+}
+
+bool					Maze::findPath(Vector2D<uint_fast32_t> startingPos) {
+	if (startingPos.x == _spriteDim.x) return true;
+	if (_sprite[startingPos.y * _spriteDim.x / startingPos.x] == '#')
+		return false;
+	return false;
+}
+
+void					Maze::tick(void) {
 	return;
 }

@@ -43,7 +43,7 @@
 *																				*
 \*******************************************************************************/
 
-#include <typedefs.hpp>
+#include <macros/menu_macros.hpp>
 #include "Vector2D.class.hpp"
 #include "MenuItem.class.hpp"
 #include "MenuHandler.class.hpp"
@@ -99,17 +99,12 @@ bool					MenuHandler::getIsHorizontal(void) const {
 }
 
 // Setters --
-/*
-// (HALF_OF_VAL(_state.getWinDim().x), HALF_OF_VAL(_state.getWinDim().y) - ((_bIsHorizontal) ? MENU_ITEM_SPACE : ((HALF_OF_VAL(_items.size()) + MENU_ITEM_SPACE) * MENU_ITEM_SPACE)))
-void 					MenuHandler::setPos(Vector2D<uint_fast32_t> pos) {
-	if (_pos != pos) {
-		_pos = pos;
-		for (unsigned i = 0; i < _items.size(); i++) {
-			_items[i]->setPos((_bIsHorizontal) ? _createHorizontalList(i, _items.size(), _items[i]->getSprite().length()) : _createVerticalList(i, _items.size()));
-		}
+void 					MenuHandler::resetPos(void) {
+	_title->setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), HALF_OF_VAL(GameStateHandler::getWinDim().y) - ((_bIsHorizontal) ? MENU_ITEM_SPACE : ((HALF_OF_VAL(_items.size()) + MENU_ITEM_SPACE) * MENU_ITEM_SPACE))));
+	for (unsigned i = 0; i < _items.size(); i++) {
+		_items[i]->setPos((_bIsHorizontal) ? _createHorizontalList(i, _items.size(), _items[i]->getSprite().length()) : _createVerticalList(i, _items.size()));
 	}
 }
-*/
 
 void					MenuHandler::increaseIndexItem(void) {
 	this->_itemIndex++;
@@ -146,6 +141,7 @@ void					MenuHandler::_createItems(std::vector<std::string> const items) {
 MenuItem*				MenuHandler::_chooseMenuItem(unsigned int i, unsigned int vLen, std::string const item) {
 	if (item[i] == item[vLen]) return nullptr;
 	/*
+	(_bIsHorizontal) ? _createHorizontalList(i, vLen, item.length()) : _createVerticalList(i, vLen);
 	switch(_state.getCurState()) {
 		default:
 			if (item[i] == item[vLen]) return nullptr;

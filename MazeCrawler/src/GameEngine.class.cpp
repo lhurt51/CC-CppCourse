@@ -47,7 +47,7 @@
 #include <sstream>
 #include <math.h>
 #include <ncurses.h>
-#include <typedefs.hpp>
+#include <macros/main_game_macros.hpp>
 #include "Vector2D.class.hpp"
 #include "Timer.class.hpp"
 #include "GameStateHandler.class.hpp"
@@ -101,6 +101,13 @@ Vector2D<uint_fast32_t>  	GameEngine::checkGameObjectPos(Vector2D<uint_fast32_t>
 		pos.y = LINES - halfHeight;
 	}
 	return pos;
+}
+
+Vector2D<uint_fast32_t>  	GameEngine::gameObjectSpriteDim(const std::string msg) {
+	std::vector<std::string> strs;
+
+	strs = split(msg, '\n');
+	return Vector2D<uint_fast32_t>(maxStringLength(strs), strs.size());
 }
 
 // Print a message to the center of the screen

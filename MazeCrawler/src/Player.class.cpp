@@ -26,7 +26,7 @@
 *
 ******************************************************************************/
 
-#include <typedefs.hpp>
+#include <macros/main_game_macros.hpp>
 #include "Vector2D.class.hpp"
 #include "Actor.class.hpp"
 #include "Player.class.hpp"
