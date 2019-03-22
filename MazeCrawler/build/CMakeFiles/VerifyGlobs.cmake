@@ -5,7 +5,6 @@
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "/Users/liamhurt/code/CC-CppCourse/MazeCrawler/include/*.hpp")
 set(OLD_GLOB
   "/Users/liamhurt/code/CC-CppCourse/MazeCrawler/include/includes.hpp"
-  "/Users/liamhurt/code/CC-CppCourse/MazeCrawler/include/typedefs.hpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

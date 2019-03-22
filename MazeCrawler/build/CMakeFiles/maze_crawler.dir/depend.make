@@ -20,7 +20,8 @@ CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.o: ../src/AsynFuncTimer.
 CMakeFiles/maze_crawler.dir/src/AsynFuncTimer.class.cpp.o: ../src/AsynFuncTimer.class.hpp
 
 CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o: ../include/includes.hpp
-CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o: ../include/typedefs.hpp
+CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o: ../include/macros/main_game_macros.hpp
+CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o: ../include/macros/main_macros.hpp
 CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o: ../src/GameEngine.class.cpp
 CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o: ../src/GameEngine.class.hpp
 CMakeFiles/maze_crawler.dir/src/GameEngine.class.cpp.o: ../src/GameStateHandler.class.hpp
@@ -44,7 +45,9 @@ CMakeFiles/maze_crawler.dir/src/GameState.class.cpp.o: ../src/GameState.class.cp
 CMakeFiles/maze_crawler.dir/src/GameState.class.cpp.o: ../src/GameState.class.hpp
 
 CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../include/includes.hpp
-CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../include/typedefs.hpp
+CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../include/macros/game_state_macros.hpp
+CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../include/macros/main_game_macros.hpp
+CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../include/macros/main_macros.hpp
 CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../src/GameEngine.class.hpp
 CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../src/GameState.class.hpp
 CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../src/GameStateHandler.class.cpp
@@ -52,7 +55,8 @@ CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../src/GameStateHa
 CMakeFiles/maze_crawler.dir/src/GameStateHandler.class.cpp.o: ../src/Vector2D.class.hpp
 
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../include/includes.hpp
-CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../include/typedefs.hpp
+CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../include/macros/input_macros.hpp
+CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../include/macros/main_macros.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/Actor.class.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/GameObject.class.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/GameStateHandler.class.hpp
@@ -62,13 +66,15 @@ CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/Vector2D.class.hpp
 
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../include/includes.hpp
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/Actor.class.hpp
+CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/GameEngine.class.hpp
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/GameObject.class.hpp
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/Maze.class.cpp
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/Maze.class.hpp
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/Vector2D.class.hpp
 
 CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o: ../include/includes.hpp
-CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o: ../include/typedefs.hpp
+CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o: ../include/macros/main_macros.hpp
+CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o: ../include/macros/menu_macros.hpp
 CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o: ../src/Actor.class.hpp
 CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o: ../src/GameObject.class.hpp
 CMakeFiles/maze_crawler.dir/src/MenuHandler.class.cpp.o: ../src/GameStateHandler.class.hpp
@@ -85,7 +91,8 @@ CMakeFiles/maze_crawler.dir/src/MenuItem.class.cpp.o: ../src/MenuItem.class.hpp
 CMakeFiles/maze_crawler.dir/src/MenuItem.class.cpp.o: ../src/Vector2D.class.hpp
 
 CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o: ../include/includes.hpp
-CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o: ../include/typedefs.hpp
+CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o: ../include/macros/main_game_macros.hpp
+CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o: ../include/macros/main_macros.hpp
 CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o: ../src/Actor.class.hpp
 CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o: ../src/GameObject.class.hpp
 CMakeFiles/maze_crawler.dir/src/Player.class.cpp.o: ../src/Player.class.cpp
