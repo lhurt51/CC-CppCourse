@@ -65,6 +65,7 @@ CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/Input.class.hpp
 CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o: ../src/Vector2D.class.hpp
 
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../include/includes.hpp
+CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../include/macros/maze_macros.hpp
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/Actor.class.hpp
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/GameEngine.class.hpp
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o: ../src/GameObject.class.hpp

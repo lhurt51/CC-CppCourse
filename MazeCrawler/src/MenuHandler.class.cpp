@@ -49,10 +49,9 @@
 #include "MenuHandler.class.hpp"
 #include "GameStateHandler.class.hpp"
 
-// Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), 5)
 // Default constructor to init the state and items
-MenuHandler::MenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal) : _itemIndex(0), _title(nullptr), _bIsHorizontal(bIsHorizontal) {
-	_createTitle(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), 5), title);
+MenuHandler::MenuHandler(std::string const title, std::vector<std::string> const items, bool bIsHorizontal) : _itemIndex(0), _bIsHorizontal(bIsHorizontal) {
+	_createTitle(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), HALF_OF_VAL(GameStateHandler::getWinDim().y) - ((_bIsHorizontal) ? MENU_ITEM_SPACE : ((HALF_OF_VAL(_items.size()) + MENU_ITEM_SPACE) * MENU_ITEM_SPACE))), title);
 	_createItems(items);
 	_resetSelectedIndex();
 	return;
@@ -126,9 +125,7 @@ void					MenuHandler::doExecute(void) {
 
 // Private helper Methods --
 void					MenuHandler::_createTitle(Vector2D<uint_fast32_t> pos, std::string const title) {
-	if (!_title) {
-		_title = new GameObject(pos, title);
-	}
+	if (!_title) _title = new GameObject(pos, title);
 }
 
 // Create the list of menu items

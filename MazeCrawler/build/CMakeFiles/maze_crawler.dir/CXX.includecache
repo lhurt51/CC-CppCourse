@@ -12,47 +12,31 @@ iostream
 string
 -
 
-../include/macros/main_macros.hpp
-
-../include/macros/menu_macros.hpp
-main_macros.hpp
-../include/macros/main_macros.hpp
+../include/macros/maze_macros.hpp
 
 /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
 GameObject.class.hpp
 /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
 
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameEngine.class.hpp
+includes.hpp
+-
+
 /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
 includes.hpp
 -
 
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameStateHandler.class.hpp
-includes.hpp
--
-
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuHandler.class.cpp
-macros/menu_macros.hpp
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Maze.class.cpp
+macros/maze_macros.hpp
 -
 Vector2D.class.hpp
 /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
-MenuItem.class.hpp
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuItem.class.hpp
-MenuHandler.class.hpp
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuHandler.class.hpp
-GameStateHandler.class.hpp
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameStateHandler.class.hpp
+Maze.class.hpp
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Maze.class.hpp
+GameEngine.class.hpp
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameEngine.class.hpp
 
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuHandler.class.hpp
-includes.hpp
--
-vector
--
-GameObject.class.hpp
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
-
-/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/MenuItem.class.hpp
-includes.hpp
--
+/Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Maze.class.hpp
 Actor.class.hpp
 /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
 

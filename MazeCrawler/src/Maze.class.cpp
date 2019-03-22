@@ -43,15 +43,12 @@
 *																				*
 \*******************************************************************************/
 
+#include <macros/maze_macros.hpp>
 #include "Vector2D.class.hpp"
 #include "Maze.class.hpp"
 #include "GameEngine.class.hpp"
 
-std::string const		board = {
-  "# # # # # # # # # # # #\n# . . . # . . . . . . #\n. . # . # . # # # # . #\n# # # . # . . . . # . #\n# . . . . # # # . # . .\n# # # # . # . # . # . #\n# . . # . # . # . # . #\n# # . # . # . # . # . #\n# . . . . . . . . # . #\n# # # # # # . # # # . #\n# . . . . . . # . . . #\n# # # # # # # # # # # #\n"
-};
-
-Maze::Maze(Vector2D<uint_fast32_t> pos) : Actor(pos, board) {
+Maze::Maze(Vector2D<uint_fast32_t> pos) : Actor(pos, BOARD_SPRITE) {
 	return;
 }
 
@@ -66,6 +63,7 @@ Maze::~Maze(void) {
 Maze					&Maze::operator=(Maze const &rhs) {
 	if (this != &rhs) {
 		this->_bFoundPath = rhs.getFoundPath();
+        this->_spriteDim = rhs.getSpriteDim();
 	}
 	return *this;
 }
@@ -73,6 +71,10 @@ Maze					&Maze::operator=(Maze const &rhs) {
 // Getters --
 bool					Maze::getFoundPath(void) const {
 	return _bFoundPath;
+}
+
+Vector2D<uint_fast32_t>	Maze::getSpriteDim(void) const {
+	return _spriteDim;
 }
 
 // Setters --
@@ -85,9 +87,22 @@ void					Maze::setSpriteDim(void) {
 }
 
 bool					Maze::findPath(Vector2D<uint_fast32_t> startingPos) {
-	if (startingPos.x == _spriteDim.x) return true;
-	if (_sprite[startingPos.y * _spriteDim.x / startingPos.x] == '#')
+	if (startingPos.x == _spriteDim.x)
+        return true;
+	if (_sprite[(startingPos.y * 2) * _spriteDim.x + (startingPos.x * 2)] == '#')
 		return false;
+    if (startingPos > _spriteDim)
+        return false;
+    setSprite((std::string&)_sprite[(startingPos.y * 2) * _spriteDim.x + (startingPos.x * 2)] = 'P');
+    if (findPath(Vector2D<uint_fast32_t>(startingPos.x + 2, startingPos.y)))
+        return true;
+    if (findPath(Vector2D<uint_fast32_t>(startingPos.x, startingPos.y - 2)))
+        return true;
+    if (findPath(Vector2D<uint_fast32_t>(startingPos.x, startingPos.y + 2)))
+        return true;
+    if (findPath(Vector2D<uint_fast32_t>(startingPos.x - 2, startingPos.y)))
+        return true;
+    setSprite((std::string&)_sprite[(startingPos.y * 2) * _spriteDim.x + (startingPos.x * 2)] = 'E');
 	return false;
 }
 

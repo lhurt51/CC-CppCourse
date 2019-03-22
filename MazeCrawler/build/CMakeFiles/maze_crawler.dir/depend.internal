@@ -66,6 +66,7 @@ CMakeFiles/maze_crawler.dir/src/Input.class.cpp.o
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Vector2D.class.hpp
 CMakeFiles/maze_crawler.dir/src/Maze.class.cpp.o
  ../include/includes.hpp
+ ../include/macros/maze_macros.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/Actor.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameEngine.class.hpp
  /Users/liamhurt/code/CC-CppCourse/MazeCrawler/src/GameObject.class.hpp
