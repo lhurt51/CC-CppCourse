@@ -49,8 +49,8 @@
 #include <ncurses.h>
 #include <macros/main_game_macros.hpp>
 #include "Vector2D.class.hpp"
-#include "Timer.class.hpp"
-#include "GameStateHandler.class.hpp"
+#include "Timers/Timer.class.hpp"
+#include "Handlers/GameStateHandler.class.hpp"
 #include "GameEngine.class.hpp"
 
 
