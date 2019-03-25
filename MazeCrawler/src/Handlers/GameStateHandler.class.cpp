@@ -43,7 +43,6 @@
 *																				*
 \*******************************************************************************/
 
-#include <unistd.h>
 #include <macros/game_state_macros.hpp>
 #include "Vector2D.class.hpp"
 #include "GameState/StartingState.class.hpp"
@@ -78,13 +77,19 @@ void							GameStateHandler::setWinDim(Vector2D<uint_fast32_t> winDem) {
 
 // Set the current state and return the previous state
 State							GameStateHandler::setCurState(State curState) {
+	static bool first = true;
 	static State lastState = STARTING;
 
 	if (_curState == curState)
 		return lastState;
-	else if (_curState != LOADING && _curState != ERROR)
+	else if (_curState != LOADING && _curState != ERROR) {
 		lastState = _curState;
+	}
 	_curState = curState;
+	if ((_curState != LOADING && _curState != ERROR && (lastState != _curState || first))) {
+		_chooseGameState();
+		first = false;
+	}
 	return lastState;
 }
 
@@ -120,10 +125,10 @@ void							GameStateHandler::_chooseGameState(void) {
 	_deleteGameState();
 	switch(_curState) {
 		case STARTING:
-			_gameState = new StartingState();
+			if (!_gameState) _gameState = new StartingState();
 			break;
 		case PLAYING:
-			_gameState = new PlayingState();
+			if (!_gameState) _gameState = new PlayingState();
 			break;
 		default:
 			break;
