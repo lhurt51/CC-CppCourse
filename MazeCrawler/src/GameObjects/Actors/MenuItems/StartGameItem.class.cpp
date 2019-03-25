@@ -60,7 +60,6 @@ StartGameItem::StartGameItem(StartGameItem const &src) : MenuItem(src) {
 
 // De-constructor
 StartGameItem::~StartGameItem(void) {
-
 	return;
 }
 

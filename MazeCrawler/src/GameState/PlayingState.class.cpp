@@ -43,63 +43,76 @@
 *																				*
 \*******************************************************************************/
 
-#include <macros/menu_macros.hpp>
 #include "Vector2D.class.hpp"
-#include "GameObjects/GameObject.class.hpp"
+#include "PlayingState.class.hpp"
 #include "Menu/Menu.class.hpp"
-#include "MenuHandler.class.hpp"
-#include "GameStateHandler.class.hpp"
+#include "Handlers/ActorHandler.class.hpp"
+#include "Handlers/MenuHandler.class.hpp"
 
-Menu*				MenuHandler::_menu = nullptr;
-
-// Getters --
-Menu*				MenuHandler::getMenu(void) {
-	return _menu;
+// Initializer for window dimensions Constructor
+PlayingState::PlayingState(void) : GameState() {
+	MenuHandler::setMenu(1);
+	return;
 }
 
-// Setters --
-void 				MenuHandler::setMenu(unsigned type) {
-	deleteMenu();
-	switch(type) {
-		case 0:
-			if (!_menu) _menu = new Menu("Main Menu", { 0, 1 }, false);
-			break;
-		case 1:
-			if (!_menu) _menu = new Menu("Playing", { 0, 1 }, true);
-			break;
-		default:
-			break;
+// Copy constructor
+PlayingState::PlayingState(PlayingState const &src) : GameState(src) {
+	*this = src;
+	return;
+}
+
+// De-constructor
+PlayingState::~PlayingState(void) {
+	MenuHandler::deleteMenu();
+	return;
+}
+
+// Equal sign overload for the copy constructor
+PlayingState					&PlayingState::operator=(PlayingState const &rhs) {
+	if (this != &rhs) {}
+	return *this;
+}
+
+void							PlayingState::handleResize(void) {
+	MenuHandler::handleResize();
+}
+
+void							PlayingState::hideAllGameObjects(void) {
+	ActorHandler::setAllObjectsCanDraw(false);
+}
+
+void							PlayingState::showAllGameObjects(void) {
+	ActorHandler::setAllObjectsCanDraw(true);
+}
+
+void							PlayingState::printAllGameObjects(void) {
+	ActorHandler::printAllObjects();
+}
+
+bool							PlayingState::checkForActorUpdate(void) {
+	if (ActorHandler::anyActorNeedsUpdate()) {
+		ActorHandler::setAllActorsNeedsUpdate();
+		return true;
 	}
+	return false;
 }
 
-// Destroyers --
-void				MenuHandler::deleteMenu(void) {
-	if (_menu) {
-		delete _menu;
-		_menu = nullptr;
+void							PlayingState::handleInput(int input) {
+	if (MenuHandler::getMenu() && MenuHandler::getMenu()->getIsHorizontal()) {
+		if (input == 'a') MenuHandler::getPrevItem();
+		if (input == 'd') MenuHandler::getNextItem();
+	} else {
+		if (input == 'w') MenuHandler::getPrevItem();
+		if (input == 's') MenuHandler::getNextItem();
 	}
+	if (input == '\n') MenuHandler::execute();
 }
 
-// Helper Methods --
-void				MenuHandler::getNextItem(void) {
-	if(_menu) _menu->increaseIndexItem();
+void							PlayingState::handleTick(void) {
+	ActorHandler::tickAllActors();
 }
 
-void				MenuHandler::getPrevItem(void) {
-	if(_menu) _menu->decreaseIndexItem();
-}
-
-void				MenuHandler::handleResize(void) {
-	if(_menu) _menu->resetPos();
-}
-
-// To execute the code base on the item choosen
-void				MenuHandler::execute(void) {
-	if(_menu) _menu->executeSelected();
-}
-
-// Overload the output operator for testing
-std::ostream      			&operator<<(std::ostream &o, MenuHandler const &i) {
-	return o << "Menu Handler Info:" << std::endl <<
-	"menu: " << i.getMenu() << std::endl;
+// Out stream overload for testing
+std::ostream					&operator<<(std::ostream &o, PlayingState const &i) {
+	return o << "Game State Info:" << &i << std::endl;
 }

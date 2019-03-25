@@ -46,12 +46,13 @@
 #include <macros/menu_macros.hpp>
 #include "Vector2D.class.hpp"
 #include "GameObjects/Actors/MenuItems/StartGameItem.class.hpp"
+#include "GameObjects/Actors/MenuItems/ExitGameItem.class.hpp"
 #include "Menu.class.hpp"
 #include "Handlers/GameStateHandler.class.hpp"
 
 // Default constructor to init the state and items
 Menu::Menu(std::string const title, std::vector<int> const items, bool bIsHorizontal) : _itemIndex(0), _bIsHorizontal(bIsHorizontal) {
-	_createTitle(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), HALF_OF_VAL(GameStateHandler::getWinDim().y) - ((_bIsHorizontal) ? MENU_ITEM_SPACE : ((HALF_OF_VAL(_items.size()) + MENU_ITEM_SPACE) * MENU_ITEM_SPACE))), title);
+	_createTitle(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), HALF_OF_VAL(GameStateHandler::getWinDim().y) - ((bIsHorizontal) ? MENU_ITEM_SPACE : ((HALF_OF_VAL(items.size()) + MENU_ITEM_SPACE) * MENU_ITEM_SPACE))), title);
 	_createItems(items);
 	_resetSelectedIndex();
 	return;
@@ -71,7 +72,7 @@ Menu::~Menu(void) {
 }
 
 // Overload operators --
-Menu				&Menu::operator=(Menu const &rhs) {
+Menu					&Menu::operator=(Menu const &rhs) {
 	if (this != &rhs) {
 		this->_itemIndex = rhs.getItemIndex();
 		this->_items = rhs.getAllItems();
@@ -137,8 +138,12 @@ void					Menu::_createItems(std::vector<int> const items) {
 // Choose the class of menu item based on state
 MenuItem*				Menu::_chooseMenuItem(unsigned int i, unsigned int vLen, int const item) {
 	switch(item) {
+		case 0:
+			return new StartGameItem((_bIsHorizontal) ? _createHorizontalList(i, vLen, std::string("Start").length()) : _createVerticalList(i, vLen));
+		case 1:
+			return new ExitGameItem((_bIsHorizontal) ? _createHorizontalList(i, vLen, std::string("Exit").length()) : _createVerticalList(i, vLen));
 		default:
-			return new StartGameItem((_bIsHorizontal) ? _createHorizontalList(i, vLen, 1) : _createVerticalList(i, vLen));
+			break;
 	}
 	return nullptr;
 }

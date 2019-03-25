@@ -89,8 +89,7 @@ void					Actor::setCanClear(void) {
 
 // Sett needs update for
 void					Actor::setNeedsUpdate(void) {
-	if (this->_bNeedsUpdate)
-		this->_bNeedsUpdate = false;
+	this->_bNeedsUpdate = false;
 }
 
 void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {

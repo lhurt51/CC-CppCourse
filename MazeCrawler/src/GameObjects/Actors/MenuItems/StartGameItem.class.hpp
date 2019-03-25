@@ -17,7 +17,7 @@
 	protected:
 
 		// Abstract method for the derived class
-		void			_execute(void);
+		void			_execute(void) override;
 
 	};
 

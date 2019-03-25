@@ -32,7 +32,7 @@
 		void				finnishInput(void);
 
 		// Overloaded Public Actor Methods --
-		void				tick(void);
+		void				tick(void) override;
 
 	private:
 		// Private helpers

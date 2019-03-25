@@ -43,63 +43,32 @@
 *																				*
 \*******************************************************************************/
 
-#include <macros/menu_macros.hpp>
 #include "Vector2D.class.hpp"
-#include "GameObjects/GameObject.class.hpp"
-#include "Menu/Menu.class.hpp"
-#include "MenuHandler.class.hpp"
-#include "GameStateHandler.class.hpp"
+#include "ExitGameItem.class.hpp"
+#include "Handlers/GameStateHandler.class.hpp"
 
-Menu*				MenuHandler::_menu = nullptr;
-
-// Getters --
-Menu*				MenuHandler::getMenu(void) {
-	return _menu;
+// Default constructors to initialize the pos and sprite
+ExitGameItem::ExitGameItem(Vector2D<uint_fast32_t> const pos) : MenuItem(pos, "Exit") {
+	return;
 }
 
-// Setters --
-void 				MenuHandler::setMenu(unsigned type) {
-	deleteMenu();
-	switch(type) {
-		case 0:
-			if (!_menu) _menu = new Menu("Main Menu", { 0, 1 }, false);
-			break;
-		case 1:
-			if (!_menu) _menu = new Menu("Playing", { 0, 1 }, true);
-			break;
-		default:
-			break;
-	}
+// Copy constructor
+ExitGameItem::ExitGameItem(ExitGameItem const &src) : MenuItem(src) {
+	*this = src;
+	return;
 }
 
-// Destroyers --
-void				MenuHandler::deleteMenu(void) {
-	if (_menu) {
-		delete _menu;
-		_menu = nullptr;
-	}
+// De-constructor
+ExitGameItem::~ExitGameItem(void) {
+	return;
 }
 
-// Helper Methods --
-void				MenuHandler::getNextItem(void) {
-	if(_menu) _menu->increaseIndexItem();
+// Overload equals operator
+ExitGameItem		&ExitGameItem::operator=(ExitGameItem const &rhs) {
+	if (this != &rhs) {}
+	return *this;
 }
 
-void				MenuHandler::getPrevItem(void) {
-	if(_menu) _menu->decreaseIndexItem();
-}
-
-void				MenuHandler::handleResize(void) {
-	if(_menu) _menu->resetPos();
-}
-
-// To execute the code base on the item choosen
-void				MenuHandler::execute(void) {
-	if(_menu) _menu->executeSelected();
-}
-
-// Overload the output operator for testing
-std::ostream      			&operator<<(std::ostream &o, MenuHandler const &i) {
-	return o << "Menu Handler Info:" << std::endl <<
-	"menu: " << i.getMenu() << std::endl;
+void				ExitGameItem::_execute(void) {
+	GameStateHandler::setCurState(EXITING);
 }

@@ -45,6 +45,7 @@
 
 #include "Vector2D.class.hpp"
 #include "StartingState.class.hpp"
+#include "Menu/Menu.class.hpp"
 #include "Handlers/ActorHandler.class.hpp"
 #include "Handlers/MenuHandler.class.hpp"
 
@@ -97,8 +98,13 @@ bool							StartingState::checkForActorUpdate(void) {
 }
 
 void							StartingState::handleInput(int input) {
-	if (input == 'a') MenuHandler::getPrevItem();
-	if (input == 'd') MenuHandler::getNextItem();
+	if (MenuHandler::getMenu() && MenuHandler::getMenu()->getIsHorizontal()) {
+		if (input == 'a') MenuHandler::getPrevItem();
+		if (input == 'd') MenuHandler::getNextItem();
+	} else {
+		if (input == 'w') MenuHandler::getPrevItem();
+		if (input == 's') MenuHandler::getNextItem();
+	}
 	if (input == '\n') MenuHandler::execute();
 }
 

@@ -29,7 +29,7 @@
 		bool					findPath(Vector2D<uint_fast32_t> startingPos);
 
 		// Actor abstract method implementation
-		void					tick(void);
+		void					tick(void) override;
 
 	};
 
