@@ -59,13 +59,6 @@ Menu*				MenuHandler::getMenu(void) {
 
 // Setters --
 void 				MenuHandler::setMenu(unsigned type) {
-	deleteMenu();
-	if (type == 0) {
-		if (!_menu) _menu = new Menu("Main Menu", { 0, 1 }, false);
-	} else if (type == 1) {
-		if (!_menu) _menu = new Menu("Playing", { 2, 1 }, true);
-	}
-	/*
 	switch(type) {
 		case 0:
 			if (!_menu) _menu = new Menu("Main Menu", { 0, 1 }, false);
@@ -74,10 +67,8 @@ void 				MenuHandler::setMenu(unsigned type) {
 			if (!_menu) _menu = new Menu("Playing", { 2, 1 }, true);
 			break;
 		default:
-			if (!_menu) _menu = nullptr;
 			break;
 	}
-	*/
 }
 
 // Destroyers --
@@ -89,21 +80,20 @@ void				MenuHandler::deleteMenu(void) {
 }
 
 // Helper Methods --
-void				MenuHandler::getNextItem(void) {
-	if(_menu) _menu->increaseIndexItem();
-}
-
-void				MenuHandler::getPrevItem(void) {
-	if(_menu) _menu->decreaseIndexItem();
+void				MenuHandler::handleInput(int input) {
+	if (!_menu) return;
+	if (_menu->getIsHorizontal()) {
+		if (input == 'a') _menu->decreaseIndexItem();
+		if (input == 'd') _menu->increaseIndexItem();
+	} else {
+		if (input == 'w') _menu->decreaseIndexItem();
+		if (input == 's') _menu->increaseIndexItem();
+	}
+	if (input == '\n') _menu->executeSelected();
 }
 
 void				MenuHandler::handleResize(void) {
 	if(_menu) _menu->resetPos();
-}
-
-// To execute the code base on the item choosen
-void				MenuHandler::execute(void) {
-	if(_menu) _menu->executeSelected();
 }
 
 // Overload the output operator for testing

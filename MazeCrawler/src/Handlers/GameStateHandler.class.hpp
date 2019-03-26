@@ -48,7 +48,7 @@
 		static void						_chooseGameState(void);
 		static bool						_checkStateChange(void);
 		static bool						_checkWinDimChange(void);
-		static void                     _draw(void);
+		static void                     _draw(bool stateChange);
 		static void						_handleLoadingState(void);
 
 		// Private free methods --

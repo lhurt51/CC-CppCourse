@@ -43,6 +43,7 @@
 *																				*
 \*******************************************************************************/
 
+#include <unistd.h>
 #include <macros/game_state_macros.hpp>
 #include "Vector2D.class.hpp"
 #include "GameState/StartingState.class.hpp"
@@ -77,7 +78,6 @@ void							GameStateHandler::setWinDim(Vector2D<uint_fast32_t> winDem) {
 
 // Set the current state and return the previous state
 State							GameStateHandler::setCurState(State curState) {
-	// static bool first = true;
 	static State lastState = STARTING;
 
 	if (_curState == curState)
@@ -85,12 +85,6 @@ State							GameStateHandler::setCurState(State curState) {
 	else if (_curState != LOADING && _curState != ERROR)
 		lastState = _curState;
 	_curState = curState;
-	/*
-	if ((_curState != LOADING && _curState != ERROR && (lastState != _curState || first))) {
-		_chooseGameState();
-		first = false;
-	}
-	*/
 	return lastState;
 }
 
@@ -107,6 +101,8 @@ void							GameStateHandler::handleInput(int input) {
 
 // Run the state based on current state
 bool							GameStateHandler::runState(void) {
+	bool stateChange = _checkStateChange();
+
 	switch (_curState) {
 		case LOADING:
 			_handleLoadingState();
@@ -118,8 +114,7 @@ bool							GameStateHandler::runState(void) {
 			if (_gameState) _gameState->handleTick();
 			break;
 	}
-	std::cout << "Broken?" << std::endl;
-	_draw();
+	_draw(stateChange);
 	return true;
 }
 
@@ -141,8 +136,10 @@ void							GameStateHandler::_chooseGameState(void) {
 bool							GameStateHandler::_checkStateChange(void) {
 	static State lastState;
 
-	if (lastState != setCurState(_curState)) {
-		lastState = setCurState(_curState);
+	if (lastState != _curState) {
+		lastState = _curState;
+		if (_curState == PLAYING || _curState == STARTING)
+			_chooseGameState();
 		return true;
 	}
 	return false;
@@ -159,9 +156,8 @@ bool							GameStateHandler::_checkWinDimChange(void) {
 }
 
 // Redraw the screen with all actors and messages
-void                        	GameStateHandler::_draw(void) {
+void                        	GameStateHandler::_draw(bool stateChange) {
 	static float fps = GameEngine::calculateFPS();
-	bool stateChange = _checkStateChange();
 
 	if (stateChange || _checkWinDimChange() || fps != GameEngine::calculateFPS() || (_gameState && _gameState->checkForActorUpdate())) {
 		GameEngine::clearScreen();
@@ -173,7 +169,6 @@ void                        	GameStateHandler::_draw(void) {
 			GameEngine::printPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(tmp.length()) + 2, 1), tmp);
 			GameEngine::printBorder();
 			if (_gameState) _gameState->printAllGameObjects();
-			if (stateChange && (_curState == STARTING || _curState == PLAYING)) _chooseGameState();
 		}
 	}
 }

@@ -20,13 +20,9 @@
 		// Destroyers --
 		static void			deleteMenu(void);
 
-		// Menu operator setters --
-		static void			getNextItem(void);
-		static void			getPrevItem(void);
-
 		// Helper Methods --
+		static void			handleInput(int input);
 		static void			handleResize(void);
-		static void			execute(void);
 
 	};
 

@@ -58,7 +58,7 @@ unsigned								ActorHandler::findActorIndex(Actor *obj) {
 		}
 		start++;
 	}
-	return start;
+	return start + 1;
 }
 
 Actor*									ActorHandler::findActor(unsigned index) {
@@ -116,12 +116,9 @@ bool									ActorHandler::anyActorNeedsUpdate(void) {
 void									ActorHandler::tickAllActors(void) {
 	Actor*		myActor;
 
-	if (_allObjects.empty()) return;
 	for(GameObject* tmp : _allObjects) {
 		if ((myActor = dynamic_cast<Actor*>(tmp))) {
-			std::cout << "a tick" << myActor << std::endl;
 			myActor->tick();
-			std::cout << "b tick" << std::endl;
 		}
 	}
 }

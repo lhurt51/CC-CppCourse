@@ -15,14 +15,18 @@
 		// Overload operators --
 		GameState						&operator=(GameState const &rhs);
 
+		// Game state base helper methods --
+		void							hideAllGameObjects(void);
+		void							showAllGameObjects(void);
+		void							printAllGameObjects(void);
+		bool							checkForActorUpdate(void);
+
+		// To implement logic onttop
+		virtual void					handleTick(void);
+
 		// Helper methods abstract methods --
 		virtual void					handleResize(void) = 0;
-		virtual void					hideAllGameObjects(void) = 0;
-		virtual void					showAllGameObjects(void) = 0;
-		virtual void					printAllGameObjects(void) = 0;
-		virtual bool					checkForActorUpdate(void) = 0;
 		virtual void                    handleInput(int input) = 0;
-		virtual void					handleTick(void) = 0;
 
 	};
 

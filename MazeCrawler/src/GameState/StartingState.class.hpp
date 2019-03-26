@@ -18,13 +18,9 @@
 		// Getters --
 
 		// Helper methods abstract methods --
-		virtual void					handleResize(void);
-		virtual void					hideAllGameObjects(void);
-		virtual void					showAllGameObjects(void);
-		virtual void					printAllGameObjects(void);
-		virtual bool					checkForActorUpdate(void);
-		virtual void                    handleInput(int input);
-		virtual void					handleTick(void);
+		virtual void					handleResize(void) override;
+		virtual void                    handleInput(int input) override;
+		virtual void					handleTick(void) override;
 
 	};
 

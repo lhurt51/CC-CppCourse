@@ -45,8 +45,6 @@
 
 #include "Vector2D.class.hpp"
 #include "PlayingState.class.hpp"
-#include "Menu/Menu.class.hpp"
-#include "Handlers/ActorHandler.class.hpp"
 #include "Handlers/MenuHandler.class.hpp"
 
 // Initializer for window dimensions Constructor
@@ -63,8 +61,7 @@ PlayingState::PlayingState(PlayingState const &src) : GameState(src) {
 
 // De-constructor
 PlayingState::~PlayingState(void) {
-	// MenuHandler::deleteMenu();
-	// ActorHandler::clearAllObjects();
+	MenuHandler::deleteMenu();
 	return;
 }
 
@@ -75,44 +72,15 @@ PlayingState					&PlayingState::operator=(PlayingState const &rhs) {
 }
 
 void							PlayingState::handleResize(void) {
-	if (!MenuHandler::getMenu()) MenuHandler::handleResize();
-}
-
-void							PlayingState::hideAllGameObjects(void) {
-	ActorHandler::setAllObjectsCanDraw(false);
-}
-
-void							PlayingState::showAllGameObjects(void) {
-	ActorHandler::setAllObjectsCanDraw(true);
-}
-
-void							PlayingState::printAllGameObjects(void) {
-	ActorHandler::printAllObjects();
-}
-
-bool							PlayingState::checkForActorUpdate(void) {
-	if (ActorHandler::anyActorNeedsUpdate()) {
-		ActorHandler::setAllActorsNeedsUpdate();
-		return true;
-	}
-	return false;
+	MenuHandler::handleResize();
 }
 
 void							PlayingState::handleInput(int input) {
-	if (!MenuHandler::getMenu()) return;
-	if (MenuHandler::getMenu()->getIsHorizontal()) {
-		if (input == 'a') MenuHandler::getPrevItem();
-		if (input == 'd') MenuHandler::getNextItem();
-	} else {
-		if (input == 'w') MenuHandler::getPrevItem();
-		if (input == 's') MenuHandler::getNextItem();
-	}
-	if (input == '\n') MenuHandler::execute();
+	MenuHandler::handleInput(input);
 }
 
 void							PlayingState::handleTick(void) {
-	ActorHandler::tickAllActors();
-	std::cout << "after tick" << std::endl;
+	GameState::handleTick();
 }
 
 // Out stream overload for testing

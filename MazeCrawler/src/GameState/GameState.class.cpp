@@ -44,6 +44,7 @@
 \*******************************************************************************/
 
 #include "GameState.class.hpp"
+#include "Handlers/ActorHandler.class.hpp"
 
 // Initializer for window dimensions Constructor
 GameState::GameState(void) {
@@ -65,6 +66,30 @@ GameState::~GameState(void) {
 GameState						&GameState::operator=(GameState const &rhs) {
 	if (this != &rhs) {}
 	return *this;
+}
+
+void							GameState::hideAllGameObjects(void) {
+	ActorHandler::setAllObjectsCanDraw(false);
+}
+
+void							GameState::showAllGameObjects(void) {
+	ActorHandler::setAllObjectsCanDraw(true);
+}
+
+void							GameState::printAllGameObjects(void) {
+	ActorHandler::printAllObjects();
+}
+
+bool							GameState::checkForActorUpdate(void) {
+	if (ActorHandler::anyActorNeedsUpdate()) {
+		ActorHandler::setAllActorsNeedsUpdate();
+		return true;
+	}
+	return false;
+}
+
+void							GameState::handleTick(void) {
+	ActorHandler::tickAllActors();
 }
 
 // Out stream overload for testing

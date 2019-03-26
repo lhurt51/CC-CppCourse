@@ -56,7 +56,7 @@ unsigned								GameObjectHandler::findIndex(GameObject *obj) {
 		if (tmp == obj) return start;
 		start++;
 	}
-	return start + 3;
+	return start + 1;
 }
 
 GameObject*								GameObjectHandler::findObject(unsigned index) {
@@ -71,10 +71,7 @@ void									GameObjectHandler::addObject(GameObject *obj) {
 
 void									GameObjectHandler::removeObject(GameObject *obj) {
 	unsigned index = findIndex(obj);
-	std::cout << "Objects Size before " << _allObjects.size() << " Index: " << index << std::endl;
-	if (_allObjects.size() == 1) _allObjects.clear();
-	else if (index < _allObjects.size()) _allObjects.erase(_allObjects.begin() + index);
-	std::cout << "Objects Size after " << _allObjects.size() << " Index: " << index << std::endl;
+	if (index < _allObjects.size()) _allObjects.erase(_allObjects.begin() + index);
 }
 
 void 									GameObjectHandler::clearAllObjects(void) {
