@@ -77,19 +77,20 @@ void							GameStateHandler::setWinDim(Vector2D<uint_fast32_t> winDem) {
 
 // Set the current state and return the previous state
 State							GameStateHandler::setCurState(State curState) {
-	static bool first = true;
+	// static bool first = true;
 	static State lastState = STARTING;
 
 	if (_curState == curState)
 		return lastState;
-	else if (_curState != LOADING && _curState != ERROR) {
+	else if (_curState != LOADING && _curState != ERROR)
 		lastState = _curState;
-	}
 	_curState = curState;
+	/*
 	if ((_curState != LOADING && _curState != ERROR && (lastState != _curState || first))) {
 		_chooseGameState();
 		first = false;
 	}
+	*/
 	return lastState;
 }
 
@@ -117,6 +118,7 @@ bool							GameStateHandler::runState(void) {
 			if (_gameState) _gameState->handleTick();
 			break;
 	}
+	std::cout << "Broken?" << std::endl;
 	_draw();
 	return true;
 }
@@ -131,6 +133,7 @@ void							GameStateHandler::_chooseGameState(void) {
 			if (!_gameState) _gameState = new PlayingState();
 			break;
 		default:
+			_gameState = nullptr;
 			break;
 	}
 }
@@ -158,8 +161,9 @@ bool							GameStateHandler::_checkWinDimChange(void) {
 // Redraw the screen with all actors and messages
 void                        	GameStateHandler::_draw(void) {
 	static float fps = GameEngine::calculateFPS();
+	bool stateChange = _checkStateChange();
 
-	if (_checkStateChange() || _checkWinDimChange() || fps != GameEngine::calculateFPS() || (_gameState && _gameState->checkForActorUpdate())) {
+	if (stateChange || _checkWinDimChange() || fps != GameEngine::calculateFPS() || (_gameState && _gameState->checkForActorUpdate())) {
 		GameEngine::clearScreen();
 		if (_curState == ERROR)
 			GameEngine::printMiddle(WIN_2_SMALL_MSG);
@@ -169,6 +173,7 @@ void                        	GameStateHandler::_draw(void) {
 			GameEngine::printPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(tmp.length()) + 2, 1), tmp);
 			GameEngine::printBorder();
 			if (_gameState) _gameState->printAllGameObjects();
+			if (stateChange && (_curState == STARTING || _curState == PLAYING)) _chooseGameState();
 		}
 	}
 }

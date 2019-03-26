@@ -63,7 +63,8 @@ PlayingState::PlayingState(PlayingState const &src) : GameState(src) {
 
 // De-constructor
 PlayingState::~PlayingState(void) {
-	MenuHandler::deleteMenu();
+	// MenuHandler::deleteMenu();
+	// ActorHandler::clearAllObjects();
 	return;
 }
 
@@ -74,7 +75,7 @@ PlayingState					&PlayingState::operator=(PlayingState const &rhs) {
 }
 
 void							PlayingState::handleResize(void) {
-	MenuHandler::handleResize();
+	if (!MenuHandler::getMenu()) MenuHandler::handleResize();
 }
 
 void							PlayingState::hideAllGameObjects(void) {
@@ -98,7 +99,8 @@ bool							PlayingState::checkForActorUpdate(void) {
 }
 
 void							PlayingState::handleInput(int input) {
-	if (MenuHandler::getMenu() && MenuHandler::getMenu()->getIsHorizontal()) {
+	if (!MenuHandler::getMenu()) return;
+	if (MenuHandler::getMenu()->getIsHorizontal()) {
 		if (input == 'a') MenuHandler::getPrevItem();
 		if (input == 'd') MenuHandler::getNextItem();
 	} else {
@@ -110,6 +112,7 @@ void							PlayingState::handleInput(int input) {
 
 void							PlayingState::handleTick(void) {
 	ActorHandler::tickAllActors();
+	std::cout << "after tick" << std::endl;
 }
 
 // Out stream overload for testing

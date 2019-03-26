@@ -44,66 +44,31 @@
 \*******************************************************************************/
 
 #include "Vector2D.class.hpp"
-#include "MenuItem.class.hpp"
-#include "GameEngine.class.hpp"
+#include "MainMenuItem.class.hpp"
+#include "Handlers/GameStateHandler.class.hpp"
 
 // Default constructors to initialize the pos and sprite
-MenuItem::MenuItem(Vector2D<uint_fast32_t> const pos, std::string const &sprite) : Actor(pos, sprite), _bIsSelected(false), _bShouldExec(false) {
+MainMenuItem::MainMenuItem(Vector2D<uint_fast32_t> const pos) : MenuItem(pos, "Back") {
 	return;
 }
 
 // Copy constructor
-MenuItem::MenuItem(MenuItem const &src) : Actor(src) {
+MainMenuItem::MainMenuItem(MainMenuItem const &src) : MenuItem(src) {
 	*this = src;
 	return;
 }
 
 // De-constructor
-MenuItem::~MenuItem(void) {
+MainMenuItem::~MainMenuItem(void) {
 	return;
 }
 
 // Overload equals operator
-MenuItem		&MenuItem::operator=(MenuItem const &rhs) {
-	if (this != &rhs) {
-		this->_bIsSelected = rhs.getIsSelected();
-		this->_bShouldExec = rhs.getShouldExec();
-	}
+MainMenuItem		&MainMenuItem::operator=(MainMenuItem const &rhs) {
+	if (this != &rhs) {}
 	return *this;
 }
 
-// Getters --
-bool			MenuItem::getIsSelected(void) const {
-	return this->_bIsSelected;
-}
-
-bool			MenuItem::getShouldExec(void) const {
-	return this->_bShouldExec;
-}
-
-// Setters --
-void			MenuItem::setIsSelected(bool const bIsSelected) {
-	if (this->_bIsSelected == bIsSelected) return;
-	this->_bIsSelected = bIsSelected;
-	this->_bNeedsUpdate = true;
-}
-
-void			MenuItem::setShouldExec(bool const bShouldExec) {
-	if (!this->_bIsSelected) return;
-	this->_bShouldExec = bShouldExec;
-	this->_bNeedsUpdate = true;
-}
-
-// Actor abstract method implementation to execute code base on bShouldExec
-void			MenuItem::tick(void) {
-	if (_bShouldExec) {
-		_execute();
-		_bShouldExec = false;
-	}
-}
-
-void 			MenuItem::draw(void) {
-	if (_bIsSelected) GameEngine::useMenuItemAttr(true);
-	GameObject::draw();
-	if (_bIsSelected) GameEngine::useMenuItemAttr(false);
+void			MainMenuItem::_execute(void) {
+	GameStateHandler::setCurState(STARTING);
 }

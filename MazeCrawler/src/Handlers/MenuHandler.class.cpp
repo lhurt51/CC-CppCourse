@@ -60,16 +60,24 @@ Menu*				MenuHandler::getMenu(void) {
 // Setters --
 void 				MenuHandler::setMenu(unsigned type) {
 	deleteMenu();
+	if (type == 0) {
+		if (!_menu) _menu = new Menu("Main Menu", { 0, 1 }, false);
+	} else if (type == 1) {
+		if (!_menu) _menu = new Menu("Playing", { 2, 1 }, true);
+	}
+	/*
 	switch(type) {
 		case 0:
 			if (!_menu) _menu = new Menu("Main Menu", { 0, 1 }, false);
 			break;
 		case 1:
-			if (!_menu) _menu = new Menu("Playing", { 0, 1 }, true);
+			if (!_menu) _menu = new Menu("Playing", { 2, 1 }, true);
 			break;
 		default:
+			if (!_menu) _menu = nullptr;
 			break;
 	}
+	*/
 }
 
 // Destroyers --
