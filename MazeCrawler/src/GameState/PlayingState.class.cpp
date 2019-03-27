@@ -43,13 +43,17 @@
 *																				*
 \*******************************************************************************/
 
+#include <macros/main_game_macros.hpp>
 #include "Vector2D.class.hpp"
+#include "GameObjects/Actors/Maze/Maze.class.hpp"
 #include "PlayingState.class.hpp"
 #include "Handlers/MenuHandler.class.hpp"
+#include "Handlers/GameStateHandler.class.hpp"
 
 // Initializer for window dimensions Constructor
 PlayingState::PlayingState(void) : GameState() {
 	MenuHandler::setMenu(1);
+	_maze = new Maze(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), 9));
 	return;
 }
 
@@ -62,6 +66,7 @@ PlayingState::PlayingState(PlayingState const &src) : GameState(src) {
 // De-constructor
 PlayingState::~PlayingState(void) {
 	MenuHandler::deleteMenu();
+	delete _maze;
 	return;
 }
 
@@ -72,6 +77,7 @@ PlayingState					&PlayingState::operator=(PlayingState const &rhs) {
 }
 
 void							PlayingState::handleResize(void) {
+	_maze->setPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), 9));
 	MenuHandler::handleResize();
 }
 

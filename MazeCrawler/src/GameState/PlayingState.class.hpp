@@ -3,7 +3,12 @@
 
 	#include "GameState.class.hpp"
 
+	// Forward declaring classes
+	class								Maze;
+
 	class PlayingState : public GameState {
+
+		Maze*							_maze;
 
 	public:
 

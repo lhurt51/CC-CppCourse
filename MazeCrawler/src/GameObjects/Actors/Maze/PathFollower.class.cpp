@@ -43,74 +43,46 @@
 *																				*
 \*******************************************************************************/
 
+#include <macros/maze_macros.hpp>
 #include "Vector2D.class.hpp"
-#include "Actor.class.hpp"
+#include "PathFollower.class.hpp"
 #include "GameEngine.class.hpp"
 
-// Default constructor
-Actor::Actor(Vector2D<uint_fast32_t> pos, std::string const sprite) : GameObject(pos, sprite), _bCanClear(false), _bNeedsUpdate(true) {
+PathFollower::PathFollower(Vector2D<uint_fast32_t> pos) : Actor(pos, PATH_FOLLOWER) {
 	return;
 }
 
-// Copy constructor
-Actor::Actor(Actor const &src) : GameObject(src) {
+PathFollower::PathFollower(PathFollower const &src) : Actor(src) {
 	*this = src;
+}
+
+PathFollower::~PathFollower(void) {
 	return;
 }
 
-// Default deconstructor
-Actor::~Actor(void) {
-	return;
-}
-
-// Equal sign overload
-Actor					&Actor::operator=(Actor const &rhs) {
+PathFollower							&PathFollower::operator=(PathFollower const &rhs) {
 	if (this != &rhs) {
-		this->_bCanClear = rhs.getCanClear();
-		this->_bNeedsUpdate = rhs.getNeedsUpdate();
+		this->_path = rhs.getPath();
 	}
 	return *this;
 }
 
 // Getters --
-bool					Actor::getCanClear(void) const {
-	return this->_bCanClear;
+std::vector<Vector2D<uint_fast32_t>>	PathFollower::getPath(void) const {
+	return _path;
 }
 
-bool					Actor::getNeedsUpdate(void) const {
-	return this->_bNeedsUpdate;
+bool									PathFollower::followPath(unsigned index) {
+	if (index > 0) return true;
+	else return false;
 }
 
-// Setters --
-void					Actor::setCanClear(void) {
-	if (this->_bCanClear)
-		this->_bCanClear = false;
+void 									PathFollower::draw(void) {
+	GameEngine::usePathFollowerAttr(true);
+	GameObject::draw();
+	GameEngine::usePathFollowerAttr(false);
 }
 
-// Sett needs update for
-void					Actor::setNeedsUpdate(void) {
-	if (this->_bNeedsUpdate)
-		this->_bNeedsUpdate = false;
-}
-
-void 					Actor::setPos(Vector2D<uint_fast32_t> pos) {
-	pos = GameEngine::checkGameObjectPos(pos, _sprite);
-	if (this->_pos != pos) {
-		this->_pos = pos;
-		_bNeedsUpdate = true;
-	}
-}
-
-// Set a new sprite for dynamic actors
-void					Actor::setSprite(std::string sprite) {
-	if (this->_sprite == sprite) return;
-	(std::string&)this->_sprite = sprite;
-	_bNeedsUpdate = true;
-}
-
-// Output overload for testing
-std::ostream			&operator<<(std::ostream &o, Actor const &i) {
-	return o << "Actor Info:" << std::endl <<
-	"can clear: " << i.getCanClear() << std::endl <<
-	"needs update: " << i.getNeedsUpdate() << std::endl;
+void									PathFollower::tick(void) {
+	return;
 }

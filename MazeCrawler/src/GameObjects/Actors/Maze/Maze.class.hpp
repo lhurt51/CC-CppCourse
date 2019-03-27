@@ -2,7 +2,7 @@
 	#define MAZE_CLASS_HPP
 
 	// Includes for inheritance
-	#include "Actor.class.hpp"
+	#include "GameObjects/Actors/Actor.class.hpp"
 
 	class Maze : public Actor {
 
@@ -26,7 +26,7 @@
 		void					setSpriteDim(void);
 
 		// Helper methods --
-		bool					findPath(Vector2D<uint_fast32_t> startingPos);
+		bool					findPath(std::string sprite, Vector2D<int> startingPos);
 
 		// Actor abstract method implementation
 		void					tick(void) override;

@@ -59,6 +59,11 @@ void                 		GameEngine::clearScreen(void) {
 	clear();
 }
 
+// Refresh the screen without including ncurses
+void                 		GameEngine::refreshScreen(void) {
+	refresh();
+}
+
 // Static check the win dimensions
 bool						GameEngine::isWindowToSmall(void) {
 	if (COLS > MIN_WIN_SIZE && LINES > MIN_WIN_SIZE)
@@ -88,18 +93,16 @@ Vector2D<uint_fast32_t>  	GameEngine::checkGameObjectPos(Vector2D<uint_fast32_t>
 	unsigned					halfHeight;
 
 	strs = split(msg, '\n');
-	halfLength = HALF_OF_VAL(maxStringLength(strs));
-	halfHeight = HALF_OF_VAL(strs.size());
-	if ((int)(pos.x - halfLength) < 0) {
+	halfLength = HALF_OF_VAL(maxStringLength(strs)) + 2;
+	halfHeight = HALF_OF_VAL(strs.size()) + 2;
+	if ((int)(pos.x) - (int)(halfLength) < 0)
 		pos.x = halfLength;
-	} else if ((int)(pos.x + halfHeight) >= COLS) {
+	else if ((int)(pos.x + halfLength) >= COLS)
 		pos.x = COLS - halfLength;
-	}
-	if ((int)(pos.y - halfHeight) < 0) {
+	if ((int)(pos.y) - (int)(halfHeight) < 0)
 		pos.y = halfHeight;
-	} else if ((int)(pos.y + halfHeight) >= LINES) {
+	else if ((int)(pos.y + halfHeight) >= LINES)
 		pos.y = LINES - halfHeight;
-	}
 	return pos;
 }
 
@@ -125,12 +128,12 @@ void						GameEngine::printPos(const Vector2D<uint_fast32_t> pos, const std::str
 
 	strs = split(msg, '\n');
 	for (unsigned int i = 0; i < strs.size(); i++)
-		mvprintw(pos.y + i, pos.x - HALF_OF_VAL(strs[i].length()), strs[i].c_str());
+		mvprintw(pos.y - HALF_OF_VAL(strs.size()) + i, pos.x - HALF_OF_VAL(strs[i].length()), strs[i].c_str());
 }
 
 // Print the boarder around the screen
 void						GameEngine::printBorder(void) {
-	wborder(stdscr, BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
+	border(BORDER_SIDES, BORDER_SIDES, BORDER_TOP_BOTTOM, BORDER_TOP_BOTTOM, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS, BORDER_CORNERS);
 }
 
 // Add an attribute for the selected menu item only
@@ -145,6 +148,12 @@ void                 		GameEngine::useMenuItemAttr(bool bUse) {
 	else attroff(A_STANDOUT | A_BOLD | A_BLINK);
 }
 
+// Add an attribute for the selected menu item only
+void                 		GameEngine::usePathFollowerAttr(bool bUse) {
+	if (bUse) attron(A_STANDOUT | A_BOLD);
+	else attroff(A_STANDOUT | A_BOLD);
+}
+
 // Run the window loop
 void						GameEngine::start(void) {
 	GameEngine::_initWindow();
@@ -153,7 +162,6 @@ void						GameEngine::start(void) {
 		GameEngine::_handleInput();
 		if (!GameStateHandler::runState())
 			break;
-		refresh();
 	} while(true);
 	GameEngine::_destroyWin();
 }
@@ -190,7 +198,7 @@ void						GameEngine::_initWindow(void) {
 
 // Destroy the window and clear any artifacts
 void						GameEngine::_destroyWin(void) {
-	wborder(stdscr, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	border(' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	refresh();
 	clear();
 	endwin();

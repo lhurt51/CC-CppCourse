@@ -138,7 +138,7 @@ bool							GameStateHandler::_checkStateChange(void) {
 
 	if (lastState != _curState) {
 		lastState = _curState;
-		if (_curState == PLAYING || _curState == STARTING)
+		if (_curState == STARTING || _curState == PLAYING)
 			_chooseGameState();
 		return true;
 	}
@@ -146,7 +146,7 @@ bool							GameStateHandler::_checkStateChange(void) {
 }
 
 bool							GameStateHandler::_checkWinDimChange(void) {
-	static Vector2D<uint_fast32_t> lastDem = _winDem;
+	static Vector2D<uint_fast32_t> lastDem;
 
 	if (lastDem != _winDem) {
 		lastDem = _winDem;
@@ -159,7 +159,7 @@ bool							GameStateHandler::_checkWinDimChange(void) {
 void                        	GameStateHandler::_draw(bool stateChange) {
 	static float fps = GameEngine::calculateFPS();
 
-	if (stateChange || _checkWinDimChange() || fps != GameEngine::calculateFPS() || (_gameState && _gameState->checkForActorUpdate())) {
+	if (_checkWinDimChange() || fps != GameEngine::calculateFPS() || (_gameState && _gameState->checkForActorUpdate()) || stateChange) {
 		GameEngine::clearScreen();
 		if (_curState == ERROR)
 			GameEngine::printMiddle(WIN_2_SMALL_MSG);
@@ -167,9 +167,10 @@ void                        	GameStateHandler::_draw(bool stateChange) {
 			fps = GameEngine::calculateFPS();
 			std::string tmp = GAME_FPS + std::to_string(fps);
 			GameEngine::printPos(Vector2D<uint_fast32_t>(HALF_OF_VAL(tmp.length()) + 2, 1), tmp);
-			GameEngine::printBorder();
 			if (_gameState) _gameState->printAllGameObjects();
+			GameEngine::printBorder();
 		}
+		GameEngine::refreshScreen();
 	}
 }
 

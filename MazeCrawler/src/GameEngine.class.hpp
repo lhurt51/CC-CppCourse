@@ -13,6 +13,7 @@
 
     // Static Public Helper methods --
     static void                     clearScreen(void);
+    static void                     refreshScreen(void);
     static bool                     isWindowToSmall(void);
     static float                    calculateFPS(void);
     static Vector2D<uint_fast32_t>  checkGameObjectPos(Vector2D<uint_fast32_t> pos, const std::string msg);
@@ -22,6 +23,7 @@
     static void                     printBorder(void);
     static void                     useMenuTitleAttr(bool bUse);
     static void                     useMenuItemAttr(bool bUse);
+    static void                     usePathFollowerAttr(bool bUse);
 
     // Start the main loop
     static void                     start(void);

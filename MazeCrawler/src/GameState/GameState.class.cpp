@@ -59,6 +59,7 @@ GameState::GameState(GameState const &src) {
 
 // De-constructor
 GameState::~GameState(void) {
+	ActorHandler::clearAllObjects();
 	return;
 }
 

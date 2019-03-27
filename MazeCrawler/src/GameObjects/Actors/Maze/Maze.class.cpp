@@ -49,6 +49,9 @@
 #include "GameEngine.class.hpp"
 
 Maze::Maze(Vector2D<uint_fast32_t> pos) : Actor(pos, BOARD_SPRITE) {
+	setSpriteDim();
+	_bFoundPath = findPath(_sprite, Vector2D<int>(0, 2));
+	setSprite(std::string("Found Path: ") + std::string(((_bFoundPath) ? "True\n" : "False\n")) + (std::string&)_sprite);
 	return;
 }
 
@@ -83,26 +86,29 @@ void					Maze::setFoundPath(void) {
 }
 
 void					Maze::setSpriteDim(void) {
-	_spriteDim = GameEngine::gameObjectSpriteDim(getSprite());
+	_spriteDim = GameEngine::gameObjectSpriteDim(_sprite);
 }
 
-bool					Maze::findPath(Vector2D<uint_fast32_t> startingPos) {
-	if (startingPos.x == _spriteDim.x)
-        return true;
-	if (_sprite[(startingPos.y * 2) * _spriteDim.x + (startingPos.x * 2)] == '#')
-		return false;
-    if (startingPos > _spriteDim)
+bool					Maze::findPath(std::string sprite, Vector2D<int> startingPos) {
+	if (startingPos.x < 0 || startingPos.x >= (int)_spriteDim.x || startingPos.y < 0 || startingPos.y >= (int)_spriteDim.y)
         return false;
-    setSprite((std::string&)_sprite[(startingPos.y * 2) * _spriteDim.x + (startingPos.x * 2)] = 'P');
-    if (findPath(Vector2D<uint_fast32_t>(startingPos.x + 2, startingPos.y)))
+	if (startingPos.y * (_spriteDim.x + 1) + startingPos.x >= sprite.length() || sprite[startingPos.y * (_spriteDim.x + 1) + startingPos.x] != '.')
+		return false;
+	sprite[startingPos.y * (_spriteDim.x + 1) + startingPos.x] = (startingPos.x == 0) ? 'S' : 'P';
+	if (startingPos.x == (int)_spriteDim.x - 1) {
+		sprite[startingPos.y * (_spriteDim.x + 1) + startingPos.x] = 'F';
+		setSprite(sprite);
         return true;
-    if (findPath(Vector2D<uint_fast32_t>(startingPos.x, startingPos.y - 2)))
+	}
+	if (findPath(sprite, Vector2D<int>(startingPos.x + 2, startingPos.y)))
         return true;
-    if (findPath(Vector2D<uint_fast32_t>(startingPos.x, startingPos.y + 2)))
+	if (findPath(sprite, Vector2D<int>(startingPos.x, startingPos.y + 1)))
         return true;
-    if (findPath(Vector2D<uint_fast32_t>(startingPos.x - 2, startingPos.y)))
+    if (findPath(sprite, Vector2D<int>(startingPos.x, startingPos.y - 1)))
         return true;
-    setSprite((std::string&)_sprite[(startingPos.y * 2) * _spriteDim.x + (startingPos.x * 2)] = 'E');
+    if (findPath(sprite, Vector2D<int>(startingPos.x - 2, startingPos.y)))
+        return true;
+	sprite[startingPos.y * (_spriteDim.x + 1) + startingPos.x] = 'E';
 	return false;
 }
 

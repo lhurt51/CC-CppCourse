@@ -49,7 +49,8 @@
 #include "Handlers/GameObjectHandler.class.hpp"
 
 // Default constructor
-GameObject::GameObject(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(true), _pos(pos), _sprite(sprite) {
+GameObject::GameObject(Vector2D<uint_fast32_t> pos, std::string const sprite) : _bCanDraw(true), _sprite(sprite) {
+	setPos(pos);
 	GameObjectHandler::addObject(this);
 	return;
 }
@@ -96,8 +97,9 @@ void					GameObject::setCanDraw(bool bCanDraw) {
 }
 
 void 					GameObject::setPos(Vector2D<uint_fast32_t> pos) {
+	pos = GameEngine::checkGameObjectPos(pos, _sprite);
 	if (this->_pos != pos)
-		this->_pos = GameEngine::checkGameObjectPos(pos, _sprite);
+		this->_pos = pos;
 }
 
 void 					GameObject::draw(void) {
