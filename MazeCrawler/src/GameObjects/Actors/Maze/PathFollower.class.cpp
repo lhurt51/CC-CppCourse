@@ -45,18 +45,22 @@
 
 #include <macros/maze_macros.hpp>
 #include "Vector2D.class.hpp"
+#include "Maze.class.hpp"
 #include "PathFollower.class.hpp"
 #include "GameEngine.class.hpp"
+#include "Timers/AsynFuncTimer.class.hpp"
 
-PathFollower::PathFollower(Vector2D<uint_fast32_t> pos) : Actor(pos, PATH_FOLLOWER) {
+PathFollower::PathFollower(Maze& maze, std::vector<Vector2D<uint_fast32_t>> path) : Actor(maze.convToWorldCoords(path[0]), PATH_FOLLOWER), _maze(maze), _timer(new AsynFuncTimer(std::bind(&PathFollower::followPath, this), 3000)), _index(0), _path(path) {
+	_timer->start();
 	return;
 }
 
-PathFollower::PathFollower(PathFollower const &src) : Actor(src) {
+PathFollower::PathFollower(PathFollower const &src) : Actor(src), _maze(src.getMaze()) {
 	*this = src;
 }
 
 PathFollower::~PathFollower(void) {
+	delete _timer;
 	return;
 }
 
@@ -68,13 +72,19 @@ PathFollower							&PathFollower::operator=(PathFollower const &rhs) {
 }
 
 // Getters --
+Maze&									PathFollower::getMaze(void) const {
+	return _maze;
+}
+
 std::vector<Vector2D<uint_fast32_t>>	PathFollower::getPath(void) const {
 	return _path;
 }
 
-bool									PathFollower::followPath(unsigned index) {
-	if (index > 0) return true;
-	else return false;
+void									PathFollower::followPath(void) {
+	if (_index >= _path.size()) return;
+	setPos(_maze.convToWorldCoords(_path[_index]));
+	_maze.addCharToMaze(_path[_index], (_index == 0) ? 'S' : 'P');
+	_index++;
 }
 
 void 									PathFollower::draw(void) {

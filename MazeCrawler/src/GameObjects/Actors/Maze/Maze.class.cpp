@@ -45,13 +45,14 @@
 
 #include <macros/maze_macros.hpp>
 #include "Vector2D.class.hpp"
+#include "PathFollower.class.hpp"
 #include "Maze.class.hpp"
 #include "GameEngine.class.hpp"
 
 Maze::Maze(Vector2D<uint_fast32_t> pos) : Actor(pos, BOARD_SPRITE) {
 	setSpriteDim();
 	_bFoundPath = findPath(_sprite, Vector2D<int>(0, 2));
-	setSprite(std::string("Found Path: ") + std::string(((_bFoundPath) ? "True\n" : "False\n")) + (std::string&)_sprite);
+	_follower = new PathFollower(*this, _path);
 	return;
 }
 
@@ -60,6 +61,7 @@ Maze::Maze(Maze const &src) : Actor(src) {
 }
 
 Maze::~Maze(void) {
+	delete _follower;
 	return;
 }
 
@@ -89,17 +91,19 @@ void					Maze::setSpriteDim(void) {
 	_spriteDim = GameEngine::gameObjectSpriteDim(_sprite);
 }
 
+Vector2D<uint_fast32_t> Maze::convToWorldCoords(Vector2D<uint_fast32_t> boardCoords) {
+	return (_pos - (_spriteDim / (unsigned)2) + boardCoords);
+}
+
 bool					Maze::findPath(std::string sprite, Vector2D<int> startingPos) {
 	if (startingPos.x < 0 || startingPos.x >= (int)_spriteDim.x || startingPos.y < 0 || startingPos.y >= (int)_spriteDim.y)
         return false;
 	if (startingPos.y * (_spriteDim.x + 1) + startingPos.x >= sprite.length() || sprite[startingPos.y * (_spriteDim.x + 1) + startingPos.x] != '.')
 		return false;
 	sprite[startingPos.y * (_spriteDim.x + 1) + startingPos.x] = (startingPos.x == 0) ? 'S' : 'P';
-	if (startingPos.x == (int)_spriteDim.x - 1) {
-		sprite[startingPos.y * (_spriteDim.x + 1) + startingPos.x] = 'F';
-		setSprite(sprite);
+	_path.push_back(Vector2D<uint_fast32_t>(startingPos.x, startingPos.y));
+	if (startingPos.x == (int)_spriteDim.x - 1)
         return true;
-	}
 	if (findPath(sprite, Vector2D<int>(startingPos.x + 2, startingPos.y)))
         return true;
 	if (findPath(sprite, Vector2D<int>(startingPos.x, startingPos.y + 1)))
@@ -110,6 +114,13 @@ bool					Maze::findPath(std::string sprite, Vector2D<int> startingPos) {
         return true;
 	sprite[startingPos.y * (_spriteDim.x + 1) + startingPos.x] = 'E';
 	return false;
+}
+
+void 					Maze::addCharToMaze(Vector2D<uint_fast32_t> boardCoords, char c) {
+	std::string sprite = _sprite;
+	if (boardCoords >= _spriteDim) return;
+	sprite[boardCoords.y * (_spriteDim.x + 1) + boardCoords.x] = c;
+	setSprite(sprite);
 }
 
 void					Maze::tick(void) {

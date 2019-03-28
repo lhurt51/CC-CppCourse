@@ -53,7 +53,7 @@
 // Initializer for window dimensions Constructor
 PlayingState::PlayingState(void) : GameState() {
 	MenuHandler::setMenu(1);
-	_maze = new Maze(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), 9));
+	_maze = new Maze(Vector2D<uint_fast32_t>(HALF_OF_VAL(GameStateHandler::getWinDim().x), HALF_OF_VAL(GameStateHandler::getWinDim().y) - 7));
 	return;
 }
 

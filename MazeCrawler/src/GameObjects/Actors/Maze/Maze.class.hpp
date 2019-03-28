@@ -1,13 +1,18 @@
 #ifndef MAZE_CLASS_HPP
 	#define MAZE_CLASS_HPP
 
+	#include <vector>
+
 	// Includes for inheritance
 	#include "GameObjects/Actors/Actor.class.hpp"
+	class						PathFollower;
 
 	class Maze : public Actor {
 
-		bool					_bFoundPath;
-		Vector2D<uint_fast32_t>	_spriteDim;
+		bool									_bFoundPath;
+		Vector2D<uint_fast32_t>					_spriteDim;
+		PathFollower*							_follower;
+		std::vector<Vector2D<uint_fast32_t>> 	_path;
 
 	public:
 
@@ -15,21 +20,23 @@
 		Maze(Maze const &src);
 		~Maze(void);
 
-		Maze					&operator=(Maze const &rhs);
+		Maze									&operator=(Maze const &rhs);
 
 		// Getters --
-		bool					getFoundPath(void) const;
-		Vector2D<uint_fast32_t>	getSpriteDim(void) const;
+		bool									getFoundPath(void) const;
+		Vector2D<uint_fast32_t>					getSpriteDim(void) const;
 
 		// Setters --
-		void					setFoundPath(void);
-		void					setSpriteDim(void);
+		void									setFoundPath(void);
+		void									setSpriteDim(void);
 
 		// Helper methods --
-		bool					findPath(std::string sprite, Vector2D<int> startingPos);
+		Vector2D<uint_fast32_t> 				convToWorldCoords(Vector2D<uint_fast32_t> boardCoords);
+		bool									findPath(std::string sprite, Vector2D<int> startingPos);
+		void 									addCharToMaze(Vector2D<uint_fast32_t> boardCoords, char c);
 
 		// Actor abstract method implementation
-		void					tick(void) override;
+		void									tick(void) override;
 
 	};
 
