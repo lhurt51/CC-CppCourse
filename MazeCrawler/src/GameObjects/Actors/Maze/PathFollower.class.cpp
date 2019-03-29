@@ -50,8 +50,9 @@
 #include "GameEngine.class.hpp"
 #include "Timers/AsynFuncTimer.class.hpp"
 
-PathFollower::PathFollower(Maze& maze, std::vector<Vector2D<uint_fast32_t>> path) : Actor(maze.convToWorldCoords(path[0]), PATH_FOLLOWER), _maze(maze), _timer(new AsynFuncTimer(std::bind(&PathFollower::followPath, this), 3000)), _index(0), _path(path) {
-	_timer->start();
+PathFollower::PathFollower(Maze& maze, std::vector<Vector2D<uint_fast32_t>> path) : Actor(maze.convToWorldCoords(path[0]), PATH_FOLLOWER), _maze(maze), _timer(nullptr), _index(0), _path(path) {
+	if (!_timer) _timer = new AsynFuncTimer(std::bind(&PathFollower::followPath, this), 1000);
+	if (_timer) _timer->start();
 	return;
 }
 
@@ -60,12 +61,19 @@ PathFollower::PathFollower(PathFollower const &src) : Actor(src), _maze(src.getM
 }
 
 PathFollower::~PathFollower(void) {
-	delete _timer;
+	if (_maze.getFoundPath())
+		_maze.addCharToMaze(_path[_path.size() - 1], 'F');
+	if (_timer) {
+		delete _timer;
+		_timer = nullptr;
+	}
 	return;
 }
 
 PathFollower							&PathFollower::operator=(PathFollower const &rhs) {
 	if (this != &rhs) {
+		this->_timer = rhs.getTimer();
+		this->_index = rhs.getIndex();
 		this->_path = rhs.getPath();
 	}
 	return *this;
@@ -76,14 +84,22 @@ Maze&									PathFollower::getMaze(void) const {
 	return _maze;
 }
 
+AsynFuncTimer*							PathFollower::getTimer(void) const {
+	return _timer;
+}
+
+unsigned								PathFollower::getIndex(void) const {
+	return _index;
+}
+
 std::vector<Vector2D<uint_fast32_t>>	PathFollower::getPath(void) const {
 	return _path;
 }
 
 void									PathFollower::followPath(void) {
-	if (_index >= _path.size()) return;
+	if (!_bCanDraw || _index >= _path.size()) return;
 	setPos(_maze.convToWorldCoords(_path[_index]));
-	_maze.addCharToMaze(_path[_index], (_index == 0) ? 'S' : 'P');
+	_maze.addCharToMaze(_path[_index], (_index == 0) ? 'S' : 'X');
 	_index++;
 }
 
@@ -94,5 +110,7 @@ void 									PathFollower::draw(void) {
 }
 
 void									PathFollower::tick(void) {
+	if (!_bCanDraw || _index >= _path.size()) return;
+	setPos(_maze.convToWorldCoords(_path[_index]));
 	return;
 }

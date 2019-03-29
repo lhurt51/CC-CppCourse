@@ -30,6 +30,9 @@
 		void									setFoundPath(void);
 		void									setSpriteDim(void);
 
+		// Actor override methods --
+		virtual void							setPos(Vector2D<uint_fast32_t> pos) override;
+
 		// Helper methods --
 		Vector2D<uint_fast32_t> 				convToWorldCoords(Vector2D<uint_fast32_t> boardCoords);
 		bool									findPath(std::string sprite, Vector2D<int> startingPos);
@@ -37,6 +40,11 @@
 
 		// Actor abstract method implementation
 		void									tick(void) override;
+
+	private:
+
+		void									_initFollower(void);
+		void									_deleteFollower(void);
 
 	};
 

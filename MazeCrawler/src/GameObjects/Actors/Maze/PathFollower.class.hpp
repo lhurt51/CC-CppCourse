@@ -26,6 +26,7 @@
 		// Getters --
 		Maze&									getMaze(void) const;
 		AsynFuncTimer*							getTimer(void) const;
+		unsigned								getIndex(void) const;
 		std::vector<Vector2D<uint_fast32_t>>	getPath(void) const;
 
 		// Helper methods --

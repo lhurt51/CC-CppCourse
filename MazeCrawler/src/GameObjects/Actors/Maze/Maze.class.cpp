@@ -49,10 +49,9 @@
 #include "Maze.class.hpp"
 #include "GameEngine.class.hpp"
 
-Maze::Maze(Vector2D<uint_fast32_t> pos) : Actor(pos, BOARD_SPRITE) {
+Maze::Maze(Vector2D<uint_fast32_t> pos) : Actor(pos, BOARD_SPRITE), _bFoundPath(false), _spriteDim(GameEngine::gameObjectSpriteDim(BOARD_SPRITE)), _follower(nullptr) {
 	setSpriteDim();
-	_bFoundPath = findPath(_sprite, Vector2D<int>(0, 2));
-	_follower = new PathFollower(*this, _path);
+	_initFollower();
 	return;
 }
 
@@ -61,7 +60,8 @@ Maze::Maze(Maze const &src) : Actor(src) {
 }
 
 Maze::~Maze(void) {
-	delete _follower;
+	_deleteFollower();
+	_path.clear();
 	return;
 }
 
@@ -91,6 +91,13 @@ void					Maze::setSpriteDim(void) {
 	_spriteDim = GameEngine::gameObjectSpriteDim(_sprite);
 }
 
+void					Maze::setPos(Vector2D<uint_fast32_t> pos) {
+	Actor::setPos(pos);
+	if (_follower && _follower->getIndex() < _follower->getPath().size()) {
+		_follower->setPos(convToWorldCoords(_follower->getPath()[_follower->getIndex()]));
+	}
+}
+
 Vector2D<uint_fast32_t> Maze::convToWorldCoords(Vector2D<uint_fast32_t> boardCoords) {
 	return (_pos - (_spriteDim / (unsigned)2) + boardCoords);
 }
@@ -118,11 +125,28 @@ bool					Maze::findPath(std::string sprite, Vector2D<int> startingPos) {
 
 void 					Maze::addCharToMaze(Vector2D<uint_fast32_t> boardCoords, char c) {
 	std::string sprite = _sprite;
-	if (boardCoords >= _spriteDim) return;
+	if (boardCoords.x >= _spriteDim.x || boardCoords.y >= _spriteDim.y) return;
 	sprite[boardCoords.y * (_spriteDim.x + 1) + boardCoords.x] = c;
 	setSprite(sprite);
 }
 
 void					Maze::tick(void) {
+	if (_follower && _follower->getIndex() >= _follower->getPath().size())
+		_deleteFollower();
 	return;
+}
+
+void					Maze::_initFollower(void) {
+	if (!_follower) {
+		if (!_bFoundPath)
+			_bFoundPath = findPath(_sprite, Vector2D<int>(0, 2));
+		_follower = new PathFollower(*this, _path);
+	}
+}
+
+void					Maze::_deleteFollower(void) {
+	if (_follower) {
+		delete _follower;
+		_follower = nullptr;
+	}
 }
