@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/main.cpp
+stdio.h
+-
+stdlib.h
+-
+math.h
+-
+GameConfig.h
+/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameConfig.h
+
+GameConfig.h
+

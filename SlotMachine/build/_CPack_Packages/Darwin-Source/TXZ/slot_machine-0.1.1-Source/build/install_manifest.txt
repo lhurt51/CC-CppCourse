@@ -1,0 +1,2 @@
+/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/_CPack_Packages/Darwin/TGZ/slot_machine-0.1.1-Darwin/bin/slot_machine
+/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/_CPack_Packages/Darwin/TGZ/slot_machine-0.1.1-Darwin/include/GameConfig.h
