@@ -34,3 +34,5 @@ else()
 endif()
 # Linking the ncurses library
 target_link_libraries(${PROJECT_NAME} PRIVATE ${CURSES_LIBRARIES})
+
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)

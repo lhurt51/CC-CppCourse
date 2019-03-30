@@ -112,5 +112,4 @@ void 									PathFollower::draw(void) {
 void									PathFollower::tick(void) {
 	if (!_bCanDraw || _index >= _path.size()) return;
 	setPos(_maze.convToWorldCoords(_path[_index]));
-	return;
 }
