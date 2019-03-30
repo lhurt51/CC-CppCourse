@@ -4,6 +4,13 @@
 # SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/Users/liamhurt/code/CC-CppCourse/SlotMachine/include/*.hpp")
 set(OLD_GLOB
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/include/includes.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/include/macros/game_state_macros.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/include/macros/input_macros.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/include/macros/main_game_macros.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/include/macros/main_macros.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/include/macros/maze_macros.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/include/macros/menu_macros.hpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
@@ -13,6 +20,28 @@ endif()
 # SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/*.cpp")
 set(OLD_GLOB
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameEngine.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/Actor.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/Charater/Player.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/Input.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/MenuItems/MenuItem.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/GameObject.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/GameState.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/PlayingState.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/StartingState.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/ActorHandler.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/GameObjectHandler.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/GameStateHandler.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/MenuHandler.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Menu/Menu.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Timers/AsynFuncTimer.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Timers/Timer.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Vector2D-impl.class.cpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Vector2D.class.cpp"
   "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/main.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -23,6 +52,27 @@ endif()
 # SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/*.hpp")
 set(OLD_GLOB
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameEngine.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/Actor.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/Charater/Player.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/Input.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/MenuItems/ExitGameItem.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/MenuItems/MainMenuItem.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/MenuItems/MenuItem.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/MenuItems/StartGameItem.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/SlotMachine.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/GameObject.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/GameState.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/PlayingState.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/StartingState.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/ActorHandler.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/GameObjectHandler.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/GameStateHandler.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/MenuHandler.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Menu/Menu.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Timers/AsynFuncTimer.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Timers/Timer.class.hpp"
+  "/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Vector2D.class.hpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

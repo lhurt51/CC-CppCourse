@@ -1,24 +1,33 @@
+/*******************************************************************************\
+* Programmer Name:																*
+* Liam Hurt																		*
+*																				*
+* Date:																			*
+* 3/28/2019																		*
+*																				*
+* Assignment Requirement:														*
+* This program will play a slot machine game. The slot machine shall have 3     *
+* slots (or a single number between 0 to 9 for each slot) of the following      *
+* ASCII number vector to use (see below). The user shall have the ability to    *
+* make a bet and then the game will automatically spin the digits. Use a delay  *
+* to simulate the numbers changing before the final numbers are revealed (if    *
+* you use C++ 11 see the function below). The following conditions will be      *
+* programmed:                                                                   *
+*                                                                               *
+* 3 matching numbers win 10 times the bet                                       *
+*                                                                               *
+* 2 matching numbers win 5 times the bet                                        *
+*                                                                               *
+* no matching number losses the bet				                     			*
+*																				*
+\*******************************************************************************/
 
-// A simple program that computes the square root of a number
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "GameConfig.h"
+#include "GameEngine.class.hpp"
 
-int main (int argc, char *argv[])
-{
-  if (argc < 2)
-    {
-    fprintf(stdout,"%s Version %d.%d\n",
-            argv[0],
-            slot_machine_VERSION_MAJOR,
-            slot_machine_VERSION_MINOR);
-    fprintf(stdout,"Usage: %s number\n",argv[0]);
-    return 1;
-    }
-  double inputValue = atof(argv[1]);
-  double outputValue = sqrt(inputValue);
-  fprintf(stdout,"The square root of %g is %g\n",
-          inputValue, outputValue);
-  return 0;
+int main() {
+    // Starting the game class
+    GameEngine::start();
+
+    // On exit return success
+    return 0;
 }

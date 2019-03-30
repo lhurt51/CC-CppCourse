@@ -203,6 +203,600 @@ slot_machine/fast:
 	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/build
 .PHONY : slot_machine/fast
 
+src/GameEngine.class.o: src/GameEngine.class.cpp.o
+
+.PHONY : src/GameEngine.class.o
+
+# target to build an object file
+src/GameEngine.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameEngine.class.cpp.o
+.PHONY : src/GameEngine.class.cpp.o
+
+src/GameEngine.class.i: src/GameEngine.class.cpp.i
+
+.PHONY : src/GameEngine.class.i
+
+# target to preprocess a source file
+src/GameEngine.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameEngine.class.cpp.i
+.PHONY : src/GameEngine.class.cpp.i
+
+src/GameEngine.class.s: src/GameEngine.class.cpp.s
+
+.PHONY : src/GameEngine.class.s
+
+# target to generate assembly for a file
+src/GameEngine.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameEngine.class.cpp.s
+.PHONY : src/GameEngine.class.cpp.s
+
+src/GameObjects/Actors/Actor.class.o: src/GameObjects/Actors/Actor.class.cpp.o
+
+.PHONY : src/GameObjects/Actors/Actor.class.o
+
+# target to build an object file
+src/GameObjects/Actors/Actor.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/Actor.class.cpp.o
+.PHONY : src/GameObjects/Actors/Actor.class.cpp.o
+
+src/GameObjects/Actors/Actor.class.i: src/GameObjects/Actors/Actor.class.cpp.i
+
+.PHONY : src/GameObjects/Actors/Actor.class.i
+
+# target to preprocess a source file
+src/GameObjects/Actors/Actor.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/Actor.class.cpp.i
+.PHONY : src/GameObjects/Actors/Actor.class.cpp.i
+
+src/GameObjects/Actors/Actor.class.s: src/GameObjects/Actors/Actor.class.cpp.s
+
+.PHONY : src/GameObjects/Actors/Actor.class.s
+
+# target to generate assembly for a file
+src/GameObjects/Actors/Actor.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/Actor.class.cpp.s
+.PHONY : src/GameObjects/Actors/Actor.class.cpp.s
+
+src/GameObjects/Actors/Charater/Player.class.o: src/GameObjects/Actors/Charater/Player.class.cpp.o
+
+.PHONY : src/GameObjects/Actors/Charater/Player.class.o
+
+# target to build an object file
+src/GameObjects/Actors/Charater/Player.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/Charater/Player.class.cpp.o
+.PHONY : src/GameObjects/Actors/Charater/Player.class.cpp.o
+
+src/GameObjects/Actors/Charater/Player.class.i: src/GameObjects/Actors/Charater/Player.class.cpp.i
+
+.PHONY : src/GameObjects/Actors/Charater/Player.class.i
+
+# target to preprocess a source file
+src/GameObjects/Actors/Charater/Player.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/Charater/Player.class.cpp.i
+.PHONY : src/GameObjects/Actors/Charater/Player.class.cpp.i
+
+src/GameObjects/Actors/Charater/Player.class.s: src/GameObjects/Actors/Charater/Player.class.cpp.s
+
+.PHONY : src/GameObjects/Actors/Charater/Player.class.s
+
+# target to generate assembly for a file
+src/GameObjects/Actors/Charater/Player.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/Charater/Player.class.cpp.s
+.PHONY : src/GameObjects/Actors/Charater/Player.class.cpp.s
+
+src/GameObjects/Actors/Input.class.o: src/GameObjects/Actors/Input.class.cpp.o
+
+.PHONY : src/GameObjects/Actors/Input.class.o
+
+# target to build an object file
+src/GameObjects/Actors/Input.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/Input.class.cpp.o
+.PHONY : src/GameObjects/Actors/Input.class.cpp.o
+
+src/GameObjects/Actors/Input.class.i: src/GameObjects/Actors/Input.class.cpp.i
+
+.PHONY : src/GameObjects/Actors/Input.class.i
+
+# target to preprocess a source file
+src/GameObjects/Actors/Input.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/Input.class.cpp.i
+.PHONY : src/GameObjects/Actors/Input.class.cpp.i
+
+src/GameObjects/Actors/Input.class.s: src/GameObjects/Actors/Input.class.cpp.s
+
+.PHONY : src/GameObjects/Actors/Input.class.s
+
+# target to generate assembly for a file
+src/GameObjects/Actors/Input.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/Input.class.cpp.s
+.PHONY : src/GameObjects/Actors/Input.class.cpp.s
+
+src/GameObjects/Actors/MenuItems/ExitGameItem.class.o: src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.o
+
+.PHONY : src/GameObjects/Actors/MenuItems/ExitGameItem.class.o
+
+# target to build an object file
+src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.o
+.PHONY : src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.o
+
+src/GameObjects/Actors/MenuItems/ExitGameItem.class.i: src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.i
+
+.PHONY : src/GameObjects/Actors/MenuItems/ExitGameItem.class.i
+
+# target to preprocess a source file
+src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.i
+.PHONY : src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.i
+
+src/GameObjects/Actors/MenuItems/ExitGameItem.class.s: src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.s
+
+.PHONY : src/GameObjects/Actors/MenuItems/ExitGameItem.class.s
+
+# target to generate assembly for a file
+src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.s
+.PHONY : src/GameObjects/Actors/MenuItems/ExitGameItem.class.cpp.s
+
+src/GameObjects/Actors/MenuItems/MainMenuItem.class.o: src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.o
+
+.PHONY : src/GameObjects/Actors/MenuItems/MainMenuItem.class.o
+
+# target to build an object file
+src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.o
+.PHONY : src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.o
+
+src/GameObjects/Actors/MenuItems/MainMenuItem.class.i: src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.i
+
+.PHONY : src/GameObjects/Actors/MenuItems/MainMenuItem.class.i
+
+# target to preprocess a source file
+src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.i
+.PHONY : src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.i
+
+src/GameObjects/Actors/MenuItems/MainMenuItem.class.s: src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.s
+
+.PHONY : src/GameObjects/Actors/MenuItems/MainMenuItem.class.s
+
+# target to generate assembly for a file
+src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.s
+.PHONY : src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.s
+
+src/GameObjects/Actors/MenuItems/MenuItem.class.o: src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.o
+
+.PHONY : src/GameObjects/Actors/MenuItems/MenuItem.class.o
+
+# target to build an object file
+src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.o
+.PHONY : src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.o
+
+src/GameObjects/Actors/MenuItems/MenuItem.class.i: src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.i
+
+.PHONY : src/GameObjects/Actors/MenuItems/MenuItem.class.i
+
+# target to preprocess a source file
+src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.i
+.PHONY : src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.i
+
+src/GameObjects/Actors/MenuItems/MenuItem.class.s: src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.s
+
+.PHONY : src/GameObjects/Actors/MenuItems/MenuItem.class.s
+
+# target to generate assembly for a file
+src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.s
+.PHONY : src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.s
+
+src/GameObjects/Actors/MenuItems/StartGameItem.class.o: src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.o
+
+.PHONY : src/GameObjects/Actors/MenuItems/StartGameItem.class.o
+
+# target to build an object file
+src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.o
+.PHONY : src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.o
+
+src/GameObjects/Actors/MenuItems/StartGameItem.class.i: src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.i
+
+.PHONY : src/GameObjects/Actors/MenuItems/StartGameItem.class.i
+
+# target to preprocess a source file
+src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.i
+.PHONY : src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.i
+
+src/GameObjects/Actors/MenuItems/StartGameItem.class.s: src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.s
+
+.PHONY : src/GameObjects/Actors/MenuItems/StartGameItem.class.s
+
+# target to generate assembly for a file
+src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.s
+.PHONY : src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.s
+
+src/GameObjects/Actors/SlotMachine/SlotMachine.class.o: src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o
+
+.PHONY : src/GameObjects/Actors/SlotMachine/SlotMachine.class.o
+
+# target to build an object file
+src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o
+.PHONY : src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o
+
+src/GameObjects/Actors/SlotMachine/SlotMachine.class.i: src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.i
+
+.PHONY : src/GameObjects/Actors/SlotMachine/SlotMachine.class.i
+
+# target to preprocess a source file
+src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.i
+.PHONY : src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.i
+
+src/GameObjects/Actors/SlotMachine/SlotMachine.class.s: src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.s
+
+.PHONY : src/GameObjects/Actors/SlotMachine/SlotMachine.class.s
+
+# target to generate assembly for a file
+src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.s
+.PHONY : src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.s
+
+src/GameObjects/GameObject.class.o: src/GameObjects/GameObject.class.cpp.o
+
+.PHONY : src/GameObjects/GameObject.class.o
+
+# target to build an object file
+src/GameObjects/GameObject.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.o
+.PHONY : src/GameObjects/GameObject.class.cpp.o
+
+src/GameObjects/GameObject.class.i: src/GameObjects/GameObject.class.cpp.i
+
+.PHONY : src/GameObjects/GameObject.class.i
+
+# target to preprocess a source file
+src/GameObjects/GameObject.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.i
+.PHONY : src/GameObjects/GameObject.class.cpp.i
+
+src/GameObjects/GameObject.class.s: src/GameObjects/GameObject.class.cpp.s
+
+.PHONY : src/GameObjects/GameObject.class.s
+
+# target to generate assembly for a file
+src/GameObjects/GameObject.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.s
+.PHONY : src/GameObjects/GameObject.class.cpp.s
+
+src/GameState/GameState.class.o: src/GameState/GameState.class.cpp.o
+
+.PHONY : src/GameState/GameState.class.o
+
+# target to build an object file
+src/GameState/GameState.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.o
+.PHONY : src/GameState/GameState.class.cpp.o
+
+src/GameState/GameState.class.i: src/GameState/GameState.class.cpp.i
+
+.PHONY : src/GameState/GameState.class.i
+
+# target to preprocess a source file
+src/GameState/GameState.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.i
+.PHONY : src/GameState/GameState.class.cpp.i
+
+src/GameState/GameState.class.s: src/GameState/GameState.class.cpp.s
+
+.PHONY : src/GameState/GameState.class.s
+
+# target to generate assembly for a file
+src/GameState/GameState.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.s
+.PHONY : src/GameState/GameState.class.cpp.s
+
+src/GameState/PlayingState.class.o: src/GameState/PlayingState.class.cpp.o
+
+.PHONY : src/GameState/PlayingState.class.o
+
+# target to build an object file
+src/GameState/PlayingState.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o
+.PHONY : src/GameState/PlayingState.class.cpp.o
+
+src/GameState/PlayingState.class.i: src/GameState/PlayingState.class.cpp.i
+
+.PHONY : src/GameState/PlayingState.class.i
+
+# target to preprocess a source file
+src/GameState/PlayingState.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.i
+.PHONY : src/GameState/PlayingState.class.cpp.i
+
+src/GameState/PlayingState.class.s: src/GameState/PlayingState.class.cpp.s
+
+.PHONY : src/GameState/PlayingState.class.s
+
+# target to generate assembly for a file
+src/GameState/PlayingState.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.s
+.PHONY : src/GameState/PlayingState.class.cpp.s
+
+src/GameState/StartingState.class.o: src/GameState/StartingState.class.cpp.o
+
+.PHONY : src/GameState/StartingState.class.o
+
+# target to build an object file
+src/GameState/StartingState.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.o
+.PHONY : src/GameState/StartingState.class.cpp.o
+
+src/GameState/StartingState.class.i: src/GameState/StartingState.class.cpp.i
+
+.PHONY : src/GameState/StartingState.class.i
+
+# target to preprocess a source file
+src/GameState/StartingState.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.i
+.PHONY : src/GameState/StartingState.class.cpp.i
+
+src/GameState/StartingState.class.s: src/GameState/StartingState.class.cpp.s
+
+.PHONY : src/GameState/StartingState.class.s
+
+# target to generate assembly for a file
+src/GameState/StartingState.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.s
+.PHONY : src/GameState/StartingState.class.cpp.s
+
+src/Handlers/ActorHandler.class.o: src/Handlers/ActorHandler.class.cpp.o
+
+.PHONY : src/Handlers/ActorHandler.class.o
+
+# target to build an object file
+src/Handlers/ActorHandler.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.o
+.PHONY : src/Handlers/ActorHandler.class.cpp.o
+
+src/Handlers/ActorHandler.class.i: src/Handlers/ActorHandler.class.cpp.i
+
+.PHONY : src/Handlers/ActorHandler.class.i
+
+# target to preprocess a source file
+src/Handlers/ActorHandler.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.i
+.PHONY : src/Handlers/ActorHandler.class.cpp.i
+
+src/Handlers/ActorHandler.class.s: src/Handlers/ActorHandler.class.cpp.s
+
+.PHONY : src/Handlers/ActorHandler.class.s
+
+# target to generate assembly for a file
+src/Handlers/ActorHandler.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.s
+.PHONY : src/Handlers/ActorHandler.class.cpp.s
+
+src/Handlers/GameObjectHandler.class.o: src/Handlers/GameObjectHandler.class.cpp.o
+
+.PHONY : src/Handlers/GameObjectHandler.class.o
+
+# target to build an object file
+src/Handlers/GameObjectHandler.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.o
+.PHONY : src/Handlers/GameObjectHandler.class.cpp.o
+
+src/Handlers/GameObjectHandler.class.i: src/Handlers/GameObjectHandler.class.cpp.i
+
+.PHONY : src/Handlers/GameObjectHandler.class.i
+
+# target to preprocess a source file
+src/Handlers/GameObjectHandler.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.i
+.PHONY : src/Handlers/GameObjectHandler.class.cpp.i
+
+src/Handlers/GameObjectHandler.class.s: src/Handlers/GameObjectHandler.class.cpp.s
+
+.PHONY : src/Handlers/GameObjectHandler.class.s
+
+# target to generate assembly for a file
+src/Handlers/GameObjectHandler.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.s
+.PHONY : src/Handlers/GameObjectHandler.class.cpp.s
+
+src/Handlers/GameStateHandler.class.o: src/Handlers/GameStateHandler.class.cpp.o
+
+.PHONY : src/Handlers/GameStateHandler.class.o
+
+# target to build an object file
+src/Handlers/GameStateHandler.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.o
+.PHONY : src/Handlers/GameStateHandler.class.cpp.o
+
+src/Handlers/GameStateHandler.class.i: src/Handlers/GameStateHandler.class.cpp.i
+
+.PHONY : src/Handlers/GameStateHandler.class.i
+
+# target to preprocess a source file
+src/Handlers/GameStateHandler.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.i
+.PHONY : src/Handlers/GameStateHandler.class.cpp.i
+
+src/Handlers/GameStateHandler.class.s: src/Handlers/GameStateHandler.class.cpp.s
+
+.PHONY : src/Handlers/GameStateHandler.class.s
+
+# target to generate assembly for a file
+src/Handlers/GameStateHandler.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.s
+.PHONY : src/Handlers/GameStateHandler.class.cpp.s
+
+src/Handlers/MenuHandler.class.o: src/Handlers/MenuHandler.class.cpp.o
+
+.PHONY : src/Handlers/MenuHandler.class.o
+
+# target to build an object file
+src/Handlers/MenuHandler.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.o
+.PHONY : src/Handlers/MenuHandler.class.cpp.o
+
+src/Handlers/MenuHandler.class.i: src/Handlers/MenuHandler.class.cpp.i
+
+.PHONY : src/Handlers/MenuHandler.class.i
+
+# target to preprocess a source file
+src/Handlers/MenuHandler.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.i
+.PHONY : src/Handlers/MenuHandler.class.cpp.i
+
+src/Handlers/MenuHandler.class.s: src/Handlers/MenuHandler.class.cpp.s
+
+.PHONY : src/Handlers/MenuHandler.class.s
+
+# target to generate assembly for a file
+src/Handlers/MenuHandler.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.s
+.PHONY : src/Handlers/MenuHandler.class.cpp.s
+
+src/Menu/Menu.class.o: src/Menu/Menu.class.cpp.o
+
+.PHONY : src/Menu/Menu.class.o
+
+# target to build an object file
+src/Menu/Menu.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o
+.PHONY : src/Menu/Menu.class.cpp.o
+
+src/Menu/Menu.class.i: src/Menu/Menu.class.cpp.i
+
+.PHONY : src/Menu/Menu.class.i
+
+# target to preprocess a source file
+src/Menu/Menu.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.i
+.PHONY : src/Menu/Menu.class.cpp.i
+
+src/Menu/Menu.class.s: src/Menu/Menu.class.cpp.s
+
+.PHONY : src/Menu/Menu.class.s
+
+# target to generate assembly for a file
+src/Menu/Menu.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.s
+.PHONY : src/Menu/Menu.class.cpp.s
+
+src/Timers/AsynFuncTimer.class.o: src/Timers/AsynFuncTimer.class.cpp.o
+
+.PHONY : src/Timers/AsynFuncTimer.class.o
+
+# target to build an object file
+src/Timers/AsynFuncTimer.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o
+.PHONY : src/Timers/AsynFuncTimer.class.cpp.o
+
+src/Timers/AsynFuncTimer.class.i: src/Timers/AsynFuncTimer.class.cpp.i
+
+.PHONY : src/Timers/AsynFuncTimer.class.i
+
+# target to preprocess a source file
+src/Timers/AsynFuncTimer.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.i
+.PHONY : src/Timers/AsynFuncTimer.class.cpp.i
+
+src/Timers/AsynFuncTimer.class.s: src/Timers/AsynFuncTimer.class.cpp.s
+
+.PHONY : src/Timers/AsynFuncTimer.class.s
+
+# target to generate assembly for a file
+src/Timers/AsynFuncTimer.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.s
+.PHONY : src/Timers/AsynFuncTimer.class.cpp.s
+
+src/Timers/Timer.class.o: src/Timers/Timer.class.cpp.o
+
+.PHONY : src/Timers/Timer.class.o
+
+# target to build an object file
+src/Timers/Timer.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.o
+.PHONY : src/Timers/Timer.class.cpp.o
+
+src/Timers/Timer.class.i: src/Timers/Timer.class.cpp.i
+
+.PHONY : src/Timers/Timer.class.i
+
+# target to preprocess a source file
+src/Timers/Timer.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.i
+.PHONY : src/Timers/Timer.class.cpp.i
+
+src/Timers/Timer.class.s: src/Timers/Timer.class.cpp.s
+
+.PHONY : src/Timers/Timer.class.s
+
+# target to generate assembly for a file
+src/Timers/Timer.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.s
+.PHONY : src/Timers/Timer.class.cpp.s
+
+src/Vector2D-impl.class.o: src/Vector2D-impl.class.cpp.o
+
+.PHONY : src/Vector2D-impl.class.o
+
+# target to build an object file
+src/Vector2D-impl.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.o
+.PHONY : src/Vector2D-impl.class.cpp.o
+
+src/Vector2D-impl.class.i: src/Vector2D-impl.class.cpp.i
+
+.PHONY : src/Vector2D-impl.class.i
+
+# target to preprocess a source file
+src/Vector2D-impl.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.i
+.PHONY : src/Vector2D-impl.class.cpp.i
+
+src/Vector2D-impl.class.s: src/Vector2D-impl.class.cpp.s
+
+.PHONY : src/Vector2D-impl.class.s
+
+# target to generate assembly for a file
+src/Vector2D-impl.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.s
+.PHONY : src/Vector2D-impl.class.cpp.s
+
+src/Vector2D.class.o: src/Vector2D.class.cpp.o
+
+.PHONY : src/Vector2D.class.o
+
+# target to build an object file
+src/Vector2D.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.o
+.PHONY : src/Vector2D.class.cpp.o
+
+src/Vector2D.class.i: src/Vector2D.class.cpp.i
+
+.PHONY : src/Vector2D.class.i
+
+# target to preprocess a source file
+src/Vector2D.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.i
+.PHONY : src/Vector2D.class.cpp.i
+
+src/Vector2D.class.s: src/Vector2D.class.cpp.s
+
+.PHONY : src/Vector2D.class.s
+
+# target to generate assembly for a file
+src/Vector2D.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.s
+.PHONY : src/Vector2D.class.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -246,6 +840,72 @@ help:
 	@echo "... package_source"
 	@echo "... package"
 	@echo "... slot_machine"
+	@echo "... src/GameEngine.class.o"
+	@echo "... src/GameEngine.class.i"
+	@echo "... src/GameEngine.class.s"
+	@echo "... src/GameObjects/Actors/Actor.class.o"
+	@echo "... src/GameObjects/Actors/Actor.class.i"
+	@echo "... src/GameObjects/Actors/Actor.class.s"
+	@echo "... src/GameObjects/Actors/Charater/Player.class.o"
+	@echo "... src/GameObjects/Actors/Charater/Player.class.i"
+	@echo "... src/GameObjects/Actors/Charater/Player.class.s"
+	@echo "... src/GameObjects/Actors/Input.class.o"
+	@echo "... src/GameObjects/Actors/Input.class.i"
+	@echo "... src/GameObjects/Actors/Input.class.s"
+	@echo "... src/GameObjects/Actors/MenuItems/ExitGameItem.class.o"
+	@echo "... src/GameObjects/Actors/MenuItems/ExitGameItem.class.i"
+	@echo "... src/GameObjects/Actors/MenuItems/ExitGameItem.class.s"
+	@echo "... src/GameObjects/Actors/MenuItems/MainMenuItem.class.o"
+	@echo "... src/GameObjects/Actors/MenuItems/MainMenuItem.class.i"
+	@echo "... src/GameObjects/Actors/MenuItems/MainMenuItem.class.s"
+	@echo "... src/GameObjects/Actors/MenuItems/MenuItem.class.o"
+	@echo "... src/GameObjects/Actors/MenuItems/MenuItem.class.i"
+	@echo "... src/GameObjects/Actors/MenuItems/MenuItem.class.s"
+	@echo "... src/GameObjects/Actors/MenuItems/StartGameItem.class.o"
+	@echo "... src/GameObjects/Actors/MenuItems/StartGameItem.class.i"
+	@echo "... src/GameObjects/Actors/MenuItems/StartGameItem.class.s"
+	@echo "... src/GameObjects/Actors/SlotMachine/SlotMachine.class.o"
+	@echo "... src/GameObjects/Actors/SlotMachine/SlotMachine.class.i"
+	@echo "... src/GameObjects/Actors/SlotMachine/SlotMachine.class.s"
+	@echo "... src/GameObjects/GameObject.class.o"
+	@echo "... src/GameObjects/GameObject.class.i"
+	@echo "... src/GameObjects/GameObject.class.s"
+	@echo "... src/GameState/GameState.class.o"
+	@echo "... src/GameState/GameState.class.i"
+	@echo "... src/GameState/GameState.class.s"
+	@echo "... src/GameState/PlayingState.class.o"
+	@echo "... src/GameState/PlayingState.class.i"
+	@echo "... src/GameState/PlayingState.class.s"
+	@echo "... src/GameState/StartingState.class.o"
+	@echo "... src/GameState/StartingState.class.i"
+	@echo "... src/GameState/StartingState.class.s"
+	@echo "... src/Handlers/ActorHandler.class.o"
+	@echo "... src/Handlers/ActorHandler.class.i"
+	@echo "... src/Handlers/ActorHandler.class.s"
+	@echo "... src/Handlers/GameObjectHandler.class.o"
+	@echo "... src/Handlers/GameObjectHandler.class.i"
+	@echo "... src/Handlers/GameObjectHandler.class.s"
+	@echo "... src/Handlers/GameStateHandler.class.o"
+	@echo "... src/Handlers/GameStateHandler.class.i"
+	@echo "... src/Handlers/GameStateHandler.class.s"
+	@echo "... src/Handlers/MenuHandler.class.o"
+	@echo "... src/Handlers/MenuHandler.class.i"
+	@echo "... src/Handlers/MenuHandler.class.s"
+	@echo "... src/Menu/Menu.class.o"
+	@echo "... src/Menu/Menu.class.i"
+	@echo "... src/Menu/Menu.class.s"
+	@echo "... src/Timers/AsynFuncTimer.class.o"
+	@echo "... src/Timers/AsynFuncTimer.class.i"
+	@echo "... src/Timers/AsynFuncTimer.class.s"
+	@echo "... src/Timers/Timer.class.o"
+	@echo "... src/Timers/Timer.class.i"
+	@echo "... src/Timers/Timer.class.s"
+	@echo "... src/Vector2D-impl.class.o"
+	@echo "... src/Vector2D-impl.class.i"
+	@echo "... src/Vector2D-impl.class.s"
+	@echo "... src/Vector2D.class.o"
+	@echo "... src/Vector2D.class.i"
+	@echo "... src/Vector2D.class.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

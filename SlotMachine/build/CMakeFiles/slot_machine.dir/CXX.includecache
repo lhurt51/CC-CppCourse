@@ -6,15 +6,41 @@
 
 #IncludeRegexTransform: 
 
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/main.cpp
-stdio.h
+../include/includes.hpp
+iostream
 -
-stdlib.h
+string
 -
-math.h
--
-GameConfig.h
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameConfig.h
 
-GameConfig.h
+../include/macros/main_game_macros.hpp
+main_macros.hpp
+../include/macros/main_macros.hpp
+
+../include/macros/main_macros.hpp
+
+../src/GameObjects/Actors/Actor.class.hpp
+GameObjects/GameObject.class.hpp
+../src/GameObjects/Actors/GameObjects/GameObject.class.hpp
+
+../src/GameObjects/GameObject.class.hpp
+includes.hpp
+-
+
+../src/Vector2D.class.hpp
+iostream
+-
+tuple
+-
+
+/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp
+macros/main_game_macros.hpp
+-
+Vector2D.class.hpp
+/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/Vector2D.class.hpp
+SlotMachine.class.hpp
+/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/SlotMachine.class.hpp
+
+/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/SlotMachine.class.hpp
+GameObjects/Actors/Actor.class.hpp
+/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/GameObjects/Actors/Actor.class.hpp
 
