@@ -4,8 +4,11 @@
 	#include "GameState.class.hpp"
 
 	// Forward declaring classes
+	class								SlotMachine;
 
 	class PlayingState : public GameState {
+
+		SlotMachine*					_slotMachine;
 
 	public:
 

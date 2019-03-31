@@ -1,5 +1,5 @@
-#ifndef TIMER_CLASS_HPP
-	#define TIMER_CLASS_HPP
+#ifndef ASYN_FUNC_TIMER_CLASS_HPP
+	#define ASYN_FUNC_TIMER_CLASS_HPP
 
 	#include <iostream>
 	#include <chrono>
@@ -33,9 +33,9 @@
 		AsynFuncTimer*				setInterval(const long &interval);
 
 		// Helper Functions --
-		void		start(void);
-		void		stop(void);
-		void		reset(void);
+		void						start(void);
+		void						stop(void);
+		void						reset(void);
 
 	};
 

@@ -22,52 +22,39 @@
 *																				*
 \*******************************************************************************/
 
-#include <macros/main_game_macros.hpp>
-#include "Vector2D.class.hpp"
-#include "GameObjects/Actors/SlotMachine/SlotMachine.class.hpp"
-#include "PlayingState.class.hpp"
-#include "Handlers/MenuHandler.class.hpp"
-#include "Handlers/GameStateHandler.class.hpp"
+#include <climits>
+#include "RandNumGen.class.hpp"
 
-// Initializer for window dimensions Constructor
-PlayingState::PlayingState(void) : GameState(), _slotMachine(nullptr) {
-	MenuHandler::setMenu(1);
-	_slotMachine = new SlotMachine();
+RandNumGen::RandNumGen(void) : _min(0), _max(UINT_MAX) {
 	return;
 }
 
-// Copy constructor
-PlayingState::PlayingState(PlayingState const &src) : GameState(src) {
-	*this = src;
+RandNumGen::RandNumGen(unsigned min, unsigned max) : _min(min), _max(max) {
 	return;
 }
 
-// De-constructor
-PlayingState::~PlayingState(void) {
-	MenuHandler::deleteMenu();
-	delete _slotMachine;
+RandNumGen::~RandNumGen(void) {
 	return;
 }
 
-// Equal sign overload for the copy constructor
-PlayingState					&PlayingState::operator=(PlayingState const &rhs) {
-	if (this != &rhs) {}
-	return *this;
+unsigned	RandNumGen::getMin(void) const {
+	return this->_min;
 }
 
-void							PlayingState::handleResize(void) {
-	MenuHandler::handleResize();
+unsigned	RandNumGen::getMax(void) const {
+	return this->_max;
 }
 
-void							PlayingState::handleInput(int input) {
-	MenuHandler::handleInput(input);
+// Setters --
+void		RandNumGen::setMin(unsigned min) {
+	this->_min = min;
 }
 
-void							PlayingState::handleTick(void) {
-	GameState::handleTick();
+void		RandNumGen::setMax(unsigned max) {
+	this->_max = max;
 }
 
-// Out stream overload for testing
-std::ostream					&operator<<(std::ostream &o, PlayingState const &i) {
-	return o << "Game State Info:" << &i << std::endl;
+// Helper Methods --
+unsigned	RandNumGen::getNextRand(void) {
+	return (rand() % _max) + _min;
 }

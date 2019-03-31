@@ -52,6 +52,7 @@ AsynFuncTimer*				AsynFuncTimer::setInterval(const long &interval) {
 }
 
 void						AsynFuncTimer::start(void) {
+	if (_running) return;
 	_running = true;
 	_thread = std::thread([&]() {
 		while (_running) {
@@ -64,6 +65,7 @@ void						AsynFuncTimer::start(void) {
 }
 
 void						AsynFuncTimer::stop(void) {
+	if (!_running) return;
 	_running = false;
 	_thread.~thread();
 }

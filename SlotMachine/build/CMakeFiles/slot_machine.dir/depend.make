@@ -71,12 +71,28 @@ CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.o: ../src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.o: ../src/GameObjects/Actors/MenuItems/StartGameItem.class.hpp
 
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../include/includes.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../include/macros/main_game_macros.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../include/macros/main_macros.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../src/GameObjects/GameObject.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../src/RandomNumGenerator/RandNumGen.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../src/Timers/Timer.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../src/Vector2D.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../src/GameObjects/Actors/Actor.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../src/GameObjects/Actors/SlotMachine/Numbers.class.cpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../src/GameObjects/Actors/SlotMachine/Numbers.class.hpp
+
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../include/includes.hpp
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../include/macros/main_game_macros.hpp
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../include/macros/main_macros.hpp
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/GameObjects/Actors/Actor.class.hpp
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/GameObjects/GameObject.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/Handlers/GameStateHandler.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/Timers/AsynFuncTimer.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/Timers/Timer.class.hpp
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/Vector2D.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/GameObjects/Actors/Actor.class.hpp
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/GameObjects/Actors/SlotMachine/Numbers.class.hpp
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/GameObjects/Actors/SlotMachine/SlotMachine.class.hpp
 
@@ -96,6 +112,9 @@ CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.o: ../src/GameStat
 CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../include/includes.hpp
 CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../include/macros/main_game_macros.hpp
 CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../include/macros/main_macros.hpp
+CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../src/GameObjects/Actors/Actor.class.hpp
+CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../src/GameObjects/Actors/SlotMachine/SlotMachine.class.hpp
+CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../src/GameObjects/GameObject.class.hpp
 CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../src/Handlers/GameStateHandler.class.hpp
 CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../src/Handlers/MenuHandler.class.hpp
 CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../src/Vector2D.class.hpp
@@ -159,6 +178,9 @@ CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o: ../src/Handlers/GameState
 CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o: ../src/Vector2D.class.hpp
 CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o: ../src/Menu/Menu.class.cpp
 CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o: ../src/Menu/Menu.class.hpp
+
+CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.o: ../src/RandomNumGenerator/RandNumGen.class.cpp
+CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.o: ../src/RandomNumGenerator/RandNumGen.class.hpp
 
 CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o: ../src/Timers/AsynFuncTimer.class.cpp
 CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o: ../src/Timers/AsynFuncTimer.class.hpp

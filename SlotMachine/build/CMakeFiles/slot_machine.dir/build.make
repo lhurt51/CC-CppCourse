@@ -161,9 +161,22 @@ CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp -o CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.s
 
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o: ../src/GameObjects/Actors/SlotMachine/Numbers.class.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp
+
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp > CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.i
+
+CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp -o CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.s
+
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o: ../src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp
 
 CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.i: cmake_force
@@ -176,7 +189,7 @@ CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class
 
 CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.o: ../src/GameObjects/GameObject.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/GameObject.class.cpp
 
 CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.o: ../src/GameState/GameState.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/GameState.class.cpp
 
 CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.i: cmake_force
@@ -202,7 +215,7 @@ CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o: ../src/GameState/PlayingState.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/PlayingState.class.cpp
 
 CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.i: cmake_force
@@ -215,7 +228,7 @@ CMakeFiles/slot_machine.dir/src/GameState/PlayingState.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.o: ../src/GameState/StartingState.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/StartingState.class.cpp
 
 CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.i: cmake_force
@@ -228,7 +241,7 @@ CMakeFiles/slot_machine.dir/src/GameState/StartingState.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.o: ../src/Handlers/ActorHandler.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/ActorHandler.class.cpp
 
 CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.i: cmake_force
@@ -241,7 +254,7 @@ CMakeFiles/slot_machine.dir/src/Handlers/ActorHandler.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.o: ../src/Handlers/GameObjectHandler.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/GameObjectHandler.class.cpp
 
 CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.i: cmake_force
@@ -254,7 +267,7 @@ CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.cpp.s: cmake_fo
 
 CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.o: ../src/Handlers/GameStateHandler.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/GameStateHandler.class.cpp
 
 CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.i: cmake_force
@@ -267,7 +280,7 @@ CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.s: cmake_for
 
 CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.o: ../src/Handlers/MenuHandler.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Handlers/MenuHandler.class.cpp
 
 CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.i: cmake_force
@@ -280,7 +293,7 @@ CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o: ../src/Menu/Menu.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Menu/Menu.class.cpp
 
 CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.i: cmake_force
@@ -291,9 +304,22 @@ CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Menu/Menu.class.cpp -o CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.s
 
+CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
+CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.o: ../src/RandomNumGenerator/RandNumGen.class.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/RandomNumGenerator/RandNumGen.class.cpp
+
+CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/RandomNumGenerator/RandNumGen.class.cpp > CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.i
+
+CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/RandomNumGenerator/RandNumGen.class.cpp -o CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.s
+
 CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o: ../src/Timers/AsynFuncTimer.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Timers/AsynFuncTimer.class.cpp
 
 CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.i: cmake_force
@@ -306,7 +332,7 @@ CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.o: ../src/Timers/Timer.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Timers/Timer.class.cpp
 
 CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.i: cmake_force
@@ -319,7 +345,7 @@ CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.o: ../src/Vector2D-impl.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Vector2D-impl.class.cpp
 
 CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.i: cmake_force
@@ -332,7 +358,7 @@ CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.o: ../src/Vector2D.class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/Vector2D.class.cpp
 
 CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.i: cmake_force
@@ -345,7 +371,7 @@ CMakeFiles/slot_machine.dir/src/Vector2D.class.cpp.s: cmake_force
 
 CMakeFiles/slot_machine.dir/src/main.cpp.o: CMakeFiles/slot_machine.dir/flags.make
 CMakeFiles/slot_machine.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/slot_machine.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/slot_machine.dir/src/main.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/slot_machine.dir/src/main.cpp.o -c /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/main.cpp
 
 CMakeFiles/slot_machine.dir/src/main.cpp.i: cmake_force
@@ -366,6 +392,7 @@ slot_machine_OBJECTS = \
 "CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.o" \
+"CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.o" \
@@ -376,6 +403,7 @@ slot_machine_OBJECTS = \
 "CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o" \
+"CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.o" \
 "CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.o" \
@@ -393,6 +421,7 @@ slot_machine: CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/ExitG
 slot_machine: CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MainMenuItem.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/MenuItem.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.o
+slot_machine: CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/GameObjects/GameObject.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/GameState/GameState.class.cpp.o
@@ -403,6 +432,7 @@ slot_machine: CMakeFiles/slot_machine.dir/src/Handlers/GameObjectHandler.class.c
 slot_machine: CMakeFiles/slot_machine.dir/src/Handlers/GameStateHandler.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/Handlers/MenuHandler.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.o
+slot_machine: CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/Timers/AsynFuncTimer.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/Timers/Timer.class.cpp.o
 slot_machine: CMakeFiles/slot_machine.dir/src/Vector2D-impl.class.cpp.o
@@ -412,7 +442,7 @@ slot_machine: CMakeFiles/slot_machine.dir/build.make
 slot_machine: /usr/lib/libcurses.dylib
 slot_machine: /usr/lib/libform.dylib
 slot_machine: CMakeFiles/slot_machine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Linking CXX executable slot_machine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/liamhurt/code/CC-CppCourse/SlotMachine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Linking CXX executable slot_machine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/slot_machine.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -419,6 +419,33 @@ src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.s:
 	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.s
 .PHONY : src/GameObjects/Actors/MenuItems/StartGameItem.class.cpp.s
 
+src/GameObjects/Actors/SlotMachine/Numbers.class.o: src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o
+
+.PHONY : src/GameObjects/Actors/SlotMachine/Numbers.class.o
+
+# target to build an object file
+src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o
+.PHONY : src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.o
+
+src/GameObjects/Actors/SlotMachine/Numbers.class.i: src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.i
+
+.PHONY : src/GameObjects/Actors/SlotMachine/Numbers.class.i
+
+# target to preprocess a source file
+src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.i
+.PHONY : src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.i
+
+src/GameObjects/Actors/SlotMachine/Numbers.class.s: src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.s
+
+.PHONY : src/GameObjects/Actors/SlotMachine/Numbers.class.s
+
+# target to generate assembly for a file
+src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.s
+.PHONY : src/GameObjects/Actors/SlotMachine/Numbers.class.cpp.s
+
 src/GameObjects/Actors/SlotMachine/SlotMachine.class.o: src/GameObjects/Actors/SlotMachine/SlotMachine.class.cpp.o
 
 .PHONY : src/GameObjects/Actors/SlotMachine/SlotMachine.class.o
@@ -689,6 +716,33 @@ src/Menu/Menu.class.cpp.s:
 	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/Menu/Menu.class.cpp.s
 .PHONY : src/Menu/Menu.class.cpp.s
 
+src/RandomNumGenerator/RandNumGen.class.o: src/RandomNumGenerator/RandNumGen.class.cpp.o
+
+.PHONY : src/RandomNumGenerator/RandNumGen.class.o
+
+# target to build an object file
+src/RandomNumGenerator/RandNumGen.class.cpp.o:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.o
+.PHONY : src/RandomNumGenerator/RandNumGen.class.cpp.o
+
+src/RandomNumGenerator/RandNumGen.class.i: src/RandomNumGenerator/RandNumGen.class.cpp.i
+
+.PHONY : src/RandomNumGenerator/RandNumGen.class.i
+
+# target to preprocess a source file
+src/RandomNumGenerator/RandNumGen.class.cpp.i:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.i
+.PHONY : src/RandomNumGenerator/RandNumGen.class.cpp.i
+
+src/RandomNumGenerator/RandNumGen.class.s: src/RandomNumGenerator/RandNumGen.class.cpp.s
+
+.PHONY : src/RandomNumGenerator/RandNumGen.class.s
+
+# target to generate assembly for a file
+src/RandomNumGenerator/RandNumGen.class.cpp.s:
+	$(MAKE) -f CMakeFiles/slot_machine.dir/build.make CMakeFiles/slot_machine.dir/src/RandomNumGenerator/RandNumGen.class.cpp.s
+.PHONY : src/RandomNumGenerator/RandNumGen.class.cpp.s
+
 src/Timers/AsynFuncTimer.class.o: src/Timers/AsynFuncTimer.class.cpp.o
 
 .PHONY : src/Timers/AsynFuncTimer.class.o
@@ -864,6 +918,9 @@ help:
 	@echo "... src/GameObjects/Actors/MenuItems/StartGameItem.class.o"
 	@echo "... src/GameObjects/Actors/MenuItems/StartGameItem.class.i"
 	@echo "... src/GameObjects/Actors/MenuItems/StartGameItem.class.s"
+	@echo "... src/GameObjects/Actors/SlotMachine/Numbers.class.o"
+	@echo "... src/GameObjects/Actors/SlotMachine/Numbers.class.i"
+	@echo "... src/GameObjects/Actors/SlotMachine/Numbers.class.s"
 	@echo "... src/GameObjects/Actors/SlotMachine/SlotMachine.class.o"
 	@echo "... src/GameObjects/Actors/SlotMachine/SlotMachine.class.i"
 	@echo "... src/GameObjects/Actors/SlotMachine/SlotMachine.class.s"
@@ -894,6 +951,9 @@ help:
 	@echo "... src/Menu/Menu.class.o"
 	@echo "... src/Menu/Menu.class.i"
 	@echo "... src/Menu/Menu.class.s"
+	@echo "... src/RandomNumGenerator/RandNumGen.class.o"
+	@echo "... src/RandomNumGenerator/RandNumGen.class.i"
+	@echo "... src/RandomNumGenerator/RandNumGen.class.s"
 	@echo "... src/Timers/AsynFuncTimer.class.o"
 	@echo "... src/Timers/AsynFuncTimer.class.i"
 	@echo "... src/Timers/AsynFuncTimer.class.s"
