@@ -6,14 +6,16 @@
 
 	class							Timer;
 	class							Numbers;
+	class							GameObject;
 
 	class SlotMachine : public Actor {
 
+		GameObject*					_gameOverDsp;
 		double						_interval;
 		Timer*						_timer;
 		std::vector<Numbers*>		_numbers;
-		// float						_bet;
-		// float						_winnings;
+		float						_bet;
+		float						_winnings;
 
 	public:
 

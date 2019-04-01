@@ -34,7 +34,8 @@
 const std::string playerSprite = "Slot Machine";
 
 // Default constructor to initialize all attributes
-SlotMachine::SlotMachine(void) : Actor(GameStateHandler::getWinDim() / (unsigned)2, playerSprite), _interval(20.0), _timer(nullptr) {
+SlotMachine::SlotMachine(void) : Actor(GameStateHandler::getWinDim() / (unsigned)2, playerSprite), _gameOverDsp(nullptr), _interval(20.0), _timer(nullptr), _bet(100), _winnings(0) {
+	_bet = 5;
 	setTimer();
 	setNumbers();
 	return;
@@ -50,6 +51,7 @@ SlotMachine::SlotMachine(SlotMachine const &src) : Actor(src) {
 SlotMachine::~SlotMachine(void) {
 	deleteTimer();
 	deleteNumbers();
+	if (_gameOverDsp) delete _gameOverDsp;
 	return;
 }
 
@@ -87,8 +89,14 @@ void						SlotMachine::setNumbers(void) {
 void						SlotMachine::startRoll(void) {
 	static unsigned index = 0;
 
-	if (index >= 3) return;
-	else if (_timer->elapsed() >= 0.1 && _timer->elapsed() <= _interval - 1) {
+	if (index >= 3) {
+		if (_gameOverDsp) return;
+		std::string str = "Roll Over\nYou won ";
+		_winnings += _bet * 5;
+		str += std::to_string(_winnings) + "$";
+		_gameOverDsp = new GameObject(_pos + Vector2D<uint_fast32_t>(0, 2), str);
+		return;
+	} else if (_timer->elapsed() >= 0.1 && _timer->elapsed() <= _interval - 1) {
 		if (_numbers[index]) _numbers[index]->incInterval();
 	} else if (_timer->elapsed() >= _interval - 1 && _timer->elapsed() <= _interval) {
 		if (_numbers[index]) _numbers[index]->stopRolling();

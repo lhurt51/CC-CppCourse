@@ -22,12 +22,6 @@ main_macros.hpp
 GameObjects/GameObject.class.hpp
 ../src/GameObjects/Actors/GameObjects/GameObject.class.hpp
 
-../src/GameObjects/Actors/SlotMachine/SlotMachine.class.hpp
-vector
--
-GameObjects/Actors/Actor.class.hpp
-../src/GameObjects/Actors/SlotMachine/GameObjects/Actors/Actor.class.hpp
-
 ../src/GameObjects/GameObject.class.hpp
 includes.hpp
 -
@@ -35,8 +29,6 @@ includes.hpp
 ../src/Handlers/GameStateHandler.class.hpp
 includes.hpp
 -
-
-../src/Handlers/MenuHandler.class.hpp
 
 ../src/Timers/AsynFuncTimer.class.hpp
 iostream
@@ -87,26 +79,4 @@ vector
 -
 GameObjects/Actors/Actor.class.hpp
 /Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameObjects/Actors/SlotMachine/GameObjects/Actors/Actor.class.hpp
-
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/GameState.class.hpp
-includes.hpp
--
-
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/PlayingState.class.cpp
-macros/main_game_macros.hpp
--
-Vector2D.class.hpp
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/Vector2D.class.hpp
-GameObjects/Actors/SlotMachine/SlotMachine.class.hpp
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/GameObjects/Actors/SlotMachine/SlotMachine.class.hpp
-PlayingState.class.hpp
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/PlayingState.class.hpp
-Handlers/MenuHandler.class.hpp
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/Handlers/MenuHandler.class.hpp
-Handlers/GameStateHandler.class.hpp
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/Handlers/GameStateHandler.class.hpp
-
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/PlayingState.class.hpp
-GameState.class.hpp
-/Users/liamhurt/code/CC-CppCourse/SlotMachine/src/GameState/GameState.class.hpp
 
