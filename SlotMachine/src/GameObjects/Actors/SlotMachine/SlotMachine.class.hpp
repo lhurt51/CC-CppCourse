@@ -11,13 +11,15 @@
 	class SlotMachine : public Actor {
 
 		GameObject*					_gameOverDsp;
+		unsigned					_rollIndex;
 		double						_interval;
 		Timer*						_timer;
 		std::vector<Numbers*>		_numbers;
 		float						_bet;
-		float						_winnings;
 
 	public:
+
+		static float				winnings;
 
 		// Constructors --
 		SlotMachine(void);
@@ -37,6 +39,7 @@
 
 		// Helper Methods
 		void						startRoll(void);
+		void						endRoll(void);
 
 		// Overloaded Public Actor Methods --
 		void						tick(void);

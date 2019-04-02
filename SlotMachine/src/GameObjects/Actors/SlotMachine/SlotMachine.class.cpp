@@ -33,9 +33,10 @@
 // Initializing the player sprite
 const std::string playerSprite = "Slot Machine";
 
+float					SlotMachine::winnings = 1000;
+
 // Default constructor to initialize all attributes
-SlotMachine::SlotMachine(void) : Actor(GameStateHandler::getWinDim() / (unsigned)2, playerSprite), _gameOverDsp(nullptr), _interval(20.0), _timer(nullptr), _bet(100), _winnings(0) {
-	_bet = 5;
+SlotMachine::SlotMachine(void) : Actor(GameStateHandler::getWinDim() / (unsigned)2 - Vector2D<uint_fast32_t>(0, 2), playerSprite), _gameOverDsp(nullptr), _rollIndex(0), _interval(20.0), _timer(nullptr), _bet(100) {
 	setTimer();
 	setNumbers();
 	return;
@@ -87,24 +88,42 @@ void						SlotMachine::setNumbers(void) {
 }
 
 void						SlotMachine::startRoll(void) {
-	static unsigned index = 0;
-
-	if (index >= 3) {
-		if (_gameOverDsp) return;
-		std::string str = "Roll Over\nYou won ";
-		_winnings += _bet * 5;
-		str += std::to_string(_winnings) + "$";
-		_gameOverDsp = new GameObject(_pos + Vector2D<uint_fast32_t>(0, 2), str);
+	if (_rollIndex >= 3) {
+		endRoll();
 		return;
 	} else if (_timer->elapsed() >= 0.1 && _timer->elapsed() <= _interval - 1) {
-		if (_numbers[index]) _numbers[index]->incInterval();
+		if (_numbers[_rollIndex]) _numbers[_rollIndex]->incInterval();
 	} else if (_timer->elapsed() >= _interval - 1 && _timer->elapsed() <= _interval) {
-		if (_numbers[index]) _numbers[index]->stopRolling();
+		if (_numbers[_rollIndex]) _numbers[_rollIndex]->stopRolling();
 	} else if (_timer->elapsed() > _interval) {
 		_timer->reset();
-		index++;
+		_rollIndex++;
 	}
 
+}
+
+void						SlotMachine::endRoll(void) {
+	if (_gameOverDsp) return;
+	int multiplier = 0;
+	std::string str = "Roll Over: ";
+	if (_numbers[0]->getCurNum() == _numbers[1]->getCurNum())
+	{
+		if (_numbers[0]->getCurNum() == _numbers[2]->getCurNum())
+			multiplier++;
+		multiplier++;
+	} else if (_numbers[0]->getCurNum() == _numbers[2]->getCurNum())
+	{
+		multiplier++;
+	}
+	else if (_numbers[1]->getCurNum() == _numbers[2]->getCurNum())
+	{
+		multiplier++;
+	}
+	str += (multiplier != 0) ? "You won!\nWinnings are " + std::to_string(_bet * (5 * multiplier)) + "$\n" : "You lost\nBetter luck next time\n";
+	str += "Your balance is ";
+	winnings += (multiplier != 0) ? _bet * (5 * multiplier): -(_bet);
+	str += std::to_string(winnings) + "$";
+	_gameOverDsp = new GameObject(_pos + Vector2D<uint_fast32_t>(0, 2), str);
 }
 
 // Overloaded Public Actor Method
