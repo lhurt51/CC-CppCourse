@@ -1,3 +1,0 @@
-// the configured options and settings for Tutorial
-#define slot_machine_VERSION_MAJOR @slot_machine_VERSION_MAJOR@
-#define slot_machine_VERSION_MINOR @slot_machine_VERSION_MINOR@
