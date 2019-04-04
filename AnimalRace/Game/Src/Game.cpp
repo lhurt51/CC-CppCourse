@@ -20,6 +20,8 @@ AssetManager* Game::assets = new AssetManager(&manager);
 
 auto& player(manager.addEntity());
 auto& ai(manager.addEntity());
+auto& ai1(manager.addEntity());
+auto& ai2(manager.addEntity());
 
 Game::Game()
 {
@@ -66,6 +68,9 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 	assets->AddTexture("terrain", "assets/terrain_ss.png");
 	assets->AddTexture("player", "assets/player_anims.png");
 	assets->AddTexture("projectile", "assets/circle.png");
+	assets->AddTexture("snake", "assets/snake.png");
+	assets->AddTexture("rabbit", "assets/rabbit_1939x1714.png");
+	assets->AddTexture("turtle", "assets/turtle_400x400.png");
 
 	scene = new Scene("terrain", 3, 32);
 
@@ -76,6 +81,18 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(groupPlayers);
+
+	ai.addComponent<TransformComponent>(350, 950, 911, 2403, 0.1f);
+	ai.addComponent<SpriteComponent>("snake", false);
+	ai.addComponent<AIRaceComponent>(Vector2D(2.2, 0), 1000, 4);
+
+	ai1.addComponent<TransformComponent>(350, 1070, 1714, 1939, 0.1f);
+	ai1.addComponent<SpriteComponent>("rabbit", false);
+	ai1.addComponent<AIRaceComponent>(Vector2D(1.75, 0), 1000, 3);
+
+	ai2.addComponent<TransformComponent>(350, 760, 400, 400, 0.5f);
+	ai2.addComponent<SpriteComponent>("turtle", false);
+	ai2.addComponent<AIRaceComponent>(Vector2D(1.2, 0), 1000, 2);
 }
 
 auto& tiles(manager.getGroup(Game::groupMap));
@@ -111,8 +128,8 @@ void Game::update()
 		}
 	}
 
-	camera.x = player.getComponent<TransformComponent>().position.x - 640;
-	camera.y = player.getComponent<TransformComponent>().position.y - 360;
+	camera.x = player.getComponent<TransformComponent>().position.x - 540;
+	camera.y = player.getComponent<TransformComponent>().position.y - 340;
 
 	if (camera.x < 0) camera.x = 0;
 	if (camera.y < 0) camera.y = 0;
@@ -131,6 +148,9 @@ void Game::render()
 	{
 		p->draw();
 	}
+	ai.draw();
+	ai1.draw();
+	ai2.draw();
 	SDL_RenderPresent(renderer);
 }
 

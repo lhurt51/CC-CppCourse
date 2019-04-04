@@ -1,42 +1,22 @@
-﻿  AssetManager.cpp
+﻿  Game.cpp
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\collidercomponent.h(60): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\collidercomponent.h(61): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(87): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(95): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(131): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(132): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\ecs.h(106): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
-              _Ty=double
+              _Ty=int
           ]
-  c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\assetmanager.cpp(15): note: see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,float&,float&,int,int,double>(float &,float &,int &&,int &&,double &&)' being compiled
+  c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(85): note: see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,int,int,int,int,float>(int &&,int &&,int &&,int &&,float &&)' being compiled
           with
           [
               T=TransformComponent
           ]
-  Collision.cpp
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\collidercomponent.h(60): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\collidercomponent.h(61): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Game.cpp
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\collidercomponent.h(60): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\collidercomponent.h(61): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(114): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(115): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Scene.cpp
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\collidercomponent.h(60): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\collidercomponent.h(61): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
   Game.vcxproj -> C:\Users\liamh\Documents\GitHub\CC-CppCourse\AnimalRace\x64\Debug\Game.exe
