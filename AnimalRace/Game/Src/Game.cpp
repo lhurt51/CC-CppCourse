@@ -11,7 +11,7 @@ Scene*		scene;
 
 bool Game::isRunning = false;
 
-SDL_Rect Game::camera = { 0, 0, 1560, 1280 };
+SDL_Rect Game::camera = { 0, 0, 1100, 1200 };
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -19,6 +19,7 @@ SDL_Event Game::event;
 AssetManager* Game::assets = new AssetManager(&manager);
 
 auto& player(manager.addEntity());
+auto& ai(manager.addEntity());
 
 Game::Game()
 {
@@ -75,18 +76,11 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(groupPlayers);
-
-	assets->CreateProjectile(Vector2D(600, 600), Vector2D(2,0), 400, 2, "projectile");
-	assets->CreateProjectile(Vector2D(600, 620), Vector2D(2, 0), 400, 2, "projectile");
-	assets->CreateProjectile(Vector2D(400, 600), Vector2D(2, 1), 500, 2, "projectile");
-	assets->CreateProjectile(Vector2D(800, 660), Vector2D(2, -1), 500, 2, "projectile");
-	assets->CreateProjectile(Vector2D(200, 680), Vector2D(2, 0), 800, 2, "projectile");
 }
 
 auto& tiles(manager.getGroup(Game::groupMap));
 auto& players(manager.getGroup(Game::groupPlayers));
 auto& colliders(manager.getGroup(Game::groupColliders));
-auto& projectiles(manager.getGroup(Game::groupProjectiles));
 
 void Game::handleEvents()
 {
@@ -117,17 +111,8 @@ void Game::update()
 		}
 	}
 
-	for (auto& p : projectiles)
-	{
-		if (Collision::AABB(player.getComponent<ColliderComponent>().collider, p->getComponent<ColliderComponent>().collider))
-		{
-			std::cout << "Hit player!" << std::endl;
-			p->destroy();
-		}
-	}
-
-	camera.x = player.getComponent<TransformComponent>().position.x - 400;
-	camera.y = player.getComponent<TransformComponent>().position.y - 320;
+	camera.x = player.getComponent<TransformComponent>().position.x - 640;
+	camera.y = player.getComponent<TransformComponent>().position.y - 360;
 
 	if (camera.x < 0) camera.x = 0;
 	if (camera.y < 0) camera.y = 0;
@@ -143,10 +128,6 @@ void Game::render()
 		t->draw();
 	}
 	for (auto& p : players)
-	{
-		p->draw();
-	}
-	for (auto& p : projectiles)
 	{
 		p->draw();
 	}

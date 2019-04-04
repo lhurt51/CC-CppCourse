@@ -21,6 +21,10 @@ public:
 
 	void init() override
 	{
+		if (!entity->hasComponent<TransformComponent>())
+		{
+			entity->addComponent<TransformComponent>();
+		}
 		transform = &entity->getComponent<TransformComponent>();
 		transform->velocity = velocity;
 	}
@@ -31,7 +35,6 @@ public:
 
 		if (distance > range)
 		{
-			std::cout << "Out of Range" << std::endl;
 			entity->destroy();
 		}
 		else if (transform->position.x > Game::camera.x + Game::camera.w ||
@@ -39,7 +42,6 @@ public:
 				transform->position.y > Game::camera.y + Game::camera.h ||
 				transform->position.y < Game::camera.y)
 		{
-			std::cout << "Out of bounds!" << std::endl;
 			entity->destroy();
 		}
 	}
