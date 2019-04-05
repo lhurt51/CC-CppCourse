@@ -76,27 +76,32 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 
 	scene->loadScene("assets/map.map", 25, 20);
 	
-	player.addComponent<TransformComponent>(4.0f);
-	player.addComponent<SpriteComponent>("player", true);
-	player.addComponent<KeyboardController>();
+	player.addComponent<TransformComponent>(1800, 640, 32, 32, 4.0f);
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(groupPlayers);
 
 	ai.addComponent<TransformComponent>(350, 950, 911, 2403, 0.1f);
 	ai.addComponent<SpriteComponent>("snake", false);
 	ai.addComponent<AIRaceComponent>(Vector2D(2.2, 0), 1000, 4);
+	ai.addComponent<ColliderComponent>("ai");
+	ai.addGroup(groupAI);
 
 	ai1.addComponent<TransformComponent>(350, 1070, 1714, 1939, 0.1f);
 	ai1.addComponent<SpriteComponent>("rabbit", false);
 	ai1.addComponent<AIRaceComponent>(Vector2D(1.75, 0), 1000, 3);
+	ai1.addComponent<ColliderComponent>("ai");
+	ai1.addGroup(groupAI);
 
 	ai2.addComponent<TransformComponent>(350, 760, 400, 400, 0.5f);
 	ai2.addComponent<SpriteComponent>("turtle", false);
-	ai2.addComponent<AIRaceComponent>(Vector2D(1.2, 0), 1000, 2);
+	ai2.addComponent<AIRaceComponent>(Vector2D(1.2, 0), 950, 2);
+	ai2.addComponent<ColliderComponent>("ai");
+	ai2.addGroup(groupAI);
 }
 
 auto& tiles(manager.getGroup(Game::groupMap));
 auto& players(manager.getGroup(Game::groupPlayers));
+auto& AIs(manager.getGroup(Game::groupAI));
 auto& colliders(manager.getGroup(Game::groupColliders));
 
 void Game::handleEvents()
@@ -115,6 +120,12 @@ void Game::update()
 {
 	SDL_Rect playerCol = player.getComponent<ColliderComponent>().collider;
 	Vector2D playerPos = player.getComponent<TransformComponent>().position;
+	Vector2D AIpos[3];
+
+	for (int i = 0; i < 3; i++)
+	{
+		AIpos[i] = AIs[i]->getComponent<TransformComponent>().position;
+	}
 
 	manager.refresh();
 	manager.update();
@@ -122,14 +133,41 @@ void Game::update()
 	for (auto& c : colliders)
 	{
 		SDL_Rect cCol = c->getComponent<ColliderComponent>().collider;
+
 		if (Collision::AABB(cCol, playerCol))
 		{
 			player.getComponent<TransformComponent>().position = playerPos;
 		}
+		for (int i = 0; i < 3; i++)
+		{
+			SDL_Rect aiCol = AIs[i]->getComponent<ColliderComponent>().collider;
+			if (Collision::AABB(cCol, aiCol))
+			{
+				AIs[i]->getComponent<TransformComponent>().velocity = AIpos[i];
+			}
+		}
 	}
 
-	camera.x = player.getComponent<TransformComponent>().position.x - 540;
-	camera.y = player.getComponent<TransformComponent>().position.y - 340;
+	float tmpx, tmpy;
+	if (ai.getComponent<TransformComponent>().velocity.x == 0 &&
+		ai1.getComponent<TransformComponent>().velocity.x == 0 &&
+		ai2.getComponent<TransformComponent>().velocity.x == 0)
+	{
+		if (!player.hasComponent<SpriteComponent>())
+		{
+			player.addComponent<SpriteComponent>("player", true);
+			player.addComponent<KeyboardController>();
+		}
+		tmpx = player.getComponent<TransformComponent>().position.x - 540;
+		tmpy = player.getComponent<TransformComponent>().position.y - 340;
+	}
+	else
+	{
+		tmpx = ai.getComponent<TransformComponent>().position.x - 540;
+		tmpy = ai.getComponent<TransformComponent>().position.y - 340;
+	}
+	camera.x = tmpx;
+	camera.y = tmpy;
 
 	if (camera.x < 0) camera.x = 0;
 	if (camera.y < 0) camera.y = 0;
@@ -144,13 +182,14 @@ void Game::render()
 	{
 		t->draw();
 	}
+	for (auto& ai : AIs)
+	{
+		ai->draw();
+	}
 	for (auto& p : players)
 	{
 		p->draw();
 	}
-	ai.draw();
-	ai1.draw();
-	ai2.draw();
 	SDL_RenderPresent(renderer);
 }
 

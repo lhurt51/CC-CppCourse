@@ -5,16 +5,16 @@ c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecompone
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\tilecomponent.h(41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(87): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(95): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(131): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(132): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(85): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(97): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(169): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(170): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\ecs\ecs.h(106): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=int
           ]
-  c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(85): note: see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,int,int,int,int,float>(int &&,int &&,int &&,int &&,float &&)' being compiled
+  c:\users\liamh\documents\github\cc-cppcourse\animalrace\game\src\game.cpp(79): note: see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,int,int,int,int,float>(int &&,int &&,int &&,int &&,float &&)' being compiled
           with
           [
               T=TransformComponent
