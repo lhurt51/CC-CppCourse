@@ -2,7 +2,6 @@
 #include <chrono>
 #include <future>
 #include <string>
-#include <algorithm>
 
 std::string GetLineFromCin() {
     std::string line;
@@ -17,7 +16,7 @@ int main(int argc, char* argv[])
 	auto future = std::async(std::launch::async, GetLineFromCin);
 
     while (true) {
-        if (future.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+        if (future.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready) {
 			auto line = future.get();
 			transform(line.begin(), line.end(), line.begin(), static_cast<int (*)(int)>(&std::toupper));
 			if (line.find("Q") != std::string::npos) break;
@@ -29,7 +28,7 @@ int main(int argc, char* argv[])
         }
 
         // std::cout << "waiting..." << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 	return 0;
 }
