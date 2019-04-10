@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/Users/liamhurt/code/CC-CppCourse/FileManipulator/src/Filehandler.class.cpp" "/Users/liamhurt/code/CC-CppCourse/FileManipulator/build/CMakeFiles/file_manipulator.dir/src/Filehandler.class.cpp.o"
   "/Users/liamhurt/code/CC-CppCourse/FileManipulator/src/main.cpp" "/Users/liamhurt/code/CC-CppCourse/FileManipulator/build/CMakeFiles/file_manipulator.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")

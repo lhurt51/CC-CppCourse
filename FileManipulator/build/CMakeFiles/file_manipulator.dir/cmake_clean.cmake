@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/file_manipulator.dir/src/Filehandler.class.cpp.o"
   "CMakeFiles/file_manipulator.dir/src/main.cpp.o"
   "file_manipulator.pdb"
   "file_manipulator"

@@ -13,6 +13,7 @@ endif()
 # SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/Users/liamhurt/code/CC-CppCourse/FileManipulator/src/*.cpp")
 set(OLD_GLOB
+  "/Users/liamhurt/code/CC-CppCourse/FileManipulator/src/Filehandler.class.cpp"
   "/Users/liamhurt/code/CC-CppCourse/FileManipulator/src/main.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -23,6 +24,7 @@ endif()
 # SOURCES at CMakeLists.txt:10 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/Users/liamhurt/code/CC-CppCourse/FileManipulator/src/*.hpp")
 set(OLD_GLOB
+  "/Users/liamhurt/code/CC-CppCourse/FileManipulator/src/FileHandler.class.hpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

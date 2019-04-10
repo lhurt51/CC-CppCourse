@@ -6,15 +6,5 @@
 
 #IncludeRegexTransform: 
 
-/Users/liamhurt/code/CC-CppCourse/FileManipulator/src/main.cpp
-iostream
--
-chrono
--
-future
--
-string
--
-algorithm
--
+/Users/liamhurt/code/CC-CppCourse/FileManipulator/src/Filehandler.class.cpp
 

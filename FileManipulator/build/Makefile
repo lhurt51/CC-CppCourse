@@ -170,6 +170,33 @@ file_manipulator/fast:
 	$(MAKE) -f CMakeFiles/file_manipulator.dir/build.make CMakeFiles/file_manipulator.dir/build
 .PHONY : file_manipulator/fast
 
+src/Filehandler.class.o: src/Filehandler.class.cpp.o
+
+.PHONY : src/Filehandler.class.o
+
+# target to build an object file
+src/Filehandler.class.cpp.o:
+	$(MAKE) -f CMakeFiles/file_manipulator.dir/build.make CMakeFiles/file_manipulator.dir/src/Filehandler.class.cpp.o
+.PHONY : src/Filehandler.class.cpp.o
+
+src/Filehandler.class.i: src/Filehandler.class.cpp.i
+
+.PHONY : src/Filehandler.class.i
+
+# target to preprocess a source file
+src/Filehandler.class.cpp.i:
+	$(MAKE) -f CMakeFiles/file_manipulator.dir/build.make CMakeFiles/file_manipulator.dir/src/Filehandler.class.cpp.i
+.PHONY : src/Filehandler.class.cpp.i
+
+src/Filehandler.class.s: src/Filehandler.class.cpp.s
+
+.PHONY : src/Filehandler.class.s
+
+# target to generate assembly for a file
+src/Filehandler.class.cpp.s:
+	$(MAKE) -f CMakeFiles/file_manipulator.dir/build.make CMakeFiles/file_manipulator.dir/src/Filehandler.class.cpp.s
+.PHONY : src/Filehandler.class.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -210,6 +237,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... file_manipulator"
+	@echo "... src/Filehandler.class.o"
+	@echo "... src/Filehandler.class.i"
+	@echo "... src/Filehandler.class.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
