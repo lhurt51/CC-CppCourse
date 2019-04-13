@@ -19,7 +19,7 @@ Using C++ we are tasked with simple class Project including games, recursion, da
 
 ### To make a PR
 *	Make sure everything is pushed on your branch
-*	Go to ```https://github.com/lhurt51/phacil-e-pharm```
+*	Go to https://github.com/lhurt51/CC-CppCourse
 *	You should see you branch name at the top with a green ```compare & pull request``` click the button
 *	Leave a nice message on what u have accomplished with your PR.
 *	Then click ```create pull request```
@@ -29,7 +29,6 @@ Using C++ we are tasked with simple class Project including games, recursion, da
 ## Rules for working on this App!
 * NEVER work off master, always create a new branch!
 * Never merge your own branch to master, It will be reviewed for merge conflicts!
-* Use linter-ruby & linter-erb as your syntax guides
 
 ## To Compile Cpp Files Seprate
 * ```cd``` to the driectory using command line
