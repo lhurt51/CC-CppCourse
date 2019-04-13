@@ -7,17 +7,17 @@ Using C++ we are tasked with simple class Project including games, recursion, da
 
 ![alt text](https://images-na.ssl-images-amazon.com/images/I/41PDyGV88pL._SX363_BO1,204,203,200_.jpg)
 
-# To Work With the project
+## To Work With the project
 * ```git clone git@github.com:lhurt51/CC-CppCourse.git```
 *	```git checkout -b (Your branch name)``` (protects the master branch)
 *	always push to your branch ```git push origin (Your branch name)```
 
-## To add/commit/push to your branch
+### To add/commit/push to your branch
 *	```git add .```
 *	```git commit -m "(Your commit msg... make it relevant)"```
 *	```git push origin (Your branch name)```
 
-## To make a PR
+### To make a PR
 *	Make sure everything is pushed on your branch
 *	Go to ```https://github.com/lhurt51/phacil-e-pharm```
 *	You should see you branch name at the top with a green ```compare & pull request``` click the button
@@ -42,4 +42,4 @@ Using C++ we are tasked with simple class Project including games, recursion, da
 * watch as it compiles
 * type ```./execuable_name```
 
-# Some useful sources
+## Some useful sources
