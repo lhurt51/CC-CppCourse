@@ -14,6 +14,6 @@ Using C++ we are tasked with simple class Project including games, recursion, da
 
 #To use Make File
 * `cd` to the directory using command line
-* type make
+* type `make`
 * watch as it compiles
 * type `./execuable_name`
