@@ -42,3 +42,8 @@ Using C++ we are tasked with simple class Project including games, recursion, da
 * type ```./execuable_name```
 
 ## Some useful sources
+* https://cmake.org/
+* https://rix0r.nl/blog/2015/08/13/cmake-guide/
+* http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/
+* https://www.sdl.com/
+* https://www.libsdl.org/projects/SDL_image/
