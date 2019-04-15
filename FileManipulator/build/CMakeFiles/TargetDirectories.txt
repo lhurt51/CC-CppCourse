@@ -1,7 +1,0 @@
-/Users/lhurt/code/CC-CppCourse/FileManipulator/build/CMakeFiles/install/local.dir
-/Users/lhurt/code/CC-CppCourse/FileManipulator/build/CMakeFiles/install/strip.dir
-/Users/lhurt/code/CC-CppCourse/FileManipulator/build/CMakeFiles/install.dir
-/Users/lhurt/code/CC-CppCourse/FileManipulator/build/CMakeFiles/list_install_components.dir
-/Users/lhurt/code/CC-CppCourse/FileManipulator/build/CMakeFiles/rebuild_cache.dir
-/Users/lhurt/code/CC-CppCourse/FileManipulator/build/CMakeFiles/edit_cache.dir
-/Users/lhurt/code/CC-CppCourse/FileManipulator/build/CMakeFiles/file_manipulator.dir

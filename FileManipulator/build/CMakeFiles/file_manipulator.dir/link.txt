@@ -1,1 +1,0 @@
-/usr/bin/clang++   -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/file_manipulator.dir/src/Filehandler.class.cpp.o CMakeFiles/file_manipulator.dir/src/main.cpp.o  -o file_manipulator 
