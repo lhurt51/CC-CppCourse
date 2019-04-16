@@ -3,6 +3,7 @@
 #include <future>
 #include <string>
 #include <fstream>
+#include "FileHandler.class.hpp"
 
 std::string GetLineFromCin() {
     std::string line;
@@ -12,20 +13,14 @@ std::string GetLineFromCin() {
 
 int main(int argc, char* argv[])
 {
+    FileHandler FH = FileHandler();
+
 	if (argc == 1)
-		std::cout << "Project Name: " <<  &argv[0][2] << std::endl;
+		std::cout << "Project Name: " <<  &argv[0][2] << std::endl << "Type Q to Quit, S to Save progress, or R to Restore the save(Use return to exec): " << std::endl;
+
 	auto future = std::async(std::launch::async, GetLineFromCin);
-    std::string line;
-    std::ifstream fin;
-    fin.open("../res/input.txt");
-    while (fin)
-    {
-        getline(fin, line);
-        std::cout << line << std::endl;
-    }
-    fin.close();
     while (true) {
-        if (future.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready) {
+        if (future.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
 			auto line = future.get();
 			transform(line.begin(), line.end(), line.begin(), static_cast<int (*)(int)>(&std::toupper));
 			if (line.find("Q") != std::string::npos) break;
@@ -35,7 +30,8 @@ int main(int argc, char* argv[])
         }
         // Default execution
         // std::cout << "waiting..." << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        std::cout << FH.ReadOneByte() << std::flush;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 	return 0;
 }

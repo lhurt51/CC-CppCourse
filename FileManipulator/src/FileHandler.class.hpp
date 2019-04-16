@@ -7,9 +7,8 @@ class FileHandler
 
 	enum ReadType
 	{
-		SAVE,
 		RESTORE,
-		DEFAULT,
+		DEFAULT
 	};
 
 	static const std::string m_fileDir;
@@ -18,6 +17,9 @@ class FileHandler
 
 	const ReadType m_readType;
 	std::string m_wordToFind;
+	std::string m_fileData;
+	unsigned int m_dataIndex;
+	unsigned int m_wordIndex;
 
 
 public:
@@ -30,5 +32,11 @@ public:
 
 	// Class Getters
 	ReadType 	GetReadType(void) const;
+	std::string GetWordToFind(void) const;
+	std::string GetFileData(void) const;
+
+	// Class helper methods
+	char		ReadOneByte(void);
+	bool		SaveCurPos(void);
 
 };
