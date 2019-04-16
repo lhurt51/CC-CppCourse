@@ -5,18 +5,22 @@
 class FileHandler
 {
 
+public:
+
 	enum ReadType
 	{
 		RESTORE,
 		DEFAULT
 	};
 
+private:
+
 	static const std::string m_fileDir;
 	static const std::string m_savedFileName;
 	static const std::string m_readFileName;
 
 	const ReadType m_readType;
-	std::string m_wordToFind;
+	const std::string m_wordToFind;
 	std::string m_fileData;
 	unsigned int m_dataIndex;
 	unsigned int m_wordIndex;
@@ -24,7 +28,7 @@ class FileHandler
 
 public:
 
-	FileHandler(const ReadType readType = DEFAULT);
+	FileHandler(const ReadType readType = DEFAULT, const std::string wordToFind = "cogswell");
 	FileHandler(const FileHandler& src);
 	~FileHandler(void);
 
@@ -34,9 +38,15 @@ public:
 	ReadType 	GetReadType(void) const;
 	std::string GetWordToFind(void) const;
 	std::string GetFileData(void) const;
+	unsigned int GetDataIndex(void) const;
+	unsigned int GetWordIndex(void) const;
 
 	// Class helper methods
-	char		ReadOneByte(void);
-	bool		SaveCurPos(void);
+	void		ReadOneByte(void);
+	bool		SaveRead(void);
+
+private:
+
+	
 
 };
