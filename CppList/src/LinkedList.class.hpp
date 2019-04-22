@@ -4,6 +4,8 @@
     #include <iostream>
 
     template<typename T> struct Node;
+    template<typename T> class List;
+    template<typename T> std::ostream& operator<<(std::ostream& o, const List<T>& i);
 
     template <typename T>
     struct Node {
@@ -13,6 +15,7 @@
         Node(const T& data);
         virtual ~Node(void);
 
+        friend std::ostream& operator<<(std::ostream& o, const Node& i) { return o << "Node: " << i.data; };
     };
 
     template <typename T>
@@ -34,11 +37,11 @@
         void Remove(unsigned index);
         void Clear(void);
 
-        T& GetNode(unsigned index);
-        unsigned Size(void);
+        T& GetNode(unsigned index) const;
+        unsigned Size(void) const;
+        bool Empty(void) const;
 
-        friend std::ostream&    operator<<(std::ostream& o, const List& i) { return o << "Nodes: " << i ; };
-
+        friend std::ostream&    operator<<(std::ostream& o, const List& i);
     };
 
 
