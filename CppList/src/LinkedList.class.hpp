@@ -5,7 +5,6 @@
 
     template<typename T> struct Node;
     template<typename T> class List;
-    template<typename T> std::ostream& operator<<(std::ostream& o, const List<T>& i);
 
     template <typename T>
     struct Node {
@@ -27,21 +26,35 @@
 
         List(void);
         List(const T& data);
-        //List(const Node* data);
         virtual ~List(void);
 
         void Push(const T& data);
         void Pop(void);
 
         void Insert(unsigned index, const T& data);
+        void Insert(Node<T>& n, const T& data);
         void Remove(unsigned index);
+        void Remove(Node<T>& n);
         void Clear(void);
 
-        T& GetNode(unsigned index) const;
+        Node<T>* GetNode(unsigned index) const;
         unsigned Size(void) const;
         bool Empty(void) const;
 
-        friend std::ostream&    operator<<(std::ostream& o, const List& i);
+        Node<T>& operator[](int i);
+
+        friend std::ostream&    operator<<(std::ostream& o, const List& i)
+        {
+            Node<T>* lst = i.m_head;
+            o << "List Size: " << i.Size() << std::endl;
+            while (lst)
+            {
+                o << *lst << std::endl;
+                lst = lst->next;
+            }
+            return o;
+        };
+
     };
 
 

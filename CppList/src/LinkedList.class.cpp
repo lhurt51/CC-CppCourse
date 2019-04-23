@@ -1,3 +1,18 @@
+/*******************************************************************************\
+* Programmer Name:																*
+* Liam Hurt																		*
+*																				*
+* Date:																			*
+* 4/20/2019																		*
+*																				*
+* Assignment Requirement:                                                       *
+*                       														*
+* Write a class that replicates a NODE in a link-list object. The NODE should   *
+* be tested by inserting a item anywhere in the link list and remove a link any *
+* where in the link list. Keep it simple and don't forget the header.           *
+*																				*
+\*******************************************************************************/
+
 #include "LinkedList.class.hpp"
 
 template<typename T>
@@ -92,6 +107,17 @@ void List<T>::Insert(unsigned index, const T& data)
 }
 
 template<typename T>
+void List<T>::Insert(Node<T>& n, const T& data)
+{
+    Node<T>* nextN;
+    Node<T>* tmp = new Node<T>(data);
+
+    nextN = n.next;
+    n.next = tmp;
+    tmp->next = nextN;
+}
+
+template<typename T>
 void List<T>::Remove(unsigned index)
 {
     Node<T>* lst = m_head;
@@ -100,8 +126,7 @@ void List<T>::Remove(unsigned index)
     if (index >= Size()) return;
     while (lst)
     {
-        if (index == 0 || index >= Size())
-            break;
+        if (index == 0 || index >= Size()) break;
         prev = lst;
         lst = lst->next;
         index--;
@@ -112,34 +137,53 @@ void List<T>::Remove(unsigned index)
 }
 
 template<typename T>
-void List<T>::Clear(void)
+void List<T>::Remove(Node<T>& n)
 {
     Node<T>* lst = m_head;
-    Node<T>* tmp;
+    Node<T>* prev;
 
     while (lst)
     {
-        tmp = lst;
-        delete lst;
-        lst = tmp->next;
+        if (lst == &n)
+        {
+            Node<T>* tmp = lst->next;
+            prev->next = tmp;
+            delete lst;
+            return;
+        }
+        prev = lst;
+        lst = lst->next;
+    }
+}
+
+template<typename T>
+void List<T>::Clear(void)
+{
+    Node<T>* tmp;
+
+    while (m_head)
+    {
+        tmp = m_head;
+        delete m_head;
+        m_head = tmp->next;
     }
     m_head = nullptr;
 }
 
 template<typename T>
-T& List<T>::GetNode(unsigned index) const
+Node<T>* List<T>::GetNode(unsigned index) const
 {
     Node<T>* lst = m_head;
 
-    if (index >= Size()) return lst->data;
+    if (index >= Size()) return nullptr;
     while (lst)
     {
-        if (index == 0 || index > Size())
-            return lst->data;
+        if (index == 0 || index >= Size())
+            return lst;
         lst = lst->next;
         index--;
     }
-    return lst->data;
+    return nullptr;
 }
 
 template<typename T>
@@ -164,16 +208,9 @@ bool List<T>::Empty(void) const
 }
 
 template<typename T>
-std::ostream&    operator<<(std::ostream& o, const List<T>& i)
+Node<T>& List<T>::operator[](int i)
 {
-    Node<T>* lst = i.m_head;
-    o << "List Size: " << i.Size() << std::endl;
-    while (lst)
-    {
-        o << *lst << std::endl;
-        lst = lst->next;
-    }
-    return o;
+    return *GetNode(i);
 }
 
 template struct							Node<int>;
