@@ -5,13 +5,10 @@ DateConverter::DateConverter(void)
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
     time_t tt = std::chrono::system_clock::to_time_t(now);
     tm local_tm = *localtime(&tt);
-
-    m_year = local_tm.tm_year + 1900;
-    m_month = (Month)((unsigned int)local_tm.tm_mon);
-    m_day = local_tm.tm_mday;
+    setUnion((unsigned int)local_tm.tm_mday, (unsigned int)(local_tm.tm_mon + 1), (unsigned int)(local_tm.tm_year + 1900));
 }
 
-DateConverter::DateConverter(unsigned int day, unsigned int month, unsigned int year) : m_year(year)
+DateConverter::DateConverter(unsigned int day, unsigned int month, unsigned int year)
 {
     if (month > 12 || month == 0)
         throw DateConverter::MonthOutOfRangeException();
@@ -19,9 +16,34 @@ DateConverter::DateConverter(unsigned int day, unsigned int month, unsigned int 
         throw DateConverter::DayOutOfRangeException();
     else
     {
-        this->m_month = (Month)((unsigned int)(month - 1));
-        this->m_day = day;
+        setUnion(day, month, year);
     }
+}
+
+DateConverter::DateConverter(const std::string& date)
+{
+    if (date.length() != 10)
+        throw DateConverter::WrongeFormatException();
+    else
+    {
+        strncpy(dateUnion.dateData, date.c_str(), 10);
+        changeDelim('\0');
+    }
+}
+
+void                    DateConverter::setUnion(unsigned int day, unsigned int month, unsigned int year)
+{
+    std::string newDate = ((month < 10) ? "0" : "") + std::to_string(month - 1) + "/"
+                        + ((day < 10) ? "0" : "") + std::to_string(day) + "/"
+                        + std::to_string(year);
+
+    setUnion(newDate);
+}
+
+void                    DateConverter::setUnion(const std::string& date)
+{
+    strncpy(dateUnion.dateData, date.c_str(), 10);
+    changeDelim('\0');
 }
 
 void   DateConverter::printDate(void) const
@@ -36,12 +58,23 @@ const char *DateConverter::MonthOutOfRangeException::what() const throw()
 
 const char *DateConverter::DayOutOfRangeException::what() const throw()
 {
-    return "Date Converter requires a month between the range 1 - 31";
+    return "Date Converter requires a day between the range 1 - 31";
+}
+
+const char *DateConverter::WrongeFormatException::what() const throw()
+{
+    return "Date Converter requires a string MM/DD/YYYY";
+}
+
+void   DateConverter::changeDelim(char delim)
+{
+    dateUnion.dateParse.delimiter1 = delim;
+    dateUnion.dateParse.delimiter2 = delim;
 }
 
 std::string DateConverter::convertMonthToString(void) const
 {
-    switch (m_month) {
+    switch (std::stoi(dateUnion.dateParse.month)) {
         case JANUARY:
             return "January";
         case FEBRUARY:
@@ -73,5 +106,5 @@ std::string DateConverter::convertMonthToString(void) const
 
 std::ostream& operator<<(std::ostream &os, const DateConverter& dc)
 {
-    return os << dc.convertMonthToString() << " " << dc.m_day << ", " << dc.m_year;
+    return os << dc.convertMonthToString() << " " << dc.dateUnion.dateParse.day << ", " << dc.dateUnion.dateParse.year;
 }
