@@ -1,3 +1,27 @@
+/*******************************************************************************\
+* Programmer Name:																*
+* Liam Hurt																		*
+*																				*
+* Date:																			*
+* 4/27/2019																		*
+*																				*
+* Assignment Requirement:                                                       *
+*                       														*
+* (Printing Dates in Various Formats) Dates are commonly printed in several     *
+* different formats in business correspondence. Two of the more common          *
+* formats are                                                                   *
+*   07/21/1955                                                                  *
+*   July 21, 1955                                                               *
+* Write a program that reads a date in the first format and prints that date    *
+* in the second format.                                                         *
+*                                                                               *
+* I used strtok and it took 8 line of executable code                           *
+*                                                                               *
+* I also used union and struct (assume month is two digits) and it took 5 lines *
+* of executable code.			                     			                *
+*																				*
+\*******************************************************************************/
+
 #include <string>
 #include <vector>
 #include <sstream>
